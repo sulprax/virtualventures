@@ -5,8 +5,7 @@
   --mocha: #a67b5b;
   --dark: #2d2218;
   --foam: #e6d8c9;
-  --gold: #d79a45;
-  --shadow: rgba(45, 34, 24, 0.28);
+  --gold: #d9a15b;
 }
 
 * {
@@ -22,110 +21,96 @@ body {
   color: var(--dark);
 }
 
-/* =========================
-   Virtual Ventures Hero
-   ========================= */
+body {
+  overflow-x: hidden;
+}
 
 .hero {
   min-height: 100vh;
   min-height: 100svh;
   width: 100%;
   position: relative;
+  overflow: hidden;
+
   display: grid;
   place-items: center;
-  overflow: hidden;
-  padding: 5rem 1.5rem 6rem;
 
-  /*
-    Auto crop/responsive hero image:
-    - cover = fills the whole screen
-    - center = crops evenly from edges
-    - no-repeat = no tiling goblins
-  */
+  padding: 5rem 1.5rem 6.5rem;
+
   background-image:
     linear-gradient(
-      rgba(20, 15, 10, 0.52),
-      rgba(20, 15, 10, 0.72)
+      rgba(20, 15, 10, 0.36),
+      rgba(20, 15, 10, 0.74)
     ),
-    url("/images/hero-1.jpg");
+    image-set(
+      url("/images/hero-1.webp") type("image/webp"),
+      url("/images/hero-1-optimised.jpg") type("image/jpeg")
+    );
 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-  color: var(--vanilla);
 }
 
-/* Soft warm glow/vignette over the image */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-
-  background:
-    radial-gradient(circle at 50% 42%, rgba(255, 190, 105, 0.13), transparent 34%),
-    radial-gradient(circle at bottom, rgba(20, 15, 10, 0.15), rgba(20, 15, 10, 0.82));
-}
-
-/* Optional extra dark edge so text stays readable */
+/* Moody edge shading */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
 
   background:
-    linear-gradient(
-      90deg,
-      rgba(20, 15, 10, 0.38),
-      transparent 34%,
-      rgba(20, 15, 10, 0.16)
-    );
+    radial-gradient(circle at 45% 42%, transparent 0 32%, rgba(20, 15, 10, 0.22) 68%),
+    linear-gradient(90deg, rgba(20, 15, 10, 0.42), transparent 34%, rgba(20, 15, 10, 0.36));
 }
 
-/* Top social links */
+/* Top social buttons */
 .socials {
   position: absolute;
-  top: 1.2rem;
+  top: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 3;
+
   display: flex;
   gap: 0.8rem;
-  z-index: 3;
 }
 
 .socials a,
 .mobile-menu {
+  display: inline-grid;
+  place-items: center;
+
+  min-width: 44px;
+  height: 36px;
+  padding: 0 0.9rem;
+
   color: var(--vanilla);
-  background: rgba(45, 34, 24, 0.34);
-  border: 1px solid rgba(255, 250, 245, 0.35);
+  background: rgba(45, 34, 24, 0.5);
+  border: 1px solid rgba(255, 250, 245, 0.34);
   border-radius: 999px;
-  padding: 0.45rem 0.8rem;
+
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 0.92rem;
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
-}
 
-.socials a:hover,
-.mobile-menu:hover {
-  background: rgba(122, 82, 48, 0.58);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
 }
 
 .mobile-menu {
   display: none;
   position: absolute;
-  top: 1.2rem;
+  top: 1.25rem;
   right: 1rem;
-  font-size: 1rem;
   z-index: 3;
+  border: 1px solid rgba(255, 250, 245, 0.34);
 }
 
-/* Main glassy card */
+/* Main parchment panel */
 .hero-panel {
   position: relative;
   z-index: 2;
@@ -133,176 +118,203 @@ body {
   width: min(430px, 92vw);
   margin-right: auto;
   margin-left: 6vw;
-  padding: 2rem;
+  padding: 2rem 2rem 2.1rem;
 
-  border-radius: 28px;
-  background: rgba(255, 250, 245, 0.78);
-  border: 1px solid rgba(230, 216, 201, 0.9);
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      rgba(255, 250, 245, 0.82),
+      rgba(245, 239, 230, 0.76)
+    );
+
+  border: 1px solid rgba(230, 216, 201, 0.92);
 
   box-shadow:
-    0 24px 80px rgba(45, 34, 24, 0.28),
+    0 24px 80px rgba(20, 15, 10, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.42);
 
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-/* Logo */
 .hero-logo {
   display: block;
-  width: clamp(96px, 12vw, 140px);
+  width: clamp(110px, 12vw, 150px);
   height: auto;
   margin: 0 auto 1rem;
 
-  filter:
-    drop-shadow(0 10px 22px rgba(45, 34, 24, 0.28))
-    drop-shadow(0 0 16px rgba(215, 154, 69, 0.16));
+  filter: drop-shadow(0 10px 20px rgba(45, 34, 24, 0.22));
 }
 
-/* Text */
 .hero-panel h1 {
   margin: 0;
   text-align: center;
-  font-size: clamp(2.2rem, 5vw, 4rem);
+
+  font-size: clamp(2.45rem, 5vw, 4.25rem);
   line-height: 0.95;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.06em;
+
   color: var(--dark);
 }
 
 .hero-panel h2 {
-  margin: 0.8rem 1.5rem 1.2rem 0;
+  width: 82%;
+  margin: 0.9rem 0 1.35rem auto;
+
   text-align: right;
-  font-size: clamp(1rem, 2vw, 1.16rem);
+  font-size: clamp(1rem, 1.8vw, 1.14rem);
+  line-height: 1.15;
+
   color: var(--coffee);
 }
 
 .hero-panel p {
   margin: 0;
   text-align: justify;
-  line-height: 1.7;
+  line-height: 1.72;
   color: rgba(45, 34, 24, 0.92);
 }
 
-/* Bottom buttons */
+/* Bottom nav buttons */
 .hero-buttons {
   position: absolute;
-  z-index: 3;
-  bottom: 2rem;
   left: 50%;
+  bottom: 2rem;
   transform: translateX(-50%);
+  z-index: 3;
 
   display: flex;
   justify-content: center;
   gap: 1rem;
+
   width: min(92vw, 720px);
 }
 
 .hero-buttons a {
-  min-width: 120px;
+  min-width: 130px;
+  padding: 0.95rem 1.35rem;
+
   text-align: center;
-
-  background: linear-gradient(135deg, #f3c179, #a66220);
-  color: #1b1209;
-
   text-decoration: none;
-  font-weight: 800;
-  padding: 0.9rem 1.2rem;
+  font-weight: 900;
+
+  color: #1d1208;
+  background: linear-gradient(135deg, #efbd72, #a26324);
   border-radius: 999px;
 
   box-shadow:
-    0 12px 30px rgba(45, 34, 24, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.36);
+    0 14px 34px rgba(20, 15, 10, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
 
   transition:
     transform 180ms ease,
-    box-shadow 180ms ease,
-    filter 180ms ease;
+    filter 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .hero-buttons a:hover {
   transform: translateY(-2px);
-  filter: brightness(1.04);
+  filter: brightness(1.05);
 
   box-shadow:
-    0 18px 38px rgba(45, 34, 24, 0.34),
+    0 18px 44px rgba(20, 15, 10, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.46);
 }
 
-/* =========================
-   Mobile polish
-   ========================= */
-
+/* Mobile version */
 @media (max-width: 760px) {
   .hero {
-    padding: 5rem 1rem 6rem;
+    padding: 5rem 1rem 6.25rem;
 
-    /*
-      This controls how the hero photo crops on mobile.
-      Change to "center top" if the blanket/detail is near the top.
-    */
-    background-position: center;
-  }
+    background-image:
+      linear-gradient(
+        rgba(20, 15, 10, 0.28),
+        rgba(20, 15, 10, 0.66)
+      ),
+      image-set(
+        url("/images/hero-1-mobile.webp") type("image/webp"),
+        url("/images/hero-1-optimised.jpg") type("image/jpeg")
+      );
 
-  .mobile-menu {
-    display: block;
+    background-position: center top;
   }
 
   .socials {
+    top: 1rem;
     left: 1rem;
     transform: none;
+    gap: 0.45rem;
   }
 
   .socials a {
-    font-size: 0;
     width: 38px;
+    min-width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 0.95rem;
+  }
+
+  .mobile-menu {
+    display: inline-grid;
+    width: 48px;
     height: 38px;
     padding: 0;
   }
 
   .hero-panel {
-    margin: 0;
-    width: 100%;
-    padding: 1.5rem;
-    border-radius: 24px;
+    width: min(92vw, 360px);
+    margin: 0 auto;
+    padding: 1.55rem;
+    border-radius: 22px;
   }
 
   .hero-logo {
-    width: 96px;
+    width: 118px;
   }
 
   .hero-panel h1 {
-    letter-spacing: -0.04em;
+    font-size: clamp(2.15rem, 11vw, 3.2rem);
+    letter-spacing: -0.045em;
   }
 
   .hero-panel h2 {
+    width: 86%;
+    margin-top: 0.8rem;
+    margin-bottom: 1.2rem;
     font-size: 1rem;
-    margin-right: 0.6rem;
   }
 
   .hero-panel p {
     text-align: left;
+    line-height: 1.55;
+    font-size: 0.95rem;
   }
 
   .hero-buttons {
+    bottom: 1rem;
     width: calc(100% - 2rem);
-    gap: 0.6rem;
-    bottom: 1.25rem;
+    gap: 0.55rem;
   }
 
   .hero-buttons a {
     flex: 1;
     min-width: 0;
-    padding: 0.85rem 0.6rem;
+    padding: 0.85rem 0.45rem;
+    border-radius: 18px;
+    font-size: 0.95rem;
   }
 }
 
-/* Tiny phone mode */
 @media (max-width: 420px) {
   .hero-panel {
-    padding: 1.2rem;
+    padding: 1.25rem;
+  }
+
+  .hero-logo {
+    width: 104px;
   }
 
   .hero-buttons a {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
 }

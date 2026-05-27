@@ -1,14 +1,40 @@
 <section class="hero">
-  <div class="socials">
-    <a href="#">Etsy</a>
-    <a href="#">Instagram</a>
-    <a href="#">YouTube</a>
-  </div>
+  <nav class="socials" aria-label="Social links">
+    <a href="#" aria-label="Etsy" title="Etsy">
+      <span class="social-full">Etsy</span>
+      <span class="social-short">E</span>
+    </a>
 
-  <button class="mobile-menu" aria-label="Open menu">☰</button>
+    <a href="#" aria-label="Instagram" title="Instagram">
+      <span class="social-full">Instagram</span>
+      <span class="social-short">◎</span>
+    </a>
+
+    <a href="#" aria-label="YouTube" title="YouTube">
+      <span class="social-full">YouTube</span>
+      <span class="social-short">▶</span>
+    </a>
+
+    <a href="#" aria-label="Pinterest" title="Pinterest">
+      <span class="social-full">Pinterest</span>
+      <span class="social-short">P</span>
+    </a>
+  </nav>
+
+  <button class="mobile-menu" type="button" aria-label="Open menu">
+    ☰
+  </button>
 
   <div class="hero-panel">
-    <img src="/logo.svg" alt="Virtual Ventures logo" class="hero-logo" />
+    <img
+      src="/logo.svg"
+      alt="Virtual Ventures logo"
+      class="hero-logo"
+      width="512"
+      height="512"
+      loading="eager"
+      decoding="async"
+    />
 
     <h1>Virtual Ventures</h1>
 
@@ -21,9 +47,20 @@
     </p>
   </div>
 
-  <div class="hero-buttons">
-    <a href="/blog/">Blog</a>
-    <a href="/gallery/">Gallery</a>
-    <a href="/shop/">Shop</a>
+  <div class="hero-buttons" aria-label="Main navigation">
+    <a href="/blog/">
+      <span class="button-icon" aria-hidden="true">▥</span>
+      <span>Blog</span>
+    </a>
+
+    <a href="/gallery/">
+      <span class="button-icon" aria-hidden="true">▧</span>
+      <span>Gallery</span>
+    </a>
+
+    <a href="/shop/">
+      <span class="button-icon" aria-hidden="true">▢</span>
+      <span>Shop</span>
+    </a>
   </div>
 </section>
