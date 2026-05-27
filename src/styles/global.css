@@ -44,13 +44,9 @@ body {
   display: grid;
   place-items: center;
 
-  padding: 5.5rem 1.5rem 6.5rem;
+  padding: 5.5rem 1.5rem 7rem;
 
   background-image:
-    linear-gradient(
-      rgba(20, 15, 10, 0.18),
-      rgba(20, 15, 10, 0.34)
-    ),
     image-set(
       url("/images/hero-1.webp") type("image/webp"),
       url("/images/hero-1.jpg") type("image/jpeg")
@@ -61,6 +57,8 @@ body {
   background-repeat: no-repeat;
 }
 
+/* Moody autumn circular vignette:
+   lighter in the middle, darker toward the outside */
 .hero::before {
   content: "";
   position: absolute;
@@ -70,52 +68,49 @@ body {
 
   background:
     radial-gradient(
-      circle at 48% 46%,
-      transparent 0 34%,
-      rgba(20, 15, 10, 0.18) 76%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(20, 15, 10, 0.34),
-      transparent 36%,
-      rgba(20, 15, 10, 0.18)
+      circle at center,
+      rgba(0, 0, 0, 0.10) 0%,
+      rgba(0, 0, 0, 0.14) 24%,
+      rgba(0, 0, 0, 0.24) 44%,
+      rgba(0, 0, 0, 0.42) 68%,
+      rgba(0, 0, 0, 0.72) 100%
     );
 }
 
-/* Top gradient only behind social icons */
+/* Top fade for social icons */
 .hero-top-fade {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 
-  height: 8.5rem;
+  height: 9rem;
   z-index: 1;
   pointer-events: none;
 
   background: linear-gradient(
     to bottom,
     rgba(20, 15, 10, 0.82),
-    rgba(20, 15, 10, 0.38) 48%,
+    rgba(20, 15, 10, 0.42) 50%,
     transparent
   );
 }
 
-/* Bottom gradient only behind button tabs */
+/* Bottom fade for desktop tab buttons */
 .hero-bottom-fade {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
 
-  height: 11.5rem;
+  height: 12rem;
   z-index: 1;
   pointer-events: none;
 
   background: linear-gradient(
     to top,
-    rgba(20, 15, 10, 0.9),
-    rgba(20, 15, 10, 0.5) 48%,
+    rgba(20, 15, 10, 0.92),
+    rgba(20, 15, 10, 0.54) 48%,
     transparent
   );
 }
@@ -142,16 +137,16 @@ body {
   display: inline-grid;
   place-items: center;
 
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   padding: 0;
 
   color: var(--gold);
   background:
     linear-gradient(
       145deg,
-      rgba(70, 48, 30, 0.58),
-      rgba(33, 23, 15, 0.42)
+      rgba(70, 48, 30, 0.62),
+      rgba(33, 23, 15, 0.46)
     );
 
   border: 1px solid rgba(245, 239, 230, 0.24);
@@ -166,8 +161,8 @@ body {
   -webkit-backdrop-filter: blur(10px);
 
   box-shadow:
-    0 14px 30px rgba(0, 0, 0, 0.38),
-    0 3px 8px rgba(0, 0, 0, 0.24),
+    0 18px 34px rgba(0, 0, 0, 0.42),
+    0 6px 12px rgba(0, 0, 0, 0.26),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
 
   transition:
@@ -190,11 +185,11 @@ body {
       #a26324
     );
 
-  border-color: rgba(255, 250, 245, 0.46);
+  border-color: rgba(255, 250, 245, 0.5);
 
   box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.45),
-    0 8px 16px rgba(0, 0, 0, 0.24),
+    0 22px 42px rgba(0, 0, 0, 0.48),
+    0 10px 18px rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.34);
 }
 
@@ -219,7 +214,6 @@ body {
   top: 1.25rem;
   right: 1rem;
   z-index: 3;
-
   border: 1px solid rgba(245, 239, 230, 0.22);
   cursor: pointer;
 }
@@ -235,25 +229,38 @@ body {
   width: min(440px, 92vw);
   margin-right: auto;
   margin-left: 6vw;
-  padding: 1.75rem 2rem 2.15rem;
+  padding: 1.7rem 2rem 2.15rem;
 
-  border-radius: 26px;
+  border-radius: 28px;
 
   background:
     linear-gradient(
-      rgba(255, 250, 245, 0.72),
-      rgba(245, 239, 230, 0.6)
+      rgba(255, 250, 245, 0.78),
+      rgba(245, 239, 230, 0.66)
     );
 
-  border: 1px solid rgba(255, 250, 245, 0.48);
+  border: 1px solid rgba(255, 250, 245, 0.56);
 
   box-shadow:
-    0 34px 105px rgba(20, 15, 10, 0.56),
-    0 14px 34px rgba(20, 15, 10, 0.34),
+    0 40px 110px rgba(0, 0, 0, 0.56),
+    0 18px 42px rgba(20, 15, 10, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.42);
 
-  backdrop-filter: blur(15px) saturate(1.08);
-  -webkit-backdrop-filter: blur(15px) saturate(1.08);
+  backdrop-filter: blur(16px) saturate(1.08);
+  -webkit-backdrop-filter: blur(16px) saturate(1.08);
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(122, 82, 48, 0.08);
 }
 
 /* =========================
@@ -261,11 +268,11 @@ body {
    ========================= */
 
 .hero-logo-wrap {
-  width: min(285px, 76%);
+  width: min(300px, 80%);
   aspect-ratio: 3 / 2;
 
-  margin: 0 auto -0.35rem;
-  padding: 0.7rem 0.9rem 0.05rem;
+  margin: 0 auto -1rem;
+  padding: 0.55rem 0.9rem 0.05rem;
 
   display: grid;
   place-items: center;
@@ -275,19 +282,18 @@ body {
   background:
     radial-gradient(
       ellipse at center,
-      rgba(255, 250, 245, 0.82),
-      rgba(245, 239, 230, 0.46) 58%,
-      rgba(245, 239, 230, 0) 78%
+      rgba(255, 250, 245, 0.88),
+      rgba(245, 239, 230, 0.54) 58%,
+      rgba(245, 239, 230, 0) 80%
     );
 
   filter:
-    drop-shadow(0 10px 20px rgba(45, 34, 24, 0.2))
-    drop-shadow(0 0 18px rgba(215, 154, 69, 0.16));
+    drop-shadow(0 12px 22px rgba(45, 34, 24, 0.2))
+    drop-shadow(0 0 18px rgba(215, 154, 69, 0.14));
 }
 
 .hero-logo {
   display: block;
-
   width: 100%;
   height: 100%;
 
@@ -297,21 +303,22 @@ body {
   -webkit-mask-image: linear-gradient(
     to bottom,
     black 0%,
-    black 56%,
-    rgba(0, 0, 0, 0.72) 72%,
+    black 52%,
+    rgba(0, 0, 0, 0.78) 68%,
+    rgba(0, 0, 0, 0.22) 84%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     black 0%,
-    black 56%,
-    rgba(0, 0, 0, 0.72) 72%,
+    black 52%,
+    rgba(0, 0, 0, 0.78) 68%,
+    rgba(0, 0, 0, 0.22) 84%,
     transparent 100%
   );
 
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
@@ -321,27 +328,27 @@ body {
    ========================= */
 
 .hero-panel h1 {
-  margin: -0.25rem 0 0;
+  margin: -1rem 0 0;
   text-align: center;
 
   font-family: var(--font-title);
-  font-size: clamp(2.65rem, 5.5vw, 4.45rem);
+  font-size: clamp(2.8rem, 5.8vw, 4.7rem);
   font-weight: 500;
   line-height: 0.92;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.06em;
 
   color: var(--dark);
 }
 
 .hero-panel h2 {
-  width: 84%;
-  margin: 0.9rem 0 1.35rem auto;
+  width: 88%;
+  margin: 0.75rem 0 1.35rem auto;
 
   text-align: right;
   font-family: var(--font-script);
-  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+  font-size: clamp(1.08rem, 1.8vw, 1.22rem);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
 
   color: var(--coffee);
 }
@@ -350,9 +357,8 @@ body {
   margin: 0;
   text-align: justify;
 
-  font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
   line-height: 1.72;
-
   color: rgba(45, 34, 24, 0.94);
 }
 
@@ -370,24 +376,25 @@ body {
   display: flex;
   justify-content: center;
   align-items: end;
-  gap: 0.85rem;
+  gap: 1rem;
 
-  width: min(92vw, 720px);
+  width: min(92vw, 820px);
 }
 
 .hero-buttons a {
-  min-width: 138px;
-  min-height: 64px;
-  padding: 0.95rem 1.3rem 1.15rem;
+  min-width: 165px;
+  min-height: 76px;
+  padding: 1rem 1.5rem 1.2rem;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
 
   text-align: center;
   text-decoration: none;
   font-weight: 900;
+  font-size: 1.08rem;
 
   color: var(--gold);
 
@@ -398,20 +405,20 @@ body {
       rgba(33, 23, 15, 0.56)
     );
 
-  border: 1px solid rgba(245, 239, 230, 0.22);
+  border: 1px solid rgba(245, 239, 230, 0.24);
   border-bottom: 0;
 
-  border-radius: 22px 22px 0 0;
+  border-radius: 24px 24px 0 0;
 
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
   box-shadow:
     0 -10px 28px rgba(0, 0, 0, 0.18),
-    0 12px 32px rgba(0, 0, 0, 0.36),
+    0 14px 34px rgba(0, 0, 0, 0.38),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
 
-  transform: translateY(12px);
+  transform: translateY(14px);
 
   transition:
     transform 190ms ease,
@@ -432,11 +439,11 @@ body {
       #a26324
     );
 
-  border-color: rgba(255, 250, 245, 0.48);
+  border-color: rgba(255, 250, 245, 0.5);
 
   box-shadow:
     0 -14px 34px rgba(0, 0, 0, 0.24),
-    0 18px 44px rgba(0, 0, 0, 0.46),
+    0 20px 44px rgba(0, 0, 0, 0.48),
     inset 0 1px 0 rgba(255, 255, 255, 0.36);
 }
 
@@ -452,17 +459,11 @@ body {
 @media (max-width: 760px) {
   .hero {
     padding: 5rem 1rem 6.25rem;
-
     background-image:
-      linear-gradient(
-        rgba(20, 15, 10, 0.1),
-        rgba(20, 15, 10, 0.34)
-      ),
       image-set(
         url("/images/hero-1-mobile.webp") type("image/webp"),
         url("/images/hero-1.jpg") type("image/jpeg")
       );
-
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -471,15 +472,17 @@ body {
   .hero::before {
     background:
       radial-gradient(
-        circle at 50% 40%,
-        transparent 0 35%,
-        rgba(20, 15, 10, 0.16) 78%
+        circle at center,
+        rgba(0, 0, 0, 0.08) 0%,
+        rgba(0, 0, 0, 0.16) 28%,
+        rgba(0, 0, 0, 0.28) 54%,
+        rgba(0, 0, 0, 0.48) 76%,
+        rgba(0, 0, 0, 0.74) 100%
       );
   }
 
   .hero-top-fade {
     height: 7rem;
-
     background: linear-gradient(
       to bottom,
       rgba(20, 15, 10, 0.76),
@@ -490,7 +493,6 @@ body {
 
   .hero-bottom-fade {
     height: 10rem;
-
     background: linear-gradient(
       to top,
       rgba(20, 15, 10, 0.88),
@@ -532,19 +534,19 @@ body {
 
     background:
       linear-gradient(
-        rgba(255, 250, 245, 0.72),
-        rgba(245, 239, 230, 0.6)
+        rgba(255, 250, 245, 0.74),
+        rgba(245, 239, 230, 0.62)
       );
 
     box-shadow:
-      0 26px 80px rgba(20, 15, 10, 0.5),
-      0 10px 26px rgba(20, 15, 10, 0.28),
+      0 30px 90px rgba(20, 15, 10, 0.54),
+      0 12px 28px rgba(20, 15, 10, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.36);
   }
 
   .hero-logo-wrap {
     width: min(250px, 80%);
-    margin-bottom: -0.4rem;
+    margin-bottom: -0.85rem;
     padding: 0.55rem 0.8rem 0;
   }
 
@@ -555,7 +557,7 @@ body {
   }
 
   .hero-panel h1 {
-    margin-top: -0.25rem;
+    margin-top: -0.85rem;
     font-size: clamp(2.35rem, 11vw, 3.35rem);
     letter-spacing: -0.045em;
   }
@@ -591,7 +593,6 @@ body {
     gap: 0.15rem;
 
     font-size: 0.92rem;
-
     transform: translateY(10px);
   }
 
