@@ -6,6 +6,11 @@
   --dark: #2d2218;
   --foam: #e6d8c9;
   --gold: #d9a15b;
+  --amber: #efbd72;
+
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-title: Georgia, "Times New Roman", serif;
+  --font-script: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
 }
 
 * {
@@ -16,14 +21,18 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  font-family: Arial, sans-serif;
   background: var(--cream);
   color: var(--dark);
+  font-family: var(--font-body);
 }
 
 body {
   overflow-x: hidden;
 }
+
+/* =========================
+   HERO BACKGROUND
+   ========================= */
 
 .hero {
   min-height: 100vh;
@@ -35,16 +44,16 @@ body {
   display: grid;
   place-items: center;
 
-  padding: 5rem 1.5rem 6.5rem;
+  padding: 5.5rem 1.5rem 6.5rem;
 
   background-image:
     linear-gradient(
-      rgba(20, 15, 10, 0.36),
-      rgba(20, 15, 10, 0.74)
+      rgba(20, 15, 10, 0.18),
+      rgba(20, 15, 10, 0.34)
     ),
     image-set(
       url("/images/hero-1.webp") type("image/webp"),
-      url("/images/hero-1-optimised.jpg") type("image/jpeg")
+      url("/images/hero-1.jpg") type("image/jpeg")
     );
 
   background-size: cover;
@@ -52,7 +61,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Moody edge shading */
+/* Soft mood layer across the photo */
 .hero::before {
   content: "";
   position: absolute;
@@ -61,11 +70,61 @@ body {
   pointer-events: none;
 
   background:
-    radial-gradient(circle at 45% 42%, transparent 0 32%, rgba(20, 15, 10, 0.22) 68%),
-    linear-gradient(90deg, rgba(20, 15, 10, 0.42), transparent 34%, rgba(20, 15, 10, 0.36));
+    radial-gradient(
+      circle at 48% 46%,
+      transparent 0 34%,
+      rgba(20, 15, 10, 0.18) 76%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(20, 15, 10, 0.34),
+      transparent 36%,
+      rgba(20, 15, 10, 0.18)
+    );
 }
 
-/* Top social buttons */
+/* Top gradient only for social icons */
+.hero-top-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 8.5rem;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 15, 10, 0.82),
+    rgba(20, 15, 10, 0.38) 48%,
+    transparent
+  );
+}
+
+/* Bottom gradient only for buttons */
+.hero-bottom-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 11rem;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to top,
+    rgba(20, 15, 10, 0.86),
+    rgba(20, 15, 10, 0.44) 48%,
+    transparent
+  );
+}
+
+/* =========================
+   SOCIAL ICONS
+   ========================= */
+
 .socials {
   position: absolute;
   top: 1.25rem;
@@ -74,7 +133,9 @@ body {
   z-index: 3;
 
   display: flex;
-  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .socials a,
@@ -82,23 +143,57 @@ body {
   display: inline-grid;
   place-items: center;
 
-  min-width: 44px;
-  height: 36px;
-  padding: 0 0.9rem;
+  width: 42px;
+  height: 42px;
+  padding: 0;
 
-  color: var(--vanilla);
-  background: rgba(45, 34, 24, 0.5);
-  border: 1px solid rgba(255, 250, 245, 0.34);
+  color: var(--gold);
+  background: rgba(45, 34, 24, 0.16);
+  border: 1px solid rgba(245, 239, 230, 0.18);
   border-radius: 999px;
 
   text-decoration: none;
-  font-weight: 800;
-  font-size: 0.92rem;
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  font-weight: 700;
 
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.socials a:hover,
+.mobile-menu:hover {
+  transform: translateY(-2px);
+  color: var(--vanilla);
+  background: rgba(122, 82, 48, 0.55);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.socials svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.socials svg .filled {
+  fill: currentColor;
+  stroke: none;
 }
 
 .mobile-menu {
@@ -107,63 +202,133 @@ body {
   top: 1.25rem;
   right: 1rem;
   z-index: 3;
-  border: 1px solid rgba(255, 250, 245, 0.34);
+
+  border: 1px solid rgba(245, 239, 230, 0.22);
+  cursor: pointer;
 }
 
-/* Main parchment panel */
+/* =========================
+   HERO PANEL
+   ========================= */
+
 .hero-panel {
   position: relative;
   z-index: 2;
 
-  width: min(430px, 92vw);
+  width: min(440px, 92vw);
   margin-right: auto;
   margin-left: 6vw;
-  padding: 2rem 2rem 2.1rem;
+  padding: 1.75rem 2rem 2.15rem;
 
-  border-radius: 24px;
+  border-radius: 26px;
+
   background:
     linear-gradient(
-      rgba(255, 250, 245, 0.82),
-      rgba(245, 239, 230, 0.76)
+      rgba(255, 250, 245, 0.68),
+      rgba(245, 239, 230, 0.56)
     );
 
-  border: 1px solid rgba(230, 216, 201, 0.92);
+  border: 1px solid rgba(255, 250, 245, 0.42);
 
   box-shadow:
-    0 24px 80px rgba(20, 15, 10, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    0 30px 95px rgba(20, 15, 10, 0.52),
+    0 12px 32px rgba(20, 15, 10, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px) saturate(1.08);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+}
+
+/* =========================
+   LOGO
+   ========================= */
+
+.hero-logo-wrap {
+  width: min(285px, 76%);
+  aspect-ratio: 3 / 2;
+
+  margin: 0 auto -0.35rem;
+  padding: 0.7rem 0.9rem 0.05rem;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 250, 245, 0.8),
+      rgba(245, 239, 230, 0.42) 58%,
+      rgba(245, 239, 230, 0) 78%
+    );
+
+  filter:
+    drop-shadow(0 10px 20px rgba(45, 34, 24, 0.2))
+    drop-shadow(0 0 18px rgba(215, 154, 69, 0.16));
 }
 
 .hero-logo {
   display: block;
-  width: clamp(110px, 12vw, 150px);
-  height: auto;
-  margin: 0 auto 1rem;
 
-  filter: drop-shadow(0 10px 20px rgba(45, 34, 24, 0.22));
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  /*
+    Fades the bottom of the logo so the title can overlap
+    without looking like it was glued on by a tired raccoon.
+  */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 56%,
+    rgba(0, 0, 0, 0.72) 72%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 56%,
+    rgba(0, 0, 0, 0.72) 72%,
+    transparent 100%
+  );
+
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
+/* =========================
+   HERO TEXT
+   ========================= */
+
 .hero-panel h1 {
-  margin: 0;
+  margin: -0.25rem 0 0;
   text-align: center;
 
-  font-size: clamp(2.45rem, 5vw, 4.25rem);
-  line-height: 0.95;
-  letter-spacing: -0.06em;
+  font-family: var(--font-title);
+  font-size: clamp(2.65rem, 5.5vw, 4.45rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
 
   color: var(--dark);
 }
 
 .hero-panel h2 {
-  width: 82%;
+  width: 84%;
   margin: 0.9rem 0 1.35rem auto;
 
   text-align: right;
-  font-size: clamp(1rem, 1.8vw, 1.14rem);
-  line-height: 1.15;
+  font-family: var(--font-script);
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.25;
 
   color: var(--coffee);
 }
@@ -171,11 +336,17 @@ body {
 .hero-panel p {
   margin: 0;
   text-align: justify;
+
+  font-size: clamp(0.96rem, 1.2vw, 1.08rem);
   line-height: 1.72;
-  color: rgba(45, 34, 24, 0.92);
+
+  color: rgba(45, 34, 24, 0.94);
 }
 
-/* Bottom nav buttons */
+/* =========================
+   BOTTOM BUTTONS
+   ========================= */
+
 .hero-buttons {
   position: absolute;
   left: 50%;
@@ -194,6 +365,11 @@ body {
   min-width: 130px;
   padding: 0.95rem 1.35rem;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
   text-align: center;
   text-decoration: none;
   font-weight: 900;
@@ -203,7 +379,7 @@ body {
   border-radius: 999px;
 
   box-shadow:
-    0 14px 34px rgba(20, 15, 10, 0.34),
+    0 14px 34px rgba(20, 15, 10, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.38);
 
   transition:
@@ -217,68 +393,136 @@ body {
   filter: brightness(1.05);
 
   box-shadow:
-    0 18px 44px rgba(20, 15, 10, 0.42),
+    0 18px 44px rgba(20, 15, 10, 0.52),
     inset 0 1px 0 rgba(255, 255, 255, 0.46);
 }
 
-/* Mobile version */
+.button-icon {
+  font-size: 1.18rem;
+  line-height: 1;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 760px) {
   .hero {
     padding: 5rem 1rem 6.25rem;
 
     background-image:
       linear-gradient(
-        rgba(20, 15, 10, 0.28),
-        rgba(20, 15, 10, 0.66)
+        rgba(20, 15, 10, 0.1),
+        rgba(20, 15, 10, 0.34)
       ),
       image-set(
         url("/images/hero-1-mobile.webp") type("image/webp"),
-        url("/images/hero-1-optimised.jpg") type("image/jpeg")
+        url("/images/hero-1.jpg") type("image/jpeg")
       );
 
+    /*
+      This is the anti-warp spell.
+      cover crops, it does not stretch.
+    */
+    background-size: cover;
     background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  .hero::before {
+    background:
+      radial-gradient(
+        circle at 50% 40%,
+        transparent 0 35%,
+        rgba(20, 15, 10, 0.16) 78%
+      );
+  }
+
+  .hero-top-fade {
+    height: 7rem;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(20, 15, 10, 0.76),
+      rgba(20, 15, 10, 0.34) 52%,
+      transparent
+    );
+  }
+
+  .hero-bottom-fade {
+    height: 10rem;
+
+    background: linear-gradient(
+      to top,
+      rgba(20, 15, 10, 0.86),
+      rgba(20, 15, 10, 0.42) 48%,
+      transparent
+    );
   }
 
   .socials {
     top: 1rem;
     left: 1rem;
     transform: none;
-    gap: 0.45rem;
+    gap: 0.48rem;
   }
 
   .socials a {
     width: 38px;
-    min-width: 38px;
     height: 38px;
-    padding: 0;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
+  }
+
+  .socials svg {
+    width: 20px;
+    height: 20px;
   }
 
   .mobile-menu {
     display: inline-grid;
     width: 48px;
     height: 38px;
-    padding: 0;
+    top: 1rem;
   }
 
   .hero-panel {
-    width: min(92vw, 360px);
+    width: min(92vw, 370px);
     margin: 0 auto;
-    padding: 1.55rem;
+    padding: 1.35rem 1.45rem 1.55rem;
     border-radius: 22px;
+
+    background:
+      linear-gradient(
+        rgba(255, 250, 245, 0.7),
+        rgba(245, 239, 230, 0.58)
+      );
+
+    box-shadow:
+      0 26px 80px rgba(20, 15, 10, 0.5),
+      0 10px 26px rgba(20, 15, 10, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.36);
+  }
+
+  .hero-logo-wrap {
+    width: min(250px, 80%);
+    margin-bottom: -0.4rem;
+    padding: 0.55rem 0.8rem 0;
   }
 
   .hero-logo {
-    width: 118px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .hero-panel h1 {
-    font-size: clamp(2.15rem, 11vw, 3.2rem);
+    margin-top: -0.25rem;
+    font-size: clamp(2.35rem, 11vw, 3.35rem);
     letter-spacing: -0.045em;
   }
 
   .hero-panel h2 {
-    width: 86%;
+    width: 88%;
     margin-top: 0.8rem;
     margin-bottom: 1.2rem;
     font-size: 1rem;
@@ -286,7 +530,7 @@ body {
 
   .hero-panel p {
     text-align: left;
-    line-height: 1.55;
+    line-height: 1.58;
     font-size: 0.95rem;
   }
 
@@ -301,17 +545,26 @@ body {
     min-width: 0;
     padding: 0.85rem 0.45rem;
     border-radius: 18px;
+
+    display: grid;
+    place-items: center;
+    gap: 0.15rem;
+
     font-size: 0.95rem;
+  }
+
+  .button-icon {
+    font-size: 1.45rem;
   }
 }
 
 @media (max-width: 420px) {
   .hero-panel {
-    padding: 1.25rem;
+    padding: 1.15rem 1.2rem 1.35rem;
   }
 
-  .hero-logo {
-    width: 104px;
+  .hero-logo-wrap {
+    width: min(230px, 82%);
   }
 
   .hero-buttons a {

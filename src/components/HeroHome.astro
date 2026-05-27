@@ -1,23 +1,29 @@
 <section class="hero">
+  <div class="hero-top-fade" aria-hidden="true"></div>
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
+
   <nav class="socials" aria-label="Social links">
     <a href="#" aria-label="Etsy" title="Etsy">
-      <span class="social-full">Etsy</span>
-      <span class="social-short">E</span>
+      <span aria-hidden="true">E</span>
     </a>
 
     <a href="#" aria-label="Instagram" title="Instagram">
-      <span class="social-full">Instagram</span>
-      <span class="social-short">◎</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="4" y="4" width="16" height="16" rx="5"></rect>
+        <circle cx="12" cy="12" r="3.5"></circle>
+        <circle cx="17" cy="7" r="1"></circle>
+      </svg>
     </a>
 
     <a href="#" aria-label="YouTube" title="YouTube">
-      <span class="social-full">YouTube</span>
-      <span class="social-short">▶</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8.5C4 7.1 5.1 6 6.5 6h11C18.9 6 20 7.1 20 8.5v7c0 1.4-1.1 2.5-2.5 2.5h-11C5.1 18 4 16.9 4 15.5v-7Z"></path>
+        <path d="M10 9.2 15 12l-5 2.8V9.2Z" class="filled"></path>
+      </svg>
     </a>
 
     <a href="#" aria-label="Pinterest" title="Pinterest">
-      <span class="social-full">Pinterest</span>
-      <span class="social-short">P</span>
+      <span aria-hidden="true">P</span>
     </a>
   </nav>
 
@@ -25,16 +31,17 @@
     ☰
   </button>
 
-  <div class="hero-panel">
+  <div class="hero-logo-wrap">
     <img
-      src="/logo.svg"
+      src="/images/logo.png"
       alt="Virtual Ventures logo"
       class="hero-logo"
-      width="512"
-      height="512"
+      width="1536"
+      height="1024"
       loading="eager"
       decoding="async"
     />
+  </div>
 
     <h1>Virtual Ventures</h1>
 
