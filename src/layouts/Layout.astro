@@ -1,0 +1,117 @@
+---
+const { title = "Virtual Ventures" } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <title>{title}</title>
+
+    <style>
+      :root {
+        --bg: #f5efe6;
+        --text: #2d2218;
+        --accent: #7a5230;
+        --accent-soft: #a67b5b;
+        --card: #fffaf5;
+        --border: #e6d8c9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        background: rgba(122, 82, 48, 0.96);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      nav a {
+        color: #fffaf5;
+        text-decoration: none;
+        font-weight: 700;
+        padding: 0.35rem 0.6rem;
+        border-radius: 999px;
+      }
+
+      nav a:hover {
+        background: rgba(255, 250, 245, 0.18);
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.5rem;
+        box-shadow: 0 12px 30px rgba(45, 34, 24, 0.08);
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--text);
+        line-height: 1.1;
+      }
+
+      p {
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/gallery/">Gallery</a>
+        <a href="/crochet/">Crochet</a>
+        <a href="/patterns/">Patterns</a>
+        <a href="/laser/">Laser</a>
+        <a href="/3d-printing/">3D Printing</a>
+        <a href="/blog/">Blog</a>
+        <a href="/shop/">Shop</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
