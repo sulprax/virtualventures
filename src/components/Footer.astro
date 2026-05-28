@@ -1,0 +1,112 @@
+---
+const year = new Date().getFullYear();
+
+const footerLinks = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Gallery", href: "/gallery/" },
+      { label: "Shop", href: "/shop/" },
+      { label: "Blog", href: "/blog/" },
+      { label: "Contact", href: "/contact/" },
+    ],
+  },
+  {
+    title: "Craft Paths",
+    links: [
+      { label: "Crochet", href: "/crochet/" },
+      { label: "Laser", href: "/laser/" },
+      { label: "3D Printing", href: "/3d-printing/" },
+      { label: "Patterns", href: "/patterns/" },
+    ],
+  },
+  {
+    title: "Helpful",
+    links: [
+      { label: "About", href: "/about/" },
+      { label: "Privacy", href: "/privacy/" },
+      { label: "Terms", href: "/terms/" },
+      { label: "Etsy Shop", href: "#" },
+    ],
+  },
+];
+---
+
+<footer class="site-footer" aria-labelledby="footer-title">
+  <div class="footer-inner footer-layout">
+    <section class="footer-left">
+      <nav class="footer-tree" aria-label="Footer navigation">
+        {footerLinks.map((group) => (
+          <section class="footer-column">
+            <h3>{group.title}</h3>
+
+            <ul>
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </nav>
+
+      <div class="footer-actions">
+        <form class="footer-search" action="/search/" method="get" role="search">
+          <label for="footer-search">Search the site</label>
+
+          <div class="footer-form-row">
+            <input
+              id="footer-search"
+              name="q"
+              type="search"
+              placeholder="Search patterns, blog posts..."
+            />
+
+            <button type="submit">Search</button>
+          </div>
+        </form>
+
+        <form class="footer-subscribe" action="#" method="post">
+          <label for="footer-email">Subscribe to the blog</label>
+
+          <div class="footer-form-row">
+            <input
+              id="footer-email"
+              name="email"
+              type="email"
+              placeholder="your@email.com"
+            />
+
+            <button type="submit">Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="footer-right" aria-labelledby="footer-title">
+        <div class="footer-brand-lockup">
+            <img
+            class="footer-logo"
+            src="/images/logo.png"
+            alt="Virtual Ventures logo"
+            loading="lazy"
+            />
+
+            <h2 id="footer-title">Virtual<br />Ventures</h2>
+        </div>
+
+        <p class="footer-description">
+            Crochet patterns, laser engraved pieces, handmade gifts, blog posts,
+            and creative experiments with a warm woodland feel.
+        </p>
+    </section>
+  </div>
+
+  <div class="footer-bottom">
+    <p>
+      © {year} Virtual Ventures. All designs, photos, patterns, artwork, and original content belong to Virtual Ventures unless stated otherwise.
+    </p>
+  </div>
+</footer>

@@ -1,8 +1,59 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroHome from "../components/HeroHome.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout title="Virtual Ventures">
+  <div id="top"></div>
+
   <HeroHome />
+
+  <a href="#top" class="back-to-top-button" aria-label="Back to top">
+    ↑
+  </a>
+
+  <Footer />
+
+  <script>
+  const backToTopButton = document.querySelector(".back-to-top-button");
+  const footer = document.querySelector(".site-footer");
+
+  function updateBackToTopButton() {
+    if (!(backToTopButton instanceof HTMLElement)) return;
+
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const buttonGap = 24;
+
+    if (scrollY > 180) {
+      backToTopButton.classList.add("is-visible");
+    } else {
+      backToTopButton.classList.remove("is-visible");
+    }
+
+    if (!(footer instanceof HTMLElement)) return;
+
+    const footerTop = footer.offsetTop;
+    const buttonHeight = backToTopButton.offsetHeight;
+    const buttonBottomPosition = scrollY + windowHeight - buttonGap;
+
+    if (buttonBottomPosition + buttonHeight >= footerTop) {
+      backToTopButton.classList.add("is-above-footer");
+
+      backToTopButton.style.top = `${footerTop - buttonHeight - buttonGap}px`;
+      backToTopButton.style.bottom = "auto";
+    } else {
+      backToTopButton.classList.remove("is-above-footer");
+
+      backToTopButton.style.top = "auto";
+      backToTopButton.style.bottom = "1.25rem";
+    }
+  }
+
+  window.addEventListener("scroll", updateBackToTopButton);
+  window.addEventListener("resize", updateBackToTopButton);
+
+  updateBackToTopButton();
+</script>
 </Layout>
