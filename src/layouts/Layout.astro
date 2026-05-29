@@ -1,14 +1,20 @@
 ---
 import "../styles/global.css";
+import Footer from "../components/site/Footer.astro";
 
-const { title = "Virtual Ventures" } = Astro.props;
+const {
+  title = "Virtual Ventures",
+  description = "A cozy craft workshop for crochet creatures, fantasy-inspired makes, laser engraved details, 3D printed helpers, patterns, stories, and small handmade treasures.",
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
@@ -22,5 +28,6 @@ const { title = "Virtual Ventures" } = Astro.props;
 
   <body>
     <slot />
+    <Footer />
   </body>
 </html>
