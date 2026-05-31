@@ -1,0 +1,32 @@
+---
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
+
+const { items = [] } = Astro.props as {
+  items?: BreadcrumbItem[];
+};
+
+const crumbItems =
+  items.length > 0
+    ? items
+    : [
+        { label: "Home", href: "/" },
+        { label: "Current page" },
+      ];
+---
+
+<nav class="breadcrumb-trail" aria-label="Breadcrumb">
+  {crumbItems.map((item, index) => (
+    <>
+      {item.href ? (
+        <a href={item.href}>{item.label}</a>
+      ) : (
+        <strong>{item.label}</strong>
+      )}
+
+      {index < crumbItems.length - 1 && <span>✦</span>}
+    </>
+  ))}
+</nav>  

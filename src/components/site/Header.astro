@@ -1,0 +1,53 @@
+---
+import { mainNav, heroNav } from "../../data/navigation";
+
+const { mode = "sticky" } = Astro.props;
+
+const navItems = [...mainNav, ...heroNav];
+
+const currentPath = Astro.url.pathname;
+
+function isActivePath(href: string) {
+  if (href === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
+---
+
+<header class:list={["site-header", `site-header-${mode}`]} data-site-header>
+  <a class="site-header-brand" href="/" aria-label="Virtual Ventures home">
+    <img src="/images/brand/logo.png" alt="" />
+    <span>Virtual Ventures</span>
+  </a>
+
+  <nav class="site-header-nav" aria-label="Main navigation">
+    {navItems.map((item, index) => (
+      <>
+        <a
+          href={item.href}
+          class:list={[{ "is-active": isActivePath(item.href) }]}
+          aria-current={isActivePath(item.href) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+
+        {index < navItems.length - 1 && (
+          <span class="site-header-star">✦</span>
+        )}
+      </>
+    ))}
+  </nav>
+
+  <form class="site-header-search" action="/search" method="get">
+    <label for="site-header-search-input">Search the site</label>
+    <input
+      id="site-header-search-input"
+      type="search"
+      name="q"
+      placeholder="Search..."
+    />
+    <button type="submit" aria-label="Search">⌕</button>
+  </form>
+</header>

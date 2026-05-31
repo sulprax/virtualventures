@@ -1,0 +1,671 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/site/Breadcrumbs.astro";
+import { getCollection, render } from "astro:content";
+
+const categoryLabels: Record<string, string> = {
+  crochet: "Crochet",
+  laser: "Laser",
+  "3d-printing": "3D Printing",
+  "books-patterns": "Books / Patterns",
+  shop: "Shop",
+  website: "Website",
+  "behind-the-scenes": "Behind the Scenes",
+};
+
+const categoryOrder = [
+  "crochet",
+  "laser",
+  "3d-printing",
+  "books-patterns",
+  "shop",
+  "website",
+  "behind-the-scenes",
+];
+
+function formatISODate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+const rawPosts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => {
+    if (a.data.pinned && !b.data.pinned) return -1;
+    if (!a.data.pinned && b.data.pinned) return 1;
+
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  });
+
+const posts = await Promise.all(
+  rawPosts.map(async (post) => {
+    const { Content } = await render(post);
+
+    const categoryLabel =
+      categoryLabels[post.data.category] ?? post.data.category;
+
+    return {
+      ...post,
+      Content,
+      categoryLabel,
+      isoDate: formatISODate(post.data.pubDate),
+      displayTags: [categoryLabel, ...post.data.tags.map((tag) => `#${tag}`)],
+    };
+  })
+);
+
+const usedCategories = categoryOrder
+  .filter((category) => rawPosts.some((post) => post.data.category === category))
+  .map((category) => ({
+    id: category,
+    label: categoryLabels[category] ?? category,
+  }));
+
+const allTags = [...new Set(rawPosts.flatMap((post) => post.data.tags))].sort();
+
+const latestPosts = rawPosts.slice(0, 4);
+
+const archiveMonths = [
+  ...new Map(
+    rawPosts.map((post) => {
+      const date = post.data.pubDate;
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+
+      const count = rawPosts.filter((item) => {
+        const itemDate = item.data.pubDate;
+
+        return (
+          itemDate.getFullYear() === date.getFullYear() &&
+          itemDate.getMonth() === date.getMonth()
+        );
+      }).length;
+
+      return [
+        key,
+        {
+          label: date.toLocaleDateString("en-GB", {
+            month: "long",
+            year: "numeric",
+          }),
+          count,
+        },
+      ];
+    })
+  ).values(),
+];
+
+const calendarBaseDate = rawPosts[0]?.data.pubDate ?? new Date();
+const calendarYear = calendarBaseDate.getFullYear();
+const calendarMonth = calendarBaseDate.getMonth();
+
+const calendarLabel = calendarBaseDate.toLocaleDateString("en-GB", {
+  month: "long",
+  year: "numeric",
+});
+
+const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+const mondayOffset = firstDay === 0 ? 6 : firstDay - 1;
+
+const calendarCells = [
+  ...Array.from({ length: mondayOffset }, () => null),
+  ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
+];
+
+const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate)));
+---
+
+<Layout
+  title="The Blog | Virtual Ventures"
+  description="Updates from the Virtual Ventures workshop, including crochet progress, pattern plans, laser engraving notes, 3D printed helpers, shop news, tutorials, videos and behind-the-scenes stories."
+  footerBreadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Blog" },
+  ]}
+>
+    <section class="blog-hero-banner">
+        <div class="blog-hero-banner-inner">
+            <p class="eyebrow">Workshop Notes</p>
+            <h1>The Blog</h1>
+            <p>
+            Project updates, pattern plans, videos, shop news and behind-the-scenes
+            stories from the cosy handmade corner of Virtual Ventures.
+            </p>
+        </div>
+    </section>
+
+    <Breadcrumbs
+    items={[
+            { label: "Home", href: "/" },
+            { label: "Blog" },
+        ]}
+    />
+
+  <main class="page-shell blog-page">
+    <div class="blog-layout">
+      <section class="blog-posts-area" aria-label="Blog posts">
+        <div class="blog-grid" data-blog-grid>
+          {posts.map((post) => (
+            <article
+              id={`post-${post.id}`}
+              class:list={["blog-card", { "is-pinned": post.data.pinned }]}
+              data-blog-card
+              data-post-id={post.id}
+              data-category={post.data.category}
+              data-tags={post.data.tags.join(",")}
+              data-date={post.isoDate}
+            >
+              <button class="blog-card-toggle" type="button" data-post-toggle>
+                <span class="blog-card-topline">
+                  <span class="blog-date">
+                    {post.data.pubDate.toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </span>
+
+                  <span class="blog-card-top-tags">
+                    {post.displayTags.map((tag) => (
+                      <span>{tag}</span>
+                    ))}
+                  </span>
+                </span>
+
+                <span class="blog-card-title-row">
+                  <span class="blog-card-emoji" aria-hidden="true">
+                    {post.data.emoji}
+                  </span>
+
+                  {post.data.pinned && (
+                    <span class="blog-pin-badge">
+                      ✦ {post.data.pinLabel || "Pinned"}
+                    </span>
+                  )}
+                </span>
+
+                <span class="blog-card-title">{post.data.title}</span>
+
+                <span class="blog-card-description">
+                  {post.data.description}
+                </span>
+
+                <span class="blog-read-more" data-read-label>
+                  Open post
+                </span>
+              </button>
+
+              <div class="blog-card-expanded" hidden data-post-content>
+                {post.data.image && (
+                  <img
+                    src={post.data.image}
+                    alt=""
+                    loading="lazy"
+                    class="blog-card-image"
+                  />
+                )}
+
+                <div class="blog-post-content blog-post-content-inline">
+                  <post.Content />
+                </div>
+
+                <div class="blog-inline-actions">
+                  {post.data.shopUrl && (
+                    <a href={post.data.shopUrl} class="featured-shop-link">
+                      View in shop
+                    </a>
+                  )}
+
+                  <a href={`/blog/${post.id}/`} class="blog-full-link">
+                    Open standalone post
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <nav class="blog-pagination" data-blog-pagination aria-label="Blog pagination">
+          <button type="button" class="blog-page-button" data-page-prev>‹</button>
+
+          <div class="blog-page-numbers" data-page-numbers></div>
+
+          <button type="button" class="blog-page-button" data-page-next>›</button>
+
+          <form class="blog-page-jump" data-page-jump-form>
+            <label for="blog-page-jump-input">Go to page</label>
+            <input
+              id="blog-page-jump-input"
+              type="number"
+              min="1"
+              value="1"
+              data-page-jump-input
+            />
+          </form>
+        </nav>
+
+        <p class="blog-empty-message" data-empty-message hidden>
+          No posts found for this filter. Try ✨ All Posts.
+        </p>
+      </section>
+
+      <aside class="blog-sidebar" aria-label="Blog sidebar">
+        <section class="blog-widget blog-calendar-widget">
+          <h2>Post Calendar</h2>
+
+          <div class="blog-calendar">
+            <div class="blog-calendar-header">
+              <span>{calendarLabel}</span>
+              <button type="button" data-clear-date-filter title="Show all dates">
+                ✦
+              </button>
+            </div>
+
+            <div class="blog-calendar-grid" aria-label={`${calendarLabel} blog calendar`}>
+              {["M", "T", "W", "T", "F", "S", "S"].map((day) => (
+                <span class="blog-calendar-day">{day}</span>
+              ))}
+
+              {calendarCells.map((day) => {
+                if (!day) {
+                  return <span class="blog-calendar-empty"></span>;
+                }
+
+                const isoDate = formatISODate(new Date(calendarYear, calendarMonth, day));
+                const hasPost = postDates.has(isoDate);
+
+                return (
+                  <button
+                    type="button"
+                    class:list={["blog-calendar-date", { "has-post": hasPost }]}
+                    data-calendar-date={isoDate}
+                    disabled={!hasPost}
+                    title={hasPost ? `Show posts from ${isoDate}` : "No posts"}
+                  >
+                    {day}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section class="blog-widget">
+          <h2>Filter Topics</h2>
+
+          <div class="blog-filter-stack" data-blog-filters>
+            <button type="button" class="blog-filter-chip is-active" data-filter="all">
+              ✨ All Posts
+            </button>
+
+            {usedCategories.map((category) => (
+              <button type="button" class="blog-filter-chip" data-filter={category.id}>
+                {category.label}
+              </button>
+            ))}
+
+            {allTags.map((tag) => (
+              <button type="button" class="blog-filter-chip" data-filter={tag}>
+                #{tag}
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section class="blog-widget">
+          <h2>Archive</h2>
+
+          <ul class="blog-mini-list">
+            {archiveMonths.map((month) => (
+              <li>
+                <span>
+                  <strong>{month.label}</strong>
+                  <span>{month.count} post{month.count === 1 ? "" : "s"}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="blog-widget featured-shop-widget">
+          <p class="eyebrow">Featured</p>
+          <h2>Crochet Planner</h2>
+          <p>
+            A cosy project planner for crochet and knitting notes, pattern ideas,
+            yarn details and creative scribbles.
+          </p>
+          <a href="/shop/project-planner-crochet-knitting/" class="featured-shop-link">
+            View in shop
+          </a>
+        </section>
+
+        <section class="blog-widget">
+          <h2>Latest Notes</h2>
+
+          <ul class="blog-mini-list">
+            {latestPosts.map((post) => (
+              <li>
+                <button type="button" data-jump-post={post.id}>
+                  <strong>{post.data.title}</strong>
+                  <span>
+                    {post.data.pubDate.toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // @ts-nocheck
+
+    const cards = Array.from(document.querySelectorAll("[data-blog-card]"));
+    const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+    const calendarButtons = Array.from(document.querySelectorAll("[data-calendar-date]"));
+    const clearDateButton = document.querySelector("[data-clear-date-filter]");
+    const jumpButtons = Array.from(document.querySelectorAll("[data-jump-post]"));
+
+    const pagination = document.querySelector("[data-blog-pagination]");
+    const pageNumbers = document.querySelector("[data-page-numbers]");
+    const prevButton = document.querySelector("[data-page-prev]");
+    const nextButton = document.querySelector("[data-page-next]");
+    const jumpForm = document.querySelector("[data-page-jump-form]");
+    const jumpInput = document.querySelector("[data-page-jump-input]");
+    const emptyMessage = document.querySelector("[data-empty-message]");
+
+    const postsPerPage = 8;
+
+    let activeFilter = "all";
+    let activeDate = "all";
+    let currentPage = 1;
+
+    function closePost(card) {
+      const content = card.querySelector("[data-post-content]");
+      const label = card.querySelector("[data-read-label]");
+
+      if (content instanceof HTMLElement) {
+        content.hidden = true;
+      }
+
+      if (label instanceof HTMLElement) {
+        label.textContent = "Open post";
+      }
+
+      card.classList.remove("is-open");
+    }
+
+    function closeOtherPosts(activeCard) {
+      cards.forEach((card) => {
+        if (card !== activeCard) {
+          closePost(card);
+        }
+      });
+    }
+
+    function cardMatchesFilters(card) {
+      const category = card.getAttribute("data-category") || "";
+      const date = card.getAttribute("data-date") || "";
+
+      const tags = (card.getAttribute("data-tags") || "")
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean);
+
+      const matchesTopic =
+        activeFilter === "all" ||
+        category === activeFilter ||
+        tags.includes(activeFilter);
+
+      const matchesDate = activeDate === "all" || date === activeDate;
+
+      return matchesTopic && matchesDate;
+    }
+
+    function getFilteredCards() {
+      return cards.filter((card) => cardMatchesFilters(card));
+    }
+
+    function renderPagination(totalPages) {
+      if (!(pageNumbers instanceof HTMLElement)) return;
+      if (!(pagination instanceof HTMLElement)) return;
+
+      pageNumbers.innerHTML = "";
+      pagination.hidden = totalPages <= 1;
+
+      for (let page = 1; page <= totalPages; page += 1) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "blog-page-number";
+        button.textContent = String(page);
+        button.classList.toggle("is-active", page === currentPage);
+
+        button.addEventListener("click", () => {
+          currentPage = page;
+          applyBlogView();
+        });
+
+        pageNumbers.appendChild(button);
+      }
+
+      if (prevButton instanceof HTMLButtonElement) {
+        prevButton.disabled = currentPage <= 1;
+      }
+
+      if (nextButton instanceof HTMLButtonElement) {
+        nextButton.disabled = currentPage >= totalPages;
+      }
+
+      if (jumpInput instanceof HTMLInputElement) {
+        jumpInput.max = String(totalPages);
+        jumpInput.value = String(currentPage);
+      }
+    }
+
+    function applyBlogView() {
+      const filteredCards = getFilteredCards();
+      const totalPages = Math.max(1, Math.ceil(filteredCards.length / postsPerPage));
+
+      currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+
+      cards.forEach((card) => {
+        const isFiltered = filteredCards.includes(card);
+
+        card.classList.toggle("is-hidden-by-filter", !isFiltered);
+        card.classList.remove("is-page-hidden");
+
+        if (!isFiltered) {
+          closePost(card);
+        }
+      });
+
+      filteredCards.forEach((card, index) => {
+        const page = Math.floor(index / postsPerPage) + 1;
+        const isOnCurrentPage = page === currentPage;
+
+        card.classList.toggle("is-page-hidden", !isOnCurrentPage);
+
+        if (!isOnCurrentPage) {
+          closePost(card);
+        }
+      });
+
+      if (emptyMessage instanceof HTMLElement) {
+        emptyMessage.hidden = filteredCards.length > 0;
+      }
+
+      renderPagination(totalPages);
+    }
+
+    cards.forEach((card) => {
+      const toggle = card.querySelector("[data-post-toggle]");
+      const content = card.querySelector("[data-post-content]");
+      const label = card.querySelector("[data-read-label]");
+
+      if (!(toggle instanceof HTMLButtonElement)) return;
+      if (!(content instanceof HTMLElement)) return;
+
+      toggle.addEventListener("click", () => {
+        const isOpening = content.hidden;
+
+        closeOtherPosts(card);
+
+        content.hidden = !isOpening;
+        card.classList.toggle("is-open", isOpening);
+
+        if (label instanceof HTMLElement) {
+          label.textContent = isOpening ? "Close post" : "Open post";
+        }
+      });
+    });
+
+    filterButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      button.addEventListener("click", () => {
+        const selectedFilter = button.dataset.filter || "all";
+        const isAlreadyActive = button.classList.contains("is-active");
+
+        activeFilter =
+          isAlreadyActive && selectedFilter !== "all" ? "all" : selectedFilter;
+
+        currentPage = 1;
+
+        filterButtons.forEach((filterButton) => {
+          if (!(filterButton instanceof HTMLButtonElement)) return;
+
+          filterButton.classList.toggle(
+            "is-active",
+            filterButton.dataset.filter === activeFilter
+          );
+        });
+
+        if (!filterButtons.some((filterButton) => filterButton.classList.contains("is-active"))) {
+          const allButton = document.querySelector('[data-filter="all"]');
+          allButton?.classList.add("is-active");
+        }
+
+        applyBlogView();
+      });
+    });
+
+    calendarButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      button.addEventListener("click", () => {
+        const selectedDate = button.dataset.calendarDate || "all";
+
+        activeDate = activeDate === selectedDate ? "all" : selectedDate;
+        currentPage = 1;
+
+        calendarButtons.forEach((calendarButton) => {
+          if (!(calendarButton instanceof HTMLButtonElement)) return;
+
+          calendarButton.classList.toggle(
+            "is-active",
+            calendarButton.dataset.calendarDate === activeDate
+          );
+        });
+
+        applyBlogView();
+      });
+    });
+
+    if (clearDateButton instanceof HTMLButtonElement) {
+      clearDateButton.addEventListener("click", () => {
+        activeDate = "all";
+        currentPage = 1;
+
+        calendarButtons.forEach((calendarButton) => {
+          calendarButton.classList.remove("is-active");
+        });
+
+        applyBlogView();
+      });
+    }
+
+    if (prevButton instanceof HTMLButtonElement) {
+      prevButton.addEventListener("click", () => {
+        currentPage -= 1;
+        applyBlogView();
+      });
+    }
+
+    if (nextButton instanceof HTMLButtonElement) {
+      nextButton.addEventListener("click", () => {
+        currentPage += 1;
+        applyBlogView();
+      });
+    }
+
+    if (jumpForm instanceof HTMLFormElement && jumpInput instanceof HTMLInputElement) {
+      jumpForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const requestedPage = Number(jumpInput.value);
+
+        if (Number.isFinite(requestedPage)) {
+          currentPage = requestedPage;
+          applyBlogView();
+        }
+      });
+
+      jumpInput.addEventListener("change", () => {
+        const requestedPage = Number(jumpInput.value);
+
+        if (Number.isFinite(requestedPage)) {
+          currentPage = requestedPage;
+          applyBlogView();
+        }
+      });
+    }
+
+    jumpButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      button.addEventListener("click", () => {
+        const id = button.dataset.jumpPost;
+        if (!id) return;
+
+        const card = document.querySelector(`[data-post-id="${id}"]`);
+
+        if (card instanceof HTMLElement) {
+          activeFilter = "all";
+          activeDate = "all";
+          currentPage = 1;
+
+          filterButtons.forEach((filterButton) => {
+            if (!(filterButton instanceof HTMLButtonElement)) return;
+
+            filterButton.classList.toggle(
+              "is-active",
+              filterButton.dataset.filter === "all"
+            );
+          });
+
+          calendarButtons.forEach((calendarButton) => {
+            calendarButton.classList.remove("is-active");
+          });
+
+          applyBlogView();
+
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 50);
+        }
+      });
+    });
+
+    applyBlogView();
+  </script>
+</Layout>

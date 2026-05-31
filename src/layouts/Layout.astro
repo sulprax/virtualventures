@@ -1,11 +1,22 @@
 ---
 import "../styles/global.css";
+import Header from "../components/site/Header.astro";
 import Footer from "../components/site/Footer.astro";
+import Breadcrumbs from "../components/site/Breadcrumbs.astro";
+
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
 
 const {
   title = "Virtual Ventures",
   description = "A cozy craft workshop for crochet creatures, fantasy-inspired makes, laser engraved details, 3D printed helpers, patterns, stories, and small handmade treasures.",
-} = Astro.props;
+  showHeader = true,
+  headerMode = "sticky",
+  showFooterBreadcrumbs = true,
+  footerBreadcrumbs = [],
+} = Astro.props; 
 ---
 
 <!doctype html>
@@ -27,7 +38,59 @@ const {
   </head>
 
   <body>
+    <div id="top"></div>
+
+    {showHeader && <Header mode={headerMode} />}
+
     <slot />
+
+    <a href="#top" class="back-to-top-button" aria-label="Back to top">
+      ↑
+    </a>
+
+    {showFooterBreadcrumbs && footerBreadcrumbs.length > 0 && (
+      <div class="footer-breadcrumb-wrap">
+        <Breadcrumbs items={footerBreadcrumbs} />
+      </div>
+    )}
+
     <Footer />
+
+    <script>
+      const backToTopButton = document.querySelector(".back-to-top-button");
+      const footer = document.querySelector(".site-footer");
+
+      function updateFloatingControls() {
+        const scrollY = window.scrollY;
+        const shouldShow = scrollY > 180;
+
+        if (!(backToTopButton instanceof HTMLElement)) return;
+
+        backToTopButton.classList.toggle("is-visible", shouldShow);
+
+        if (!(footer instanceof HTMLElement)) return;
+
+        const windowHeight = window.innerHeight;
+        const buttonGap = 24;
+        const footerTop = footer.offsetTop;
+        const buttonHeight = backToTopButton.offsetHeight;
+        const buttonBottomPosition = scrollY + windowHeight - buttonGap;
+
+        if (buttonBottomPosition + buttonHeight >= footerTop) {
+          backToTopButton.classList.add("is-above-footer");
+          backToTopButton.style.top = `${footerTop - buttonHeight - buttonGap}px`;
+          backToTopButton.style.bottom = "auto";
+        } else {
+          backToTopButton.classList.remove("is-above-footer");
+          backToTopButton.style.top = "auto";
+          backToTopButton.style.bottom = "1.25rem";
+        }
+      }
+
+      window.addEventListener("scroll", updateFloatingControls);
+      window.addEventListener("resize", updateFloatingControls);
+
+      updateFloatingControls();
+    </script>
   </body>
 </html>

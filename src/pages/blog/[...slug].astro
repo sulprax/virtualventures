@@ -1,0 +1,182 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/site/Breadcrumbs.astro";
+import { getCollection, render } from "astro:content";
+
+const categoryLabels: Record<string, string> = {
+  crochet: "Crochet",
+  laser: "Laser",
+  "3d-printing": "3D Printing",
+  "books-patterns": "Books / Patterns",
+  shop: "Shop",
+  website: "Website",
+  "behind-the-scenes": "Behind the Scenes",
+};
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const allPosts = (await getCollection("blog"))
+  .filter((item) => !item.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const currentIndex = allPosts.findIndex((item) => item.id === post.id);
+const previousPost = allPosts[currentIndex + 1];
+const nextPost = allPosts[currentIndex - 1];
+
+const categoryLabel =
+  categoryLabels[post.data.category] ?? post.data.category;
+
+const relatedPosts = allPosts
+  .filter((item) => item.id !== post.id)
+  .filter((item) => {
+    const sameCategory = item.data.category === post.data.category;
+    const sharedTag = item.data.tags.some((tag) => post.data.tags.includes(tag));
+
+    return sameCategory || sharedTag;
+  })
+  .slice(0, 3);
+---
+
+<Layout
+  title={`${post.data.title} | Virtual Ventures`}
+  description={post.data.description}
+  footerBreadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog/" },
+    { label: post.data.title },
+  ]}
+>
+  <section class="blog-hero-banner blog-post-banner">
+    <div class="blog-hero-banner-inner">
+      <p class="eyebrow">Blog Post</p>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+    </div>
+  </section>
+
+  <Breadcrumbs
+    items={[
+        { label: "Home", href: "/" },
+        { label: "Blog", href: "/blog/" },
+        { label: post.data.title },
+    ]}
+  />
+
+  <main class="page-shell blog-post-page">
+    <article class="blog-post">
+      <a href="/blog/" class="blog-back-link blog-back-link-top"> 
+        ← Back to all blog posts
+      </a>
+
+      <header class="blog-post-header">
+        <p class="eyebrow">{categoryLabel}</p>
+
+        <div class="blog-post-emoji" aria-hidden="true">
+          {post.data.emoji}
+        </div>
+
+        <h1>{post.data.title}</h1>
+
+        <p class="blog-post-meta">
+          Published {post.data.pubDate.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
+
+        <p class="blog-post-description">{post.data.description}</p>
+
+        <div class="blog-post-tags">
+          <span>{categoryLabel}</span>
+          {post.data.tags.map((tag) => (
+            <span>#{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      {post.data.image && (
+        <figure class="blog-post-figure">
+          <img
+            src={post.data.image}
+            alt=""
+            loading="lazy"
+            class="blog-post-feature-image"
+          />
+          <figcaption>
+            {post.data.title}
+          </figcaption>
+        </figure>
+      )}
+
+      <div class="blog-post-content">
+        <Content />
+      </div>
+
+      <nav class="blog-post-prev-next" aria-label="Previous and next blog posts">
+        {previousPost ? (
+          <a href={`/blog/${previousPost.id}/`} class="blog-prev-next-card">
+            <span>← Previous</span>
+            <strong>{previousPost.data.title}</strong>
+          </a>
+        ) : (
+          <span></span>
+        )}
+
+        {nextPost ? (
+          <a href={`/blog/${nextPost.id}/`} class="blog-prev-next-card">
+            <span>Next →</span>
+            <strong>{nextPost.data.title}</strong>
+          </a>
+        ) : (
+          <span></span>
+        )}
+      </nav>
+
+      {relatedPosts.length > 0 && (
+        <section class="related-posts">
+          <p class="eyebrow">More to explore</p>
+          <h2>Related Posts</h2>
+
+          <div class="related-post-grid">
+            {relatedPosts.map((relatedPost) => (
+              <a href={`/blog/${relatedPost.id}/`} class="related-post-card">
+                <span>
+                  {relatedPost.data.pubDate.toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
+                <strong>{relatedPost.data.title}</strong>
+                <small>{relatedPost.data.description}</small>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <footer class="blog-post-footer-actions">
+        <a href="/blog/" class="blog-back-link">
+          ← Back to all blog posts
+        </a>
+
+        {post.data.shopUrl && (
+          <a href={post.data.shopUrl} class="featured-shop-link">
+            View in shop
+          </a>
+        )}
+      </footer>
+    </article>
+  </main>
+</Layout>
