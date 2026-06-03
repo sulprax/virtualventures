@@ -13,16 +13,6 @@ const categoryLabels: Record<string, string> = {
   "behind-the-scenes": "Behind the Scenes",
 };
 
-const categoryOrder = [
-  "crochet",
-  "laser",
-  "3d-printing",
-  "books-patterns",
-  "shop",
-  "website",
-  "behind-the-scenes",
-];
-
 function formatISODate(date: Date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -57,14 +47,31 @@ const posts = await Promise.all(
   })
 );
 
-const usedCategories = categoryOrder
-  .filter((category) => rawPosts.some((post) => post.data.category === category))
-  .map((category) => ({
-    id: category,
-    label: categoryLabels[category] ?? category,
-  }));
+const topicCounts = new Map<string, { label: string; count: number }>();
 
-const allTags = [...new Set(rawPosts.flatMap((post) => post.data.tags))].sort();
+rawPosts.forEach((post) => {
+  const categoryLabel = categoryLabels[post.data.category] ?? post.data.category;
+
+  topicCounts.set(post.data.category, {
+    label: categoryLabel,
+    count: (topicCounts.get(post.data.category)?.count ?? 0) + 1,
+  });
+
+  post.data.tags.forEach((tag) => {
+    topicCounts.set(tag, {
+      label: `#${tag}`,
+      count: (topicCounts.get(tag)?.count ?? 0) + 1,
+    });
+  });
+});
+
+const topicFilters = [...topicCounts.entries()]
+  .map(([id, topic]) => ({ id, ...topic }))
+  .sort((a, b) => {
+    if (b.count !== a.count) return b.count - a.count;
+
+    return a.label.localeCompare(b.label);
+  });
 
 const latestPosts = rawPosts.slice(0, 4);
 
@@ -98,24 +105,11 @@ const archiveMonths = [
 ];
 
 const calendarBaseDate = rawPosts[0]?.data.pubDate ?? new Date();
-const calendarYear = calendarBaseDate.getFullYear();
-const calendarMonth = calendarBaseDate.getMonth();
-
-const calendarLabel = calendarBaseDate.toLocaleDateString("en-GB", {
-  month: "long",
-  year: "numeric",
-});
-
-const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
-const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
-const mondayOffset = firstDay === 0 ? 6 : firstDay - 1;
-
-const calendarCells = [
-  ...Array.from({ length: mondayOffset }, () => null),
-  ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
-];
-
-const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate)));
+const postIndex = rawPosts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  isoDate: formatISODate(post.data.pubDate),
+}));
 ---
 
 <Layout
@@ -145,6 +139,17 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
     />
 
   <main class="page-shell blog-page">
+    <button
+      class="blog-tools-toggle"
+      type="button"
+      aria-label="Open blog tools"
+      aria-controls="blog-tools-drawer"
+      aria-expanded="false"
+      data-blog-tools-toggle
+    >
+      ☰ Filters
+    </button>
+
     <div class="blog-layout">
       <section class="blog-posts-area" aria-label="Blog posts">
         <div class="blog-grid" data-blog-grid>
@@ -252,44 +257,43 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
         </p>
       </section>
 
-      <aside class="blog-sidebar" aria-label="Blog sidebar">
+      <aside
+        id="blog-tools-drawer"
+        class="blog-sidebar"
+        aria-label="Blog sidebar"
+        data-blog-tools
+      >
+        <div class="blog-tools-header">
+          <strong>Blog Tools</strong>
+          <button type="button" aria-label="Close blog tools" data-blog-tools-close>
+            ×
+          </button>
+        </div>
+
         <section class="blog-widget blog-calendar-widget">
           <h2>Post Calendar</h2>
 
-          <div class="blog-calendar">
+          <div
+            class="blog-calendar"
+            data-calendar
+            data-calendar-year={calendarBaseDate.getFullYear()}
+            data-calendar-month={calendarBaseDate.getMonth()}
+            data-post-index={JSON.stringify(postIndex)}
+          >
             <div class="blog-calendar-header">
-              <span>{calendarLabel}</span>
-              <button type="button" data-clear-date-filter title="Show all dates">
+              <button type="button" data-calendar-prev-year aria-label="Previous year">«</button>
+              <button type="button" data-calendar-prev-month aria-label="Previous month">‹</button>
+              <span data-calendar-label></span>
+              <button type="button" data-calendar-next-month aria-label="Next month">›</button>
+              <button type="button" data-calendar-next-year aria-label="Next year">»</button>
+              <button type="button" data-clear-date-filter title="Show all dates" aria-label="Show all dates">
                 ✦
               </button>
             </div>
 
-            <div class="blog-calendar-grid" aria-label={`${calendarLabel} blog calendar`}>
-              {["M", "T", "W", "T", "F", "S", "S"].map((day) => (
-                <span class="blog-calendar-day">{day}</span>
-              ))}
+            <div class="blog-calendar-grid" data-calendar-grid></div>
 
-              {calendarCells.map((day) => {
-                if (!day) {
-                  return <span class="blog-calendar-empty"></span>;
-                }
-
-                const isoDate = formatISODate(new Date(calendarYear, calendarMonth, day));
-                const hasPost = postDates.has(isoDate);
-
-                return (
-                  <button
-                    type="button"
-                    class:list={["blog-calendar-date", { "has-post": hasPost }]}
-                    data-calendar-date={isoDate}
-                    disabled={!hasPost}
-                    title={hasPost ? `Show posts from ${isoDate}` : "No posts"}
-                  >
-                    {day}
-                  </button>
-                );
-              })}
-            </div>
+            <div class="blog-calendar-results" data-calendar-results aria-live="polite"></div>
           </div>
         </section>
 
@@ -301,17 +305,27 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
               ✨ All Posts
             </button>
 
-            {usedCategories.map((category) => (
-              <button type="button" class="blog-filter-chip" data-filter={category.id}>
-                {category.label}
+            {topicFilters.map((topic, index) => (
+              <button
+                type="button"
+                class:list={["blog-filter-chip", { "is-mobile-extra": index >= 3 }]}
+                data-filter={topic.id}
+                data-topic-extra={index >= 3 ? "true" : undefined}
+              >
+                {topic.label}
               </button>
             ))}
 
-            {allTags.map((tag) => (
-              <button type="button" class="blog-filter-chip" data-filter={tag}>
-                #{tag}
+            {topicFilters.length > 3 && (
+              <button
+                type="button"
+                class="blog-filter-chip blog-filter-more"
+                data-topic-more
+                aria-expanded="false"
+              >
+                More topics
               </button>
-            ))}
+            )}
           </div>
         </section>
 
@@ -371,9 +385,22 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
 
     const cards = Array.from(document.querySelectorAll("[data-blog-card]"));
     const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
-    const calendarButtons = Array.from(document.querySelectorAll("[data-calendar-date]"));
+    let calendarButtons = [];
     const clearDateButton = document.querySelector("[data-clear-date-filter]");
     const jumpButtons = Array.from(document.querySelectorAll("[data-jump-post]"));
+    const calendar = document.querySelector("[data-calendar]");
+    const calendarLabel = document.querySelector("[data-calendar-label]");
+    const calendarGrid = document.querySelector("[data-calendar-grid]");
+    const calendarResults = document.querySelector("[data-calendar-results]");
+    const calendarPrevMonth = document.querySelector("[data-calendar-prev-month]");
+    const calendarNextMonth = document.querySelector("[data-calendar-next-month]");
+    const calendarPrevYear = document.querySelector("[data-calendar-prev-year]");
+    const calendarNextYear = document.querySelector("[data-calendar-next-year]");
+    const blogTools = document.querySelector("[data-blog-tools]");
+    const blogToolsToggle = document.querySelector("[data-blog-tools-toggle]");
+    const blogToolsClose = document.querySelector("[data-blog-tools-close]");
+    const topicMoreButton = document.querySelector("[data-topic-more]");
+    const topicExtraButtons = Array.from(document.querySelectorAll("[data-topic-extra]"));
 
     const pagination = document.querySelector("[data-blog-pagination]");
     const pageNumbers = document.querySelector("[data-page-numbers]");
@@ -384,10 +411,142 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
     const emptyMessage = document.querySelector("[data-empty-message]");
 
     const postsPerPage = 8;
+    const dayNames = ["M", "T", "W", "T", "F", "S", "S"];
+    const postIndex = calendar?.dataset.postIndex
+      ? JSON.parse(calendar.dataset.postIndex)
+      : [];
+    const postsByDate = postIndex.reduce((dates, post) => {
+      dates[post.isoDate] = [...(dates[post.isoDate] || []), post];
+
+      return dates;
+    }, {});
 
     let activeFilter = "all";
     let activeDate = "all";
     let currentPage = 1;
+    let calendarYear = Number(calendar?.dataset.calendarYear || new Date().getFullYear());
+    let calendarMonth = Number(calendar?.dataset.calendarMonth || new Date().getMonth());
+
+    function formatCalendarDate(year, month, day) {
+      return [
+        year,
+        String(month + 1).padStart(2, "0"),
+        String(day).padStart(2, "0"),
+      ].join("-");
+    }
+
+    function updateBlogTools(open) {
+      if (!(blogTools instanceof HTMLElement)) return;
+      if (!(blogToolsToggle instanceof HTMLButtonElement)) return;
+
+      blogTools.classList.toggle("is-open", open);
+      blogToolsToggle.setAttribute("aria-expanded", String(open));
+      blogToolsToggle.setAttribute("aria-label", open ? "Close blog tools" : "Open blog tools");
+      document.body.classList.toggle("blog-tools-open", open);
+    }
+
+    function renderCalendarResults(date = activeDate) {
+      if (!(calendarResults instanceof HTMLElement)) return;
+
+      if (date === "all") {
+        calendarResults.textContent = "Select a highlighted date to show posts.";
+        return;
+      }
+
+      const dayPosts = postsByDate[date] || [];
+
+      if (dayPosts.length === 0) {
+        calendarResults.textContent = "No posts on this date.";
+        return;
+      }
+
+      calendarResults.innerHTML = [
+        `<strong>${dayPosts.length} post${dayPosts.length === 1 ? "" : "s"} on ${date}</strong>`,
+        ...dayPosts.map((post) => `<span>${post.title}</span>`),
+      ].join("");
+    }
+
+    function bindCalendarButtons() {
+      calendarButtons = Array.from(document.querySelectorAll("[data-calendar-date]"));
+
+      calendarButtons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        button.addEventListener("click", () => {
+          const selectedDate = button.dataset.calendarDate || "all";
+
+          activeDate = activeDate === selectedDate ? "all" : selectedDate;
+          currentPage = 1;
+
+          calendarButtons.forEach((calendarButton) => {
+            if (!(calendarButton instanceof HTMLButtonElement)) return;
+
+            calendarButton.classList.toggle(
+              "is-active",
+              calendarButton.dataset.calendarDate === activeDate
+            );
+          });
+
+          renderCalendarResults();
+          applyBlogView();
+        });
+      });
+    }
+
+    function renderCalendar() {
+      if (!(calendarGrid instanceof HTMLElement)) return;
+      if (!(calendarLabel instanceof HTMLElement)) return;
+
+      const labelDate = new Date(calendarYear, calendarMonth, 1);
+      const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+      const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+      const mondayOffset = firstDay === 0 ? 6 : firstDay - 1;
+
+      calendarLabel.textContent = labelDate.toLocaleDateString("en-GB", {
+        month: "long",
+        year: "numeric",
+      });
+
+      calendarGrid.setAttribute("aria-label", `${calendarLabel.textContent} blog calendar`);
+      calendarGrid.innerHTML = "";
+
+      dayNames.forEach((day) => {
+        const dayLabel = document.createElement("span");
+
+        dayLabel.className = "blog-calendar-day";
+        dayLabel.textContent = day;
+        calendarGrid.appendChild(dayLabel);
+      });
+
+      Array.from({ length: mondayOffset }).forEach(() => {
+        const emptyCell = document.createElement("span");
+
+        emptyCell.className = "blog-calendar-empty";
+        calendarGrid.appendChild(emptyCell);
+      });
+
+      Array.from({ length: daysInMonth }, (_, index) => index + 1).forEach((day) => {
+        const isoDate = formatCalendarDate(calendarYear, calendarMonth, day);
+        const dayPosts = postsByDate[isoDate] || [];
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "blog-calendar-date";
+        button.textContent = String(day);
+        button.dataset.calendarDate = isoDate;
+        button.title = dayPosts.length
+          ? `Show ${dayPosts.length} post${dayPosts.length === 1 ? "" : "s"} from ${isoDate}`
+          : "No posts";
+        button.disabled = dayPosts.length === 0;
+        button.classList.toggle("has-post", dayPosts.length > 0);
+        button.classList.toggle("is-active", activeDate === isoDate);
+
+        calendarGrid.appendChild(button);
+      });
+
+      bindCalendarButtons();
+      renderCalendarResults();
+    }
 
     function closePost(card) {
       const content = card.querySelector("[data-post-content]");
@@ -559,28 +718,6 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
       });
     });
 
-    calendarButtons.forEach((button) => {
-      if (!(button instanceof HTMLButtonElement)) return;
-
-      button.addEventListener("click", () => {
-        const selectedDate = button.dataset.calendarDate || "all";
-
-        activeDate = activeDate === selectedDate ? "all" : selectedDate;
-        currentPage = 1;
-
-        calendarButtons.forEach((calendarButton) => {
-          if (!(calendarButton instanceof HTMLButtonElement)) return;
-
-          calendarButton.classList.toggle(
-            "is-active",
-            calendarButton.dataset.calendarDate === activeDate
-          );
-        });
-
-        applyBlogView();
-      });
-    });
-
     if (clearDateButton instanceof HTMLButtonElement) {
       clearDateButton.addEventListener("click", () => {
         activeDate = "all";
@@ -590,7 +727,75 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
           calendarButton.classList.remove("is-active");
         });
 
+        renderCalendarResults();
         applyBlogView();
+      });
+    }
+
+    if (calendarPrevMonth instanceof HTMLButtonElement) {
+      calendarPrevMonth.addEventListener("click", () => {
+        calendarMonth -= 1;
+
+        if (calendarMonth < 0) {
+          calendarMonth = 11;
+          calendarYear -= 1;
+        }
+
+        renderCalendar();
+      });
+    }
+
+    if (calendarNextMonth instanceof HTMLButtonElement) {
+      calendarNextMonth.addEventListener("click", () => {
+        calendarMonth += 1;
+
+        if (calendarMonth > 11) {
+          calendarMonth = 0;
+          calendarYear += 1;
+        }
+
+        renderCalendar();
+      });
+    }
+
+    if (calendarPrevYear instanceof HTMLButtonElement) {
+      calendarPrevYear.addEventListener("click", () => {
+        calendarYear -= 1;
+        renderCalendar();
+      });
+    }
+
+    if (calendarNextYear instanceof HTMLButtonElement) {
+      calendarNextYear.addEventListener("click", () => {
+        calendarYear += 1;
+        renderCalendar();
+      });
+    }
+
+    if (blogToolsToggle instanceof HTMLButtonElement) {
+      blogToolsToggle.addEventListener("click", () => {
+        const isOpen = blogTools instanceof HTMLElement && blogTools.classList.contains("is-open");
+
+        updateBlogTools(!isOpen);
+      });
+    }
+
+    if (blogToolsClose instanceof HTMLButtonElement) {
+      blogToolsClose.addEventListener("click", () => {
+        updateBlogTools(false);
+      });
+    }
+
+    if (topicMoreButton instanceof HTMLButtonElement) {
+      topicMoreButton.addEventListener("click", () => {
+        const isExpanded = topicMoreButton.getAttribute("aria-expanded") === "true";
+
+        topicMoreButton.setAttribute("aria-expanded", String(!isExpanded));
+        topicMoreButton.textContent = isExpanded ? "More topics" : "Less topics";
+
+        topicExtraButtons.forEach((button) => {
+          button.classList.toggle("is-mobile-revealed", !isExpanded);
+        });
       });
     }
 
@@ -657,6 +862,7 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
             calendarButton.classList.remove("is-active");
           });
 
+          renderCalendarResults();
           applyBlogView();
 
           setTimeout(() => {
@@ -666,6 +872,190 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
       });
     });
 
+    renderCalendar();
     applyBlogView();
   </script>
+
+  <style is:global>
+    .blog-tools-toggle,
+    .blog-tools-header {
+      display: none;
+    }
+
+    .blog-calendar-header {
+      display: grid;
+      grid-template-columns: auto auto minmax(0, 1fr) auto auto auto;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .blog-calendar-header span {
+      min-width: 0;
+      text-align: center;
+    }
+
+    .blog-calendar-results {
+      min-height: 2.5rem;
+
+      display: grid;
+      gap: 0.2rem;
+
+      color: rgba(45, 34, 24, 0.72);
+
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .blog-calendar-results strong {
+      color: var(--coffee);
+    }
+
+    .blog-calendar-results span {
+      display: block;
+    }
+
+    @media (max-width: 760px) {
+      body.blog-tools-open {
+        overflow: hidden;
+      }
+
+      .blog-tools-toggle {
+        position: sticky;
+        top: 0.75rem;
+        z-index: 50;
+
+        min-height: 44px;
+        width: fit-content;
+        margin: 0 0 1rem auto;
+        padding: 0.75rem 1rem;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+
+        color: #fff7ed;
+        background:
+          radial-gradient(circle at 30% 12%, rgba(255, 239, 205, 0.2), transparent 42%),
+          linear-gradient(145deg, rgba(126, 78, 39, 0.94), rgba(54, 35, 23, 0.94));
+
+        border: 1px solid rgba(216, 164, 93, 0.65);
+        border-radius: var(--radius-pill);
+
+        font-weight: 900;
+
+        box-shadow:
+          0 14px 30px rgba(59, 43, 34, 0.18),
+          inset 0 1px 0 rgba(255, 246, 229, 0.24);
+      }
+
+      .blog-sidebar {
+        position: fixed;
+        inset: 0 0 0 auto;
+        z-index: 1000;
+
+        width: min(92vw, 25rem);
+        height: 100dvh;
+        padding: 1rem;
+
+        display: block;
+        overflow-y: auto;
+
+        background:
+          linear-gradient(
+            145deg,
+            rgba(255, 250, 245, 0.98),
+            rgba(245, 239, 230, 0.94)
+          );
+
+        border-left: 1px solid rgba(139, 94, 60, 0.22);
+
+        box-shadow: -1.2rem 0 3rem rgba(42, 28, 18, 0.24);
+
+        transform: translateX(105%);
+        transition: transform 200ms ease;
+      }
+
+      .blog-sidebar.is-open {
+        transform: translateX(0);
+      }
+
+      .blog-sidebar::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+
+        background: rgba(20, 13, 9, 0.44);
+
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .blog-sidebar.is-open::before {
+        opacity: 1;
+      }
+
+      .blog-tools-header {
+        position: sticky;
+        top: -1rem;
+        z-index: 2;
+
+        margin: -1rem -1rem 1rem;
+        padding: 1rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+
+        color: #fff7ed;
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(44, 31, 22, 0.98),
+            rgba(31, 22, 16, 0.96)
+          );
+
+        box-shadow: 0 10px 20px rgba(59, 43, 34, 0.15);
+      }
+
+      .blog-tools-header strong {
+        font-family: var(--font-title);
+        font-size: 1.2rem;
+      }
+
+      .blog-tools-header button {
+        width: 2.4rem;
+        height: 2.4rem;
+
+        color: #fff7ed;
+        background: rgba(255, 250, 245, 0.08);
+
+        border: 1px solid rgba(216, 164, 93, 0.42);
+        border-radius: var(--radius-pill);
+
+        font-size: 1.45rem;
+        line-height: 1;
+      }
+
+      .blog-sidebar .blog-widget + .blog-widget {
+        margin-top: 1rem;
+      }
+
+      .blog-filter-chip.is-mobile-extra:not(.is-mobile-revealed) {
+        display: none;
+      }
+
+      .blog-filter-more {
+        color: #fff7ed;
+        background:
+          linear-gradient(
+            145deg,
+            rgba(126, 78, 39, 0.94),
+            rgba(54, 35, 23, 0.94)
+          );
+      }
+    }
+  </style>
 </Layout>
