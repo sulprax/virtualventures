@@ -1,33 +1,26 @@
-# Astro Starter Kit: Minimal
+# Virtual Ventures
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Virtual Ventures is an Astro website for a handmade craft workshop: crochet creatures, fantasy-inspired makes, laser engraved details, 3D printed helpers, patterns, stories, and small handmade treasures.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+public/
+  images/              Static brand and hero assets
+scripts/
+  optimise-hero.mjs    Sharp script for regenerating hero image variants
+src/
+  components/          Reusable Astro components
+  content/             Blog content collections
+  data/                Shared navigation and social link data
+  layouts/             Base HTML shell
+  pages/               File-based routes
+  styles/              Global stylesheet
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+Run commands from the repository root:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -36,8 +29,11 @@ All commands are run from the root of the project, from a terminal:
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## Image Optimisation
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The homepage hero uses files in `public/images/hero/`. After replacing `hero-1.jpg`, regenerate the optimized variants with:
+
+```sh
+node scripts/optimise-hero.mjs
+```
