@@ -1,6 +1,6 @@
 import sharp from "sharp";
 
-const input = "public/images/hero-1.jpg";
+const input = "public/images/hero/hero-1.jpg";
 
 await sharp(input)
   .resize({
@@ -13,7 +13,7 @@ await sharp(input)
     quality: 78,
     progressive: true,
   })
-  .toFile("public/images/hero-1-optimised.jpg");
+  .toFile("public/images/hero/hero-1-optimised.jpg");
 
 await sharp(input)
   .resize({
@@ -25,7 +25,7 @@ await sharp(input)
   .webp({
     quality: 78,
   })
-  .toFile("public/images/hero-1.webp");
+  .toFile("public/images/hero/hero-1.webp");
 
 await sharp(input)
   .resize({
@@ -37,6 +37,6 @@ await sharp(input)
   .webp({
     quality: 76,
   })
-  .toFile("public/images/hero-1-mobile.webp");
+  .toFile("public/images/hero/hero-1-mobile.webp");
 
 console.log("Hero images optimised.");

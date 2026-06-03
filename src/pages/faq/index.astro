@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
 ---
 
 <Layout
@@ -7,24 +8,17 @@ import Layout from "../../layouts/Layout.astro";
   description="Frequently asked questions about Virtual Ventures patterns, handmade products, downloads, shipping, crochet help and shop updates."
   showFooterBreadcrumbs={false}
 >
-  <section class="blog-hero-banner page-hero-banner">
-    <div class="blog-hero-banner-inner">
-      <p class="eyebrow">>Quick Answers</p>
-      <h1>FAQ</h1>
-      <p>
-        Quick answers for patterns, downloads, handmade items, shop bits and
-        workshop questions.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Quick Answers"
+    title="FAQ"
+    description="Quick answers for patterns, downloads, handmade items, shop bits and workshop questions."
+  />
 
   <main class="page-shell">
     <section class="page-intro">
       <p class="eyebrow">Helpful notes</p>
       <h1>Frequently Asked Questions</h1>
-      <p>
-        A growing little shelf of answers for the things people ask most often.
-      </p>
+      <p>A growing little shelf of answers for the things people ask most often.</p>
     </section>
   </main>
 </Layout>

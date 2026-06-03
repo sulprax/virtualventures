@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
 ---
 
 <Layout
@@ -7,16 +8,11 @@ import Layout from "../../layouts/Layout.astro";
   description="Shop Virtual Ventures crochet patterns, handmade gifts, laser engraved pieces, creative tools and cosy workshop treasures."
   showFooterBreadcrumbs={false}
 >
-  <section class="blog-hero-banner page-hero-banner">
-    <div class="blog-hero-banner-inner">
-      <p class="eyebrow">Shop</p>
-      <h1>Shop</h1>
-      <p>
-        Patterns, handmade gifts, laser engraved pieces, creative tools and
-        cosy workshop treasures.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Shop"
+    title="Shop"
+    description="Patterns, handmade gifts, laser engraved pieces, creative tools and cosy workshop treasures."
+  />
 
   <main class="page-shell shop-page">
     <section class="shop-hero">

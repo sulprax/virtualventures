@@ -2,17 +2,15 @@
 import { mainNav, heroNav } from "../../data/navigation";
 
 const { mode = "sticky" } = Astro.props;
-
 const navItems = [...mainNav, ...heroNav];
-
 const currentPath = Astro.url.pathname;
 
 function isActivePath(href: string) {
-  if (href === "/") {
-    return currentPath === "/";
-  }
+  if (href === "/") return currentPath === "/";
 
-  return currentPath === href || currentPath.startsWith(`${href}/`);
+  const normalizedHref = href.endsWith("/") ? href : `${href}/`;
+
+  return currentPath === normalizedHref || currentPath.startsWith(normalizedHref);
 }
 ---
 
@@ -33,21 +31,14 @@ function isActivePath(href: string) {
           {item.label}
         </a>
 
-        {index < navItems.length - 1 && (
-          <span class="site-header-star">✦</span>
-        )}
+        {index < navItems.length - 1 && <span class="site-header-star">✦</span>}
       </>
     ))}
   </nav>
 
-  <form class="site-header-search" action="/search" method="get">
+  <form class="site-header-search" action="/search/" method="get" role="search">
     <label for="site-header-search-input">Search the site</label>
-    <input
-      id="site-header-search-input"
-      type="search"
-      name="q"
-      placeholder="Search..."
-    />
+    <input id="site-header-search-input" type="search" name="q" placeholder="Search..." />
     <button type="submit" aria-label="Search">⌕</button>
   </form>
 </header>

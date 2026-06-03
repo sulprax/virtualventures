@@ -1,0 +1,22 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+
+const query = Astro.url.searchParams.get("q")?.trim() ?? "";
+const description = "Search Virtual Ventures blog posts, patterns, handmade projects and workshop notes.";
+---
+
+<Layout title="Search | Virtual Ventures" description={description} showFooterBreadcrumbs={false}>
+  <PageHero eyebrow="Search" title="Search" description={description} />
+
+  <main class="page-shell">
+    <section class="page-intro">
+      <p class="eyebrow">Workshop search</p>
+      <h1>{query ? `Results for "${query}"` : "Find a project or post"}</h1>
+      <p>
+        Search is ready as a dedicated route, and results can be connected when
+        the site has more posts, patterns and shop items to index.
+      </p>
+    </section>
+  </main>
+</Layout>

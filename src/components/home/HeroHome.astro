@@ -1,70 +1,50 @@
+---
+import { mainNav } from "../../data/navigation";
+import { visibleSocials } from "../../data/socials";
+---
+
 <section class="hero">
   <div class="hero-top-fade" aria-hidden="true"></div>
   <div class="hero-bottom-fade" aria-hidden="true"></div>
 
   <header class="hero-topbar">
     <nav class="hero-socials" aria-label="Social links">
-      <a href="#" aria-label="Bluesky" title="Bluesky">
-        <span aria-hidden="true">☁</span>
-      </a>
-
-      <a href="#" aria-label="X" title="X">
-        <span aria-hidden="true">𝕏</span>
-      </a>
-
-      <a href="#" aria-label="Instagram" title="Instagram">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="4" y="4" width="16" height="16" rx="5"></rect>
-          <circle cx="12" cy="12" r="3.5"></circle>
-          <circle cx="17" cy="7" r="1"></circle>
-        </svg>
-      </a>
-
-      <a href="#" aria-label="Etsy" title="Etsy">
-        <span aria-hidden="true">E</span>
-      </a>
-
-      <a
-        href="https://www.youtube.com/@VirtualVenturesStudio"
-        aria-label="YouTube"
-        title="YouTube"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 8.5C4 7.1 5.1 6 6.5 6h11C18.9 6 20 7.1 20 8.5v7c0 1.4-1.1 2.5-2.5 2.5h-11C5.1 18 4 16.9 4 15.5v-7Z"></path>
-          <path d="M10 9.2 15 12l-5 2.8V9.2Z" class="filled"></path>
-        </svg>
-      </a>
-
-      <a href="#" aria-label="Facebook" title="Facebook">
-        <span aria-hidden="true">f</span>
-      </a>
+      {visibleSocials.map((social) => (
+        <a
+          href={social.href}
+          aria-label={social.label}
+          title={social.label}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span aria-hidden="true">{social.icon}</span>
+        </a>
+      ))}
     </nav>
 
-    <nav class="hero-menu" aria-label="Main navigation">
-      <a href="/about/">About</a>
-      <span class="nav-star" aria-hidden="true">✦</span>
-
-      <a href="/contact/">Contact</a>
-      <span class="nav-star" aria-hidden="true">✦</span>
-
-      <a href="/faq/">FAQ</a>
-      <span class="nav-star" aria-hidden="true">✦</span>
+    <nav id="hero-navigation" class="hero-menu" aria-label="Main navigation">
+      {mainNav.map((item) => (
+        <>
+          <a href={item.href}>{item.label}</a>
+          <span class="nav-star" aria-hidden="true">✦</span>
+        </>
+      ))}
 
       <form class="hero-search" action="/search/" method="get" role="search">
         <label class="sr-only" for="hero-search">Search the site</label>
-        <input
-          id="hero-search"
-          name="q"
-          type="search"
-          placeholder="Search..."
-        />
+        <input id="hero-search" name="q" type="search" placeholder="Search..." />
         <button type="submit" aria-label="Search">⌕</button>
       </form>
     </nav>
 
-    <button class="mobile-menu" type="button" aria-label="Open menu">
+    <button
+      class="mobile-menu"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="hero-navigation"
+      aria-expanded="false"
+      data-mobile-menu
+    >
       ☰
     </button>
   </header>
@@ -83,7 +63,6 @@
     </div>
 
     <h1>Virtual Ventures</h1>
-
     <h2>Handmade with a little everyday magic</h2>
 
     <div class="hero-divider" aria-hidden="true">
@@ -132,3 +111,79 @@
     </a>
   </nav>
 </section>
+
+<script>
+  const mobileMenuButton = document.querySelector("[data-mobile-menu]");
+  const heroNavigation = document.querySelector("#hero-navigation");
+
+  if (mobileMenuButton instanceof HTMLButtonElement && heroNavigation instanceof HTMLElement) {
+    mobileMenuButton.addEventListener("click", () => {
+      const isOpen = heroNavigation.classList.toggle("is-open");
+
+      mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
+      mobileMenuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    });
+  }
+</script>
+
+<style is:global>
+  .hero {
+    background-image:
+      image-set(
+        url("/images/hero/hero-1.webp") type("image/webp"),
+        url("/images/hero/hero-1-optimised.jpg") type("image/jpeg")
+      );
+  }
+
+  @media (max-width: 980px) {
+    .hero-menu {
+      position: absolute;
+      top: calc(100% + 0.8rem);
+      right: 0;
+
+      width: min(18rem, calc(100vw - 2rem));
+      padding: 1rem;
+
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(44, 31, 22, 0.98),
+          rgba(31, 22, 16, 0.96)
+        );
+
+      border: 1px solid rgba(216, 164, 93, 0.42);
+      border-radius: 18px;
+
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .hero-menu.is-open {
+      display: flex;
+    }
+
+    .hero-menu > a {
+      min-height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      background-image:
+        image-set(
+          url("/images/hero/hero-1-mobile.webp") type("image/webp"),
+          url("/images/hero/hero-1-optimised.jpg") type("image/jpeg")
+        );
+    }
+  }
+</style>

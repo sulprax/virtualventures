@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
 ---
 
 <Layout
@@ -7,16 +8,11 @@ import Layout from "../../layouts/Layout.astro";
   description="A gallery of crochet creatures, handmade projects, laser engraved details, 3D printed helpers and creative experiments from Virtual Ventures."
   showFooterBreadcrumbs={false}
 >
-  <section class="blog-hero-banner page-hero-banner">
-    <div class="blog-hero-banner-inner">
-      <p class="eyebrow">Gallery</p>
-      <h1>Gallery</h1>
-      <p>
-        A cosy lookbook of crochet creatures, handmade details, laser engraved
-        pieces, 3D printed helpers and workshop experiments.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Gallery"
+    title="Gallery"
+    description="A cosy lookbook of crochet creatures, handmade details, laser engraved pieces, 3D printed helpers and workshop experiments."
+  />
 
   <main class="page-shell">
     <section class="page-intro">
