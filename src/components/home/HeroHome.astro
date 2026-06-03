@@ -35,6 +35,20 @@ import { visibleSocials } from "../../data/socials";
         <input id="hero-search" name="q" type="search" placeholder="Search..." />
         <button type="submit" aria-label="Search">⌕</button>
       </form>
+
+      <div class="hero-menu-socials" aria-label="Social links">
+        {visibleSocials.map((social) => (
+          <a
+            href={social.href}
+            aria-label={social.label}
+            title={social.label}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true">{social.icon}</span>
+          </a>
+        ))}
+      </div>
     </nav>
 
     <button
@@ -135,6 +149,10 @@ import { visibleSocials } from "../../data/socials";
       );
   }
 
+  .hero-menu-socials {
+    display: none;
+  }
+
   @media (max-width: 980px) {
     .hero-menu {
       position: absolute;
@@ -174,6 +192,59 @@ import { visibleSocials } from "../../data/socials";
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .hero-menu .hero-search {
+      width: 100%;
+      height: 42px;
+      margin-left: 0;
+
+      display: flex;
+      flex: none;
+      background: rgba(255, 248, 236, 0.92);
+      border-color: rgba(216, 164, 93, 0.44);
+    }
+
+    .hero-menu .hero-search input {
+      color: var(--ink);
+    }
+
+    .hero-menu .hero-search button {
+      color: #2a160a;
+      background: linear-gradient(145deg, #efbd72, #f5efe6);
+    }
+
+    .hero-menu-socials {
+      padding-top: 0.35rem;
+      border-top: 1px solid rgba(216, 164, 93, 0.24);
+
+      display: flex;
+      justify-content: center;
+      gap: 0.55rem;
+    }
+
+    .hero-menu-socials a {
+      width: 2.3rem;
+      height: 2.3rem;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--gold);
+      background: rgba(255, 248, 236, 0.08);
+      border: 1px solid rgba(216, 164, 93, 0.38);
+      border-radius: 50%;
+
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .hero-menu-socials a:hover {
+      color: #2a160a;
+      background: linear-gradient(145deg, #efbd72, #f5efe6);
     }
   }
 
