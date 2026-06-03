@@ -36,9 +36,143 @@ function isActivePath(href: string) {
     ))}
   </nav>
 
+  <button
+    class="site-header-menu-button"
+    type="button"
+    aria-label="Open menu"
+    aria-controls="site-header-nav-drawer"
+    aria-expanded="false"
+    data-site-menu-toggle
+  >
+    ☰
+  </button>
+
   <form class="site-header-search" action="/search/" method="get" role="search">
     <label for="site-header-search-input">Search the site</label>
     <input id="site-header-search-input" type="search" name="q" placeholder="Search..." />
     <button type="submit" aria-label="Search">⌕</button>
   </form>
+
+  <div
+    id="site-header-nav-drawer"
+    class="site-header-nav-drawer"
+    hidden
+    data-site-menu-drawer
+  >
+    <nav aria-label="Mobile navigation">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[{ "is-active": isActivePath(item.href) }]}
+          aria-current={isActivePath(item.href) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
+
+<script>
+  const siteMenuToggle = document.querySelector("[data-site-menu-toggle]");
+  const siteMenuDrawer = document.querySelector("[data-site-menu-drawer]");
+
+  if (
+    siteMenuToggle instanceof HTMLButtonElement &&
+    siteMenuDrawer instanceof HTMLElement
+  ) {
+    siteMenuToggle.addEventListener("click", () => {
+      const isOpen = siteMenuDrawer.hidden;
+
+      siteMenuDrawer.hidden = !isOpen;
+      siteMenuToggle.setAttribute("aria-expanded", String(isOpen));
+      siteMenuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    });
+  }
+</script>
+
+<style is:global>
+  .site-header-menu-button {
+    display: none;
+    width: 42px;
+    height: 42px;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--gold);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255, 239, 205, 0.17), transparent 44%),
+      rgba(54, 34, 21, 0.74);
+
+    border: 1px solid rgba(216, 164, 93, 0.46);
+    border-radius: var(--radius-pill);
+
+    font-size: 1.4rem;
+    font-weight: 900;
+
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 246, 229, 0.18);
+  }
+
+  .site-header-nav-drawer {
+    grid-column: 1 / -1;
+
+    width: min(100%, 28rem);
+    justify-self: end;
+  }
+
+  .site-header-nav-drawer nav {
+    padding: 0.9rem;
+
+    display: grid;
+    gap: 0.35rem;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(44, 31, 22, 0.98),
+        rgba(31, 22, 16, 0.96)
+      );
+
+    border: 1px solid rgba(216, 164, 93, 0.42);
+    border-radius: 18px;
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+  }
+
+  .site-header-nav-drawer a {
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(255, 247, 237, 0.92);
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-family: var(--font-script);
+    font-weight: 800;
+  }
+
+  .site-header-nav-drawer a:hover,
+  .site-header-nav-drawer a.is-active {
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+  }
+
+  @media (max-width: 900px) {
+    .site-header-menu-button {
+      display: inline-flex;
+      justify-self: end;
+    }
+
+    .site-header-search {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
