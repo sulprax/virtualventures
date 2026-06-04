@@ -1,6 +1,8 @@
 ---
-import { mainNav } from "../../data/navigation";
+import { mainNav, heroNav } from "../../data/navigation";
 import { visibleSocials } from "../../data/socials";
+
+const navItems = [...mainNav, ...heroNav];
 ---
 
 <section class="hero">
@@ -22,25 +24,6 @@ import { visibleSocials } from "../../data/socials";
       ))}
     </nav>
 
-    <nav
-      id="hero-navigation"
-      class="hero-menu"
-      aria-label="Main navigation"
-      data-hero-menu
-    >
-      <div class="hero-menu-links">
-        {mainNav.map((item) => (
-          <a href={item.href}>{item.label}</a>
-        ))}
-      </div>
-
-      <form class="hero-search" action="/search/" method="get" role="search">
-        <label class="sr-only" for="hero-search">Search the site</label>
-        <input id="hero-search" name="q" type="search" placeholder="Search..." />
-        <button type="submit" aria-label="Search">⌕</button>
-      </form>
-    </nav>
-
     <button
       class="mobile-menu"
       type="button"
@@ -51,6 +34,25 @@ import { visibleSocials } from "../../data/socials";
     >
       ☰
     </button>
+
+    <nav
+      id="hero-navigation"
+      class="hero-menu"
+      aria-label="Main navigation"
+      data-hero-menu
+    >
+      <div class="hero-menu-links">
+        {navItems.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </div>
+
+      <form class="hero-search" action="/search/" method="get" role="search">
+        <label class="sr-only" for="hero-search">Search the site</label>
+        <input id="hero-search" name="q" type="search" placeholder="Search..." />
+        <button type="submit" aria-label="Search">⌕</button>
+      </form>
+    </nav>
   </header>
 
   <div class="hero-panel">

@@ -74,28 +74,111 @@
     font-size: 1.45rem;
   }
 
+  .site-header-nav-drawer[hidden] {
+    display: none !important;
+  }
+
   .site-header-nav-drawer {
     grid-area: drawer;
     justify-self: stretch;
 
     width: 100%;
     margin-top: 0.45rem;
-    padding: 0.9rem;
+    padding: 1rem;
 
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 0.75rem;
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(44, 31, 22, 0.98),
+        rgba(31, 22, 16, 0.96)
+      );
+
+    border: 1px solid rgba(216, 164, 93, 0.42);
+    border-radius: 22px;
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 
   .site-header-nav-drawer nav {
+    width: 100%;
+
     display: grid;
-    gap: 0.25rem;
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
   }
 
   .site-header-nav-drawer a {
-    min-height: 44px;
+    width: 100%;
+    min-height: 46px;
+    padding: 0.65rem 0.85rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(255, 247, 237, 0.96);
+    background: transparent;
+
+    border: 0;
+    border-radius: 14px;
+
+    box-shadow: none;
+
+    text-decoration: none;
+
+    font-family: var(--font-script);
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.55),
+      0 0 16px rgba(216, 164, 93, 0.18);
+  }
+
+  .site-header-nav-drawer a:hover,
+  .site-header-nav-drawer a:focus-visible,
+  .site-header-nav-drawer a.is-active {
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+    outline: none;
+    text-shadow: none;
   }
 
   .site-header-drawer-search {
-    margin-top: 0.45rem;
+    order: 99;
+
+    width: 100%;
+    max-width: none;
+    height: 48px;
+    margin: 0.55rem 0 0;
+
+    display: flex;
+    align-items: center;
+  }
+
+  .site-header-drawer-search input {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+
+    font-size: 0.9rem;
+  }
+
+  .site-header-drawer-search button {
+    flex: 0 0 48px;
+
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -103,34 +186,6 @@
   .site-header-menu-button,
   .site-header-nav-drawer {
     display: none !important;
-  }
-}
-
-@media (max-width: 520px) {
-  .site-header {
-    min-height: 68px;
-    padding-inline: 0.85rem;
-  }
-
-  .site-header-brand {
-    gap: 0.45rem;
-    font-size: clamp(1.12rem, 6vw, 1.35rem);
-  }
-
-  .site-header-brand img {
-    width: 42px;
-    height: 42px;
-  }
-
-  .site-header-menu-button {
-    width: 46px;
-    height: 46px;
-
-    font-size: 1.35rem;
-  }
-
-  .site-header-nav-drawer {
-    padding: 0.8rem;
   }
 }
 
@@ -179,8 +234,9 @@
 
 
 /* =========================================================
-   03. HOMEPAGE HERO MENU
-   Special homepage-only social row + hamburger.
+   03. HOMEPAGE HERO NAVIGATION
+   Homepage keeps socials left and hamburger right.
+   Drawer matches the normal site hamburger menu.
    ========================================================= */
 
 @media (max-width: 980px) {
@@ -196,7 +252,7 @@
     top: 1rem;
     left: 1rem;
     right: 1rem;
-    z-index: 20;
+    z-index: 100;
 
     width: auto;
 
@@ -238,14 +294,16 @@
 
   .hero-menu {
     position: absolute;
-    top: 4.15rem;
+    top: 4.25rem;
+    left: 0;
     right: 0;
-    z-index: 30;
+    z-index: 200;
 
-    width: min(100%, 24rem);
+    width: 100%;
     padding: 1rem;
 
     display: none;
+    grid-template-columns: 1fr;
     gap: 0.75rem;
 
     background:
@@ -268,43 +326,78 @@
     display: grid;
   }
 
-  .hero-menu > a {
-    min-height: 44px;
+  .hero-menu-links {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .hero-menu-links a {
+    width: 100%;
+    min-height: 46px;
+    padding: 0.65rem 0.85rem;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: rgba(255, 247, 237, 0.92);
+    color: rgba(255, 247, 237, 0.96);
     background: transparent;
 
+    border: 0;
     border-radius: 14px;
+
+    box-shadow: none;
 
     text-decoration: none;
 
     font-family: var(--font-script);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.55),
+      0 0 16px rgba(216, 164, 93, 0.18);
   }
 
-  .hero-menu > a:hover,
-  .hero-menu > a:focus-visible {
+  .hero-menu-links a:hover,
+  .hero-menu-links a:focus-visible {
     color: #1d1208;
     background: linear-gradient(145deg, #efbd72, #f5efe6);
-  }
 
-  .hero-menu .nav-star {
-    display: none;
+    outline: none;
+    text-shadow: none;
   }
 
   .hero-menu .hero-search {
     order: 99;
 
     width: 100%;
-    height: 46px;
-    margin: 0.35rem 0 0;
+    max-width: none;
+    height: 48px;
+    margin: 0.55rem 0 0;
 
     display: flex;
+    align-items: center;
+  }
+
+  .hero-menu .hero-search input {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+
+    font-size: 0.9rem;
+  }
+
+  .hero-menu .hero-search button {
+    flex: 0 0 48px;
+
+    width: 48px;
+    height: 48px;
   }
 
   .hero-panel {
@@ -326,7 +419,7 @@
 
 
 /* =========================================================
-   04. MOBILE
+   04. MOBILE PAGE LAYOUT
    ========================================================= */
 
 @media (max-width: 760px) {
@@ -623,6 +716,32 @@
    ========================================================= */
 
 @media (max-width: 520px) {
+  .site-header {
+    min-height: 68px;
+    padding-inline: 0.85rem;
+  }
+
+  .site-header-brand {
+    gap: 0.45rem;
+    font-size: clamp(1.12rem, 6vw, 1.35rem);
+  }
+
+  .site-header-brand img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .site-header-menu-button {
+    width: 46px;
+    height: 46px;
+
+    font-size: 1.35rem;
+  }
+
+  .site-header-nav-drawer {
+    padding: 0.8rem;
+  }
+
   .hero {
     padding-inline: 1rem;
   }
@@ -685,238 +804,5 @@
 @media (max-width: 420px) {
   .hero-buttons a {
     font-size: 0.88rem;
-  }
-}
-
-/* =========================================================
-   HOMEPAGE HERO MENU FIX
-   Makes the homepage hamburger drawer show links clearly
-   and makes the search full width.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .hero-menu {
-    position: absolute;
-    top: 4.15rem;
-    right: 0;
-    z-index: 60;
-
-    width: min(calc(100vw - 2rem), 24rem);
-    padding: 1rem;
-
-    display: none;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(44, 31, 22, 0.98),
-        rgba(31, 22, 16, 0.96)
-      );
-
-    border: 1px solid rgba(216, 164, 93, 0.42);
-    border-radius: 22px;
-
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-
-  .hero-menu.is-open {
-    display: grid;
-  }
-
-  .hero-menu-links {
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
-  }
-
-  .hero-menu-links a {
-    width: 100%;
-    min-height: 44px;
-    padding: 0.55rem 0.85rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: rgba(255, 247, 237, 0.94);
-    background: transparent;
-
-    border: 0;
-    border-radius: 14px;
-
-    box-shadow: none;
-
-    text-decoration: none;
-
-    font-family: var(--font-script);
-    font-size: 1.15rem;
-    font-weight: 800;
-    line-height: 1.1;
-
-    text-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.45),
-      0 0 16px rgba(216, 164, 93, 0.18);
-  }
-
-  .hero-menu-links a:hover,
-  .hero-menu-links a:focus-visible {
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    outline: none;
-    text-shadow: none;
-  }
-
-  .hero-menu .hero-search {
-    order: 99;
-
-    width: 100%;
-    max-width: none;
-    height: 48px;
-    margin: 0.35rem 0 0;
-
-    display: flex;
-  }
-
-  .hero-menu .hero-search input {
-    width: 100%;
-    min-width: 0;
-    flex: 1;
-
-    font-size: 0.9rem;
-  }
-
-  .hero-menu .hero-search button {
-    flex: 0 0 48px;
-
-    width: 48px;
-    height: 48px;
-  }
-}
-
-/* =========================================================
-   HOMEPAGE HERO MENU FINAL OVERRIDE
-   Fixes hidden/dark/inline links and full-width search.
-   Put this at the very bottom of mobile.css.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .hero-topbar {
-    z-index: 100;
-  }
-
-  .hero-menu {
-    position: absolute !important;
-    top: 4.25rem !important;
-    right: 0 !important;
-    z-index: 200 !important;
-
-    width: min(calc(100vw - 2rem), 24rem) !important;
-    padding: 1rem !important;
-
-    display: none !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-    gap: 0.45rem !important;
-
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(44, 31, 22, 0.98),
-        rgba(31, 22, 16, 0.96)
-      ) !important;
-
-    border: 1px solid rgba(216, 164, 93, 0.42) !important;
-    border-radius: 22px !important;
-
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38) !important;
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-
-  .hero-menu.is-open {
-    display: flex !important;
-  }
-
-  .hero-menu .nav-star {
-    display: none !important;
-  }
-
-  .hero-menu > a,
-  .hero-menu-links a {
-    width: 100% !important;
-    min-height: 46px !important;
-    padding: 0.65rem 0.85rem !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    color: rgba(255, 247, 237, 0.96) !important;
-    background: transparent !important;
-
-    border: 0 !important;
-    border-radius: 14px !important;
-
-    box-shadow: none !important;
-
-    text-decoration: none !important;
-
-    font-family: var(--font-script) !important;
-    font-size: 1.2rem !important;
-    font-weight: 800 !important;
-    line-height: 1.1 !important;
-    letter-spacing: 0.02em !important;
-
-    text-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.55),
-      0 0 16px rgba(216, 164, 93, 0.18) !important;
-  }
-
-  .hero-menu > a:hover,
-  .hero-menu > a:focus-visible,
-  .hero-menu-links a:hover,
-  .hero-menu-links a:focus-visible {
-    color: #1d1208 !important;
-    background: linear-gradient(145deg, #efbd72, #f5efe6) !important;
-
-    outline: none !important;
-    text-shadow: none !important;
-  }
-
-  .hero-menu .hero-search {
-    order: 99 !important;
-
-    width: 100% !important;
-    max-width: none !important;
-    height: 48px !important;
-    margin: 0.55rem 0 0 !important;
-
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  .hero-menu .hero-search input {
-    width: 100% !important;
-    min-width: 0 !important;
-    flex: 1 1 auto !important;
-
-    font-size: 0.9rem !important;
-  }
-
-  .hero-menu .hero-search button {
-    flex: 0 0 48px !important;
-
-    width: 48px !important;
-    height: 48px !important;
   }
 }
