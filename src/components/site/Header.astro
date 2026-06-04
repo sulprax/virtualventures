@@ -38,17 +38,6 @@ function isActivePath(href: string) {
     ))}
   </nav>
 
-  <button
-    class="site-header-menu-button"
-    type="button"
-    aria-label="Open menu"
-    aria-controls="site-header-nav-drawer"
-    aria-expanded="false"
-    data-site-menu-toggle
-  >
-    ☰
-  </button>
-
   <form class="site-header-search" action="/search/" method="get" role="search">
     <label for="site-header-search-input">Search the site</label>
     <input
@@ -60,23 +49,23 @@ function isActivePath(href: string) {
     <button type="submit" aria-label="Search">⌕</button>
   </form>
 
+  <button
+    class="site-header-menu-button"
+    type="button"
+    aria-label="Open menu"
+    aria-controls="site-header-nav-drawer"
+    aria-expanded="false"
+    data-site-menu-toggle
+  >
+    ☰
+  </button>
+
   <div
     id="site-header-nav-drawer"
     class="site-header-nav-drawer"
     hidden
     data-site-menu-drawer
   >
-    <form class="site-header-drawer-search" action="/search/" method="get" role="search">
-      <label for="site-header-drawer-search-input">Search the site</label>
-      <input
-        id="site-header-drawer-search-input"
-        type="search"
-        name="q"
-        placeholder="Search..."
-      />
-      <button type="submit" aria-label="Search">⌕</button>
-    </form>
-
     <nav aria-label="Mobile navigation">
       {navItems.map((item) => (
         <a
@@ -88,6 +77,17 @@ function isActivePath(href: string) {
         </a>
       ))}
     </nav>
+
+    <form class="site-header-drawer-search" action="/search/" method="get" role="search">
+      <label for="site-header-drawer-search-input">Search the site</label>
+      <input
+        id="site-header-drawer-search-input"
+        type="search"
+        name="q"
+        placeholder="Search..."
+      />
+      <button type="submit" aria-label="Search">⌕</button>
+    </form>
   </div>
 </header>
 
