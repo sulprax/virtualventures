@@ -6,8 +6,8 @@
 
 /* =========================================================
    01. NORMAL SITE HEADER
-   Used by blog, shop, gallery, about, contact, FAQ, etc.
-   Homepage uses its own hero navigation.
+   Blog, shop, gallery, about, contact, FAQ, etc.
+   Homepage uses its own hero topbar.
    ========================================================= */
 
 @media (max-width: 900px) {
@@ -77,109 +77,6 @@
   .site-header-nav-drawer[hidden] {
     display: none !important;
   }
-
-  .site-header-nav-drawer {
-    grid-area: drawer;
-    justify-self: stretch;
-
-    width: 100%;
-    margin-top: 0.45rem;
-    padding: 1rem;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(44, 31, 22, 0.98),
-        rgba(31, 22, 16, 0.96)
-      );
-
-    border: 1px solid rgba(216, 164, 93, 0.42);
-    border-radius: 22px;
-
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-
-  .site-header-nav-drawer nav {
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.35rem;
-  }
-
-  .site-header-nav-drawer a {
-    width: 100%;
-    min-height: 46px;
-    padding: 0.65rem 0.85rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: rgba(255, 247, 237, 0.96);
-    background: transparent;
-
-    border: 0;
-    border-radius: 14px;
-
-    box-shadow: none;
-
-    text-decoration: none;
-
-    font-family: var(--font-script);
-    font-size: 1.2rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-
-    text-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.55),
-      0 0 16px rgba(216, 164, 93, 0.18);
-  }
-
-  .site-header-nav-drawer a:hover,
-  .site-header-nav-drawer a:focus-visible,
-  .site-header-nav-drawer a.is-active {
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    outline: none;
-    text-shadow: none;
-  }
-
-  .site-header-drawer-search {
-    order: 99;
-
-    width: 100%;
-    max-width: none;
-    height: 48px;
-    margin: 0.55rem 0 0;
-
-    display: flex;
-    align-items: center;
-  }
-
-  .site-header-drawer-search input {
-    width: 100%;
-    min-width: 0;
-    flex: 1 1 auto;
-
-    font-size: 0.9rem;
-  }
-
-  .site-header-drawer-search button {
-    flex: 0 0 48px;
-
-    width: 48px;
-    height: 48px;
-  }
 }
 
 @media (min-width: 901px) {
@@ -234,9 +131,8 @@
 
 
 /* =========================================================
-   03. HOMEPAGE HERO NAVIGATION
-   Homepage keeps socials left and hamburger right.
-   Drawer matches the normal site hamburger menu.
+   03. HOMEPAGE HERO TOPBAR
+   Socials left, hamburger right.
    ========================================================= */
 
 @media (max-width: 980px) {
@@ -291,135 +187,333 @@
 
     font-size: 1.35rem;
   }
+}
 
-  .hero-menu {
-    position: absolute;
-    top: 4.25rem;
-    left: 0;
+
+/* =========================================================
+   04. SHARED MOBILE SIDE DRAWER
+   Both hamburger menus use this same drawer.
+   ========================================================= */
+
+@media (max-width: 980px) {
+  .hero-menu,
+  .site-header-nav-drawer {
+    position: fixed;
+    top: 0;
     right: 0;
-    z-index: 200;
+    left: auto;
+    z-index: 9999;
 
-    width: 100%;
-    padding: 1rem;
+    width: 50vw;
+    height: 100vh;
+    height: 100svh;
+
+    padding: clamp(1rem, 4vw, 1.35rem);
+    padding-top: clamp(4.75rem, 12vw, 5.6rem);
 
     display: none;
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    align-content: start;
+    gap: 0.9rem;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(239, 189, 114, 0.18),
+        transparent 34%
+      ),
+      linear-gradient(
+        155deg,
+        rgba(55, 35, 23, 0.88) 0%,
+        rgba(38, 25, 18, 0.91) 42%,
+        rgba(24, 17, 13, 0.88) 100%
+      );
+
+    border-left: 1px solid rgba(239, 189, 114, 0.34);
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 22px 0 0 22px;
+
+    box-shadow:
+      -18px 0 45px rgba(0, 0, 0, 0.38),
+      inset 1px 0 0 rgba(255, 246, 229, 0.08),
+      inset 0 1px 0 rgba(255, 246, 229, 0.12);
+
+    backdrop-filter: blur(18px) saturate(1.12);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+  }
+
+  .hero-menu::before,
+  .site-header-nav-drawer::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    border-radius: inherit;
 
     background:
       linear-gradient(
         to bottom,
-        rgba(44, 31, 22, 0.98),
-        rgba(31, 22, 16, 0.96)
+        rgba(255, 246, 229, 0.08),
+        transparent 32%,
+        rgba(0, 0, 0, 0.16)
       );
 
-    border: 1px solid rgba(216, 164, 93, 0.42);
-    border-radius: 22px;
-
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
   }
 
   .hero-menu.is-open {
     display: grid;
   }
 
-  .hero-menu-links {
+  .site-header-nav-drawer {
+    grid-area: drawer;
+    justify-self: end;
+  }
+
+  .site-header-nav-drawer:not([hidden]) {
+    display: grid;
+  }
+
+  .hero-menu-links,
+  .site-header-nav-drawer nav {
     width: 100%;
 
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.35rem;
+    gap: 0.45rem;
   }
 
-  .hero-menu-links a {
+  .hero-menu-links a,
+  .site-header-nav-drawer a {
+    position: relative;
+
     width: 100%;
     min-height: 46px;
-    padding: 0.65rem 0.85rem;
+    padding: 0.7rem 0.85rem;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 0.55rem;
 
-    color: rgba(255, 247, 237, 0.96);
+    color: rgba(255, 247, 237, 0.94);
     background: transparent;
 
     border: 0;
-    border-radius: 14px;
+    border-radius: 0;
 
     box-shadow: none;
 
+    text-align: left;
     text-decoration: none;
 
     font-family: var(--font-script);
-    font-size: 1.2rem;
+    font-size: 1.18rem;
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: 0.02em;
 
     text-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.55),
-      0 0 16px rgba(216, 164, 93, 0.18);
+      0 2px 8px rgba(0, 0, 0, 0.48),
+      0 0 18px rgba(216, 164, 93, 0.16);
+
+    transition:
+      color 180ms ease,
+      transform 180ms ease,
+      text-shadow 180ms ease;
+  }
+
+  .hero-menu-links a::before,
+  .site-header-nav-drawer a::before {
+    min-width: 1.35rem;
+
+    display: inline-flex;
+    justify-content: center;
+
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1;
+
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
+  }
+
+  .hero-menu-links a[href="/about/"]::before,
+  .site-header-nav-drawer a[href="/about/"]::before {
+    content: "🌿";
+  }
+
+  .hero-menu-links a[href="/contact/"]::before,
+  .site-header-nav-drawer a[href="/contact/"]::before {
+    content: "💌";
+  }
+
+  .hero-menu-links a[href="/faq/"]::before,
+  .site-header-nav-drawer a[href="/faq/"]::before {
+    content: "❔";
+  }
+
+  .hero-menu-links a[href="/blog/"]::before,
+  .site-header-nav-drawer a[href="/blog/"]::before {
+    content: "📖";
+  }
+
+  .hero-menu-links a[href="/gallery/"]::before,
+  .site-header-nav-drawer a[href="/gallery/"]::before {
+    content: "🖼️";
+  }
+
+  .hero-menu-links a[href="/shop/"]::before,
+  .site-header-nav-drawer a[href="/shop/"]::before {
+    content: "🛍️";
+  }
+
+  .hero-menu-links a::after,
+  .site-header-nav-drawer a::after {
+    content: "";
+
+    position: absolute;
+    left: 0.85rem;
+    bottom: 0.35rem;
+
+    width: 0;
+    height: 2px;
+
+    background: linear-gradient(
+      to right,
+      rgba(239, 189, 114, 0.95),
+      rgba(245, 239, 230, 0.18)
+    );
+
+    border-radius: var(--radius-pill);
+
+    transition: width 180ms ease;
   }
 
   .hero-menu-links a:hover,
-  .hero-menu-links a:focus-visible {
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
+  .hero-menu-links a:focus-visible,
+  .site-header-nav-drawer a:hover,
+  .site-header-nav-drawer a:focus-visible {
+    color: #ffd992;
+    background: transparent;
+
+    transform: translateX(3px);
 
     outline: none;
-    text-shadow: none;
+
+    text-shadow:
+      0 2px 10px rgba(30, 18, 10, 0.9),
+      0 0 16px rgba(216, 164, 93, 0.55);
   }
 
-  .hero-menu .hero-search {
+  .hero-menu-links a:hover::after,
+  .hero-menu-links a:focus-visible::after,
+  .site-header-nav-drawer a:hover::after,
+  .site-header-nav-drawer a:focus-visible::after {
+    width: 4.5rem;
+  }
+
+  .hero-menu-links a.is-active,
+  .site-header-nav-drawer a.is-active,
+  .site-header-nav-drawer a[aria-current="page"] {
+    color: #ffd992;
+    background: transparent;
+
+    text-shadow:
+      0 2px 10px rgba(30, 18, 10, 0.9),
+      0 0 18px rgba(216, 164, 93, 0.55);
+  }
+
+  .hero-menu-links a.is-active::after,
+  .site-header-nav-drawer a.is-active::after,
+  .site-header-nav-drawer a[aria-current="page"]::after {
+    width: 5.5rem;
+  }
+
+  .hero-menu-links a.is-active::before,
+  .site-header-nav-drawer a.is-active::before,
+  .site-header-nav-drawer a[aria-current="page"]::before {
+    content: "✦";
+    color: var(--gold);
+
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+  }
+
+  .hero-menu .hero-search,
+  .site-header-drawer-search {
     order: 99;
 
     width: 100%;
     max-width: none;
     height: 48px;
-    margin: 0.55rem 0 0;
+    margin: 0.85rem 0 0;
 
     display: flex;
     align-items: center;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 250, 245, 0.84),
+        rgba(230, 216, 201, 0.68)
+      );
+
+    border: 1px solid rgba(239, 189, 114, 0.34);
+    border-radius: var(--radius-pill);
+
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.42);
+
+    overflow: hidden;
   }
 
-  .hero-menu .hero-search input {
+  .hero-menu .hero-search input,
+  .site-header-drawer-search input {
     width: 100%;
     min-width: 0;
     flex: 1 1 auto;
 
+    padding-inline: 0.85rem;
+
+    color: var(--dark);
+    background: transparent;
+
+    border: 0;
+    outline: 0;
+
+    font-family: var(--font-body);
     font-size: 0.9rem;
   }
 
-  .hero-menu .hero-search button {
-    flex: 0 0 48px;
+  .hero-menu .hero-search button,
+  .site-header-drawer-search button {
+    flex: 0 0 44px;
 
-    width: 48px;
-    height: 48px;
-  }
+    width: 44px;
+    height: 44px;
 
-  .hero-panel {
-    width: min(100%, 31rem);
-    margin-top: 3.75rem;
-  }
+    color: var(--coffee);
+    background: transparent;
 
-  .hero-buttons {
-    position: relative;
-    left: auto;
-    bottom: auto;
+    border: 0;
 
-    width: 100%;
-    margin-top: 2rem;
+    font-size: 1rem;
 
-    transform: none;
+    cursor: pointer;
   }
 }
 
 
 /* =========================================================
-   04. MOBILE PAGE LAYOUT
+   05. MOBILE PAGE LAYOUT
    ========================================================= */
 
 @media (max-width: 760px) {
@@ -712,7 +806,7 @@
 
 
 /* =========================================================
-   05. SMALL MOBILE
+   06. SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 520px) {
@@ -736,10 +830,6 @@
     height: 46px;
 
     font-size: 1.35rem;
-  }
-
-  .site-header-nav-drawer {
-    padding: 0.8rem;
   }
 
   .hero {
@@ -766,6 +856,11 @@
 
   .mobile-menu {
     font-size: 1.25rem;
+  }
+
+  .hero-menu,
+  .site-header-nav-drawer {
+    width: 58vw;
   }
 
   .hero-panel {
@@ -802,257 +897,12 @@
 }
 
 @media (max-width: 420px) {
-  .hero-buttons a {
-    font-size: 0.88rem;
-  }
-}
-
-/* =========================================================
-   MOBILE MENU POLISH
-   Right aligned links, cute icons, active underline + star.
-   Applies to homepage hero menu and normal site menu.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .hero-menu-links,
-  .site-header-nav-drawer nav {
-    gap: 0.25rem;
-  }
-
-  .hero-menu-links a,
-  .site-header-nav-drawer a {
-    position: relative;
-
-    width: 100%;
-    min-height: 44px;
-    padding: 0.65rem 1.05rem 0.65rem 0.85rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.55rem;
-
-    color: rgba(255, 247, 237, 0.96);
-    background: transparent;
-
-    border: 0;
-    border-radius: 0;
-
-    box-shadow: none;
-
-    text-align: right;
-    text-decoration: none;
-
-    font-family: var(--font-script);
-    font-size: 1.18rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-
-    text-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.55),
-      0 0 16px rgba(216, 164, 93, 0.18);
-
-    transition:
-      color 180ms ease,
-      transform 180ms ease,
-      text-shadow 180ms ease;
-  }
-
-  .hero-menu-links a::before,
-  .site-header-nav-drawer a::before {
-    order: -1;
-
-    min-width: 1.35rem;
-
-    display: inline-flex;
-    justify-content: center;
-
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    line-height: 1;
-
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
-  }
-
-  .hero-menu-links a[href="/about/"]::before,
-  .site-header-nav-drawer a[href="/about/"]::before {
-    content: "🌿";
-  }
-
-  .hero-menu-links a[href="/contact/"]::before,
-  .site-header-nav-drawer a[href="/contact/"]::before {
-    content: "💌";
-  }
-
-  .hero-menu-links a[href="/faq/"]::before,
-  .site-header-nav-drawer a[href="/faq/"]::before {
-    content: "❔";
-  }
-
-  .hero-menu-links a[href="/blog/"]::before,
-  .site-header-nav-drawer a[href="/blog/"]::before {
-    content: "📖";
-  }
-
-  .hero-menu-links a[href="/gallery/"]::before,
-  .site-header-nav-drawer a[href="/gallery/"]::before {
-    content: "🖼️";
-  }
-
-  .hero-menu-links a[href="/shop/"]::before,
-  .site-header-nav-drawer a[href="/shop/"]::before {
-    content: "🛍️";
-  }
-
-  .hero-menu-links a::after,
-  .site-header-nav-drawer a::after {
-    content: "";
-
-    position: absolute;
-    right: 1.05rem;
-    bottom: 0.35rem;
-
-    width: 0;
-    height: 2px;
-
-    background: linear-gradient(
-      to left,
-      rgba(239, 189, 114, 0.95),
-      rgba(245, 239, 230, 0.18)
-    );
-
-    border-radius: var(--radius-pill);
-
-    transition: width 180ms ease;
-  }
-
-  .hero-menu-links a:hover,
-  .hero-menu-links a:focus-visible,
-  .site-header-nav-drawer a:hover,
-  .site-header-nav-drawer a:focus-visible {
-    color: #ffd992;
-    background: transparent;
-
-    transform: translateX(-3px);
-
-    outline: none;
-
-    text-shadow:
-      0 2px 10px rgba(30, 18, 10, 0.9),
-      0 0 16px rgba(216, 164, 93, 0.55);
-  }
-
-  .hero-menu-links a:hover::after,
-  .hero-menu-links a:focus-visible::after,
-  .site-header-nav-drawer a:hover::after,
-  .site-header-nav-drawer a:focus-visible::after {
-    width: 4.5rem;
-  }
-
-  .hero-menu-links a.is-active,
-  .site-header-nav-drawer a.is-active,
-  .site-header-nav-drawer a[aria-current="page"] {
-    color: #ffd992;
-    background: transparent;
-
-    text-shadow:
-      0 2px 10px rgba(30, 18, 10, 0.9),
-      0 0 18px rgba(216, 164, 93, 0.55);
-  }
-
-  .hero-menu-links a.is-active::after,
-  .site-header-nav-drawer a.is-active::after,
-  .site-header-nav-drawer a[aria-current="page"]::after {
-    width: 5.5rem;
-  }
-
-  .hero-menu-links a.is-active::before,
-  .site-header-nav-drawer a.is-active::before,
-  .site-header-nav-drawer a[aria-current="page"]::before {
-    content: "✦";
-    color: var(--gold);
-
-    font-family: var(--font-title);
-    font-size: 0.95rem;
-  }
-}
-
-/* =========================================================
-   MOBILE MENU GLASSY BROWN DRAWER
-   Adds soft transparency, richer brown gradient, and polish.
-   ========================================================= */
-
-@media (max-width: 980px) {
   .hero-menu,
   .site-header-nav-drawer {
-    background:
-      radial-gradient(
-        circle at top right,
-        rgba(239, 189, 114, 0.16),
-        transparent 34%
-      ),
-      linear-gradient(
-        155deg,
-        rgba(55, 35, 23, 0.88) 0%,
-        rgba(38, 25, 18, 0.9) 42%,
-        rgba(24, 17, 13, 0.86) 100%
-      );
-
-    border: 1px solid rgba(239, 189, 114, 0.32);
-
-    box-shadow:
-      -18px 0 45px rgba(0, 0, 0, 0.38),
-      inset 1px 0 0 rgba(255, 246, 229, 0.08),
-      inset 0 1px 0 rgba(255, 246, 229, 0.12);
-
-    backdrop-filter: blur(18px) saturate(1.12);
-    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    width: 64vw;
   }
 
-  .hero-menu::before,
-  .site-header-nav-drawer::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-
-    border-radius: inherit;
-
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(255, 246, 229, 0.08),
-        transparent 32%,
-        rgba(0, 0, 0, 0.16)
-      );
-
-    pointer-events: none;
-  }
-
-  .hero-menu-links a,
-  .site-header-nav-drawer a {
-    color: rgba(255, 247, 237, 0.92);
-
-    text-shadow:
-      0 2px 8px rgba(0, 0, 0, 0.48),
-      0 0 18px rgba(216, 164, 93, 0.16);
-  }
-
-  .hero-menu .hero-search,
-  .site-header-drawer-search {
-    background:
-      linear-gradient(
-        135deg,
-        rgba(255, 250, 245, 0.84),
-        rgba(230, 216, 201, 0.68)
-      );
-
-    border: 1px solid rgba(239, 189, 114, 0.34);
-
-    box-shadow:
-      0 10px 24px rgba(0, 0, 0, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  .hero-buttons a {
+    font-size: 0.88rem;
   }
 }
