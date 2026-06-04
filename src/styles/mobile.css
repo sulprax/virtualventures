@@ -1,6 +1,6 @@
 /* =========================================================
    VIRTUAL VENTURES MOBILE CSS
-   Tablet, mobile, and small-screen overrides
+   Optimised tablet, mobile, footer, and drawer overrides
    ========================================================= */
 
 
@@ -1168,5 +1168,256 @@
 
   .footer-column li + li {
     margin-top: 0.5rem;
+  }
+}
+
+/* =========================================================
+   MOBILE SIDE DRAWER
+   Blog tools / filters / calendar drawer
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .has-mobile-side-drawer {
+    position: relative;
+  }
+
+  .mobile-side-drawer-toggle {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 10040;
+
+    width: 42px;
+    min-height: 132px;
+    padding: 0.8rem 0.35rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+    border: 1px solid rgba(255, 250, 245, 0.55);
+    border-left: 0;
+    border-radius: 0 18px 18px 0;
+
+    box-shadow:
+      8px 12px 26px rgba(0, 0, 0, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.42);
+
+    font-family: var(--font-script);
+    font-size: 0.95rem;
+    font-weight: 900;
+    line-height: 1;
+
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    transform: translateY(-50%);
+
+    transition:
+      transform 180ms ease,
+      background 180ms ease,
+      color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .mobile-side-drawer-toggle:hover,
+  .mobile-side-drawer-toggle:focus-visible {
+    color: #fffaf5;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(126, 78, 39, 0.98),
+        rgba(54, 35, 23, 0.98)
+      );
+
+    outline: none;
+
+    box-shadow:
+      10px 16px 34px rgba(0, 0, 0, 0.32),
+      inset 0 1px 0 rgba(255, 246, 229, 0.18);
+  }
+
+  .mobile-side-drawer-toggle[aria-expanded="true"] {
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+    transform: translateY(-50%) translateX(min(88vw, 360px));
+  }
+
+  .mobile-side-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10020;
+
+    display: block;
+
+    background: rgba(20, 13, 9, 0.52);
+
+    border: 0;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+
+  .mobile-side-drawer-backdrop[hidden] {
+    display: none;
+  }
+
+  .mobile-side-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10030;
+
+    width: min(88vw, 360px);
+    height: 100vh;
+    height: 100svh;
+
+    padding: 5.4rem 1rem 1.25rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 1rem;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(239, 189, 114, 0.22),
+        transparent 36%
+      ),
+      linear-gradient(
+        155deg,
+        rgba(66, 44, 30, 0.98) 0%,
+        rgba(43, 29, 21, 0.98) 44%,
+        rgba(24, 17, 13, 0.98) 100%
+      );
+
+    border-right: 1px solid rgba(239, 189, 114, 0.34);
+    border-radius: 0 22px 22px 0;
+
+    box-shadow:
+      18px 0 45px rgba(0, 0, 0, 0.38),
+      inset -1px 0 0 rgba(255, 246, 229, 0.08);
+
+    backdrop-filter: blur(18px) saturate(1.12);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+
+    transform: translateX(-105%);
+    transition: transform 220ms ease;
+  }
+
+  .mobile-side-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-side-drawer .blog-widget {
+    margin: 0;
+  }
+
+  .mobile-side-drawer {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(239, 189, 114, 0.72) rgba(31, 22, 16, 0.55);
+    scrollbar-gutter: stable;
+  }
+
+  .mobile-side-drawer::-webkit-scrollbar {
+    width: 0.65rem;
+  }
+
+  .mobile-side-drawer::-webkit-scrollbar-track {
+    background: rgba(31, 22, 16, 0.55);
+    border-radius: var(--radius-pill);
+  }
+
+  .mobile-side-drawer::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #efbd72, #7a5230);
+    border: 2px solid rgba(31, 22, 16, 0.55);
+    border-radius: var(--radius-pill);
+  }
+
+  .mobile-side-drawer .blog-widget {
+    overflow: visible;
+  }
+
+  .mobile-side-drawer .blog-calendar {
+    min-width: 0;
+  }
+
+  .mobile-side-drawer .blog-calendar-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.32rem;
+  }
+
+  .mobile-side-drawer .blog-calendar-day,
+  .mobile-side-drawer .blog-calendar-date,
+  .mobile-side-drawer .blog-calendar-empty {
+    width: 100%;
+    min-width: 0;
+    min-height: 1.95rem;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 0.68rem;
+    line-height: 1;
+  }
+
+  .mobile-side-drawer .blog-calendar-date {
+    touch-action: manipulation;
+  }
+
+  .mobile-side-drawer .blog-calendar-date:focus-visible,
+  .mobile-side-drawer .blog-filter-chip:focus-visible,
+  .mobile-side-drawer .blog-mini-list button:focus-visible,
+  .mobile-side-drawer .featured-shop-link:focus-visible {
+    outline: 3px solid rgba(239, 189, 114, 0.78);
+    outline-offset: 3px;
+  }
+
+  .mobile-side-drawer .blog-filter-stack {
+    gap: 0.55rem;
+  }
+
+  .mobile-side-drawer .blog-mini-list {
+    max-height: none;
+  }
+
+  .has-open-mobile-side-drawer {
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 761px) {
+  .mobile-side-drawer-toggle,
+  .mobile-side-drawer-backdrop {
+    display: none;
+  }
+}
+
+/* =========================================================
+   09. BLOG CONTENT OFFSET
+   Keeps breadcrumbs and cards aligned beside the left Blog Tools tab
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .breadcrumb-trail,
+  .blog-page {
+    padding-left: clamp(3.05rem, 10vw, 3.65rem);
+    padding-right: 0.75rem;
+  }
+
+  .blog-posts-area,
+  .blog-grid {
+    min-width: 0;
   }
 }

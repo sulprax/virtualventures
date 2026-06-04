@@ -100,22 +100,6 @@ const archiveMonths = [
 const calendarBaseDate = rawPosts[0]?.data.pubDate ?? new Date();
 const calendarYear = calendarBaseDate.getFullYear();
 const calendarMonth = calendarBaseDate.getMonth();
-
-const calendarLabel = calendarBaseDate.toLocaleDateString("en-GB", {
-  month: "long",
-  year: "numeric",
-});
-
-const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
-const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
-const mondayOffset = firstDay === 0 ? 6 : firstDay - 1;
-
-const calendarCells = [
-  ...Array.from({ length: mondayOffset }, () => null),
-  ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
-];
-
-const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate)));
 ---
 
 <Layout
@@ -126,26 +110,45 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
     { label: "Blog" },
   ]}
 >
-    <section class="blog-hero-banner">
-        <div class="blog-hero-banner-inner">
-            <p class="eyebrow">Workshop Notes</p>
-            <h1>The Blog</h1>
-            <p>
-            Project updates, pattern plans, videos, shop news and behind-the-scenes
-            stories from the cosy handmade corner of Virtual Ventures.
-            </p>
-        </div>
-    </section>
+  <section class="blog-hero-banner">
+    <div class="blog-hero-banner-inner">
+      <p class="eyebrow">Workshop Notes</p>
+      <h1>The Blog</h1>
+      <p>
+        Project updates, pattern plans, videos, shop news and behind-the-scenes
+        stories from the cosy handmade corner of Virtual Ventures.
+      </p>
+    </div>
+  </section>
 
-    <Breadcrumbs
+  <Breadcrumbs
     items={[
-            { label: "Home", href: "/" },
-            { label: "Blog" },
-        ]}
-    />
+      { label: "Home", href: "/" },
+      { label: "Blog" },
+    ]}
+  />
 
   <main class="page-shell blog-page">
-    <div class="blog-layout">
+    <div class="blog-layout has-mobile-side-drawer">
+      <button
+        class="mobile-side-drawer-toggle"
+        type="button"
+        aria-label="Open blog tools"
+        aria-controls="blog-side-drawer"
+        aria-expanded="false"
+        data-mobile-side-toggle
+      >
+        Blog Tools
+      </button>
+
+      <button
+        class="mobile-side-drawer-backdrop"
+        type="button"
+        aria-label="Close blog tools"
+        hidden
+        data-mobile-side-backdrop
+      ></button>
+
       <section class="blog-posts-area" aria-label="Blog posts">
         <div class="blog-grid" data-blog-grid>
           {posts.map((post) => (
@@ -252,44 +255,69 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
         </p>
       </section>
 
-      <aside class="blog-sidebar" aria-label="Blog sidebar">
+      <aside
+        id="blog-side-drawer"
+        class="blog-sidebar mobile-side-drawer"
+        aria-label="Blog sidebar"
+        data-mobile-side-drawer
+      >
         <section class="blog-widget blog-calendar-widget">
           <h2>Post Calendar</h2>
 
-          <div class="blog-calendar">
+          <div
+            class="blog-calendar"
+            data-blog-calendar
+            data-calendar-year={calendarYear}
+            data-calendar-month={calendarMonth}
+          >
             <div class="blog-calendar-header">
-              <span>{calendarLabel}</span>
-              <button type="button" data-clear-date-filter title="Show all dates">
-                ✦
+              <button
+                type="button"
+                class="blog-calendar-arrow"
+                data-calendar-prev
+                aria-label="Previous"
+                title="Previous"
+              >
+                ‹
+              </button>
+
+              <button
+                type="button"
+                class="blog-calendar-title-button"
+                data-calendar-title-button
+                aria-label="Choose year"
+                title="Choose year"
+              >
+                <span data-calendar-label></span>
+              </button>
+
+              <button
+                type="button"
+                class="blog-calendar-arrow"
+                data-calendar-next
+                aria-label="Next"
+                title="Next"
+              >
+                ›
               </button>
             </div>
 
-            <div class="blog-calendar-grid" aria-label={`${calendarLabel} blog calendar`}>
-              {["M", "T", "W", "T", "F", "S", "S"].map((day) => (
-                <span class="blog-calendar-day">{day}</span>
-              ))}
+            <div
+              class="blog-calendar-view"
+              data-calendar-view
+              aria-label="Blog calendar"
+            ></div>
 
-              {calendarCells.map((day) => {
-                if (!day) {
-                  return <span class="blog-calendar-empty"></span>;
-                }
+            <button
+              type="button"
+              class="blog-calendar-clear"
+              data-clear-date-filter
+              title="Show all dates"
+              aria-label="Show all dates"
+            >
+              Clear Date
+            </button>
 
-                const isoDate = formatISODate(new Date(calendarYear, calendarMonth, day));
-                const hasPost = postDates.has(isoDate);
-
-                return (
-                  <button
-                    type="button"
-                    class:list={["blog-calendar-date", { "has-post": hasPost }]}
-                    data-calendar-date={isoDate}
-                    disabled={!hasPost}
-                    title={hasPost ? `Show posts from ${isoDate}` : "No posts"}
-                  >
-                    {day}
-                  </button>
-                );
-              })}
-            </div>
           </div>
         </section>
 
@@ -311,7 +339,7 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
               </button>
             ))}
 
-            {allTags.map((tag, index) => (
+            {allTags.map((tag) => (
               <button
                 type="button"
                 class:list={["blog-filter-chip", "is-mobile-extra"]}
@@ -388,8 +416,6 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
 
     const cards = Array.from(document.querySelectorAll("[data-blog-card]"));
     const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
-    const calendarButtons = Array.from(document.querySelectorAll("[data-calendar-date]"));
-    const clearDateButton = document.querySelector("[data-clear-date-filter]");
     const jumpButtons = Array.from(document.querySelectorAll("[data-jump-post]"));
     const topicMoreButton = document.querySelector("[data-topic-more]");
     const topicExtraButtons = Array.from(document.querySelectorAll(".blog-filter-chip.is-mobile-extra"));
@@ -401,11 +427,41 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
     const jumpInput = document.querySelector("[data-page-jump-input]");
     const emptyMessage = document.querySelector("[data-empty-message]");
 
+    const blogCalendar = document.querySelector("[data-blog-calendar]");
+    const calendarView = document.querySelector("[data-calendar-view]");
+    const calendarLabelElement = document.querySelector("[data-calendar-label]");
+    const calendarTitleButton = document.querySelector("[data-calendar-title-button]");
+    const calendarPrevButton = document.querySelector("[data-calendar-prev]");
+    const calendarNextButton = document.querySelector("[data-calendar-next]");
+    const clearDateButton = document.querySelector("[data-clear-date-filter]");
+
+    const mobileSideToggle = document.querySelector("[data-mobile-side-toggle]");
+    const mobileSideDrawer = document.querySelector("[data-mobile-side-drawer]");
+    const mobileSideBackdrop = document.querySelector("[data-mobile-side-backdrop]");
+
     const postsPerPage = 8;
+    const postDates = new Set(
+      cards
+        .map((card) => card.getAttribute("data-date"))
+        .filter(Boolean)
+    );
 
     let activeFilter = "all";
     let activeDate = "all";
     let currentPage = 1;
+
+    let calendarMode = "days";
+    let visibleCalendarYear =
+      blogCalendar instanceof HTMLElement
+        ? Number(blogCalendar.dataset.calendarYear)
+        : new Date().getFullYear();
+
+    let visibleCalendarMonth =
+      blogCalendar instanceof HTMLElement
+        ? Number(blogCalendar.dataset.calendarMonth)
+        : new Date().getMonth();
+
+    let visibleYearPageStart = visibleCalendarYear - 5;
 
     function closePost(card) {
       const content = card.querySelector("[data-post-content]");
@@ -424,16 +480,13 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
 
     function closeOtherPosts(activeCard) {
       cards.forEach((card) => {
-        if (card !== activeCard) {
-          closePost(card);
-        }
+        if (card !== activeCard) closePost(card);
       });
     }
 
     function cardMatchesFilters(card) {
       const category = card.getAttribute("data-category") || "";
       const date = card.getAttribute("data-date") || "";
-
       const tags = (card.getAttribute("data-tags") || "")
         .split(",")
         .map((tag) => tag.trim())
@@ -502,9 +555,7 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
         card.classList.toggle("is-hidden-by-filter", !isFiltered);
         card.classList.remove("is-page-hidden");
 
-        if (!isFiltered) {
-          closePost(card);
-        }
+        if (!isFiltered) closePost(card);
       });
 
       filteredCards.forEach((card, index) => {
@@ -513,9 +564,7 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
 
         card.classList.toggle("is-page-hidden", !isOnCurrentPage);
 
-        if (!isOnCurrentPage) {
-          closePost(card);
-        }
+        if (!isOnCurrentPage) closePost(card);
       });
 
       if (emptyMessage instanceof HTMLElement) {
@@ -523,6 +572,250 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
       }
 
       renderPagination(totalPages);
+    }
+
+    function formatCalendarIsoDate(year, month, day) {
+      return [
+        year,
+        String(month + 1).padStart(2, "0"),
+        String(day).padStart(2, "0"),
+      ].join("-");
+    }
+
+    function getCalendarMonthLabel(year, month) {
+      return new Date(year, month, 1).toLocaleDateString("en-GB", {
+        month: "long",
+        year: "numeric",
+      });
+    }
+
+    function setCalendarLabel(text, ariaLabel) {
+      if (calendarLabelElement instanceof HTMLElement) {
+        calendarLabelElement.textContent = text;
+      }
+
+      if (calendarTitleButton instanceof HTMLButtonElement) {
+        calendarTitleButton.setAttribute("aria-label", ariaLabel);
+        calendarTitleButton.setAttribute("title", ariaLabel);
+      }
+    }
+
+    function createPickerButton(text, className, onClick, isActive = false) {
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.className = className;
+      button.textContent = text;
+      button.classList.toggle("is-active", isActive);
+      button.addEventListener("click", onClick);
+
+      return button;
+    }
+
+    function renderDaysCalendar() {
+      if (!(calendarView instanceof HTMLElement)) return;
+
+      calendarMode = "days";
+
+      const monthLabel = getCalendarMonthLabel(
+        visibleCalendarYear,
+        visibleCalendarMonth
+      );
+
+      setCalendarLabel(monthLabel, "Choose year");
+      calendarView.className = "blog-calendar-view blog-calendar-grid";
+      calendarView.setAttribute("aria-label", `${monthLabel} blog calendar`);
+      calendarView.innerHTML = "";
+
+      ["M", "T", "W", "T", "F", "S", "S"].forEach((dayLabel) => {
+        const day = document.createElement("span");
+        day.className = "blog-calendar-day";
+        day.textContent = dayLabel;
+        calendarView.appendChild(day);
+      });
+
+      const daysInMonth = new Date(
+        visibleCalendarYear,
+        visibleCalendarMonth + 1,
+        0
+      ).getDate();
+
+      const firstDay = new Date(
+        visibleCalendarYear,
+        visibleCalendarMonth,
+        1
+      ).getDay();
+
+      const mondayOffset = firstDay === 0 ? 6 : firstDay - 1;
+
+      for (let index = 0; index < mondayOffset; index += 1) {
+        const empty = document.createElement("span");
+        empty.className = "blog-calendar-empty";
+        calendarView.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const isoDate = formatCalendarIsoDate(
+          visibleCalendarYear,
+          visibleCalendarMonth,
+          day
+        );
+
+        const hasPost = postDates.has(isoDate);
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "blog-calendar-date";
+        button.textContent = String(day);
+        button.dataset.calendarDate = isoDate;
+        button.disabled = !hasPost;
+        button.title = hasPost ? `Show posts from ${isoDate}` : "No posts";
+        button.classList.toggle("has-post", hasPost);
+        button.classList.toggle("is-active", activeDate === isoDate);
+
+        button.addEventListener("click", () => {
+          activeDate = activeDate === isoDate ? "all" : isoDate;
+          currentPage = 1;
+
+          renderDaysCalendar();
+          applyBlogView();
+          closeMobileSideDrawer();
+        });
+
+        calendarView.appendChild(button);
+      }
+    }
+
+    function renderMonthPicker() {
+      if (!(calendarView instanceof HTMLElement)) return;
+
+      calendarMode = "months";
+
+      setCalendarLabel(String(visibleCalendarYear), "Choose year");
+      calendarView.className = "blog-calendar-view blog-calendar-picker-grid blog-calendar-month-grid";
+      calendarView.setAttribute("aria-label", `Choose month in ${visibleCalendarYear}`);
+      calendarView.innerHTML = "";
+
+      Array.from({ length: 12 }, (_, index) => {
+        const monthName = new Date(visibleCalendarYear, index, 1).toLocaleDateString("en-GB", {
+          month: "short",
+        });
+
+        const button = createPickerButton(
+          monthName,
+          "blog-calendar-picker-button",
+          () => {
+            visibleCalendarMonth = index;
+            renderDaysCalendar();
+          },
+          index === visibleCalendarMonth
+        );
+
+        calendarView.appendChild(button);
+      });
+    }
+
+    function renderYearPicker() {
+      if (!(calendarView instanceof HTMLElement)) return;
+
+      calendarMode = "years";
+
+      const endYear = visibleYearPageStart + 11;
+
+      setCalendarLabel(`${visibleYearPageStart} - ${endYear}`, "Choose year range");
+      calendarView.className = "blog-calendar-view blog-calendar-picker-grid blog-calendar-year-grid";
+      calendarView.setAttribute("aria-label", "Choose year");
+      calendarView.innerHTML = "";
+
+      Array.from({ length: 12 }, (_, index) => {
+        const year = visibleYearPageStart + index;
+
+        const button = createPickerButton(
+          String(year),
+          "blog-calendar-picker-button",
+          () => {
+            visibleCalendarYear = year;
+            renderMonthPicker();
+          },
+          year === visibleCalendarYear
+        );
+
+        calendarView.appendChild(button);
+      });
+    }
+
+    function nudgeCalendarBack() {
+      if (calendarMode === "days") {
+        visibleCalendarMonth -= 1;
+
+        if (visibleCalendarMonth < 0) {
+          visibleCalendarMonth = 11;
+          visibleCalendarYear -= 1;
+        }
+
+        renderDaysCalendar();
+        return;
+      }
+
+      if (calendarMode === "months") {
+        visibleCalendarYear -= 1;
+        renderMonthPicker();
+        return;
+      }
+
+      visibleYearPageStart -= 12;
+      renderYearPicker();
+    }
+
+    function nudgeCalendarForward() {
+      if (calendarMode === "days") {
+        visibleCalendarMonth += 1;
+
+        if (visibleCalendarMonth > 11) {
+          visibleCalendarMonth = 0;
+          visibleCalendarYear += 1;
+        }
+
+        renderDaysCalendar();
+        return;
+      }
+
+      if (calendarMode === "months") {
+        visibleCalendarYear += 1;
+        renderMonthPicker();
+        return;
+      }
+
+      visibleYearPageStart += 12;
+      renderYearPicker();
+    }
+
+    function openMobileSideDrawer() {
+      if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
+      if (!(mobileSideDrawer instanceof HTMLElement)) return;
+      if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+      mobileSideDrawer.classList.add("is-open");
+      mobileSideBackdrop.hidden = false;
+      document.body.classList.add("has-open-mobile-side-drawer");
+
+      mobileSideToggle.setAttribute("aria-expanded", "true");
+      mobileSideToggle.setAttribute("aria-label", "Close blog tools");
+      mobileSideToggle.textContent = "Close";
+    }
+
+    function closeMobileSideDrawer() {
+      if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
+      if (!(mobileSideDrawer instanceof HTMLElement)) return;
+      if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+      mobileSideDrawer.classList.remove("is-open");
+      mobileSideBackdrop.hidden = true;
+      document.body.classList.remove("has-open-mobile-side-drawer");
+
+      mobileSideToggle.setAttribute("aria-expanded", "false");
+      mobileSideToggle.setAttribute("aria-label", "Open blog tools");
+      mobileSideToggle.textContent = "Blog Tools";
     }
 
     cards.forEach((card) => {
@@ -574,30 +867,45 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
         }
 
         applyBlogView();
+        closeMobileSideDrawer();
       });
     });
 
-    calendarButtons.forEach((button) => {
-      if (!(button instanceof HTMLButtonElement)) return;
+    if (calendarTitleButton instanceof HTMLButtonElement) {
+      calendarTitleButton.addEventListener("click", () => {
+        if (calendarMode === "days") {
+          visibleYearPageStart = visibleCalendarYear - 5;
+          renderYearPicker();
+          return;
+        }
 
-      button.addEventListener("click", () => {
-        const selectedDate = button.dataset.calendarDate || "all";
+        if (calendarMode === "months") {
+          visibleYearPageStart = visibleCalendarYear - 5;
+          renderYearPicker();
+          return;
+        }
 
-        activeDate = activeDate === selectedDate ? "all" : selectedDate;
+        renderDaysCalendar();
+      });
+    }
+
+    if (calendarPrevButton instanceof HTMLButtonElement) {
+      calendarPrevButton.addEventListener("click", nudgeCalendarBack);
+    }
+
+    if (calendarNextButton instanceof HTMLButtonElement) {
+      calendarNextButton.addEventListener("click", nudgeCalendarForward);
+    }
+
+    if (clearDateButton instanceof HTMLButtonElement) {
+      clearDateButton.addEventListener("click", () => {
+        activeDate = "all";
         currentPage = 1;
 
-        calendarButtons.forEach((calendarButton) => {
-          if (!(calendarButton instanceof HTMLButtonElement)) return;
-
-          calendarButton.classList.toggle(
-            "is-active",
-            calendarButton.dataset.calendarDate === activeDate
-          );
-        });
-
+        renderDaysCalendar();
         applyBlogView();
       });
-    });
+    }
 
     if (topicMoreButton instanceof HTMLButtonElement) {
       topicMoreButton.addEventListener("click", () => {
@@ -609,19 +917,6 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
         topicExtraButtons.forEach((button) => {
           button.classList.toggle("is-mobile-revealed", !isExpanded);
         });
-      });
-    }
-
-    if (clearDateButton instanceof HTMLButtonElement) {
-      clearDateButton.addEventListener("click", () => {
-        activeDate = "all";
-        currentPage = 1;
-
-        calendarButtons.forEach((calendarButton) => {
-          calendarButton.classList.remove("is-active");
-        });
-
-        applyBlogView();
       });
     }
 
@@ -684,11 +979,9 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
             );
           });
 
-          calendarButtons.forEach((calendarButton) => {
-            calendarButton.classList.remove("is-active");
-          });
-
+          renderDaysCalendar();
           applyBlogView();
+          closeMobileSideDrawer();
 
           setTimeout(() => {
             card.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -697,6 +990,29 @@ const postDates = new Set(rawPosts.map((post) => formatISODate(post.data.pubDate
       });
     });
 
+    if (
+      mobileSideToggle instanceof HTMLButtonElement &&
+      mobileSideDrawer instanceof HTMLElement &&
+      mobileSideBackdrop instanceof HTMLElement
+    ) {
+      mobileSideToggle.addEventListener("click", () => {
+        const isOpen = mobileSideDrawer.classList.contains("is-open");
+
+        if (isOpen) {
+          closeMobileSideDrawer();
+        } else {
+          openMobileSideDrawer();
+        }
+      });
+
+      mobileSideBackdrop.addEventListener("click", closeMobileSideDrawer);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMobileSideDrawer();
+      });
+    }
+
+    renderDaysCalendar();
     applyBlogView();
   </script>
 </Layout>
