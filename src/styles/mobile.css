@@ -17,8 +17,7 @@
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "brand toggle";
+    grid-template-areas: "brand toggle";
     align-items: center;
     gap: 0.65rem;
 
@@ -65,22 +64,43 @@
     grid-area: toggle;
     justify-self: end;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    top: auto;
+    right: auto;
+    z-index: 10060;
 
     width: 48px;
     height: 48px;
 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     line-height: 1;
     text-align: center;
     font-size: 1.45rem;
-
-    z-index: 10050;
   }
 
   .site-header-nav-drawer[hidden] {
     display: none !important;
+  }
+
+  .site-header-menu-button[aria-expanded="true"] {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10070;
+
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+    border-color: rgba(255, 250, 245, 0.5);
+
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38);
+
+    transform: none;
   }
 }
 
@@ -188,6 +208,9 @@
   }
 
   .mobile-menu {
+    position: relative;
+    z-index: 10060;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -195,8 +218,24 @@
     line-height: 1;
     text-align: center;
     font-size: 1.35rem;
+  }
 
-    z-index: 10050;
+  .mobile-menu[aria-expanded="true"] {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10070;
+
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+    border-color: rgba(255, 250, 245, 0.5);
+
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38);
+
+    transform: none;
   }
 }
 
@@ -221,7 +260,7 @@
     height: 100svh;
 
     padding: clamp(1rem, 4vw, 1.35rem);
-    padding-top: clamp(5rem, 12vw, 5.8rem);
+    padding-top: 5.5rem;
 
     display: none;
     grid-template-columns: 1fr;
@@ -299,7 +338,7 @@
     background-position: center;
     background-repeat: no-repeat;
 
-    opacity: 0.075;
+    opacity: 0.085;
 
     pointer-events: none;
   }
@@ -318,7 +357,10 @@
     display: grid;
   }
 
-  .hero-menu-links,
+  .hero-menu .nav-star {
+    display: none;
+  }
+
   .site-header-nav-drawer nav {
     width: 100%;
 
@@ -327,7 +369,8 @@
     gap: 0.45rem;
   }
 
-  .hero-menu-links a,
+  .hero-menu > a,
+  .hero-menu a,
   .site-header-nav-drawer a {
     position: relative;
 
@@ -364,10 +407,12 @@
     transition:
       color 180ms ease,
       transform 180ms ease,
-      text-shadow 180ms ease;
+      text-shadow 180ms ease,
+      padding-left 180ms ease;
   }
 
-  .hero-menu-links a::before,
+  .hero-menu > a::before,
+  .hero-menu a::before,
   .site-header-nav-drawer a::before {
     min-width: 1.35rem;
 
@@ -381,37 +426,37 @@
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
   }
 
-  .hero-menu-links a[href="/about/"]::before,
+  .hero-menu a[href="/about/"]::before,
   .site-header-nav-drawer a[href="/about/"]::before {
     content: "🌿";
   }
 
-  .hero-menu-links a[href="/contact/"]::before,
+  .hero-menu a[href="/contact/"]::before,
   .site-header-nav-drawer a[href="/contact/"]::before {
     content: "💌";
   }
 
-  .hero-menu-links a[href="/faq/"]::before,
+  .hero-menu a[href="/faq/"]::before,
   .site-header-nav-drawer a[href="/faq/"]::before {
     content: "❔";
   }
 
-  .hero-menu-links a[href="/blog/"]::before,
+  .hero-menu a[href="/blog/"]::before,
   .site-header-nav-drawer a[href="/blog/"]::before {
     content: "📖";
   }
 
-  .hero-menu-links a[href="/gallery/"]::before,
+  .hero-menu a[href="/gallery/"]::before,
   .site-header-nav-drawer a[href="/gallery/"]::before {
     content: "🖼️";
   }
 
-  .hero-menu-links a[href="/shop/"]::before,
+  .hero-menu a[href="/shop/"]::before,
   .site-header-nav-drawer a[href="/shop/"]::before {
     content: "🛍️";
   }
 
-  .hero-menu-links a::after,
+  .hero-menu a::after,
   .site-header-nav-drawer a::after {
     content: "";
 
@@ -430,11 +475,13 @@
 
     border-radius: var(--radius-pill);
 
-    transition: width 180ms ease;
+    transition:
+      width 180ms ease,
+      left 180ms ease;
   }
 
-  .hero-menu-links a:hover,
-  .hero-menu-links a:focus-visible,
+  .hero-menu a:hover,
+  .hero-menu a:focus-visible,
   .site-header-nav-drawer a:hover,
   .site-header-nav-drawer a:focus-visible {
     color: #ffd992;
@@ -449,31 +496,36 @@
       0 0 16px rgba(216, 164, 93, 0.55);
   }
 
-  .hero-menu-links a:hover::after,
-  .hero-menu-links a:focus-visible::after,
+  .hero-menu a:hover::after,
+  .hero-menu a:focus-visible::after,
   .site-header-nav-drawer a:hover::after,
   .site-header-nav-drawer a:focus-visible::after {
     width: 4.5rem;
   }
 
-  .hero-menu-links a.is-active,
+  .hero-menu a.is-active,
   .site-header-nav-drawer a.is-active,
   .site-header-nav-drawer a[aria-current="page"] {
+    padding-left: 1.7rem;
+
     color: #ffd992;
     background: transparent;
+
+    transform: translateX(0.45rem);
 
     text-shadow:
       0 2px 10px rgba(30, 18, 10, 0.9),
       0 0 18px rgba(216, 164, 93, 0.55);
   }
 
-  .hero-menu-links a.is-active::after,
+  .hero-menu a.is-active::after,
   .site-header-nav-drawer a.is-active::after,
   .site-header-nav-drawer a[aria-current="page"]::after {
+    left: 1.7rem;
     width: 5.5rem;
   }
 
-  .hero-menu-links a.is-active::before,
+  .hero-menu a.is-active::before,
   .site-header-nav-drawer a.is-active::before,
   .site-header-nav-drawer a[aria-current="page"]::before {
     content: "✦";
@@ -510,6 +562,19 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.42);
 
     overflow: hidden;
+  }
+
+  .hero-menu .hero-search label,
+  .site-header-drawer-search label {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .hero-menu .hero-search input,
@@ -550,34 +615,6 @@
     font-size: 1rem;
 
     cursor: pointer;
-  }
-
-  .mobile-menu,
-  .site-header-menu-button {
-    position: relative;
-    z-index: 10050;
-
-    line-height: 1;
-    text-align: center;
-  }
-
-  .mobile-menu[aria-expanded="true"],
-  .site-header-menu-button[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10050;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border-color: rgba(255, 250, 245, 0.5);
-
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.38);
-
-    transform: none;
   }
 }
 
@@ -974,208 +1011,5 @@
 
   .hero-buttons a {
     font-size: 0.88rem;
-  }
-}
-
-/* =========================================================
-   FINAL MOBILE DRAWER BUTTON ALIGNMENT
-   Keeps close button fixed in the same place on every page.
-   Adds active-link indent.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .mobile-menu,
-  .site-header-menu-button {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10060;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    line-height: 1;
-    text-align: center;
-  }
-
-  .mobile-menu[aria-expanded="true"],
-  .site-header-menu-button[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10060;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border-color: rgba(255, 250, 245, 0.5);
-
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.38);
-
-    transform: none;
-  }
-
-  .hero-menu,
-  .site-header-nav-drawer {
-    top: 0;
-    right: 0;
-    z-index: 10000;
-
-    padding-top: 5.35rem;
-  }
-
-  .hero-menu-links a.is-active,
-  .site-header-nav-drawer a.is-active,
-  .site-header-nav-drawer a[aria-current="page"] {
-    padding-left: 1.45rem;
-
-    color: #ffd992;
-    background: transparent;
-
-    transform: translateX(0.35rem);
-
-    text-shadow:
-      0 2px 10px rgba(30, 18, 10, 0.9),
-      0 0 18px rgba(216, 164, 93, 0.55);
-  }
-
-  .hero-menu-links a.is-active::after,
-  .site-header-nav-drawer a.is-active::after,
-  .site-header-nav-drawer a[aria-current="page"]::after {
-    left: 1.45rem;
-    width: 5.5rem;
-  }
-
-  .hero-menu-links a.is-active::before,
-  .site-header-nav-drawer a.is-active::before,
-  .site-header-nav-drawer a[aria-current="page"]::before {
-    content: "✦";
-    color: var(--gold);
-
-    font-family: var(--font-title);
-    font-size: 0.95rem;
-  }
-}
-
-/* =========================================================
-   FINAL FIX: MOBILE DRAWER BUTTON + ACTIVE LINK INDENT
-   Keeps normal page hamburger/close button in place.
-   Homepage keeps its own nice hero behaviour.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  /* Normal page hamburger button: stays in the header when closed */
-  .site-header-menu-button {
-    position: relative;
-    top: auto;
-    right: auto;
-    z-index: 10060;
-
-    width: 48px;
-    height: 48px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    line-height: 1;
-    text-align: center;
-  }
-
-  /* Normal page close button: moves into drawer corner when open */
-  .site-header-menu-button[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10070;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border-color: rgba(255, 250, 245, 0.5);
-
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.38);
-
-    transform: none;
-  }
-
-  /* Homepage button: do not disturb when closed */
-  .mobile-menu {
-    position: relative;
-    z-index: 10060;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    line-height: 1;
-    text-align: center;
-  }
-
-  /* Homepage close button: same corner as menu drawer */
-  .mobile-menu[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10070;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border-color: rgba(255, 250, 245, 0.5);
-
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.38);
-
-    transform: none;
-  }
-
-  /* Drawer sits below the close button */
-  .hero-menu,
-  .site-header-nav-drawer {
-    top: 0;
-    right: 0;
-    z-index: 10000;
-
-    padding-top: 5.5rem;
-  }
-
-  /* Active link gets a soft indent */
-  .hero-menu-links a.is-active,
-  .site-header-nav-drawer a.is-active,
-  .site-header-nav-drawer a[aria-current="page"] {
-    padding-left: 1.7rem;
-
-    color: #ffd992;
-    background: transparent;
-
-    transform: translateX(0.45rem);
-
-    text-shadow:
-      0 2px 10px rgba(30, 18, 10, 0.9),
-      0 0 18px rgba(216, 164, 93, 0.55);
-  }
-
-  .hero-menu-links a.is-active::after,
-  .site-header-nav-drawer a.is-active::after,
-  .site-header-nav-drawer a[aria-current="page"]::after {
-    left: 1.7rem;
-    width: 5.5rem;
-  }
-
-  .hero-menu-links a.is-active::before,
-  .site-header-nav-drawer a.is-active::before,
-  .site-header-nav-drawer a[aria-current="page"]::before {
-    content: "✦";
-    color: var(--gold);
-
-    font-family: var(--font-title);
-    font-size: 0.95rem;
   }
 }
