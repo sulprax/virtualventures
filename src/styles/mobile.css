@@ -1013,3 +1013,160 @@
     font-size: 0.88rem;
   }
 }
+
+/* =========================================================
+   FINAL: LOCK NORMAL PAGE BUTTON, KEEP HOMEPAGE TOPBAR NICE
+   ========================================================= */
+
+@media (max-width: 980px) {
+  /* Normal pages: fixed button in the header/drawer corner */
+  .site-header-menu-button,
+  .site-header-menu-button[aria-expanded="true"] {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    z-index: 10070 !important;
+
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1 !important;
+    text-align: center !important;
+    font-size: 1.45rem !important;
+
+    transform: none !important;
+  }
+
+  /* Homepage: keep button inside the hero topbar when closed */
+  .mobile-menu {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 10070 !important;
+
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1 !important;
+    text-align: center !important;
+    font-size: 1.45rem !important;
+
+    transform: none !important;
+  }
+
+  /* Homepage: when open, the X sits neatly inside the drawer corner */
+  .mobile-menu[aria-expanded="true"] {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    z-index: 10070 !important;
+
+    color: #1d1208 !important;
+    background: linear-gradient(145deg, #efbd72, #f5efe6) !important;
+
+    border-color: rgba(255, 250, 245, 0.5) !important;
+
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38) !important;
+  }
+
+  .site-header-menu-button[aria-expanded="true"] {
+    color: #1d1208 !important;
+    background: linear-gradient(145deg, #efbd72, #f5efe6) !important;
+
+    border-color: rgba(255, 250, 245, 0.5) !important;
+
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38) !important;
+  }
+
+  .hero-menu,
+  .site-header-nav-drawer {
+    top: 0 !important;
+    right: 0 !important;
+    z-index: 10000 !important;
+
+    width: 50vw !important;
+    height: 100vh !important;
+    height: 100svh !important;
+
+    padding-top: 5.8rem !important;
+  }
+
+  .hero-menu.is-open {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    align-content: start !important;
+  }
+
+  .hero-menu.is-open .hero-menu-links {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.45rem !important;
+  }
+
+  .hero-menu.is-open .hero-menu-links a,
+  .hero-menu.is-open .hero-search {
+    width: 100% !important;
+  }
+
+  .hero-menu.is-open .nav-star {
+    display: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .footer-socials {
+    margin-bottom: 1.75rem;
+  }
+
+  .footer-tree {
+    width: min(100%, 430px);
+    margin: 0 auto;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+
+    text-align: center;
+  }
+
+  .footer-column h3 {
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+  }
+
+  .footer-column ul {
+    display: grid;
+    justify-items: center;
+  }
+
+  .footer-column a {
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
+  .footer-column li + li {
+    margin-top: 0.5rem;
+  }
+}

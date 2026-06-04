@@ -1,5 +1,6 @@
 ---
 import { footerNavGroups } from "../../data/navigation";
+import { visibleSocials } from "../../data/socials";
 
 const year = new Date().getFullYear();
 ---
@@ -7,6 +8,19 @@ const year = new Date().getFullYear();
 <footer class="site-footer" aria-labelledby="footer-title">
   <div class="footer-inner footer-layout">
     <section class="footer-left">
+      <nav class="footer-socials" aria-label="Social media links">
+        {visibleSocials.map((social) => (
+          <a
+            href={social.href}
+            aria-label={social.label}
+            title={social.label}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true">{social.icon}</span>
+          </a>
+        ))}
+      </nav>
       <nav class="footer-tree" aria-label="Footer navigation">
         {footerNavGroups.map((group) => (
           <section class="footer-column">
