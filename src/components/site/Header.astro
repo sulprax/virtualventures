@@ -1,8 +1,8 @@
 ---
-import { mainNav, heroNav } from "../../data/navigation";
+import { siteNav } from "../../data/navigation";
 
 const { mode = "sticky" } = Astro.props;
-const navItems = [...mainNav, ...heroNav];
+const navItems = siteNav;
 const currentPath = Astro.url.pathname;
 
 function isActivePath(href: string) {
