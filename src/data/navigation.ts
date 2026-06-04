@@ -8,16 +8,21 @@ export type FooterNavGroup = {
   links: NavItem[];
 };
 
+export const heroNav: NavItem[] = [
+  { label: "Blog", href: "/blog/" },
+  { label: "Gallery", href: "/gallery/" },
+  { label: "Shop", href: "/shop/" },
+];
+
 export const mainNav: NavItem[] = [
   { label: "About", href: "/about/" },
   { label: "Contact", href: "/contact/" },
   { label: "FAQ", href: "/faq/" },
 ];
 
-export const heroNav: NavItem[] = [
-  { label: "Blog", href: "/blog/" },
-  { label: "Gallery", href: "/gallery/" },
-  { label: "Shop", href: "/shop/" },
+export const siteNav: NavItem[] = [
+  ...heroNav,
+  ...mainNav,
 ];
 
 export const craftNav: NavItem[] = [
@@ -32,8 +37,7 @@ export const footerNavGroups: FooterNavGroup[] = [
     title: "Explore",
     links: [
       { label: "Home", href: "/" },
-      ...heroNav,
-      { label: "Contact", href: "/contact/" },
+      ...siteNav,
     ],
   },
   {
@@ -43,8 +47,6 @@ export const footerNavGroups: FooterNavGroup[] = [
   {
     title: "Helpful",
     links: [
-      { label: "About", href: "/about/" },
-      { label: "FAQ", href: "/faq/" },
       { label: "Privacy", href: "/privacy/" },
       { label: "Terms", href: "/terms/" },
     ],
