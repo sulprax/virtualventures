@@ -22,26 +22,23 @@ import { visibleSocials } from "../../data/socials";
       ))}
     </nav>
 
-    <nav id="hero-navigation" class="hero-menu" aria-label="Main navigation">
-      {mainNav.map((item) => (
-        <>
+    <nav
+      id="hero-navigation"
+      class="hero-menu"
+      aria-label="Main navigation"
+      data-hero-menu
+    >
+      <div class="hero-menu-links">
+        {mainNav.map((item) => (
           <a href={item.href}>{item.label}</a>
-          <span class="nav-star" aria-hidden="true">✦</span>
-        </>
-      ))}
+        ))}
+      </div>
 
       <form class="hero-search" action="/search/" method="get" role="search">
         <label class="sr-only" for="hero-search">Search the site</label>
         <input id="hero-search" name="q" type="search" placeholder="Search..." />
         <button type="submit" aria-label="Search">⌕</button>
       </form>
-
-
-
-
-
-
-      
     </nav>
 
     <button
@@ -85,7 +82,7 @@ import { visibleSocials } from "../../data/socials";
     </p>
   </div>
 
-  <nav class="hero-buttons" aria-label="Main navigation">
+  <nav class="hero-buttons" aria-label="Featured homepage links">
     <a href="/blog/">
       <span class="button-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
@@ -121,14 +118,25 @@ import { visibleSocials } from "../../data/socials";
 
 <script>
   const mobileMenuButton = document.querySelector("[data-mobile-menu]");
-  const heroNavigation = document.querySelector("#hero-navigation");
+  const heroNavigation = document.querySelector("[data-hero-menu]");
 
-  if (mobileMenuButton instanceof HTMLButtonElement && heroNavigation instanceof HTMLElement) {
+  if (
+    mobileMenuButton instanceof HTMLButtonElement &&
+    heroNavigation instanceof HTMLElement
+  ) {
     mobileMenuButton.addEventListener("click", () => {
       const isOpen = heroNavigation.classList.toggle("is-open");
 
       mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
       mobileMenuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    });
+
+    heroNavigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        heroNavigation.classList.remove("is-open");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+        mobileMenuButton.setAttribute("aria-label", "Open menu");
+      });
     });
   }
 </script>
