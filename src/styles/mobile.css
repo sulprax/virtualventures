@@ -18,8 +18,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
-      "brand toggle"
-      "drawer drawer";
+      "brand toggle";
     align-items: center;
     gap: 0.65rem;
 
@@ -67,11 +66,17 @@
     justify-self: end;
 
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     width: 48px;
     height: 48px;
 
+    line-height: 1;
+    text-align: center;
     font-size: 1.45rem;
+
+    z-index: 10050;
   }
 
   .site-header-nav-drawer[hidden] {
@@ -184,15 +189,21 @@
 
   .mobile-menu {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
+    line-height: 1;
+    text-align: center;
     font-size: 1.35rem;
+
+    z-index: 10050;
   }
 }
 
 
 /* =========================================================
    04. SHARED MOBILE SIDE DRAWER
-   Both hamburger menus use this same drawer.
+   Homepage hero menu and normal page menu.
    ========================================================= */
 
 @media (max-width: 980px) {
@@ -201,15 +212,16 @@
     position: fixed;
     top: 0;
     right: 0;
+    bottom: 0;
     left: auto;
-    z-index: 9999;
+    z-index: 10000;
 
     width: 50vw;
     height: 100vh;
     height: 100svh;
 
     padding: clamp(1rem, 4vw, 1.35rem);
-    padding-top: clamp(4.75rem, 12vw, 5.6rem);
+    padding-top: clamp(5rem, 12vw, 5.8rem);
 
     display: none;
     grid-template-columns: 1fr;
@@ -222,14 +234,14 @@
     background:
       radial-gradient(
         circle at top right,
-        rgba(239, 189, 114, 0.18),
-        transparent 34%
+        rgba(239, 189, 114, 0.2),
+        transparent 35%
       ),
       linear-gradient(
         155deg,
-        rgba(55, 35, 23, 0.88) 0%,
-        rgba(38, 25, 18, 0.91) 42%,
-        rgba(24, 17, 13, 0.88) 100%
+        rgba(66, 44, 30, 0.9) 0%,
+        rgba(43, 29, 21, 0.92) 44%,
+        rgba(24, 17, 13, 0.9) 100%
       );
 
     border-left: 1px solid rgba(239, 189, 114, 0.34);
@@ -268,12 +280,37 @@
     pointer-events: none;
   }
 
+  .hero-menu::after,
+  .site-header-nav-drawer::after {
+    content: "";
+
+    position: absolute;
+    right: 50%;
+    bottom: 2.2rem;
+    z-index: -1;
+
+    width: min(78%, 18rem);
+    aspect-ratio: 3 / 2;
+
+    transform: translateX(50%);
+
+    background-image: url("/images/brand/logo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0.075;
+
+    pointer-events: none;
+  }
+
   .hero-menu.is-open {
     display: grid;
   }
 
   .site-header-nav-drawer {
-    grid-area: drawer;
+    margin-top: 0;
+    grid-area: auto;
     justify-self: end;
   }
 
@@ -493,6 +530,11 @@
     font-size: 0.9rem;
   }
 
+  .hero-menu .hero-search input::placeholder,
+  .site-header-drawer-search input::placeholder {
+    color: rgba(45, 34, 24, 0.56);
+  }
+
   .hero-menu .hero-search button,
   .site-header-drawer-search button {
     flex: 0 0 44px;
@@ -508,6 +550,34 @@
     font-size: 1rem;
 
     cursor: pointer;
+  }
+
+  .mobile-menu,
+  .site-header-menu-button {
+    position: relative;
+    z-index: 10050;
+
+    line-height: 1;
+    text-align: center;
+  }
+
+  .mobile-menu[aria-expanded="true"],
+  .site-header-menu-button[aria-expanded="true"] {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10050;
+
+    color: #1d1208;
+    background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+    border-color: rgba(255, 250, 245, 0.5);
+
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.38);
+
+    transform: none;
   }
 }
 
@@ -904,132 +974,5 @@
 
   .hero-buttons a {
     font-size: 0.88rem;
-  }
-}
-
-/* =========================================================
-   MOBILE MENU BUTTON STATE
-   Keeps hamburger / close icon centred and polished.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .mobile-menu,
-  .site-header-menu-button {
-    line-height: 1;
-    text-align: center;
-  }
-
-  .mobile-menu[aria-expanded="true"],
-  .site-header-menu-button[aria-expanded="true"] {
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-    transform: rotate(90deg);
-  }
-}
-
-/* =========================================================
-   NORMAL PAGE MOBILE DRAWER POSITION FIX
-   Make non-homepage hamburger drawer start from the very top.
-   Homepage hero menu keeps its current look.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .site-header-nav-drawer {
-    position: fixed !important;
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    left: auto !important;
-
-    height: 100vh !important;
-    height: 100svh !important;
-
-    margin-top: 0 !important;
-
-    z-index: 9999 !important;
-  }
-}
-
-/* =========================================================
-   MOBILE DRAWER LAYERING + WATERMARK
-   Keeps close button above the menu and adds faint logo.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  /* Make both menu buttons the top-most clickable thing */
-  .mobile-menu,
-  .site-header-menu-button {
-    position: relative;
-    z-index: 10050;
-  }
-
-  .mobile-menu[aria-expanded="true"],
-  .site-header-menu-button[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-
-    z-index: 10050;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border-color: rgba(255, 250, 245, 0.5);
-
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.38);
-
-    transform: none;
-  }
-
-  /* Both drawers start from the very top and sit under the close button */
-  .hero-menu,
-  .site-header-nav-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: auto;
-
-    z-index: 10000;
-
-    height: 100vh;
-    height: 100svh;
-
-    padding-top: 5.3rem;
-
-    border-radius: 22px 0 0 22px;
-  }
-
-  /* Normal pages need this extra nudge because the header grid adds spacing */
-  .site-header-nav-drawer {
-    margin-top: 0;
-    grid-area: auto;
-  }
-
-  /* Very faint logo watermark near the bottom */
-  .hero-menu::after,
-  .site-header-nav-drawer::after {
-    content: "";
-
-    position: absolute;
-    right: 50%;
-    bottom: 2.2rem;
-    z-index: -1;
-
-    width: min(78%, 18rem);
-    aspect-ratio: 3 / 2;
-
-    transform: translateX(50%);
-
-    background-image: url("/images/brand/logo.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    opacity: 0.05;
-
-    pointer-events: none;
   }
 }

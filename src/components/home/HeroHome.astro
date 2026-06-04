@@ -131,6 +131,7 @@ const navItems = [...mainNav, ...heroNav];
 
       mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
       mobileMenuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      mobileMenuButton.textContent = isOpen ? "×" : "☰";
     });
 
     heroNavigation.querySelectorAll("a").forEach((link) => {
@@ -138,6 +139,7 @@ const navItems = [...mainNav, ...heroNav];
         heroNavigation.classList.remove("is-open");
         mobileMenuButton.setAttribute("aria-expanded", "false");
         mobileMenuButton.setAttribute("aria-label", "Open menu");
+        mobileMenuButton.textContent = "☰";
       });
     });
   }
