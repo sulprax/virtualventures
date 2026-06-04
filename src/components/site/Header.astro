@@ -103,8 +103,20 @@ function isActivePath(href: string) {
       const isOpen = siteMenuDrawer.hidden;
 
       siteMenuDrawer.hidden = !isOpen;
+
       siteMenuToggle.setAttribute("aria-expanded", String(isOpen));
       siteMenuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      siteMenuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    siteMenuDrawer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        siteMenuDrawer.hidden = true;
+
+        siteMenuToggle.setAttribute("aria-expanded", "false");
+        siteMenuToggle.setAttribute("aria-label", "Open menu");
+        siteMenuToggle.textContent = "☰";
+      });
     });
   }
 </script>
