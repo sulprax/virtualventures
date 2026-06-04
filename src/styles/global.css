@@ -571,7 +571,7 @@ button:disabled {
   display: grid;
   place-items: center;
 
-  padding: 5.5rem 1.5rem 7rem;
+  padding: clamp(6rem, 10vw, 7.25rem) 1.5rem 7rem;
 
   background-image:
     image-set(
