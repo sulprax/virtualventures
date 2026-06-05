@@ -1,22 +1,286 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/page/PageHero.astro";
+import { getCollection } from "astro:content";
+import {
+  makeSearchText,
+  staticSearchItems,
+  type SearchItem,
+} from "../../data/searchIndex";
 
 const query = Astro.url.searchParams.get("q")?.trim() ?? "";
-const description = "Search Virtual Ventures blog posts, patterns, handmade projects and workshop notes.";
+
+const description =
+  "Search Virtual Ventures blog posts, pages, patterns, handmade projects, images and workshop notes.";
+
+const blogPosts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((post): SearchItem => {
+    const searchText = makeSearchText([
+      post.data.title,
+      post.data.description,
+      post.data.category,
+      post.data.tags,
+      post.body,
+      post.data.images?.flatMap((image) => [
+        image.title,
+        image.alt,
+        image.description,
+        image.category,
+        image.tags,
+      ]),
+    ]);
+
+    return {
+      title: post.data.title,
+      description: post.data.description,
+      href: `/blog/${post.id}/`,
+      type: "Blog Post",
+      emoji: post.data.emoji,
+      searchText,
+    };
+  });
+
+const blogImages = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .flatMap((post) =>
+    post.data.images
+      .filter((image) => image.gallery)
+      .map((image): SearchItem => {
+        const searchText = makeSearchText([
+          image.title,
+          image.alt,
+          image.description,
+          image.category,
+          image.tags,
+          post.data.title,
+          post.data.description,
+          post.data.category,
+          post.data.tags,
+        ]);
+
+        return {
+          title: image.title,
+          description:
+            image.description || image.alt || `Image from ${post.data.title}`,
+          href: `/blog/${post.id}/`,
+          type: "Image",
+          emoji: "🖼️",
+          image: image.src,
+          imageAlt: image.alt,
+          searchText,
+        };
+      })
+  );
+
+const searchItems: SearchItem[] = [
+  ...staticSearchItems,
+  ...blogPosts,
+  ...blogImages,
+];
 ---
 
 <Layout title="Search | Virtual Ventures" description={description} showFooterBreadcrumbs={false}>
   <PageHero eyebrow="Search" title="Search" description={description} />
 
-  <main class="page-shell">
-    <section class="page-intro">
-      <p class="eyebrow">Workshop search</p>
-      <h1>{query ? `Results for "${query}"` : "Find a project or post"}</h1>
-      <p>
-        Search is ready as a dedicated route, and results can be connected when
-        the site has more posts, patterns and shop items to index.
+  <main class="page-shell search-page">
+    <section class="page-intro search-panel">
+      <p class="eyebrow">
+        <span aria-hidden="true">✦</span>
+        Workshop search
+        <span aria-hidden="true">✦</span>
+      </p>
+
+      <h1>{query ? `Results for "${query}"` : "Find a project, post or picture"}</h1>
+
+      <form class="search-page-form" action="/search/" method="get" role="search" data-search-form>
+        <label for="search-page-input">Search the site</label>
+
+        <div class="search-page-row">
+          <input
+            id="search-page-input"
+            name="q"
+            type="search"
+            value={query}
+            placeholder="Try AI, crochet, planner, laser, dogs, shop..."
+            autocomplete="off"
+            data-search-input
+          />
+
+          <button type="submit">Search</button>
+        </div>
+      </form>
+
+      <div class="search-filter-row" aria-label="Search filters">
+        <button type="button" class="search-filter-chip is-active" data-search-filter="all">
+          ✨ All
+        </button>
+
+        <button type="button" class="search-filter-chip" data-search-filter="Page">
+          Pages
+        </button>
+
+        <button type="button" class="search-filter-chip" data-search-filter="Page Section">
+          Page Sections
+        </button>
+
+        <button type="button" class="search-filter-chip" data-search-filter="Blog Post">
+          Blog Posts
+        </button>
+
+        <button type="button" class="search-filter-chip" data-search-filter="Image">
+          Images
+        </button>
+      </div>
+
+      <p class="search-summary" data-search-summary>
+        Type a word above to search the workshop.
       </p>
     </section>
+
+    <section class="search-results" aria-label="Search results">
+      {searchItems.map((item) => (
+        <article
+          class="search-result-card"
+          data-search-result
+          data-search-type={item.type}
+          data-search-text={item.searchText}
+        >
+          <a href={item.href}>
+            {item.image && (
+              <img
+                class="search-result-image"
+                src={item.image}
+                alt={item.imageAlt || ""}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+
+            <span class="search-result-date">{item.type}</span>
+
+            <span class="search-result-title-row">
+              <span class="search-result-emoji" aria-hidden="true">{item.emoji}</span>
+              <span class="search-result-title">{item.title}</span>
+            </span>
+
+            <span class="search-result-description">{item.description}</span>
+          </a>
+        </article>
+      ))}
+    </section>
+
+    <p class="search-empty" data-search-empty hidden>
+      No matching results found. Try “AI”, “crochet”, “planner”, “laser”, “website”, or “shop”. ✨
+    </p>
   </main>
+
+  <script>
+    const form = document.querySelector("[data-search-form]");
+    const input = document.querySelector("[data-search-input]");
+    const cards = Array.from(document.querySelectorAll("[data-search-result]"));
+    const summary = document.querySelector("[data-search-summary]");
+    const emptyMessage = document.querySelector("[data-search-empty]");
+    const filterButtons = Array.from(document.querySelectorAll("[data-search-filter]"));
+
+    let activeFilter = "all";
+
+    function normaliseSearchText(value: string) {
+      return value
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function applySearch(rawQuery: string) {
+      const query = normaliseSearchText(rawQuery);
+      const terms = query.split(" ").filter(Boolean);
+
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        if (!(card instanceof HTMLElement)) return;
+
+        const searchText = normaliseSearchText(card.dataset.searchText || "");
+        const type = card.dataset.searchType || "";
+
+        const matchesText =
+          terms.length === 0 || terms.every((term) => searchText.includes(term));
+
+        const matchesFilter = activeFilter === "all" || type === activeFilter;
+
+        const isMatch = matchesText && matchesFilter;
+
+        card.hidden = !isMatch;
+
+        if (isMatch) {
+          visibleCount += 1;
+        }
+      });
+
+      if (summary instanceof HTMLElement) {
+        const filterLabel =
+          activeFilter === "all" ? "items" : activeFilter.toLowerCase();
+
+        if (terms.length === 0) {
+          summary.textContent = `Showing ${visibleCount} searchable ${filterLabel}.`;
+        } else {
+          summary.textContent = `Found ${visibleCount} result${visibleCount === 1 ? "" : "s"} for “${rawQuery}”.`;
+        }
+      }
+
+      if (emptyMessage instanceof HTMLElement) {
+        emptyMessage.hidden = visibleCount > 0;
+      }
+    }
+
+    if (input instanceof HTMLInputElement) {
+      const params = new URLSearchParams(window.location.search);
+      const startingQuery = params.get("q") || "";
+
+      input.value = startingQuery;
+      applySearch(startingQuery);
+
+      input.addEventListener("input", () => {
+        applySearch(input.value);
+      });
+    }
+
+    filterButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      button.addEventListener("click", () => {
+        activeFilter = button.dataset.searchFilter || "all";
+
+        filterButtons.forEach((filterButton) => {
+          if (!(filterButton instanceof HTMLButtonElement)) return;
+
+          filterButton.classList.toggle(
+            "is-active",
+            filterButton.dataset.searchFilter === activeFilter
+          );
+        });
+
+        if (input instanceof HTMLInputElement) {
+          applySearch(input.value);
+        }
+      });
+    });
+
+    if (form instanceof HTMLFormElement && input instanceof HTMLInputElement) {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const searchQuery = input.value.trim();
+        const nextUrl = searchQuery
+          ? `/search/?q=${encodeURIComponent(searchQuery)}`
+          : "/search/";
+
+        history.replaceState(null, "", nextUrl);
+        applySearch(searchQuery);
+      });
+    }
+  </script>
 </Layout>
