@@ -1479,3 +1479,78 @@
     font-size: 0.9rem;
   }
 }
+
+/* =========================================================
+   FOOTER SEARCH / SUBSCRIBE / RSS
+   Mobile and small tablet overrides
+   ========================================================= */
+
+@media (max-width: 840px) {
+  .footer-actions {
+    width: min(100%, 40rem);
+    margin-inline: auto;
+  }
+
+  .footer-action-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-rss-row {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .footer-action-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-actions {
+    width: 100%;
+  }
+
+  .footer-search label,
+  .footer-subscribe label {
+    text-align: center;
+  }
+
+  .footer-rss-row {
+    width: min(100%, 22rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-form-row {
+    min-height: auto;
+    padding: 0.35rem;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    border-radius: 24px;
+  }
+
+  .footer-form-row input {
+    min-height: 2.75rem;
+    padding: 0 0.9rem;
+  }
+
+  .footer-form-row button {
+    width: 100%;
+    min-height: 2.75rem;
+  }
+
+  .footer-rss-row {
+    padding: 0.35rem;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    border-radius: 24px;
+  }
+
+  .footer-rss-button {
+    width: 100%;
+    min-height: 2.6rem;
+  }
+}
