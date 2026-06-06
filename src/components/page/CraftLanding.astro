@@ -11,11 +11,16 @@ interface Props {
   introText: string;
 }
 
-const { title, eyebrow, description, introEyebrow, introTitle, introText } = Astro.props;
+const { title, eyebrow, description, introEyebrow, introTitle, introText } =
+  Astro.props;
 const pageTitle = `${title} | Virtual Ventures`;
 ---
 
-<Layout title={pageTitle} description={description} showFooterBreadcrumbs={false}>
+<Layout
+  title={pageTitle}
+  description={description}
+  showFooterBreadcrumbs={false}
+>
   <PageHero eyebrow={eyebrow} title={title} description={description} />
 
   <main class="page-shell">

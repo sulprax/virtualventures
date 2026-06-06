@@ -24,10 +24,7 @@ function flattenSearchPart(part: SearchTextPart): string[] {
 }
 
 export function makeSearchText(parts: SearchTextPart[]) {
-  return parts
-    .flatMap(flattenSearchPart)
-    .join(" ")
-    .toLowerCase();
+  return parts.flatMap(flattenSearchPart).join(" ").toLowerCase();
 }
 
 export const staticSearchItems: SearchItem[] = [

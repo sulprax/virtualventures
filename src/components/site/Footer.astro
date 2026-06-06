@@ -9,38 +9,54 @@ const year = new Date().getFullYear();
   <div class="footer-inner footer-layout">
     <section class="footer-left">
       <nav class="footer-socials" aria-label="Social media links">
-        {visibleSocials.map((social) => (
-          <a
-            href={social.href}
-            aria-label={social.label}
-            title={social.label}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span aria-hidden="true">{social.icon}</span>
-          </a>
-        ))}
+        {
+          visibleSocials.map((social) => (
+            <a
+              href={social.href}
+              aria-label={social.label}
+              title={social.label}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span aria-hidden="true">{social.icon}</span>
+            </a>
+          ))
+        }
       </nav>
       <nav class="footer-tree" aria-label="Footer navigation">
-        {footerNavGroups.map((group) => (
-          <section class="footer-column">
-            <h3>{group.title}</h3>
+        {
+          footerNavGroups.map((group) => (
+            <section class="footer-column">
+              <h3>{group.title}</h3>
 
-            <ul>
-              {group.links.map((link) => (
-                <li><a href={link.href}>{link.label}</a></li>
-              ))}
-            </ul>
-          </section>
-        ))}
+              <ul>
+                {group.links.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
       </nav>
 
       <div class="footer-actions">
-        <form class="footer-search" action="/search/" method="get" role="search">
+        <form
+          class="footer-search"
+          action="/search/"
+          method="get"
+          role="search"
+        >
           <label for="footer-search">Search the site</label>
 
           <div class="footer-form-row">
-            <input id="footer-search" name="q" type="search" placeholder="Search patterns, blog posts..." />
+            <input
+              id="footer-search"
+              name="q"
+              type="search"
+              placeholder="Search patterns, blog posts..."
+            />
             <button type="submit">Search</button>
           </div>
         </form>
@@ -49,17 +65,19 @@ const year = new Date().getFullYear();
           <label for="footer-email">Subscribe to the blog</label>
 
           <div class="footer-form-row">
-            <input id="footer-email" name="email" type="email" placeholder="your@email.com" />
+            <input
+              id="footer-email"
+              name="email"
+              type="email"
+              placeholder="your@email.com"
+            />
             <button type="submit">Subscribe</button>
           </div>
         </form>
       </div>
       <div class="footer-subscribe">
-
         <div class="footer-form-row footer-rss-row">
-          <a class="footer-rss-button" href="/rss.xml">
-            RSS Feed
-          </a>
+          <a class="footer-rss-button" href="/rss.xml"> RSS Feed </a>
 
           <a
             class="footer-rss-button"
@@ -73,21 +91,28 @@ const year = new Date().getFullYear();
       </div>
     </section>
 
-
     <section class="footer-right" aria-labelledby="footer-title">
       <div class="footer-brand-lockup">
-        <img class="footer-logo" src="/images/brand/logo.png" alt="Virtual Ventures logo" loading="lazy" />
+        <img
+          class="footer-logo"
+          src="/images/brand/logo.png"
+          alt="Virtual Ventures logo"
+          loading="lazy"
+        />
         <h2 id="footer-title">Virtual<br />Ventures</h2>
       </div>
 
       <p class="footer-description">
-        Crochet patterns, laser engraved pieces, handmade gifts, blog posts,
-        and creative experiments with a warm woodland feel.
+        Crochet patterns, laser engraved pieces, handmade gifts, blog posts, and
+        creative experiments with a warm woodland feel.
       </p>
     </section>
   </div>
 
   <div class="footer-bottom">
-    <p>© {year} Virtual Ventures. All designs, photos, patterns, artwork, and original content belong to Virtual Ventures unless stated otherwise.</p>
+    <p>
+      © {year} Virtual Ventures. All designs, photos, patterns, artwork, and original
+      content belong to Virtual Ventures unless stated otherwise.
+    </p>
   </div>
 </footer>

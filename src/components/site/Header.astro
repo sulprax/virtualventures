@@ -10,7 +10,9 @@ function isActivePath(href: string) {
 
   const normalizedHref = href.endsWith("/") ? href : `${href}/`;
 
-  return currentPath === normalizedHref || currentPath.startsWith(normalizedHref);
+  return (
+    currentPath === normalizedHref || currentPath.startsWith(normalizedHref)
+  );
 }
 ---
 
@@ -21,21 +23,25 @@ function isActivePath(href: string) {
   </a>
 
   <nav class="site-header-nav" aria-label="Main navigation">
-    {navItems.map((item, index) => (
-      <>
-        <a
-          href={item.href}
-          class:list={[{ "is-active": isActivePath(item.href) }]}
-          aria-current={isActivePath(item.href) ? "page" : undefined}
-        >
-          {item.label}
-        </a>
+    {
+      navItems.map((item, index) => (
+        <>
+          <a
+            href={item.href}
+            class:list={[{ "is-active": isActivePath(item.href) }]}
+            aria-current={isActivePath(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
 
-        {index < navItems.length - 1 && (
-          <span class="site-header-star" aria-hidden="true">✦</span>
-        )}
-      </>
-    ))}
+          {index < navItems.length - 1 && (
+            <span class="site-header-star" aria-hidden="true">
+              ✦
+            </span>
+          )}
+        </>
+      ))
+    }
   </nav>
 
   <form class="site-header-search" action="/search/" method="get" role="search">
@@ -67,18 +73,25 @@ function isActivePath(href: string) {
     data-site-menu-drawer
   >
     <nav aria-label="Mobile navigation">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class:list={[{ "is-active": isActivePath(item.href) }]}
-          aria-current={isActivePath(item.href) ? "page" : undefined}
-        >
-          {item.label}
-        </a>
-      ))}
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[{ "is-active": isActivePath(item.href) }]}
+            aria-current={isActivePath(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
     </nav>
 
-    <form class="site-header-drawer-search" action="/search/" method="get" role="search">
+    <form
+      class="site-header-drawer-search"
+      action="/search/"
+      method="get"
+      role="search"
+    >
       <label for="site-header-drawer-search-input">Search the site</label>
       <input
         id="site-header-drawer-search-input"
@@ -105,7 +118,10 @@ function isActivePath(href: string) {
       siteMenuDrawer.hidden = !isOpen;
 
       siteMenuToggle.setAttribute("aria-expanded", String(isOpen));
-      siteMenuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      siteMenuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close menu" : "Open menu",
+      );
       siteMenuToggle.textContent = isOpen ? "×" : "☰";
     });
 

@@ -71,7 +71,7 @@ const blogImages = (await getCollection("blog"))
           imageAlt: image.alt,
           searchText,
         };
-      })
+      }),
   );
 
 const searchItems: SearchItem[] = [
@@ -81,7 +81,11 @@ const searchItems: SearchItem[] = [
 ];
 ---
 
-<Layout title="Search | Virtual Ventures" description={description} showFooterBreadcrumbs={false}>
+<Layout
+  title="Search | Virtual Ventures"
+  description={description}
+  showFooterBreadcrumbs={false}
+>
   <PageHero eyebrow="Search" title="Search" description={description} />
 
   <main class="page-shell search-page">
@@ -92,9 +96,17 @@ const searchItems: SearchItem[] = [
         <span aria-hidden="true">✦</span>
       </p>
 
-      <h1>{query ? `Results for "${query}"` : "Find a project, post or picture"}</h1>
+      <h1>
+        {query ? `Results for "${query}"` : "Find a project, post or picture"}
+      </h1>
 
-      <form class="search-page-form" action="/search/" method="get" role="search" data-search-form>
+      <form
+        class="search-page-form"
+        action="/search/"
+        method="get"
+        role="search"
+        data-search-form
+      >
         <label for="search-page-input">Search the site</label>
 
         <div class="search-page-row">
@@ -113,23 +125,43 @@ const searchItems: SearchItem[] = [
       </form>
 
       <div class="search-filter-row" aria-label="Search filters">
-        <button type="button" class="search-filter-chip is-active" data-search-filter="all">
+        <button
+          type="button"
+          class="search-filter-chip is-active"
+          data-search-filter="all"
+        >
           ✨ All
         </button>
 
-        <button type="button" class="search-filter-chip" data-search-filter="Page">
+        <button
+          type="button"
+          class="search-filter-chip"
+          data-search-filter="Page"
+        >
           Pages
         </button>
 
-        <button type="button" class="search-filter-chip" data-search-filter="Page Section">
+        <button
+          type="button"
+          class="search-filter-chip"
+          data-search-filter="Page Section"
+        >
           Page Sections
         </button>
 
-        <button type="button" class="search-filter-chip" data-search-filter="Blog Post">
+        <button
+          type="button"
+          class="search-filter-chip"
+          data-search-filter="Blog Post"
+        >
           Blog Posts
         </button>
 
-        <button type="button" class="search-filter-chip" data-search-filter="Image">
+        <button
+          type="button"
+          class="search-filter-chip"
+          data-search-filter="Image"
+        >
           Images
         </button>
       </div>
@@ -140,39 +172,44 @@ const searchItems: SearchItem[] = [
     </section>
 
     <section class="search-results" aria-label="Search results">
-      {searchItems.map((item) => (
-        <article
-          class="search-result-card"
-          data-search-result
-          data-search-type={item.type}
-          data-search-text={item.searchText}
-        >
-          <a href={item.href}>
-            {item.image && (
-              <img
-                class="search-result-image"
-                src={item.image}
-                alt={item.imageAlt || ""}
-                loading="lazy"
-                decoding="async"
-              />
-            )}
+      {
+        searchItems.map((item) => (
+          <article
+            class="search-result-card"
+            data-search-result
+            data-search-type={item.type}
+            data-search-text={item.searchText}
+          >
+            <a href={item.href}>
+              {item.image && (
+                <img
+                  class="search-result-image"
+                  src={item.image}
+                  alt={item.imageAlt || ""}
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
 
-            <span class="search-result-date">{item.type}</span>
+              <span class="search-result-date">{item.type}</span>
 
-            <span class="search-result-title-row">
-              <span class="search-result-emoji" aria-hidden="true">{item.emoji}</span>
-              <span class="search-result-title">{item.title}</span>
-            </span>
+              <span class="search-result-title-row">
+                <span class="search-result-emoji" aria-hidden="true">
+                  {item.emoji}
+                </span>
+                <span class="search-result-title">{item.title}</span>
+              </span>
 
-            <span class="search-result-description">{item.description}</span>
-          </a>
-        </article>
-      ))}
+              <span class="search-result-description">{item.description}</span>
+            </a>
+          </article>
+        ))
+      }
     </section>
 
     <p class="search-empty" data-search-empty hidden>
-      No matching results found. Try “AI”, “crochet”, “planner”, “laser”, “website”, or “shop”. ✨
+      No matching results found. Try “AI”, “crochet”, “planner”, “laser”,
+      “website”, or “shop”. ✨
     </p>
   </main>
 
@@ -182,7 +219,9 @@ const searchItems: SearchItem[] = [
     const cards = Array.from(document.querySelectorAll("[data-search-result]"));
     const summary = document.querySelector("[data-search-summary]");
     const emptyMessage = document.querySelector("[data-search-empty]");
-    const filterButtons = Array.from(document.querySelectorAll("[data-search-filter]"));
+    const filterButtons = Array.from(
+      document.querySelectorAll("[data-search-filter]"),
+    );
 
     let activeFilter = "all";
 
@@ -207,7 +246,8 @@ const searchItems: SearchItem[] = [
         const type = card.dataset.searchType || "";
 
         const matchesText =
-          terms.length === 0 || terms.every((term) => searchText.includes(term));
+          terms.length === 0 ||
+          terms.every((term) => searchText.includes(term));
 
         const matchesFilter = activeFilter === "all" || type === activeFilter;
 
@@ -259,7 +299,7 @@ const searchItems: SearchItem[] = [
 
           filterButton.classList.toggle(
             "is-active",
-            filterButton.dataset.searchFilter === activeFilter
+            filterButton.dataset.searchFilter === activeFilter,
           );
         });
 

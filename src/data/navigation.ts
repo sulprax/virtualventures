@@ -20,10 +20,7 @@ export const mainNav: NavItem[] = [
   { label: "FAQ", href: "/faq/" },
 ];
 
-export const siteNav: NavItem[] = [
-  ...heroNav,
-  ...mainNav,
-];
+export const siteNav: NavItem[] = [...heroNav, ...mainNav];
 
 export const craftNav: NavItem[] = [
   { label: "Crochet", href: "/crochet/" },
@@ -35,10 +32,7 @@ export const craftNav: NavItem[] = [
 export const footerNavGroups: FooterNavGroup[] = [
   {
     title: "Explore",
-    links: [
-      { label: "Home", href: "/" },
-      ...siteNav,
-    ],
+    links: [{ label: "Home", href: "/" }, ...siteNav],
   },
   {
     title: "Craft Paths",

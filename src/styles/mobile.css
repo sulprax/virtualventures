@@ -3,7 +3,6 @@
    Optimised tablet, mobile, footer, and drawer overrides
    ========================================================= */
 
-
 /* =========================================================
    01. NORMAL SITE HEADER
    Blog, shop, gallery, about, contact, FAQ, etc.
@@ -111,7 +110,6 @@
   }
 }
 
-
 /* =========================================================
    02. TABLET LAYOUT
    ========================================================= */
@@ -153,7 +151,6 @@
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 }
-
 
 /* =========================================================
    03. HOMEPAGE HERO TOPBAR
@@ -239,7 +236,6 @@
   }
 }
 
-
 /* =========================================================
    04. SHARED MOBILE SIDE DRAWER
    Homepage hero menu and normal page menu.
@@ -308,13 +304,12 @@
 
     border-radius: inherit;
 
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(255, 246, 229, 0.08),
-        transparent 32%,
-        rgba(0, 0, 0, 0.16)
-      );
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 246, 229, 0.08),
+      transparent 32%,
+      rgba(0, 0, 0, 0.16)
+    );
 
     pointer-events: none;
   }
@@ -547,12 +542,11 @@
     display: flex;
     align-items: center;
 
-    background:
-      linear-gradient(
-        135deg,
-        rgba(255, 250, 245, 0.84),
-        rgba(230, 216, 201, 0.68)
-      );
+    background: linear-gradient(
+      135deg,
+      rgba(255, 250, 245, 0.84),
+      rgba(230, 216, 201, 0.68)
+    );
 
     border: 1px solid rgba(239, 189, 114, 0.34);
     border-radius: var(--radius-pill);
@@ -618,7 +612,6 @@
   }
 }
 
-
 /* =========================================================
    05. MOBILE PAGE LAYOUT
    ========================================================= */
@@ -627,11 +620,10 @@
   .hero {
     padding: 6.5rem 1rem 4rem;
 
-    background-image:
-      image-set(
-        url("/images/hero/hero-1-mobile.webp") type("image/webp"),
-        url("/images/hero/hero-1.jpg") type("image/jpeg")
-      );
+    background-image: image-set(
+      url("/images/hero/hero-1-mobile.webp") type("image/webp"),
+      url("/images/hero/hero-1.jpg") type("image/jpeg")
+    );
 
     background-size: cover;
     background-position: center top;
@@ -639,15 +631,14 @@
   }
 
   .hero::before {
-    background:
-      radial-gradient(
-        circle at center,
-        rgba(0, 0, 0, 0.04) 0%,
-        rgba(0, 0, 0, 0.12) 28%,
-        rgba(0, 0, 0, 0.28) 56%,
-        rgba(0, 0, 0, 0.52) 80%,
-        rgba(0, 0, 0, 0.72) 100%
-      );
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.04) 0%,
+      rgba(0, 0, 0, 0.12) 28%,
+      rgba(0, 0, 0, 0.28) 56%,
+      rgba(0, 0, 0, 0.52) 80%,
+      rgba(0, 0, 0, 0.72) 100%
+    );
   }
 
   .hero-top-fade {
@@ -910,7 +901,6 @@
     width: 100%;
   }
 }
-
 
 /* =========================================================
    06. SMALL MOBILE
@@ -1226,12 +1216,11 @@
   .mobile-side-drawer-toggle:hover,
   .mobile-side-drawer-toggle:focus-visible {
     color: #fffaf5;
-    background:
-      linear-gradient(
-        145deg,
-        rgba(126, 78, 39, 0.98),
-        rgba(54, 35, 23, 0.98)
-      );
+    background: linear-gradient(
+      145deg,
+      rgba(126, 78, 39, 0.98),
+      rgba(54, 35, 23, 0.98)
+    );
 
     outline: none;
 
@@ -1453,13 +1442,12 @@
   .about-story-right .about-story-content h2::after {
     margin-left: 0;
 
-    background:
-      linear-gradient(
-        to right,
-        rgba(122, 82, 48, 0.92),
-        rgba(216, 164, 93, 0.72),
-        transparent
-      );
+    background: linear-gradient(
+      to right,
+      rgba(122, 82, 48, 0.92),
+      rgba(216, 164, 93, 0.72),
+      transparent
+    );
   }
 
   .about-closing-card {

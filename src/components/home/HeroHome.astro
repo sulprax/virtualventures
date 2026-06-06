@@ -11,17 +11,19 @@ const navItems = siteNav;
 
   <header class="hero-topbar">
     <nav class="hero-socials" aria-label="Social links">
-      {visibleSocials.map((social) => (
-        <a
-          href={social.href}
-          aria-label={social.label}
-          title={social.label}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span aria-hidden="true">{social.icon}</span>
-        </a>
-      ))}
+      {
+        visibleSocials.map((social) => (
+          <a
+            href={social.href}
+            aria-label={social.label}
+            title={social.label}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true">{social.icon}</span>
+          </a>
+        ))
+      }
     </nav>
 
     <button
@@ -42,14 +44,17 @@ const navItems = siteNav;
       data-hero-menu
     >
       <div class="hero-menu-links">
-        {navItems.map((item) => (
-          <a href={item.href}>{item.label}</a>
-        ))}
+        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
 
       <form class="hero-search" action="/search/" method="get" role="search">
         <label class="sr-only" for="hero-search">Search the site</label>
-        <input id="hero-search" name="q" type="search" placeholder="Search..." />
+        <input
+          id="hero-search"
+          name="q"
+          type="search"
+          placeholder="Search..."
+        />
         <button type="submit" aria-label="Search">⌕</button>
       </form>
     </nav>
@@ -78,8 +83,8 @@ const navItems = siteNav;
     </div>
 
     <p>
-      A cozy craft workshop for crochet creatures, fantasy-inspired makes,
-      laser engraved details, 3D printed helpers, patterns, stories, and small
+      A cozy craft workshop for crochet creatures, fantasy-inspired makes, laser
+      engraved details, 3D printed helpers, patterns, stories, and small
       handmade treasures.
     </p>
   </div>
@@ -88,8 +93,12 @@ const navItems = siteNav;
     <a href="/blog/">
       <span class="button-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
-          <path d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"></path>
-          <path d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"></path>
+          <path
+            d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"
+          ></path>
+          <path
+            d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"
+          ></path>
         </svg>
       </span>
       <span>Blog</span>
@@ -130,7 +139,10 @@ const navItems = siteNav;
       const isOpen = heroNavigation.classList.toggle("is-open");
 
       mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
-      mobileMenuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      mobileMenuButton.setAttribute(
+        "aria-label",
+        isOpen ? "Close menu" : "Open menu",
+      );
       mobileMenuButton.textContent = isOpen ? "×" : "☰";
     });
 

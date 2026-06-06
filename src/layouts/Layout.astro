@@ -17,7 +17,7 @@ const {
   headerMode = "sticky",
   showFooterBreadcrumbs = true,
   footerBreadcrumbs = [],
-} = Astro.props; 
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -30,8 +30,18 @@ const {
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1000" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icons/favicon-16x16.png"
+    />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/icons/site.webmanifest" />
     <meta name="theme-color" content="#140f0a" />
@@ -46,15 +56,15 @@ const {
 
     <slot />
 
-    <a href="#top" class="back-to-top-button" aria-label="Back to top">
-      ↑
-    </a>
+    <a href="#top" class="back-to-top-button" aria-label="Back to top"> ↑ </a>
 
-    {showFooterBreadcrumbs && footerBreadcrumbs.length > 0 && (
-      <div class="footer-breadcrumb-wrap">
-        <Breadcrumbs items={footerBreadcrumbs} />
-      </div>
-    )}
+    {
+      showFooterBreadcrumbs && footerBreadcrumbs.length > 0 && (
+        <div class="footer-breadcrumb-wrap">
+          <Breadcrumbs items={footerBreadcrumbs} />
+        </div>
+      )
+    }
 
     <Footer />
 

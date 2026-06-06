@@ -33,14 +33,15 @@ const currentIndex = allPosts.findIndex((item) => item.id === post.id);
 const previousPost = allPosts[currentIndex + 1];
 const nextPost = allPosts[currentIndex - 1];
 
-const categoryLabel =
-  categoryLabels[post.data.category] ?? post.data.category;
+const categoryLabel = categoryLabels[post.data.category] ?? post.data.category;
 
 const relatedPosts = allPosts
   .filter((item) => item.id !== post.id)
   .filter((item) => {
     const sameCategory = item.data.category === post.data.category;
-    const sharedTag = item.data.tags.some((tag) => post.data.tags.includes(tag));
+    const sharedTag = item.data.tags.some((tag) =>
+      post.data.tags.includes(tag),
+    );
 
     return sameCategory || sharedTag;
   })
@@ -66,15 +67,15 @@ const relatedPosts = allPosts
 
   <Breadcrumbs
     items={[
-        { label: "Home", href: "/" },
-        { label: "Blog", href: "/blog/" },
-        { label: post.data.title },
+      { label: "Home", href: "/" },
+      { label: "Blog", href: "/blog/" },
+      { label: post.data.title },
     ]}
   />
 
   <main class="page-shell blog-post-page">
     <article class="blog-post">
-      <a href="/blog/" class="blog-back-link blog-back-link-top"> 
+      <a href="/blog/" class="blog-back-link blog-back-link-top">
         ← Back to all blog posts
       </a>
 
@@ -88,254 +89,271 @@ const relatedPosts = allPosts
         <h1>{post.data.title}</h1>
 
         <p class="blog-post-meta">
-          Published {post.data.pubDate.toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
+          Published {
+            post.data.pubDate.toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          }
         </p>
 
         <p class="blog-post-description">{post.data.description}</p>
 
         <div class="blog-post-tags">
           <span>{categoryLabel}</span>
-          {post.data.tags.map((tag) => (
-            <span>#{tag}</span>
-          ))}
+          {post.data.tags.map((tag) => <span>#{tag}</span>)}
         </div>
       </header>
 
-      {post.data.image && (
-        <figure class="blog-post-figure">
-          <img
-            src={post.data.image}
-            alt=""
-            loading="lazy"
-            class="blog-post-feature-image"
-          />
-          <figcaption>
-            {post.data.title}
-          </figcaption>
-        </figure>
-      )}
+      {
+        post.data.image && (
+          <figure class="blog-post-figure">
+            <img
+              src={post.data.image}
+              alt=""
+              loading="lazy"
+              class="blog-post-feature-image"
+            />
+            <figcaption>{post.data.title}</figcaption>
+          </figure>
+        )
+      }
 
       <div class="blog-post-content">
         <Content />
       </div>
 
-      <nav class="blog-post-prev-next" aria-label="Previous and next blog posts">
-        {previousPost ? (
-          <a href={`/blog/${previousPost.id}/`} class="blog-prev-next-card">
-            <span>← Previous</span>
-            <strong>{previousPost.data.title}</strong>
-          </a>
-        ) : (
-          <span></span>
-        )}
+      <nav
+        class="blog-post-prev-next"
+        aria-label="Previous and next blog posts"
+      >
+        {
+          previousPost ? (
+            <a href={`/blog/${previousPost.id}/`} class="blog-prev-next-card">
+              <span>← Previous</span>
+              <strong>{previousPost.data.title}</strong>
+            </a>
+          ) : (
+            <span />
+          )
+        }
 
-        {nextPost ? (
-          <a href={`/blog/${nextPost.id}/`} class="blog-prev-next-card">
-            <span>Next →</span>
-            <strong>{nextPost.data.title}</strong>
-          </a>
-        ) : (
-          <span></span>
-        )}
+        {
+          nextPost ? (
+            <a href={`/blog/${nextPost.id}/`} class="blog-prev-next-card">
+              <span>Next →</span>
+              <strong>{nextPost.data.title}</strong>
+            </a>
+          ) : (
+            <span />
+          )
+        }
       </nav>
 
-      {relatedPosts.length > 0 && (
-        <section class="related-posts">
-          <p class="eyebrow">More to explore</p>
-          <h2>Related Posts</h2>
+      {
+        relatedPosts.length > 0 && (
+          <section class="related-posts">
+            <p class="eyebrow">More to explore</p>
+            <h2>Related Posts</h2>
 
-          <div class="related-post-grid">
-            {relatedPosts.map((relatedPost) => (
-              <a href={`/blog/${relatedPost.id}/`} class="related-post-card">
-                <span>
-                  {relatedPost.data.pubDate.toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </span>
-                <strong>{relatedPost.data.title}</strong>
-                <small>{relatedPost.data.description}</small>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
+            <div class="related-post-grid">
+              {relatedPosts.map((relatedPost) => (
+                <a href={`/blog/${relatedPost.id}/`} class="related-post-card">
+                  <span>
+                    {relatedPost.data.pubDate.toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                  <strong>{relatedPost.data.title}</strong>
+                  <small>{relatedPost.data.description}</small>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       <footer class="blog-post-footer-actions">
-        <a href="/blog/" class="blog-back-link">
-          ← Back to all blog posts
-        </a>
+        <a href="/blog/" class="blog-back-link"> ← Back to all blog posts </a>
 
-        {post.data.shopUrl && (
-          <a href={post.data.shopUrl} class="featured-shop-link">
-            View in shop
-          </a>
-        )}
+        {
+          post.data.shopUrl && (
+            <a href={post.data.shopUrl} class="featured-shop-link">
+              View in shop
+            </a>
+          )
+        }
       </footer>
-        </article>
-      </main>
+    </article>
+  </main>
 
-      <div class="blog-image-lightbox" data-blog-lightbox hidden>
-        <button class="blog-lightbox-close" type="button" aria-label="Close image">
-          ×
-        </button>
+  <div class="blog-image-lightbox" data-blog-lightbox hidden>
+    <button class="blog-lightbox-close" type="button" aria-label="Close image">
+      ×
+    </button>
 
-        <button class="blog-lightbox-arrow blog-lightbox-prev" type="button" aria-label="Previous image">
-          ‹
-        </button>
+    <button
+      class="blog-lightbox-arrow blog-lightbox-prev"
+      type="button"
+      aria-label="Previous image"
+    >
+      ‹
+    </button>
 
-        <figure class="blog-lightbox-figure">
-          <img src="" alt="" data-lightbox-image />
-          <figcaption data-lightbox-caption></figcaption>
-        </figure>
+    <figure class="blog-lightbox-figure">
+      <img src="" alt="" data-lightbox-image />
+      <figcaption data-lightbox-caption></figcaption>
+    </figure>
 
-        <button class="blog-lightbox-arrow blog-lightbox-next" type="button" aria-label="Next image">
-          ›
-        </button>
-      </div>
+    <button
+      class="blog-lightbox-arrow blog-lightbox-next"
+      type="button"
+      aria-label="Next image"
+    >
+      ›
+    </button>
+  </div>
 
-      <script>
-        // @ts-nocheck
+  <script>
+    // @ts-nocheck
 
-        const lightbox = document.querySelector("[data-blog-lightbox]");
-        const lightboxImage = document.querySelector("[data-lightbox-image]");
-        const lightboxCaption = document.querySelector("[data-lightbox-caption]");
-        const closeButton = document.querySelector(".blog-lightbox-close");
-        const prevButton = document.querySelector(".blog-lightbox-prev");
-        const nextButton = document.querySelector(".blog-lightbox-next");
+    const lightbox = document.querySelector("[data-blog-lightbox]");
+    const lightboxImage = document.querySelector("[data-lightbox-image]");
+    const lightboxCaption = document.querySelector("[data-lightbox-caption]");
+    const closeButton = document.querySelector(".blog-lightbox-close");
+    const prevButton = document.querySelector(".blog-lightbox-prev");
+    const nextButton = document.querySelector(".blog-lightbox-next");
 
-        const postImages = Array.from(
-          document.querySelectorAll(".blog-post-content img")
-        );
+    const postImages = Array.from(
+      document.querySelectorAll(".blog-post-content img"),
+    );
 
-        let currentImageIndex = 0;
-        let touchStartX = 0;
+    let currentImageIndex = 0;
+    let touchStartX = 0;
 
-        function getCaptionForImage(image) {
-          const nextElement = image.parentElement?.nextElementSibling;
+    function getCaptionForImage(image) {
+      const nextElement = image.parentElement?.nextElementSibling;
 
-          if (
-            nextElement &&
-            nextElement.tagName.toLowerCase() === "p" &&
-            nextElement.querySelector("em")
-          ) {
-            return nextElement.textContent?.trim() ?? "";
-          }
+      if (
+        nextElement &&
+        nextElement.tagName.toLowerCase() === "p" &&
+        nextElement.querySelector("em")
+      ) {
+        return nextElement.textContent?.trim() ?? "";
+      }
 
-          return image.alt ?? "";
+      return image.alt ?? "";
+    }
+
+    function openLightbox(index) {
+      const image = postImages[index];
+
+      if (!lightbox || !lightboxImage || !lightboxCaption || !image) {
+        return;
+      }
+
+      currentImageIndex = index;
+
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt || "";
+      lightboxCaption.textContent = getCaptionForImage(image);
+
+      lightbox.hidden = false;
+      document.body.classList.add("lightbox-open");
+    }
+
+    function closeLightbox() {
+      if (!lightbox || !lightboxImage) {
+        return;
+      }
+
+      lightbox.hidden = true;
+      lightboxImage.src = "";
+      document.body.classList.remove("lightbox-open");
+    }
+
+    function showNextImage() {
+      if (postImages.length === 0) {
+        return;
+      }
+
+      openLightbox((currentImageIndex + 1) % postImages.length);
+    }
+
+    function showPreviousImage() {
+      if (postImages.length === 0) {
+        return;
+      }
+
+      openLightbox(
+        (currentImageIndex - 1 + postImages.length) % postImages.length,
+      );
+    }
+
+    postImages.forEach((image, index) => {
+      image.classList.add("blog-clickable-image");
+      image.setAttribute("tabindex", "0");
+      image.setAttribute("role", "button");
+      image.setAttribute("aria-label", "Open image larger");
+
+      image.addEventListener("click", () => openLightbox(index));
+
+      image.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openLightbox(index);
         }
+      });
+    });
 
-        function openLightbox(index) {
-          const image = postImages[index];
+    closeButton?.addEventListener("click", closeLightbox);
+    nextButton?.addEventListener("click", showNextImage);
+    prevButton?.addEventListener("click", showPreviousImage);
 
-          if (!lightbox || !lightboxImage || !lightboxCaption || !image) {
-            return;
-          }
+    lightbox?.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
 
-          currentImageIndex = index;
+    lightbox?.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+    });
 
-          lightboxImage.src = image.currentSrc || image.src;
-          lightboxImage.alt = image.alt || "";
-          lightboxCaption.textContent = getCaptionForImage(image);
+    lightbox?.addEventListener("touchend", (event) => {
+      const touchEndX = event.changedTouches[0].screenX;
+      const swipeDistance = touchEndX - touchStartX;
 
-          lightbox.hidden = false;
-          document.body.classList.add("lightbox-open");
-        }
+      if (Math.abs(swipeDistance) < 50) {
+        return;
+      }
 
-        function closeLightbox() {
-          if (!lightbox || !lightboxImage) {
-            return;
-          }
+      if (swipeDistance < 0) {
+        showNextImage();
+      } else {
+        showPreviousImage();
+      }
+    });
 
-          lightbox.hidden = true;
-          lightboxImage.src = "";
-          document.body.classList.remove("lightbox-open");
-        }
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox || lightbox.hidden) {
+        return;
+      }
 
-        function showNextImage() {
-          if (postImages.length === 0) {
-            return;
-          }
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
 
-          openLightbox((currentImageIndex + 1) % postImages.length);
-        }
+      if (event.key === "ArrowRight") {
+        showNextImage();
+      }
 
-        function showPreviousImage() {
-          if (postImages.length === 0) {
-            return;
-          }
-
-          openLightbox(
-            (currentImageIndex - 1 + postImages.length) % postImages.length
-          );
-        }
-
-        postImages.forEach((image, index) => {
-          image.classList.add("blog-clickable-image");
-          image.setAttribute("tabindex", "0");
-          image.setAttribute("role", "button");
-          image.setAttribute("aria-label", "Open image larger");
-
-          image.addEventListener("click", () => openLightbox(index));
-
-          image.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              openLightbox(index);
-            }
-          });
-        });
-
-        closeButton?.addEventListener("click", closeLightbox);
-        nextButton?.addEventListener("click", showNextImage);
-        prevButton?.addEventListener("click", showPreviousImage);
-
-        lightbox?.addEventListener("click", (event) => {
-          if (event.target === lightbox) {
-            closeLightbox();
-          }
-        });
-
-        lightbox?.addEventListener("touchstart", (event) => {
-          touchStartX = event.changedTouches[0].screenX;
-        });
-
-        lightbox?.addEventListener("touchend", (event) => {
-          const touchEndX = event.changedTouches[0].screenX;
-          const swipeDistance = touchEndX - touchStartX;
-
-          if (Math.abs(swipeDistance) < 50) {
-            return;
-          }
-
-          if (swipeDistance < 0) {
-            showNextImage();
-          } else {
-            showPreviousImage();
-          }
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (!lightbox || lightbox.hidden) {
-            return;
-          }
-
-          if (event.key === "Escape") {
-            closeLightbox();
-          }
-
-          if (event.key === "ArrowRight") {
-            showNextImage();
-          }
-
-          if (event.key === "ArrowLeft") {
-            showPreviousImage();
-          }
-        });
-      </script>
-    </Layout>
+      if (event.key === "ArrowLeft") {
+        showPreviousImage();
+      }
+    });
+  </script>
+</Layout>
