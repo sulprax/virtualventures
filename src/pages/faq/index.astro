@@ -5,21 +5,294 @@ import PageHero from "../../components/page/PageHero.astro";
 
 <Layout
   title="FAQ | Virtual Ventures"
-  description="Frequently asked questions about Virtual Ventures patterns, handmade products, downloads, shipping, crochet help and shop updates."
+  description="Friendly answers to common questions about Virtual Ventures, handmade crochet, patterns, shop plans, privacy and how the workshop is being built."
   showFooterBreadcrumbs={false}
 >
   <PageHero
     eyebrow="Quick Answers"
     title="FAQ"
-    description="Quick answers for patterns, downloads, handmade items, shop bits and workshop questions."
+    description="Friendly answers about patterns, handmade items, privacy, shop plans and the way Virtual Ventures is growing."
   />
 
-  <main class="page-shell">
-    <section class="page-intro">
-      <p class="eyebrow">Helpful notes</p>
-      <h1>Frequently Asked Questions</h1>
+  <main class="page-shell about-page">
+    <section id="faq-intro" class="about-intro">
+      <p class="eyebrow">
+        <span aria-hidden="true">✦</span>
+        Helpful bits
+        <span aria-hidden="true">✦</span>
+      </p>
+
+      <h1>Questions, answers and little useful things.</h1>
+
       <p>
-        A growing little shelf of answers for the things people ask most often.
+        This page is here for the normal questions people may have before they
+        read the blog, browse the shop, follow a tutorial or buy something from
+        Virtual Ventures.
+      </p>
+
+      <p>
+        I want things to feel clear, friendly and honest. No tiny-print fog. No
+        corporate robot voice. Just useful answers from a real handmade workshop
+        that is still growing.
+      </p>
+    </section>
+
+    <section
+      id="what-is-virtual-ventures"
+      class="about-story-section about-story-left"
+    >
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          The basics
+        </p>
+
+        <h2>What is Virtual Ventures?</h2>
+
+        <p>
+          Virtual Ventures is a small creative workshop for crochet, original
+          patterns, laser engraved details, 3D printed helpers, planners,
+          tutorials and useful little handmade things.
+        </p>
+
+        <p>
+          It is part blog, part shop, part craft diary and part
+          behind-the-scenes notebook. The aim is to share the finished pieces
+          and the real process behind them.
+        </p>
+      </div>
+    </section>
+
+    <section id="ai-patterns" class="about-story-section about-story-right">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Pattern honesty
+        </p>
+
+        <h2>Are your crochet patterns AI generated?</h2>
+
+        <p>
+          No. My crochet patterns are not AI generated. Crochet patterns need
+          real making, real stitch counts, real testing and real fixing.
+        </p>
+
+        <p>
+          I may use AI to help with spelling, wording, organising notes or tiny
+          idea sparks, but the actual crochet work, pattern shaping, testing and
+          checking comes from me. If AI is ever used in a bigger way, I will be
+          honest about it.
+        </p>
+      </div>
+    </section>
+
+    <section id="finished-items" class="about-story-section about-story-left">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Handmade items
+        </p>
+
+        <h2>Will you sell finished crochet items?</h2>
+
+        <p>
+          Yes, that is the plan. Finished handmade pieces will be listed when
+          they are ready, properly photographed and clearly described.
+        </p>
+
+        <p>
+          I do not want to rush items into the shop just to make it look full.
+          Handmade things take time, and I would rather list fewer pieces well
+          than throw a yarn avalanche online and hope for the best.
+        </p>
+      </div>
+    </section>
+
+    <section id="custom-orders" class="about-story-section about-story-right">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Custom work
+        </p>
+
+        <h2>Will you take custom orders?</h2>
+
+        <p>
+          Not at the start. For now, I want to focus on finished items,
+          patterns, blog posts and small batches that I can manage properly.
+        </p>
+
+        <p>
+          Custom orders may come later, but only when I have a calm system in
+          place. I want it to feel fair, clear and manageable for both sides.
+        </p>
+      </div>
+    </section>
+
+    <section id="where-to-buy" class="about-story-section about-story-left">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Shop plans
+        </p>
+
+        <h2>Where can I buy your work?</h2>
+
+        <p>
+          The shop side is still being prepared. I am working on product photos,
+          packaging ideas, listings, descriptions, pricing and the pages needed
+          before opening properly.
+        </p>
+
+        <p>
+          When items are ready, the shop page will point visitors to the right
+          place, such as Etsy, KDP or another trusted listing.
+        </p>
+      </div>
+    </section>
+
+    <section
+      id="digital-downloads"
+      class="about-story-section about-story-right"
+    >
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Downloads
+        </p>
+
+        <h2>Will you sell digital patterns or downloads?</h2>
+
+        <p>
+          Yes. Digital crochet patterns, planners or helpful printable resources
+          are part of the plan.
+        </p>
+
+        <p>
+          Digital items will be clearly marked so people know whether they are
+          buying a download, a printed book, or a physical handmade item. No
+          sneaky “surprise, it was only a PDF” nonsense.
+        </p>
+      </div>
+    </section>
+
+    <section id="beginner-crochet" class="about-story-section about-story-left">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Learning crochet
+        </p>
+
+        <h2>Will you make beginner-friendly crochet content?</h2>
+
+        <p>
+          That is one of the goals. I want future tutorials, blog posts and
+          patterns to be calm, clear and broken into steps that are easier to
+          follow.
+        </p>
+
+        <p>
+          Crochet can look confusing when everything is shown at once, so I want
+          to show the tiny steps too: the rows, the stitches, the photo stages
+          and the bits that usually get skipped.
+        </p>
+      </div>
+    </section>
+
+    <section
+      id="photos-and-process"
+      class="about-story-section about-story-right"
+    >
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Behind the scenes
+        </p>
+
+        <h2>Why are you documenting the process?</h2>
+
+        <p>
+          Because handmade work has a story before it becomes a finished photo.
+          There are notes, tests, mistakes, lighting changes, stitch counts,
+          tools and tiny improvements along the way.
+        </p>
+
+        <p>
+          The blog helps me keep track of the journey, and it helps visitors see
+          how things are made instead of only seeing the final polished picture.
+        </p>
+      </div>
+    </section>
+
+    <section id="privacy" class="about-story-section about-story-left">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Privacy
+        </p>
+
+        <h2>Will you show your face or real name?</h2>
+
+        <p>
+          Probably not. Virtual Ventures is being built in a privacy-safe way,
+          so the focus stays on the work, the tools, the process and the
+          finished pieces.
+        </p>
+
+        <p>
+          Hands-only photos, top-down videos and clear tutorials can still be
+          useful without needing my face or real name to be part of the brand.
+        </p>
+      </div>
+    </section>
+
+    <section id="copyright" class="about-story-section about-story-right">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Sharing safely
+        </p>
+
+        <h2>Can I use your photos, patterns or designs?</h2>
+
+        <p>
+          Please do not copy, repost, sell or reuse my photos, patterns, text or
+          designs without permission.
+        </p>
+
+        <p>
+          Sharing a link to the website or a blog post is absolutely fine and
+          always appreciated. Copying the actual work is not.
+        </p>
+      </div>
+    </section>
+
+    <section id="why-slow" class="about-story-section about-story-left">
+      <div class="about-story-content">
+        <p class="eyebrow">
+          <span aria-hidden="true">✦</span>
+          Slow building
+        </p>
+
+        <h2>Why does everything take time?</h2>
+
+        <p>
+          Because I am building this carefully. A proper handmade setup needs
+          product photos, descriptions, testing, packaging, pricing, website
+          pages and a lot of small decisions behind the curtain.
+        </p>
+
+        <p>
+          I would rather build slowly and make something sturdy than sprint into
+          a mess with glitter on it.
+        </p>
+      </div>
+    </section>
+
+    <section id="faq-closing-note" class="about-closing-card">
+      <p>
+        If something is not answered here yet, it probably belongs in a future
+        blog post, guide or update as Virtual Ventures grows.
       </p>
     </section>
   </main>

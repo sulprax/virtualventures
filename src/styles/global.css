@@ -3743,6 +3743,11 @@ button:disabled {
 
 .page-hero-banner {
   min-height: clamp(220px, 28vw, 340px);
+
+  box-shadow:
+    0 22px 48px rgba(204, 118, 96, 0.22),
+    0 10px 24px rgba(122, 82, 48, 0.14),
+    inset 0 -1px 0 rgba(255, 250, 245, 0.18);
 }
 
 .page-hero-banner .blog-hero-banner-inner {
