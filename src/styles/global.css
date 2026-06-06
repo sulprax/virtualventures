@@ -646,13 +646,6 @@ button:disabled {
   outline-offset: 3px;
 }
 
-/* Tablet / mobile */
-
-/* Desktop safety lock:
-   prevents the hamburger drawer from showing on big screens. */
-
-/* Small phones */
-
 /* =========================================================
    05. HOME HERO
    Homepage keeps its own special navigation
@@ -1558,10 +1551,6 @@ button:disabled {
   font-size: clamp(1rem, 1.4vw, 1.14rem);
   line-height: 1.75;
 }
-
-/* =========================================================
-   09. BLOG HERO BANNER
-   ========================================================= */
 
 /* =========================================================
    09. BLOG HERO BANNER
@@ -3765,37 +3754,6 @@ button:disabled {
    Final tidy version
    ========================================================= */
 
-/* Blog card title underline */
-.blog-card-title {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.blog-card-title::after {
-  content: "";
-
-  position: absolute;
-  left: 0;
-  bottom: -0.28rem;
-
-  width: 100%;
-  height: 0.16rem;
-
-  background: linear-gradient(
-    to right,
-    rgba(122, 82, 48, 0.92),
-    rgba(216, 164, 93, 0.72),
-    transparent
-  );
-
-  border-radius: var(--radius-pill);
-
-  box-shadow:
-    0 1px 0 rgba(255, 250, 245, 0.85),
-    0 5px 12px rgba(59, 43, 34, 0.12);
-}
-
 /* Standalone blog post title underline */
 .blog-post h1,
 .blog-post-title {
@@ -4618,13 +4576,6 @@ button:disabled {
     0 1px 0 rgba(255, 250, 245, 0.8);
 }
 
-.eyebrow span[aria-hidden="true"] {
-  color: var(--gold);
-
-  text-shadow:
-    0 0 8px rgba(216, 164, 93, 0.45),
-    0 1px 0 rgba(255, 250, 245, 0.8);
-}
 /* =========================================================
    BRAND EYEBROW STAR
    Tiny decorative star used across page intros and section labels
@@ -4654,6 +4605,7 @@ button:disabled {
     0 1px 0 rgba(255, 250, 245, 0.9),
     0 3px 8px rgba(59, 43, 34, 0.18);
 }
+
 /* =========================================================
    20. FINAL POLISH LAYER
    Tiny site-wide details, safe motion, and sparkle system
@@ -4705,22 +4657,13 @@ button {
   }
 }
 
-/* Logo polish, safe even if already declared earlier */
-.site-header-brand img,
+/* Logo polish */
 .footer-logo,
 .hero-logo {
   transition:
     opacity 180ms ease,
     transform 180ms ease,
     filter 180ms ease;
-}
-
-.site-header-brand:hover img {
-  opacity: 1;
-  transform: rotate(-2deg) scale(1.04);
-
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
-    drop-shadow(0 0 14px rgba(239, 189, 114, 0.28));
 }
 
 /* =========================================================
@@ -4866,14 +4809,6 @@ button {
 
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
     drop-shadow(0 0 10px rgba(239, 189, 114, 0.12));
-}
-
-.site-header-brand:hover img {
-  opacity: 1;
-  transform: rotate(-2deg) scale(1.04);
-
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
-    drop-shadow(0 0 14px rgba(239, 189, 114, 0.28));
 }
 
 @media (max-width: 900px) {
