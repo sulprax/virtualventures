@@ -5341,3 +5341,443 @@ button {
 .footer-rss-row {
   margin-top: 0.1rem;
 }
+/* =========================================================
+   BLOG IMAGE LIGHTBOX
+   Clickable blog images with arrows and mobile swipe
+   ========================================================= */
+
+.blog-post-content img {
+  display: block;
+  width: min(100%, 920px);
+  margin: 2rem auto 0.75rem;
+  border-radius: 24px;
+  border: 1px solid rgba(139, 94, 60, 0.22);
+  box-shadow:
+    0 20px 48px rgba(59, 43, 34, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.blog-clickable-image {
+  cursor: zoom-in;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.blog-clickable-image:hover,
+.blog-clickable-image:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.02);
+  outline: none;
+  box-shadow:
+    0 26px 60px rgba(59, 43, 34, 0.23),
+    0 0 0 4px rgba(217, 161, 91, 0.24);
+}
+
+.blog-image-lightbox[hidden] {
+  display: none;
+}
+
+.blog-image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+
+  display: grid;
+  place-items: center;
+
+  padding: clamp(1rem, 3vw, 2.5rem);
+
+  background:
+    radial-gradient(circle at top, rgba(239, 189, 114, 0.16), transparent 30rem),
+    rgba(24, 16, 10, 0.72);
+
+  backdrop-filter: blur(14px) saturate(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.05);
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.blog-lightbox-figure {
+  width: min(100%, 1120px);
+  max-height: 88vh;
+  margin: 0;
+
+  display: grid;
+  gap: 0.85rem;
+  place-items: center;
+}
+
+.blog-lightbox-figure img {
+  max-width: 100%;
+  max-height: 78vh;
+
+  object-fit: contain;
+
+  border-radius: 28px;
+  border: 1px solid rgba(255, 250, 245, 0.42);
+
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.blog-lightbox-figure figcaption {
+  max-width: 900px;
+
+  padding: 0.75rem 1rem;
+
+  color: #fff7ed;
+  background: rgba(45, 34, 24, 0.72);
+
+  border: 1px solid rgba(239, 189, 114, 0.28);
+  border-radius: 999px;
+
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.45;
+
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+}
+
+.blog-lightbox-close,
+.blog-lightbox-arrow {
+  position: fixed;
+  z-index: 5010;
+
+  display: grid;
+  place-items: center;
+
+  color: #fff7ed;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 250, 245, 0.18), transparent 44%),
+    linear-gradient(145deg, rgba(122, 82, 48, 0.92), rgba(45, 34, 24, 0.92));
+
+  border: 1px solid rgba(239, 189, 114, 0.5);
+  border-radius: 999px;
+
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.blog-lightbox-close {
+  top: 1rem;
+  right: 1rem;
+
+  width: 48px;
+  height: 48px;
+
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.blog-lightbox-arrow {
+  top: 50%;
+
+  width: 54px;
+  height: 54px;
+
+  font-size: 2.8rem;
+  line-height: 1;
+
+  transform: translateY(-50%);
+}
+
+.blog-lightbox-prev {
+  left: 1rem;
+}
+
+.blog-lightbox-next {
+  right: 1rem;
+}
+
+.blog-lightbox-close:hover,
+.blog-lightbox-arrow:hover,
+.blog-lightbox-close:focus-visible,
+.blog-lightbox-arrow:focus-visible {
+  color: #1d1208;
+  background: linear-gradient(145deg, #efbd72, #a26324);
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .blog-image-lightbox {
+    padding: 0.8rem;
+  }
+
+  .blog-lightbox-figure img {
+    max-height: 72vh;
+    border-radius: 20px;
+  }
+
+  .blog-lightbox-figure figcaption {
+    border-radius: 20px;
+    font-size: 0.88rem;
+  }
+
+  .blog-lightbox-arrow {
+    top: auto;
+    bottom: 1rem;
+
+    width: 48px;
+    height: 48px;
+
+    font-size: 2.3rem;
+
+    transform: none;
+  }
+
+  .blog-lightbox-prev {
+    left: calc(50% - 62px);
+  }
+
+  .blog-lightbox-next {
+    right: calc(50% - 62px);
+  }
+}
+
+/* =========================================================
+   BLOG IMAGE CLICK HINT
+   Little banner on clickable blog images
+   ========================================================= */
+
+.blog-post-content p:has(> img.blog-clickable-image) {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 2rem auto 0.75rem;
+}
+
+.blog-post-content p:has(> img.blog-clickable-image)::after {
+  content: "🔍 Click to enlarge";
+
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  z-index: 2;
+
+  min-width: 155px;
+  min-height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.65rem 1.2rem;
+
+  color: #fff6e9;
+  background:
+    radial-gradient(circle at 30% 12%, rgba(255, 239, 205, 0.2), transparent 42%),
+    linear-gradient(145deg, rgba(126, 78, 39, 0.92), rgba(54, 35, 23, 0.94));
+
+  border: 1px solid rgba(216, 164, 93, 0.86);
+  border-radius: 17px;
+
+  text-align: center;
+  text-decoration: none;
+
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(255, 246, 229, 0.06) inset,
+    inset 0 1px 0 rgba(255, 246, 229, 0.24),
+    inset 0 -12px 24px rgba(36, 22, 14, 0.28);
+
+  pointer-events: none;
+
+  transform: translateX(-50%);
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    background 180ms ease;
+}
+
+.blog-post-content p:has(> img.blog-clickable-image)::before {
+  content: "✦";
+
+  position: absolute;
+  left: calc(50% - 98px);
+  bottom: 38px;
+  z-index: 3;
+
+  color: var(--gold);
+  font-size: 0.68rem;
+
+  pointer-events: none;
+
+  text-shadow:
+    0 0 12px rgba(216, 164, 93, 0.85),
+    0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.blog-post-content p:has(> img.blog-clickable-image):hover::after,
+.blog-post-content p:has(> img.blog-clickable-image):focus-within::after {
+  color: #1d1208;
+  background:
+    radial-gradient(circle at 30% 12%, rgba(255, 239, 205, 0.34), transparent 42%),
+    linear-gradient(145deg, #efbd72, #a26324);
+
+  transform: translateX(-50%) translateY(-3px);
+}
+
+@media (max-width: 700px) {
+  .blog-post-content p:has(> img.blog-clickable-image)::after {
+    min-width: 145px;
+    min-height: 44px;
+
+    bottom: 14px;
+
+    padding: 0.55rem 1rem;
+
+    font-size: 0.9rem;
+  }
+
+  .blog-post-content p:has(> img.blog-clickable-image)::before {
+    left: calc(50% - 92px);
+    bottom: 30px;
+  }
+}
+
+/* =========================================================
+   BLOG CARD IMAGE PREVIEWS
+   Tiny photo previews on closed blog cards
+   ========================================================= */
+
+.blog-card-toggle {
+  position: relative;
+}
+
+.blog-card-preview-thumbs {
+  position: absolute;
+  right: clamp(1rem, 2vw, 1.5rem);
+  bottom: 1.1rem;
+  z-index: 2;
+
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: flex-end;
+
+  pointer-events: none;
+}
+
+.blog-card-preview-thumb {
+  width: 100px;
+  height: 68px;
+
+  display: block;
+  overflow: hidden;
+
+  border: 1px solid rgba(216, 164, 93, 0.52);
+  border-radius: 14px;
+
+  background: rgba(255, 250, 245, 0.55);
+
+  box-shadow:
+    0 10px 24px rgba(59, 43, 34, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+  transform: rotate(-1deg);
+}
+
+.blog-card-preview-thumb:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.blog-card-preview-thumb:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.blog-card-preview-thumb img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.blog-card.is-open .blog-card-preview-thumbs {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .blog-card-preview-thumbs {
+    position: static;
+
+    margin: 1rem 0 0;
+
+    justify-content: flex-start;
+  }
+
+  .blog-card-preview-thumb {
+    width: 74px;
+    height: 54px;
+
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-card-preview-thumb {
+    width: 64px;
+    height: 48px;
+  }
+}
+
+.blog-card-preview-more {
+  width: 34px;
+  height: 34px;
+
+  display: inline-grid;
+  place-items: center;
+
+  align-self: center;
+
+  color: #fff6e9;
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255, 239, 205, 0.24), transparent 42%),
+    linear-gradient(145deg, rgba(126, 78, 39, 0.94), rgba(54, 35, 23, 0.96));
+
+  border: 1px solid rgba(216, 164, 93, 0.86);
+  border-radius: 999px;
+
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+
+  box-shadow:
+    0 10px 24px rgba(59, 43, 34, 0.22),
+    0 0 0 1px rgba(255, 246, 229, 0.06) inset,
+    inset 0 1px 0 rgba(255, 246, 229, 0.24);
+
+  transform: rotate(1deg);
+}
+
+@media (max-width: 850px) {
+  .blog-card-preview-more {
+    width: 30px;
+    height: 30px;
+
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-card-preview-more {
+    width: 28px;
+    height: 28px;
+
+    font-size: 0.85rem;
+  }
+}

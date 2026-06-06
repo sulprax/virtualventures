@@ -196,6 +196,26 @@ const calendarMonth = calendarBaseDate.getMonth();
                   {post.data.description}
                 </span>
 
+                {post.data.images && post.data.images.length > 0 && (
+                  <span class="blog-card-preview-thumbs" aria-label="Images in this post">
+                    {post.data.images.slice(0, 3).map((image) => (
+                      <span class="blog-card-preview-thumb">
+                        <img
+                          src={image.src}
+                          alt=""
+                          loading="lazy"
+                        />
+                      </span>
+                    ))}
+
+                    {post.data.images.length > 3 && (
+                      <span class="blog-card-preview-more" aria-hidden="true">
+                        +{post.data.images.length - 3}
+                      </span>
+                    )}
+                  </span>
+                )}
+
                 <span class="blog-read-more" data-read-label>
                   Open post
                 </span>

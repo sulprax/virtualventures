@@ -177,6 +177,165 @@ const relatedPosts = allPosts
           </a>
         )}
       </footer>
-    </article>
-  </main>
-</Layout>
+        </article>
+      </main>
+
+      <div class="blog-image-lightbox" data-blog-lightbox hidden>
+        <button class="blog-lightbox-close" type="button" aria-label="Close image">
+          ×
+        </button>
+
+        <button class="blog-lightbox-arrow blog-lightbox-prev" type="button" aria-label="Previous image">
+          ‹
+        </button>
+
+        <figure class="blog-lightbox-figure">
+          <img src="" alt="" data-lightbox-image />
+          <figcaption data-lightbox-caption></figcaption>
+        </figure>
+
+        <button class="blog-lightbox-arrow blog-lightbox-next" type="button" aria-label="Next image">
+          ›
+        </button>
+      </div>
+
+      <script>
+        // @ts-nocheck
+
+        const lightbox = document.querySelector("[data-blog-lightbox]");
+        const lightboxImage = document.querySelector("[data-lightbox-image]");
+        const lightboxCaption = document.querySelector("[data-lightbox-caption]");
+        const closeButton = document.querySelector(".blog-lightbox-close");
+        const prevButton = document.querySelector(".blog-lightbox-prev");
+        const nextButton = document.querySelector(".blog-lightbox-next");
+
+        const postImages = Array.from(
+          document.querySelectorAll(".blog-post-content img")
+        );
+
+        let currentImageIndex = 0;
+        let touchStartX = 0;
+
+        function getCaptionForImage(image) {
+          const nextElement = image.parentElement?.nextElementSibling;
+
+          if (
+            nextElement &&
+            nextElement.tagName.toLowerCase() === "p" &&
+            nextElement.querySelector("em")
+          ) {
+            return nextElement.textContent?.trim() ?? "";
+          }
+
+          return image.alt ?? "";
+        }
+
+        function openLightbox(index) {
+          const image = postImages[index];
+
+          if (!lightbox || !lightboxImage || !lightboxCaption || !image) {
+            return;
+          }
+
+          currentImageIndex = index;
+
+          lightboxImage.src = image.currentSrc || image.src;
+          lightboxImage.alt = image.alt || "";
+          lightboxCaption.textContent = getCaptionForImage(image);
+
+          lightbox.hidden = false;
+          document.body.classList.add("lightbox-open");
+        }
+
+        function closeLightbox() {
+          if (!lightbox || !lightboxImage) {
+            return;
+          }
+
+          lightbox.hidden = true;
+          lightboxImage.src = "";
+          document.body.classList.remove("lightbox-open");
+        }
+
+        function showNextImage() {
+          if (postImages.length === 0) {
+            return;
+          }
+
+          openLightbox((currentImageIndex + 1) % postImages.length);
+        }
+
+        function showPreviousImage() {
+          if (postImages.length === 0) {
+            return;
+          }
+
+          openLightbox(
+            (currentImageIndex - 1 + postImages.length) % postImages.length
+          );
+        }
+
+        postImages.forEach((image, index) => {
+          image.classList.add("blog-clickable-image");
+          image.setAttribute("tabindex", "0");
+          image.setAttribute("role", "button");
+          image.setAttribute("aria-label", "Open image larger");
+
+          image.addEventListener("click", () => openLightbox(index));
+
+          image.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openLightbox(index);
+            }
+          });
+        });
+
+        closeButton?.addEventListener("click", closeLightbox);
+        nextButton?.addEventListener("click", showNextImage);
+        prevButton?.addEventListener("click", showPreviousImage);
+
+        lightbox?.addEventListener("click", (event) => {
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
+        });
+
+        lightbox?.addEventListener("touchstart", (event) => {
+          touchStartX = event.changedTouches[0].screenX;
+        });
+
+        lightbox?.addEventListener("touchend", (event) => {
+          const touchEndX = event.changedTouches[0].screenX;
+          const swipeDistance = touchEndX - touchStartX;
+
+          if (Math.abs(swipeDistance) < 50) {
+            return;
+          }
+
+          if (swipeDistance < 0) {
+            showNextImage();
+          } else {
+            showPreviousImage();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (!lightbox || lightbox.hidden) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeLightbox();
+          }
+
+          if (event.key === "ArrowRight") {
+            showNextImage();
+          }
+
+          if (event.key === "ArrowLeft") {
+            showPreviousImage();
+          }
+        });
+      </script>
+    </Layout>
