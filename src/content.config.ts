@@ -23,6 +23,18 @@ const galleryImage = z.object({
   tags: z.array(z.string()).default([]),
   colours: z.array(z.string()).default([]),
 
+  // Media
+  mediaType: z.enum(["image", "video"]).default("image"),
+  videoSrc: z.string().optional(),
+  poster: z.string().optional(),
+  duration: z.string().optional(),
+  autoplayPreview: z.boolean().default(false),
+
+  // Layout
+  shape: z
+    .enum(["square", "portrait", "landscape", "banner", "tall"])
+    .default("square"),
+
   // Controls
   gallery: z.boolean().default(true),
   latest: z.boolean().default(true),

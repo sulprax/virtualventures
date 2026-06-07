@@ -9,9 +9,12 @@ const posts = await getCollection("blog", ({ data }) => !data.draft);
 const galleryItems = posts
   .flatMap((post) =>
     (post.data.images ?? [])
-      .filter((image) => image.gallery !== false)
-      .map((image) => ({
-        ...image,
+      .filter((item) => item.gallery !== false)
+      .map((item) => ({
+        ...item,
+        mediaType: item.mediaType ?? "image",
+        poster: item.poster ?? item.src,
+        shape: item.shape ?? "square",
         blogTitle: post.data.title,
         blogUrl: `/blog/${post.id.replace(/\.md$/, "")}/`,
         pubDate: post.data.pubDate,
@@ -28,6 +31,9 @@ const categories = [
   "all",
   ...new Set(galleryItems.map((item) => item.category)),
 ];
+
+const mediaLabel = (mediaType: string) =>
+  mediaType === "video" ? "video" : "photo";
 ---
 
 <Layout
@@ -47,7 +53,7 @@ const categories = [
         <section class="gallery-latest" aria-labelledby="latest-gallery-title">
           <div class="gallery-section-heading">
             <p class="eyebrow">Fresh from the workbench</p>
-            <h2 id="latest-gallery-title">Latest photos</h2>
+            <h2 id="latest-gallery-title">Latest photos & videos</h2>
           </div>
 
           <div class="gallery-latest-grid">
@@ -60,6 +66,9 @@ const categories = [
                   data-title={item.title}
                   data-description={item.description}
                   data-image={item.src}
+                  data-video-src={item.videoSrc ?? ""}
+                  data-poster={item.poster ?? item.src}
+                  data-media-type={item.mediaType}
                   data-alt={item.alt}
                   data-category={item.category}
                   data-tags={item.tags.join(", ")}
@@ -67,10 +76,31 @@ const categories = [
                   data-blog-url={item.blogUrl}
                   data-blog-title={item.blogTitle}
                 >
-                  <img src={item.src} alt={item.alt} loading="lazy" />
+                  <span class="gallery-media-wrap">
+                    {item.mediaType === "video" && item.videoSrc ? (
+                      <>
+                        <video
+                          src={item.videoSrc}
+                          poster={item.poster ?? item.src}
+                          muted
+                          playsinline
+                          preload="metadata"
+                          data-gallery-preview-video
+                          data-autoplay-preview={String(item.autoplayPreview)}
+                        />
+                        <span class="gallery-media-badge">
+                          ▶ {item.duration ?? "Video"}
+                        </span>
+                      </>
+                    ) : (
+                      <img src={item.src} alt={item.alt} loading="lazy" />
+                    )}
+                  </span>
 
                   <div class="gallery-latest-content">
-                    <p class="gallery-card-category">{item.category}</p>
+                    <p class="gallery-card-category">
+                      {item.category} · {mediaLabel(item.mediaType)}
+                    </p>
                     <h3>{item.title}</h3>
                   </div>
                 </button>
@@ -107,15 +137,11 @@ const categories = [
       </label>
     </section>
 
-    <section class="gallery-grid" aria-label="Gallery photos">
+    <section class="gallery-grid" aria-label="Gallery photos and videos">
       {
-        galleryItems.map((item, index) => (
+        galleryItems.map((item) => (
           <article
-            class:list={[
-              "gallery-card",
-              index % 5 === 0 && "gallery-card--wide",
-              index % 7 === 0 && "gallery-card--tall",
-            ]}
+            class:list={["gallery-card", `gallery-card--${item.shape}`]}
             data-category={item.category}
             data-colours={(item.colours ?? []).join(",")}
             data-date={item.pubDate.toISOString()}
@@ -128,6 +154,9 @@ const categories = [
               data-title={item.title}
               data-description={item.description}
               data-image={item.src}
+              data-video-src={item.videoSrc ?? ""}
+              data-poster={item.poster ?? item.src}
+              data-media-type={item.mediaType}
               data-alt={item.alt}
               data-category={item.category}
               data-tags={item.tags.join(", ")}
@@ -135,7 +164,27 @@ const categories = [
               data-blog-url={item.blogUrl}
               data-blog-title={item.blogTitle}
             >
-              <img src={item.src} alt={item.alt} loading="lazy" />
+              <span class="gallery-media-wrap">
+                {item.mediaType === "video" && item.videoSrc ? (
+                  <>
+                    <video
+                      src={item.videoSrc}
+                      poster={item.poster ?? item.src}
+                      muted
+                      playsinline
+                      preload="metadata"
+                      data-gallery-preview-video
+                      data-autoplay-preview={String(item.autoplayPreview)}
+                    />
+                    <span class="gallery-media-badge">
+                      ▶ {item.duration ?? "Video"}
+                    </span>
+                  </>
+                ) : (
+                  <img src={item.src} alt={item.alt} loading="lazy" />
+                )}
+              </span>
+
               <span class="gallery-card-glow" aria-hidden="true" />
 
               <span class="gallery-like-pill" data-like-pill>
@@ -162,7 +211,7 @@ const categories = [
         class="gallery-lightbox-close"
         type="button"
         data-gallery-close
-        aria-label="Close gallery photo"
+        aria-label="Close gallery media"
       >
         ×
       </button>
@@ -171,13 +220,14 @@ const categories = [
         class="gallery-lightbox-arrow gallery-lightbox-arrow--left"
         type="button"
         data-gallery-prev
-        aria-label="Previous photo"
+        aria-label="Previous gallery item"
       >
         ‹
       </button>
 
       <div class="gallery-lightbox-image-wrap">
         <img data-gallery-lightbox-image src="" alt="" />
+        <video data-gallery-lightbox-video controls playsinline hidden></video>
       </div>
 
       <div class="gallery-lightbox-content">
@@ -226,7 +276,7 @@ const categories = [
         class="gallery-lightbox-arrow gallery-lightbox-arrow--right"
         type="button"
         data-gallery-next
-        aria-label="Next photo"
+        aria-label="Next gallery item"
       >
         ›
       </button>
@@ -243,6 +293,9 @@ const categories = [
     );
     const lightboxImage = document.querySelector<HTMLImageElement>(
       "[data-gallery-lightbox-image]",
+    );
+    const lightboxVideo = document.querySelector<HTMLVideoElement>(
+      "[data-gallery-lightbox-video]",
     );
     const lightboxTitle = document.querySelector<HTMLElement>(
       "[data-gallery-lightbox-title]",
@@ -411,6 +464,56 @@ const categories = [
       sortedCards.forEach((card) => grid.appendChild(card));
     }
 
+    function pausePreviewVideo(video: HTMLVideoElement) {
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    function setupVideoPreviews() {
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (prefersReducedMotion) return;
+
+      document
+        .querySelectorAll<HTMLVideoElement>("[data-gallery-preview-video]")
+        .forEach((video) => {
+          if (video.dataset.autoplayPreview !== "true") return;
+
+          const cardButton = video.closest<HTMLButtonElement>(
+            "[data-gallery-open]",
+          );
+
+          if (!cardButton) return;
+
+          cardButton.addEventListener("mouseenter", () => {
+            video.play().catch(() => {});
+          });
+
+          cardButton.addEventListener("mouseleave", () => {
+            pausePreviewVideo(video);
+          });
+
+          cardButton.addEventListener("focus", () => {
+            video.play().catch(() => {});
+          });
+
+          cardButton.addEventListener("blur", () => {
+            pausePreviewVideo(video);
+          });
+        });
+    }
+
+    function stopLightboxVideo() {
+      if (!lightboxVideo) return;
+
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute("src");
+      lightboxVideo.removeAttribute("poster");
+      lightboxVideo.load();
+    }
+
     function openLightbox(index: number) {
       const buttons = getVisibleButtons();
       const button = buttons[index];
@@ -419,6 +522,7 @@ const categories = [
         !button ||
         !lightbox ||
         !lightboxImage ||
+        !lightboxVideo ||
         !lightboxTitle ||
         !lightboxDescription ||
         !lightboxCategory ||
@@ -429,9 +533,29 @@ const categories = [
 
       activeIndex = index;
 
-      lightboxImage.src = button.dataset.image ?? "";
-      lightboxImage.alt = button.dataset.alt ?? "";
-      lightboxTitle.textContent = button.dataset.title ?? "Gallery photo";
+      stopLightboxVideo();
+
+      const mediaType = button.dataset.mediaType ?? "image";
+      const poster = button.dataset.poster ?? button.dataset.image ?? "";
+      const videoSrc = button.dataset.videoSrc ?? "";
+
+      if (mediaType === "video" && videoSrc) {
+        lightboxImage.hidden = true;
+        lightboxImage.src = "";
+        lightboxImage.alt = "";
+
+        lightboxVideo.hidden = false;
+        lightboxVideo.src = videoSrc;
+        lightboxVideo.poster = poster;
+      } else {
+        lightboxVideo.hidden = true;
+
+        lightboxImage.hidden = false;
+        lightboxImage.src = button.dataset.image ?? "";
+        lightboxImage.alt = button.dataset.alt ?? "";
+      }
+
+      lightboxTitle.textContent = button.dataset.title ?? "Gallery item";
       lightboxCategory.textContent = button.dataset.category ?? "";
 
       lightboxDescription.textContent =
@@ -459,6 +583,7 @@ const categories = [
     function closeLightbox() {
       if (!lightbox) return;
 
+      stopLightboxVideo();
       lightbox.hidden = true;
       document.body.classList.remove("gallery-lightbox-is-open");
     }
@@ -553,5 +678,6 @@ const categories = [
     sort?.addEventListener("change", applyGalleryControls);
 
     hydrateLikes();
+    setupVideoPreviews();
   </script>
 </Layout>

@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write \"src/**/*.{astro,css,js,ts,md}\"",
+    "videos:mp4": "node scripts/convert-videos-to-mp4.mjs",
     "images:webp": "node scripts/convert-images-to-webp.mjs",
     "images:webp:delete": "node scripts/convert-images-to-webp.mjs --delete-originals",
     "image:metadata": "node scripts/create-image-metadata.mjs"

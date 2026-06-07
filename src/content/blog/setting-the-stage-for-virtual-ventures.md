@@ -30,6 +30,7 @@ images:
     gallery: true
     latest: true
     cover: false
+    shape: "square"
 
   - src: "/images/blog/virtual-ventures-stage/crochet-owl-on-virtual-ventures-stage.webp"
     title: "Crochet Owl on the Virtual Ventures Stage"
@@ -47,6 +48,7 @@ images:
     gallery: true
     latest: true
     cover: true
+    shape: "tall"
 
   - src: "/images/blog/virtual-ventures-stage/virtual-ventures-photo-stage-empty.webp"
     title: "Virtual Ventures Photo Stage Setup"
@@ -64,6 +66,7 @@ images:
     gallery: true
     latest: true
     cover: false
+    shape: "landscape"
 ---
 
 It has been a little quiet on the blog, but Virtual Ventures has still been ticking away in the background.
