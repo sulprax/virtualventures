@@ -1,0 +1,170 @@
+---
+import "../../styles/cover-slideshow.css";
+
+interface Slide {
+  src: string;
+  alt?: string;
+  title?: string;
+  description?: string;
+  category?: string;
+  tags?: string[];
+  colours?: string[];
+  href?: string;
+  linkLabel?: string;
+}
+
+interface Props {
+  slides?: Slide[];
+  variant?: "home" | "page";
+  intervalMs?: number;
+  transitionMs?: number;
+}
+
+const {
+  slides = [],
+  variant = "page",
+  intervalMs = 9500,
+  transitionMs = 3600,
+} = Astro.props;
+
+const safeSlides = slides.filter((slide) => Boolean(slide?.src));
+
+const colourMap: Record<string, string> = {
+  cream: "#fff2d8",
+  gold: "#efbd72",
+  brown: "#7a5230",
+  green: "#8fb879",
+  purple: "#b99adf",
+  pink: "#e6a1b5",
+  blue: "#90b9df",
+  red: "#d47a74",
+  orange: "#df9a5c",
+  yellow: "#efd46f",
+  black: "#32251d",
+  white: "#fffaf5",
+};
+
+function getSlideStyle(slide: Slide, index: number) {
+  const colours = slide.colours ?? [];
+  const starOne = colourMap[colours[0] ?? "gold"] ?? "#efbd72";
+  const starTwo = colourMap[colours[1] ?? "cream"] ?? "#fff2d8";
+  const starThree = colourMap[colours[2] ?? "brown"] ?? "#7a5230";
+
+  return [
+    `background-image: url("${slide.src}")`,
+    `--slide-number: ${index + 1}`,
+    `--star-one: ${starOne}`,
+    `--star-two: ${starTwo}`,
+    `--star-three: ${starThree}`,
+  ].join("; ");
+}
+---
+
+{
+  safeSlides.length > 0 && (
+    <div
+      class:list={[
+        "cover-slideshow",
+        variant === "home" && "cover-slideshow--home",
+        variant === "page" && "cover-slideshow--page",
+      ]}
+      data-cover-slideshow
+      data-interval-ms={String(intervalMs)}
+      data-transition-ms={String(transitionMs)}
+    >
+      <div class="cover-slideshow__slides">
+        {safeSlides.map((slide, index) => (
+          <div
+            class:list={["cover-slideshow__slide", index === 0 && "is-active"]}
+            data-cover-slide
+            style={getSlideStyle(slide, index)}
+          >
+            <div class="cover-slideshow__caption">
+              <p class="cover-slideshow__eyebrow">
+                {slide.category ?? "Virtual Ventures"}
+              </p>
+
+              <h2>{slide.title}</h2>
+
+              {slide.description && (
+                <p class="cover-slideshow__description">{slide.description}</p>
+              )}
+
+              {slide.href && (
+                <a class="cover-slideshow__link" href={slide.href}>
+                  {slide.linkLabel ?? "Click here to explore"}
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="cover-slideshow__warmth" />
+      <div class="cover-slideshow__stars cover-slideshow__stars--one" />
+      <div class="cover-slideshow__stars cover-slideshow__stars--two" />
+      <div class="cover-slideshow__veil" />
+
+      {safeSlides.length > 1 && (
+        <div class="cover-slideshow__pips">
+          {safeSlides.map((slide, index) => (
+            <span
+              class:list={["cover-slideshow__pip", index === 0 && "is-active"]}
+              data-cover-dot
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+<script>
+  // @ts-nocheck
+
+  const slideshowRoots = document.querySelectorAll("[data-cover-slideshow]");
+
+  slideshowRoots.forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+    if (root.dataset.coverSlideshowReady === "true") return;
+
+    root.dataset.coverSlideshowReady = "true";
+
+    const slides = Array.from(root.querySelectorAll("[data-cover-slide]"));
+    const dots = Array.from(root.querySelectorAll("[data-cover-dot]"));
+
+    if (slides.length <= 1) return;
+
+    let activeIndex = 0;
+    const intervalMs = Number(root.dataset.intervalMs || "9500");
+    const transitionMs = Number(root.dataset.transitionMs || "3600");
+
+    function showSlide(nextIndex) {
+      const previousIndex = activeIndex;
+      const previousSlide = slides[previousIndex];
+      const nextSlide = slides[nextIndex];
+
+      if (!nextSlide || previousIndex === nextIndex) return;
+
+      previousSlide?.classList.add("is-leaving");
+      previousSlide?.classList.remove("is-active");
+
+      nextSlide.classList.add("is-active");
+
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === nextIndex);
+      });
+
+      window.setTimeout(() => {
+        previousSlide?.classList.remove("is-leaving");
+      }, transitionMs + 150);
+
+      activeIndex = nextIndex;
+    }
+
+    window.setInterval(() => {
+      const nextIndex = (activeIndex + 1) % slides.length;
+      showSlide(nextIndex);
+    }, intervalMs);
+  });
+</script>
