@@ -1,11 +1,16 @@
 ---
 import { siteNav } from "../../data/navigation";
 import { visibleSocials } from "../../data/socials";
+import CoverSlideshow from "../site/CoverSlideshow.astro";
+import { getCoverMedia } from "../../lib/getCoverMedia";
 
 const navItems = siteNav;
+const coverSlides = await getCoverMedia();
 ---
 
 <section class="hero">
+  <CoverSlideshow slides={coverSlides} variant="home" />
+
   <div class="hero-top-fade" aria-hidden="true"></div>
   <div class="hero-bottom-fade" aria-hidden="true"></div>
 

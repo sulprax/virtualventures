@@ -1,4 +1,7 @@
 ---
+import CoverSlideshow from "../site/CoverSlideshow.astro";
+import { getCoverMedia } from "../../lib/getCoverMedia";
+
 interface Props {
   eyebrow: string;
   title: string;
@@ -6,9 +9,12 @@ interface Props {
 }
 
 const { eyebrow, title, description } = Astro.props;
+const coverSlides = await getCoverMedia();
 ---
 
 <section class="blog-hero-banner page-hero-banner">
+  <CoverSlideshow slides={coverSlides} variant="page" />
+
   <div class="blog-hero-banner-inner">
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>

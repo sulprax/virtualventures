@@ -29,7 +29,7 @@ images:
       - brown
     gallery: true
     latest: true
-    cover: false
+    cover: true
     shape: "square"
 
   - src: "/images/blog/virtual-ventures-stage/crochet-owl-on-virtual-ventures-stage.webp"

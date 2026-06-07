@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/site/Breadcrumbs.astro";
 import { getCollection, render } from "astro:content";
+import PageHero from "../../components/page/PageHero.astro";
 
 const categoryLabels: Record<string, string> = {
   crochet: "Crochet",
@@ -57,13 +58,11 @@ const relatedPosts = allPosts
     { label: post.data.title },
   ]}
 >
-  <section class="blog-hero-banner blog-post-banner">
-    <div class="blog-hero-banner-inner">
-      <p class="eyebrow">Blog Post</p>
-      <h1>{post.data.title}</h1>
-      <p>{post.data.description}</p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Blog Post"
+    title={post.data.title}
+    description={post.data.description}
+  />
 
   <Breadcrumbs
     items={[

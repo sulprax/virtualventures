@@ -3,7 +3,6 @@ import path from "node:path";
 import sharp from "sharp";
 
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png"]);
-
 const DEFAULT_INPUT_DIRS = ["public/images"];
 
 const SKIP_FOLDERS = [
@@ -13,7 +12,6 @@ const SKIP_FOLDERS = [
 ];
 
 const shouldDeleteOriginals = process.argv.includes("--delete-originals");
-
 const ignoredFolders = new Set(["node_modules", ".git", "dist", ".astro"]);
 
 async function pathExists(filePath) {
@@ -31,7 +29,6 @@ function normalisePath(filePath) {
 
 function shouldSkipFile(filePath) {
   const cleanPath = normalisePath(filePath);
-
   return SKIP_FOLDERS.some((folder) => cleanPath.startsWith(folder));
 }
 
@@ -49,9 +46,7 @@ async function walkFolder(folderPath) {
     const cleanPath = normalisePath(fullPath);
 
     if (entry.isDirectory()) {
-      if (ignoredFolders.has(entry.name)) {
-        continue;
-      }
+      if (ignoredFolders.has(entry.name)) continue;
 
       if (SKIP_FOLDERS.some((folder) => cleanPath.startsWith(folder))) {
         continue;
@@ -90,13 +85,13 @@ async function convertImage(filePath) {
   await sharp(filePath)
     .rotate()
     .resize({
-      width: 1800,
-      height: 1800,
+      width: 3000,
+      height: 3000,
       fit: "inside",
       withoutEnlargement: true,
     })
     .webp({
-      quality: 82,
+      quality: 86,
       effort: 5,
     })
     .toFile(webpPath);
@@ -128,7 +123,9 @@ async function main() {
   );
 
   if (imageFiles.length === 0) {
-    console.log("No jpg, jpeg, or png files found. The cupboard is already tidy ✨");
+    console.log(
+      "No jpg, jpeg, or png files found. The cupboard is already tidy ✨",
+    );
     return;
   }
 
