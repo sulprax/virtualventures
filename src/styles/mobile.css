@@ -621,8 +621,7 @@
     padding: 6.5rem 1rem 4rem;
 
     background-image: image-set(
-      url("/images/hero/hero-1-mobile.webp") type("image/webp"),
-      url("/images/hero/hero-1.jpg") type("image/jpeg")
+      url("/images/hero/hero-1-mobile.webp") type("image/webp")
     );
 
     background-size: cover;

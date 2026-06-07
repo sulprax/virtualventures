@@ -1,6 +1,33 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/page/PageHero.astro";
+import "../../styles/gallery.css";
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+const galleryItems = posts
+  .flatMap((post) =>
+    (post.data.images ?? [])
+      .filter((image) => image.gallery !== false)
+      .map((image) => ({
+        ...image,
+        blogTitle: post.data.title,
+        blogUrl: `/blog/${post.id.replace(/\.md$/, "")}/`,
+        pubDate: post.data.pubDate,
+        updatedDate: post.data.updatedDate ?? post.data.pubDate,
+      })),
+  )
+  .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
+
+const latestItems = galleryItems
+  .filter((item) => item.latest !== false)
+  .slice(0, 3);
+
+const categories = [
+  "all",
+  ...new Set(galleryItems.map((item) => item.category)),
+];
 ---
 
 <Layout
@@ -9,19 +36,522 @@ import PageHero from "../../components/page/PageHero.astro";
   showFooterBreadcrumbs={false}
 >
   <PageHero
-    eyebrow="Gallery"
+    eyebrow="Project peeks"
     title="Gallery"
-    description="A cosy lookbook of crochet creatures, handmade details, laser engraved pieces, 3D printed helpers and workshop experiments."
+    description="This is the visual home for finished makes, behind-the-scenes shots, experiments, product photos and tiny handmade treasures."
   />
 
-  <main class="page-shell">
-    <section class="page-intro">
-      <p class="eyebrow">Project peeks</p>
-      <h1>Made, tested and photographed</h1>
-      <p>
-        This will become the visual home for finished makes, behind-the-scenes
-        shots and tiny handmade treasures.
-      </p>
+  <main class="gallery-page">
+    {
+      latestItems.length > 0 && (
+        <section class="gallery-latest" aria-labelledby="latest-gallery-title">
+          <div class="gallery-section-heading">
+            <p class="eyebrow">Fresh from the workbench</p>
+            <h2 id="latest-gallery-title">Latest photos</h2>
+          </div>
+
+          <div class="gallery-latest-grid">
+            {latestItems.map((item) => (
+              <article class="gallery-latest-card">
+                <button
+                  class="gallery-latest-button"
+                  type="button"
+                  data-gallery-open
+                  data-title={item.title}
+                  data-description={item.description}
+                  data-image={item.src}
+                  data-alt={item.alt}
+                  data-category={item.category}
+                  data-tags={item.tags.join(", ")}
+                  data-colours={(item.colours ?? []).join(", ")}
+                  data-blog-url={item.blogUrl}
+                  data-blog-title={item.blogTitle}
+                >
+                  <img src={item.src} alt={item.alt} loading="lazy" />
+
+                  <div class="gallery-latest-content">
+                    <p class="gallery-card-category">{item.category}</p>
+                    <h3>{item.title}</h3>
+                  </div>
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <section class="gallery-controls" aria-label="Gallery controls">
+      <label>
+        <span>Sort</span>
+        <select id="gallery-sort">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="type">Type</option>
+          <option value="colour">Colour</option>
+          <option value="modified">Recently modified</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Filter</span>
+        <select id="gallery-filter">
+          {
+            categories.map((category) => (
+              <option value={category}>
+                {category === "all" ? "All" : category}
+              </option>
+            ))
+          }
+        </select>
+      </label>
+    </section>
+
+    <section class="gallery-grid" aria-label="Gallery photos">
+      {
+        galleryItems.map((item, index) => (
+          <article
+            class:list={[
+              "gallery-card",
+              index % 5 === 0 && "gallery-card--wide",
+              index % 7 === 0 && "gallery-card--tall",
+            ]}
+            data-category={item.category}
+            data-colours={(item.colours ?? []).join(",")}
+            data-date={item.pubDate.toISOString()}
+            data-modified={item.updatedDate.toISOString()}
+          >
+            <button
+              class="gallery-card-button"
+              type="button"
+              data-gallery-open
+              data-title={item.title}
+              data-description={item.description}
+              data-image={item.src}
+              data-alt={item.alt}
+              data-category={item.category}
+              data-tags={item.tags.join(", ")}
+              data-colours={(item.colours ?? []).join(", ")}
+              data-blog-url={item.blogUrl}
+              data-blog-title={item.blogTitle}
+            >
+              <img src={item.src} alt={item.alt} loading="lazy" />
+              <span class="gallery-card-glow" aria-hidden="true" />
+
+              <span class="gallery-like-pill" data-like-pill>
+                <span data-like-heart>♡</span>
+                <span data-like-count>0</span>
+              </span>
+            </button>
+          </article>
+        ))
+      }
     </section>
   </main>
+
+  <div class="gallery-lightbox" data-gallery-lightbox hidden>
+    <div class="gallery-lightbox-backdrop" data-gallery-close></div>
+
+    <article
+      class="gallery-lightbox-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gallery-lightbox-title"
+    >
+      <button
+        class="gallery-lightbox-close"
+        type="button"
+        data-gallery-close
+        aria-label="Close gallery photo"
+      >
+        ×
+      </button>
+
+      <button
+        class="gallery-lightbox-arrow gallery-lightbox-arrow--left"
+        type="button"
+        data-gallery-prev
+        aria-label="Previous photo"
+      >
+        ‹
+      </button>
+
+      <div class="gallery-lightbox-image-wrap">
+        <img data-gallery-lightbox-image src="" alt="" />
+      </div>
+
+      <div class="gallery-lightbox-content">
+        <p class="gallery-card-category" data-gallery-lightbox-category></p>
+        <h2 id="gallery-lightbox-title" data-gallery-lightbox-title></h2>
+
+        <div class="gallery-lightbox-detail-block">
+          <h3>Description</h3>
+          <p data-gallery-lightbox-description></p>
+        </div>
+
+        <div class="gallery-lightbox-detail-block">
+          <h3 class="gallery-tags-heading">Tags</h3>
+          <div class="gallery-tags" data-gallery-lightbox-tags></div>
+        </div>
+
+        <div class="gallery-lightbox-detail-block">
+          <h3 class="gallery-colours-heading">Colours</h3>
+          <div class="gallery-tags" data-gallery-lightbox-colours></div>
+        </div>
+
+        <div class="gallery-lightbox-actions">
+          <a class="gallery-lightbox-link" data-gallery-lightbox-blog href="#">
+            Read the blog post
+          </a>
+
+          <button
+            class="gallery-lightbox-like"
+            type="button"
+            data-gallery-lightbox-like
+          >
+            ♡ Like
+          </button>
+
+          <button
+            class="gallery-lightbox-share"
+            type="button"
+            data-gallery-lightbox-share
+          >
+            Share
+          </button>
+        </div>
+      </div>
+
+      <button
+        class="gallery-lightbox-arrow gallery-lightbox-arrow--right"
+        type="button"
+        data-gallery-next
+        aria-label="Next photo"
+      >
+        ›
+      </button>
+    </article>
+  </div>
+
+  <script>
+    const filter = document.querySelector<HTMLSelectElement>("#gallery-filter");
+    const sort = document.querySelector<HTMLSelectElement>("#gallery-sort");
+    const grid = document.querySelector<HTMLElement>(".gallery-grid");
+
+    const lightbox = document.querySelector<HTMLElement>(
+      "[data-gallery-lightbox]",
+    );
+    const lightboxImage = document.querySelector<HTMLImageElement>(
+      "[data-gallery-lightbox-image]",
+    );
+    const lightboxTitle = document.querySelector<HTMLElement>(
+      "[data-gallery-lightbox-title]",
+    );
+    const lightboxDescription = document.querySelector<HTMLElement>(
+      "[data-gallery-lightbox-description]",
+    );
+    const lightboxCategory = document.querySelector<HTMLElement>(
+      "[data-gallery-lightbox-category]",
+    );
+    const lightboxTags = document.querySelector<HTMLElement>(
+      "[data-gallery-lightbox-tags]",
+    );
+    const lightboxColours = document.querySelector<HTMLElement>(
+      "[data-gallery-lightbox-colours]",
+    );
+    const lightboxBlog = document.querySelector<HTMLAnchorElement>(
+      "[data-gallery-lightbox-blog]",
+    );
+    const lightboxLike = document.querySelector<HTMLButtonElement>(
+      "[data-gallery-lightbox-like]",
+    );
+    const lightboxShare = document.querySelector<HTMLButtonElement>(
+      "[data-gallery-lightbox-share]",
+    );
+
+    let activeIndex = 0;
+
+    function getCards() {
+      return Array.from(
+        document.querySelectorAll<HTMLElement>(".gallery-card"),
+      );
+    }
+
+    function getOpenButtons() {
+      return Array.from(
+        document.querySelectorAll<HTMLButtonElement>("[data-gallery-open]"),
+      );
+    }
+
+    function getVisibleButtons() {
+      return getCards()
+        .filter((card) => !card.hidden)
+        .map((card) =>
+          card.querySelector<HTMLButtonElement>("[data-gallery-open]"),
+        )
+        .filter((button): button is HTMLButtonElement => Boolean(button));
+    }
+
+    function getNumberDate(card: HTMLElement, key: "date" | "modified") {
+      const value = card.dataset[key];
+      return value ? new Date(value).getTime() : 0;
+    }
+
+    function getLikeKey(button: HTMLButtonElement) {
+      return `vv-gallery-liked:${
+        button.dataset.image ?? button.dataset.title ?? "unknown"
+      }`;
+    }
+
+    function isLiked(button: HTMLButtonElement) {
+      return localStorage.getItem(getLikeKey(button)) === "true";
+    }
+
+    function setLiked(button: HTMLButtonElement, liked: boolean) {
+      localStorage.setItem(getLikeKey(button), String(liked));
+
+      const card = button.closest<HTMLElement>(".gallery-card");
+      const heartElement =
+        card?.querySelector<HTMLElement>("[data-like-heart]");
+      const countElement =
+        card?.querySelector<HTMLElement>("[data-like-count]");
+      const pillElement = card?.querySelector<HTMLElement>("[data-like-pill]");
+
+      if (heartElement) {
+        heartElement.textContent = liked ? "♥" : "♡";
+      }
+
+      if (countElement) {
+        countElement.textContent = liked ? "1" : "0";
+      }
+
+      pillElement?.classList.toggle("is-liked", liked);
+
+      if (lightboxLike) {
+        lightboxLike.textContent = liked ? "♥ Liked" : "♡ Like";
+        lightboxLike.classList.toggle("is-liked", liked);
+      }
+    }
+
+    function hydrateLikes() {
+      getOpenButtons().forEach((button) => {
+        setLiked(button, isLiked(button));
+      });
+    }
+
+    function fillTagList(
+      container: HTMLElement | null,
+      rawValue: string,
+      emptyText: string,
+    ) {
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      const items = rawValue
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .slice(0, 3);
+
+      if (items.length === 0) {
+        const emptyElement = document.createElement("span");
+        emptyElement.className = "gallery-empty-pill";
+        emptyElement.textContent = emptyText;
+        container.appendChild(emptyElement);
+        return;
+      }
+
+      items.forEach((item) => {
+        const tagElement = document.createElement("span");
+        tagElement.textContent = item;
+        container.appendChild(tagElement);
+      });
+    }
+
+    function applyGalleryControls() {
+      if (!filter || !sort || !grid) return;
+
+      const selectedCategory = filter.value;
+      const selectedSort = sort.value;
+      const cards = getCards();
+
+      cards.forEach((card) => {
+        const matchesCategory =
+          selectedCategory === "all" ||
+          card.dataset.category === selectedCategory;
+
+        card.hidden = !matchesCategory;
+      });
+
+      const sortedCards = cards.sort((a, b) => {
+        if (selectedSort === "oldest") {
+          return getNumberDate(a, "date") - getNumberDate(b, "date");
+        }
+
+        if (selectedSort === "modified") {
+          return getNumberDate(b, "modified") - getNumberDate(a, "modified");
+        }
+
+        if (selectedSort === "type") {
+          return (a.dataset.category ?? "").localeCompare(
+            b.dataset.category ?? "",
+          );
+        }
+
+        if (selectedSort === "colour") {
+          return (a.dataset.colours ?? "").localeCompare(
+            b.dataset.colours ?? "",
+          );
+        }
+
+        return getNumberDate(b, "date") - getNumberDate(a, "date");
+      });
+
+      sortedCards.forEach((card) => grid.appendChild(card));
+    }
+
+    function openLightbox(index: number) {
+      const buttons = getVisibleButtons();
+      const button = buttons[index];
+
+      if (
+        !button ||
+        !lightbox ||
+        !lightboxImage ||
+        !lightboxTitle ||
+        !lightboxDescription ||
+        !lightboxCategory ||
+        !lightboxBlog
+      ) {
+        return;
+      }
+
+      activeIndex = index;
+
+      lightboxImage.src = button.dataset.image ?? "";
+      lightboxImage.alt = button.dataset.alt ?? "";
+      lightboxTitle.textContent = button.dataset.title ?? "Gallery photo";
+      lightboxCategory.textContent = button.dataset.category ?? "";
+
+      lightboxDescription.textContent =
+        button.dataset.description?.trim() ||
+        "No description has been added yet. Future Sulprax can sprinkle words here later.";
+
+      fillTagList(lightboxTags, button.dataset.tags ?? "", "No tags yet");
+      fillTagList(
+        lightboxColours,
+        button.dataset.colours ?? "",
+        "No colours yet",
+      );
+
+      lightboxBlog.href = button.dataset.blogUrl ?? "#";
+      lightboxBlog.textContent = button.dataset.blogTitle
+        ? `Read: ${button.dataset.blogTitle}`
+        : "Read the blog post";
+
+      setLiked(button, isLiked(button));
+
+      lightbox.hidden = false;
+      document.body.classList.add("gallery-lightbox-is-open");
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+
+      lightbox.hidden = true;
+      document.body.classList.remove("gallery-lightbox-is-open");
+    }
+
+    function moveLightbox(direction: number) {
+      const buttons = getVisibleButtons();
+      if (buttons.length === 0) return;
+
+      const nextIndex =
+        (activeIndex + direction + buttons.length) % buttons.length;
+      openLightbox(nextIndex);
+    }
+
+    getOpenButtons().forEach((button) => {
+      button.addEventListener("click", () => {
+        const visibleButtons = getVisibleButtons();
+        const index = visibleButtons.indexOf(button);
+        openLightbox(index >= 0 ? index : 0);
+      });
+    });
+
+    document.querySelectorAll("[data-gallery-close]").forEach((button) => {
+      button.addEventListener("click", closeLightbox);
+    });
+
+    document
+      .querySelector("[data-gallery-prev]")
+      ?.addEventListener("click", () => {
+        moveLightbox(-1);
+      });
+
+    document
+      .querySelector("[data-gallery-next]")
+      ?.addEventListener("click", () => {
+        moveLightbox(1);
+      });
+
+    lightboxLike?.addEventListener("click", () => {
+      const buttons = getVisibleButtons();
+      const button = buttons[activeIndex];
+
+      if (!button) return;
+
+      setLiked(button, !isLiked(button));
+    });
+
+    lightboxShare?.addEventListener("click", async () => {
+      const buttons = getVisibleButtons();
+      const button = buttons[activeIndex];
+
+      if (!button || !lightboxShare) return;
+
+      const shareUrl = `${window.location.origin}${
+        button.dataset.blogUrl ?? "/gallery/"
+      }`;
+      const shareTitle = button.dataset.title ?? "Virtual Ventures Gallery";
+
+      if (navigator.share) {
+        await navigator.share({
+          title: shareTitle,
+          text: button.dataset.description ?? "",
+          url: shareUrl,
+        });
+        return;
+      }
+
+      await navigator.clipboard.writeText(shareUrl);
+      lightboxShare.textContent = "Copied link";
+
+      setTimeout(() => {
+        lightboxShare.textContent = "Share";
+      }, 1600);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox || lightbox.hidden) return;
+
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+
+      if (event.key === "ArrowLeft") {
+        moveLightbox(-1);
+      }
+
+      if (event.key === "ArrowRight") {
+        moveLightbox(1);
+      }
+    });
+
+    filter?.addEventListener("change", applyGalleryControls);
+    sort?.addEventListener("change", applyGalleryControls);
+
+    hydrateLikes();
+  </script>
 </Layout>

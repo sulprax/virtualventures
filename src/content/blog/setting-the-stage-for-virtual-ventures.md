@@ -14,18 +14,56 @@ emoji: "📸"
 pinned: false
 draft: false
 images:
-  - title: "Crochet Owl on the Virtual Ventures Stage"
-    src: "/images/blog/virtual-ventures-stage/crochet-owl-on-virtual-ventures-stage.webp"
-    alt: "A handmade green crochet owl sitting on a wooden slice photo stage with warm fairy lights, dried flowers, soft fabric, and a cosy handmade backdrop."
-    caption: "The crochet owl takes centre stage in the new Virtual Ventures photo setup."
-  - title: "Crochet Bunny on the Virtual Ventures Stage"
-    src: "/images/blog/virtual-ventures-stage/crochet-bunny-on-virtual-ventures-stage.webp"
-    alt: "A handmade crochet bunny with purple clothing sitting on a wooden slice photo stage with warm fairy lights, dried flowers, and a cosy handmade backdrop."
-    caption: "A soft little crochet bunny testing out the new stage."
-  - title: "Virtual Ventures Photo Stage Setup"
-    src: "/images/blog/virtual-ventures-stage/virtual-ventures-photo-stage-empty.webp"
-    alt: "A cosy handmade photo stage with a wooden slice, warm fairy lights, dried flowers, soft fabric, and a floral mug in the background."
-    caption: "The little stage before the handmade characters step into the spotlight."
+  - src: "/images/blog/virtual-ventures-stage/crochet-bunny-on-virtual-ventures-stage.webp"
+    title: "Crochet Bunny on the Virtual Ventures Stage"
+    alt: "A cream crochet bunny with soft purple details sitting on a warm handmade product photography stage with fairy lights, wood slices and dried grasses."
+    description: "A crochet bunny photographed on the first Virtual Ventures photo stage to test soft colours, warm lighting and handmade product presentation."
+    category: "crochet"
+    tags:
+      - crochet
+      - bunny
+      - photo-stage
+    colours:
+      - cream
+      - purple
+      - brown
+    gallery: true
+    latest: true
+    cover: false
+
+  - src: "/images/blog/virtual-ventures-stage/crochet-owl-on-virtual-ventures-stage.webp"
+    title: "Crochet Owl on the Virtual Ventures Stage"
+    alt: "A green and cream crochet owl sitting on a warm handmade product photography stage with fairy lights, wood slices, a mug and dried grasses."
+    description: "A crochet owl photographed on the first Virtual Ventures photo stage to test lighting, texture, colour balance and cosy handmade styling."
+    category: "crochet"
+    tags:
+      - crochet
+      - owl
+      - photo-stage
+    colours:
+      - green
+      - cream
+      - brown
+    gallery: true
+    latest: true
+    cover: true
+
+  - src: "/images/blog/virtual-ventures-stage/virtual-ventures-photo-stage-empty.webp"
+    title: "Virtual Ventures Photo Stage Setup"
+    alt: "An empty warm handmade product photography stage with fairy lights, wood slices, soft fabric, dried grasses and a mug in the background."
+    description: "The empty Virtual Ventures photo stage showing the repeatable setup for future crochet, laser, planner, shop and blog photography."
+    category: "behind-the-scenes"
+    tags:
+      - photo-stage
+      - product-photography
+      - behind-the-scenes
+    colours:
+      - cream
+      - gold
+      - brown
+    gallery: true
+    latest: true
+    cover: false
 ---
 
 It has been a little quiet on the blog, but Virtual Ventures has still been ticking away in the background.

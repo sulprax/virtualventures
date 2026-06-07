@@ -21,6 +21,7 @@ const galleryImage = z.object({
     ])
     .default("behind-the-scenes"),
   tags: z.array(z.string()).default([]),
+  colours: z.array(z.string()).default([]),
 
   // Controls
   gallery: z.boolean().default(true),

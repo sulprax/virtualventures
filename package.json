@@ -10,7 +10,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write \"src/**/*.{astro,css,js,ts,md}\""
+    "format": "prettier --write \"src/**/*.{astro,css,js,ts,md}\"",
+    "images:webp": "node scripts/convert-images-to-webp.mjs",
+    "images:webp:delete": "node scripts/convert-images-to-webp.mjs --delete-originals",
+    "image:metadata": "node scripts/create-image-metadata.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
