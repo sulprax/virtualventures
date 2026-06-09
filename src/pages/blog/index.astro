@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/site/Breadcrumbs.astro";
 import { getCollection, render } from "astro:content";
 import PageHero from "../../components/page/PageHero.astro";
+import "../../styles/pages/blog.css";
 
 const categoryLabels: Record<string, string> = {
   crochet: "Crochet",
@@ -123,7 +124,10 @@ const calendarMonth = calendarBaseDate.getMonth();
   <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
 
   <main class="page-shell blog-page">
-    <div class="blog-layout has-mobile-side-drawer">
+    <div
+      class="blog-layout has-mobile-side-drawer"
+      data-mobile-side-drawer-root
+    >
       <button
         class="mobile-side-drawer-toggle"
         type="button"
@@ -131,6 +135,8 @@ const calendarMonth = calendarBaseDate.getMonth();
         aria-controls="blog-side-drawer"
         aria-expanded="false"
         data-mobile-side-toggle
+        data-open-label="Blog Tools"
+        data-close-label="Close"
       >
         Blog Tools
       </button>
@@ -496,6 +502,7 @@ const calendarMonth = calendarBaseDate.getMonth();
     const mobileSideBackdrop = document.querySelector(
       "[data-mobile-side-backdrop]",
     );
+    const siteFooter = document.querySelector(".site-footer");
 
     const postsPerPage = 8;
     const postDates = new Set(
@@ -535,6 +542,90 @@ const calendarMonth = calendarBaseDate.getMonth();
     }
 
     function closeOtherPosts(activeCard) {
+      function updateMobileSideDrawerFooterGap() {
+        if (!(siteFooter instanceof HTMLElement)) {
+          return;
+        }
+
+        const footerRect = siteFooter.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const footerVisibleAmount = Math.max(
+          0,
+          viewportHeight - footerRect.top,
+        );
+
+        document.documentElement.style.setProperty(
+          "--mobile-side-drawer-footer-gap",
+          `${footerVisibleAmount}px`,
+        );
+      }
+
+      function openMobileSideDrawer() {
+        if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
+        if (!(mobileSideDrawer instanceof HTMLElement)) return;
+        if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+        updateMobileSideDrawerFooterGap();
+
+        mobileSideDrawer.classList.add("is-open");
+        mobileSideBackdrop.hidden = false;
+        document.body.classList.add("has-open-mobile-side-drawer");
+
+        mobileSideToggle.setAttribute("aria-expanded", "true");
+        mobileSideToggle.setAttribute("aria-label", "Close blog tools");
+        mobileSideToggle.textContent = "Close";
+      }
+
+      function closeMobileSideDrawer() {
+        if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
+        if (!(mobileSideDrawer instanceof HTMLElement)) return;
+        if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+        mobileSideDrawer.classList.remove("is-open");
+        mobileSideBackdrop.hidden = true;
+        document.body.classList.remove("has-open-mobile-side-drawer");
+
+        mobileSideToggle.setAttribute("aria-expanded", "false");
+        mobileSideToggle.setAttribute("aria-label", "Open blog tools");
+        mobileSideToggle.textContent = "Blog Tools";
+      }
+
+      if (
+        mobileSideToggle instanceof HTMLButtonElement &&
+        mobileSideDrawer instanceof HTMLElement &&
+        mobileSideBackdrop instanceof HTMLElement
+      ) {
+        mobileSideToggle.addEventListener("click", () => {
+          const isOpen = mobileSideDrawer.classList.contains("is-open");
+
+          if (isOpen) {
+            document.dispatchEvent(
+              new CustomEvent("vv:close-mobile-side-drawers"),
+            );
+          } else {
+            openMobileSideDrawer();
+          }
+        });
+
+        mobileSideBackdrop.addEventListener("click", closeMobileSideDrawer);
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            document.dispatchEvent(
+              new CustomEvent("vv:close-mobile-side-drawers"),
+            );
+          }
+        });
+
+        window.addEventListener("scroll", updateMobileSideDrawerFooterGap, {
+          passive: true,
+        });
+
+        window.addEventListener("resize", updateMobileSideDrawerFooterGap);
+
+        updateMobileSideDrawerFooterGap();
+      }
+
       cards.forEach((card) => {
         if (card !== activeCard) closePost(card);
       });
@@ -607,6 +698,90 @@ const calendarMonth = calendarBaseDate.getMonth();
       );
 
       currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+
+      function updateMobileSideDrawerFooterGap() {
+        if (!(siteFooter instanceof HTMLElement)) {
+          return;
+        }
+
+        const footerRect = siteFooter.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const footerVisibleAmount = Math.max(
+          0,
+          viewportHeight - footerRect.top,
+        );
+
+        document.documentElement.style.setProperty(
+          "--mobile-side-drawer-footer-gap",
+          `${footerVisibleAmount}px`,
+        );
+      }
+
+      function openMobileSideDrawer() {
+        if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
+        if (!(mobileSideDrawer instanceof HTMLElement)) return;
+        if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+        updateMobileSideDrawerFooterGap();
+
+        mobileSideDrawer.classList.add("is-open");
+        mobileSideBackdrop.hidden = false;
+        document.body.classList.add("has-open-mobile-side-drawer");
+
+        mobileSideToggle.setAttribute("aria-expanded", "true");
+        mobileSideToggle.setAttribute("aria-label", "Close blog tools");
+        mobileSideToggle.textContent = "Close";
+      }
+
+      function closeMobileSideDrawer() {
+        if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
+        if (!(mobileSideDrawer instanceof HTMLElement)) return;
+        if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+        mobileSideDrawer.classList.remove("is-open");
+        mobileSideBackdrop.hidden = true;
+        document.body.classList.remove("has-open-mobile-side-drawer");
+
+        mobileSideToggle.setAttribute("aria-expanded", "false");
+        mobileSideToggle.setAttribute("aria-label", "Open blog tools");
+        mobileSideToggle.textContent = "Blog Tools";
+      }
+
+      if (
+        mobileSideToggle instanceof HTMLButtonElement &&
+        mobileSideDrawer instanceof HTMLElement &&
+        mobileSideBackdrop instanceof HTMLElement
+      ) {
+        mobileSideToggle.addEventListener("click", () => {
+          const isOpen = mobileSideDrawer.classList.contains("is-open");
+
+          if (isOpen) {
+            document.dispatchEvent(
+              new CustomEvent("vv:close-mobile-side-drawers"),
+            );
+          } else {
+            openMobileSideDrawer();
+          }
+        });
+
+        mobileSideBackdrop.addEventListener("click", closeMobileSideDrawer);
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            document.dispatchEvent(
+              new CustomEvent("vv:close-mobile-side-drawers"),
+            );
+          }
+        });
+
+        window.addEventListener("scroll", updateMobileSideDrawerFooterGap, {
+          passive: true,
+        });
+
+        window.addEventListener("resize", updateMobileSideDrawerFooterGap);
+
+        updateMobileSideDrawerFooterGap();
+      }
 
       cards.forEach((card) => {
         const isFiltered = filteredCards.includes(card);
@@ -738,7 +913,9 @@ const calendarMonth = calendarBaseDate.getMonth();
 
           renderDaysCalendar();
           applyBlogView();
-          closeMobileSideDrawer();
+          document.dispatchEvent(
+            new CustomEvent("vv:close-mobile-side-drawers"),
+          );
         });
 
         calendarView.appendChild(button);
@@ -861,10 +1038,27 @@ const calendarMonth = calendarBaseDate.getMonth();
       renderYearPicker();
     }
 
+    function updateMobileSideDrawerFooterGap() {
+      if (!(siteFooter instanceof HTMLElement)) {
+        return;
+      }
+
+      const footerRect = siteFooter.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const footerVisibleAmount = Math.max(0, viewportHeight - footerRect.top);
+
+      document.documentElement.style.setProperty(
+        "--mobile-side-drawer-footer-gap",
+        `${footerVisibleAmount}px`,
+      );
+    }
+
     function openMobileSideDrawer() {
       if (!(mobileSideToggle instanceof HTMLButtonElement)) return;
       if (!(mobileSideDrawer instanceof HTMLElement)) return;
       if (!(mobileSideBackdrop instanceof HTMLElement)) return;
+
+      updateMobileSideDrawerFooterGap();
 
       mobileSideDrawer.classList.add("is-open");
       mobileSideBackdrop.hidden = false;
@@ -887,6 +1081,42 @@ const calendarMonth = calendarBaseDate.getMonth();
       mobileSideToggle.setAttribute("aria-expanded", "false");
       mobileSideToggle.setAttribute("aria-label", "Open blog tools");
       mobileSideToggle.textContent = "Blog Tools";
+    }
+
+    if (
+      mobileSideToggle instanceof HTMLButtonElement &&
+      mobileSideDrawer instanceof HTMLElement &&
+      mobileSideBackdrop instanceof HTMLElement
+    ) {
+      mobileSideToggle.addEventListener("click", () => {
+        const isOpen = mobileSideDrawer.classList.contains("is-open");
+
+        if (isOpen) {
+          document.dispatchEvent(
+            new CustomEvent("vv:close-mobile-side-drawers"),
+          );
+        } else {
+          openMobileSideDrawer();
+        }
+      });
+
+      mobileSideBackdrop.addEventListener("click", closeMobileSideDrawer);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          document.dispatchEvent(
+            new CustomEvent("vv:close-mobile-side-drawers"),
+          );
+        }
+      });
+
+      window.addEventListener("scroll", updateMobileSideDrawerFooterGap, {
+        passive: true,
+      });
+
+      window.addEventListener("resize", updateMobileSideDrawerFooterGap);
+
+      updateMobileSideDrawerFooterGap();
     }
 
     cards.forEach((card) => {
@@ -942,7 +1172,7 @@ const calendarMonth = calendarBaseDate.getMonth();
         }
 
         applyBlogView();
-        closeMobileSideDrawer();
+        document.dispatchEvent(new CustomEvent("vv:close-mobile-side-drawers"));
       });
     });
 
@@ -1062,7 +1292,9 @@ const calendarMonth = calendarBaseDate.getMonth();
 
           renderDaysCalendar();
           applyBlogView();
-          closeMobileSideDrawer();
+          document.dispatchEvent(
+            new CustomEvent("vv:close-mobile-side-drawers"),
+          );
 
           setTimeout(() => {
             card.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1071,29 +1303,108 @@ const calendarMonth = calendarBaseDate.getMonth();
       });
     });
 
-    if (
-      mobileSideToggle instanceof HTMLButtonElement &&
-      mobileSideDrawer instanceof HTMLElement &&
-      mobileSideBackdrop instanceof HTMLElement
-    ) {
-      mobileSideToggle.addEventListener("click", () => {
-        const isOpen = mobileSideDrawer.classList.contains("is-open");
-
-        if (isOpen) {
-          closeMobileSideDrawer();
-        } else {
-          openMobileSideDrawer();
-        }
-      });
-
-      mobileSideBackdrop.addEventListener("click", closeMobileSideDrawer);
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeMobileSideDrawer();
-      });
-    }
-
     renderDaysCalendar();
     applyBlogView();
+  </script>
+  <script is:inline>
+    /* BLOG DRAWER CLICK SAFETY PATCH */
+    (() => {
+      const root = document.querySelector("[data-mobile-side-drawer-root]");
+      if (!(root instanceof HTMLElement)) return;
+
+      const toggle = root.querySelector("[data-mobile-side-toggle]");
+      const drawer = root.querySelector("[data-mobile-side-drawer]");
+      const backdrop = root.querySelector("[data-mobile-side-backdrop]");
+      const footer = document.querySelector(".site-footer");
+
+      if (!(toggle instanceof HTMLButtonElement)) return;
+      if (!(drawer instanceof HTMLElement)) return;
+      if (!(backdrop instanceof HTMLElement)) return;
+
+      const openLabel = toggle.dataset.openLabel || "Blog Tools";
+      const closeLabel = toggle.dataset.closeLabel || "Close";
+
+      function updateFooterGap() {
+        if (!(footer instanceof HTMLElement)) {
+          document.documentElement.style.setProperty(
+            "--mobile-side-drawer-footer-gap",
+            "0px",
+          );
+          return;
+        }
+
+        const footerRect = footer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const footerVisibleAmount = Math.max(
+          0,
+          viewportHeight - footerRect.top,
+        );
+
+        document.documentElement.style.setProperty(
+          "--mobile-side-drawer-footer-gap",
+          `${footerVisibleAmount}px`,
+        );
+      }
+
+      function openDrawer() {
+        updateFooterGap();
+
+        drawer.classList.add("is-open");
+        backdrop.hidden = false;
+
+        document.body.classList.add("has-open-mobile-side-drawer");
+
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", closeLabel);
+        toggle.textContent = closeLabel;
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove("is-open");
+        backdrop.hidden = true;
+
+        document.body.classList.remove("has-open-mobile-side-drawer");
+
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", `Open ${openLabel.toLowerCase()}`);
+        toggle.textContent = openLabel;
+      }
+
+      toggle.addEventListener(
+        "click",
+        (event) => {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+
+          if (drawer.classList.contains("is-open")) {
+            closeDrawer();
+          } else {
+            openDrawer();
+          }
+        },
+        true,
+      );
+
+      backdrop.addEventListener(
+        "click",
+        (event) => {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          closeDrawer();
+        },
+        true,
+      );
+
+      document.addEventListener("vv:close-mobile-side-drawers", closeDrawer);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeDrawer();
+      });
+
+      window.addEventListener("scroll", updateFooterGap, { passive: true });
+      window.addEventListener("resize", updateFooterGap);
+
+      updateFooterGap();
+    })();
   </script>
 </Layout>

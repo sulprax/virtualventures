@@ -108,31 +108,55 @@ function isActivePath(href: string) {
   const siteMenuToggle = document.querySelector("[data-site-menu-toggle]");
   const siteMenuDrawer = document.querySelector("[data-site-menu-drawer]");
 
+  function closeSiteMenu() {
+    if (!(siteMenuToggle instanceof HTMLButtonElement)) return;
+    if (!(siteMenuDrawer instanceof HTMLElement)) return;
+
+    siteMenuDrawer.hidden = true;
+    siteMenuDrawer.classList.remove("is-open");
+
+    siteMenuToggle.setAttribute("aria-expanded", "false");
+    siteMenuToggle.setAttribute("aria-label", "Open menu");
+    siteMenuToggle.textContent = "☰";
+  }
+
+  function openSiteMenu() {
+    if (!(siteMenuToggle instanceof HTMLButtonElement)) return;
+    if (!(siteMenuDrawer instanceof HTMLElement)) return;
+
+    siteMenuDrawer.hidden = false;
+    siteMenuDrawer.classList.add("is-open");
+
+    siteMenuToggle.setAttribute("aria-expanded", "true");
+    siteMenuToggle.setAttribute("aria-label", "Close menu");
+    siteMenuToggle.textContent = "×";
+  }
+
   if (
     siteMenuToggle instanceof HTMLButtonElement &&
     siteMenuDrawer instanceof HTMLElement
   ) {
+    closeSiteMenu();
+
     siteMenuToggle.addEventListener("click", () => {
-      const isOpen = siteMenuDrawer.hidden;
+      const isOpen =
+        !siteMenuDrawer.hidden || siteMenuDrawer.classList.contains("is-open");
 
-      siteMenuDrawer.hidden = !isOpen;
-
-      siteMenuToggle.setAttribute("aria-expanded", String(isOpen));
-      siteMenuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close menu" : "Open menu",
-      );
-      siteMenuToggle.textContent = isOpen ? "×" : "☰";
+      if (isOpen) {
+        closeSiteMenu();
+      } else {
+        openSiteMenu();
+      }
     });
 
     siteMenuDrawer.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        siteMenuDrawer.hidden = true;
+      link.addEventListener("click", closeSiteMenu);
+    });
 
-        siteMenuToggle.setAttribute("aria-expanded", "false");
-        siteMenuToggle.setAttribute("aria-label", "Open menu");
-        siteMenuToggle.textContent = "☰";
-      });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeSiteMenu();
+      }
     });
   }
 </script>

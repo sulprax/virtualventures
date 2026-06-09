@@ -1,0 +1,34 @@
+/* =========================================================
+   RESET / BASE
+   Generated during CSS split cleanup
+   ========================================================= */
+
+/* =========================================================
+   02. RESET / BASE
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================================================
+   HIDDEN ATTRIBUTE SAFETY
+   Nothing marked hidden should display, even if old CSS gets excited.
+   ========================================================= */
+
+[hidden] {
+  display: none !important;
+}
+
+.site-header-nav-drawer[hidden],
+.mobile-side-drawer-backdrop[hidden],
+.blog-card-expanded[hidden],
+.blog-image-lightbox[hidden] {
+  display: none !important;
+}

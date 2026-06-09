@@ -1,0 +1,426 @@
+/* =========================================================
+   UNSORTED CSS - safe holding pen
+   Generated during CSS split cleanup
+   ========================================================= */
+
+/* =========================================================
+   VIRTUAL VENTURES GLOBAL CSS
+   Cozy coffee woodland edition
+   ========================================================= */
+
+/* =========================================================
+   08. PAGE SHELLS
+   ========================================================= */
+
+.page-shell,
+.shop-page,
+.product-page {
+  min-height: 100vh;
+
+  padding: clamp(6rem, 9vw, 8rem) clamp(1.2rem, 4vw, 4rem);
+
+  color: var(--dark);
+  background: var(--page-bg);
+}
+
+.page-intro {
+  max-width: 900px;
+
+  margin: 0 auto clamp(2.2rem, 5vw, 4rem);
+
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 0.7rem;
+
+  color: var(--coffee);
+
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.page-intro h1 {
+  margin: 0;
+
+  color: var(--dark);
+
+  font-family: var(--font-title);
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.page-intro p:not(.eyebrow) {
+  max-width: 760px;
+
+  margin: 1rem auto 0;
+
+  color: rgba(45, 34, 24, 0.86);
+
+  font-size: clamp(1rem, 1.4vw, 1.14rem);
+  line-height: 1.75;
+}
+
+/* =========================================================
+   14. PREVIOUS / NEXT + RELATED POSTS
+   ========================================================= */
+
+.blog-post-prev-next {
+  margin-top: clamp(2rem, 5vw, 3rem);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.blog-prev-next-card,
+.related-post-card {
+  padding: 1rem;
+
+  display: grid;
+  gap: 0.35rem;
+
+  color: inherit;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 250, 245, 0.92),
+    rgba(245, 239, 230, 0.78)
+  );
+
+  border: 1px solid rgba(139, 94, 60, 0.16);
+  border-radius: 22px;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 12px 28px rgba(59, 43, 34, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.blog-prev-next-card {
+  min-height: 92px;
+}
+
+.blog-prev-next-card span,
+.related-post-card span {
+  color: var(--coffee);
+
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.blog-prev-next-card strong,
+.related-post-card strong {
+  color: var(--dark);
+
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  line-height: 1.15;
+}
+
+.related-post-card small {
+  color: rgba(45, 34, 24, 0.72);
+
+  line-height: 1.45;
+}
+
+.blog-prev-next-card:hover,
+.related-post-card:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(216, 164, 93, 0.42);
+}
+
+.related-posts {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: 1.6rem;
+
+  border-top: 1px solid rgba(139, 94, 60, 0.14);
+}
+
+.related-posts h2 {
+  margin: 0 0 1rem;
+
+  color: var(--dark);
+
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1;
+}
+
+.related-post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.blog-post-footer-actions {
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: 1.4rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  border-top: 1px solid rgba(139, 94, 60, 0.14);
+}
+
+.blog-back-link,
+.featured-shop-link {
+  min-height: 44px;
+
+  padding: 0.75rem 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff6e9;
+  background: linear-gradient(
+    145deg,
+    rgba(126, 78, 39, 0.94),
+    rgba(54, 35, 23, 0.94)
+  );
+
+  border-radius: var(--radius-pill);
+
+  text-decoration: none;
+
+  font-size: 0.9rem;
+  font-weight: 900;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 246, 229, 0.22),
+    0 8px 18px rgba(59, 43, 34, 0.16);
+}
+
+.blog-back-link:hover,
+.featured-shop-link:hover {
+  color: #1d1208;
+  background: linear-gradient(145deg, #efbd72, #a26324);
+}
+
+/* =========================================================
+   BRAND EYEBROW STAR
+   Tiny decorative star used across page intros and section labels
+   ========================================================= */
+
+.eyebrow span[aria-hidden="true"] {
+  color: var(--gold);
+
+  text-shadow:
+    0 0 8px rgba(216, 164, 93, 0.45),
+    0 1px 0 rgba(255, 250, 245, 0.8);
+}
+
+/* Blog card top tag sparkle */
+.blog-card-top-tags::before {
+  content: "✦";
+
+  margin-right: 0.45rem;
+
+  color: var(--gold);
+
+  font-size: 0.72em;
+  font-weight: 900;
+
+  text-shadow:
+    0 0 8px rgba(216, 164, 93, 0.55),
+    0 1px 0 rgba(255, 250, 245, 0.9),
+    0 3px 8px rgba(59, 43, 34, 0.18);
+}
+
+/* =========================================================
+   20. FINAL POLISH LAYER
+   Tiny site-wide details, safe motion, and sparkle system
+   ========================================================= */
+
+/* Better anchor jumps under the sticky header */
+html {
+  scroll-padding-top: 6.5rem;
+}
+
+/* Soft branded text highlight */
+::selection {
+  color: var(--dark);
+  background: rgba(239, 189, 114, 0.45);
+}
+
+/* Keep long titles pretty on modern browsers */
+h1,
+h2,
+h3,
+.page-intro p,
+.blog-hero-banner p,
+.about-intro p,
+.about-closing-card p {
+  text-wrap: balance;
+}
+
+/* Consistent keyboard focus for anything clickable */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid rgba(239, 189, 114, 0.76);
+  outline-offset: 4px;
+}
+
+/* Smoother interactive bits */
+a,
+button {
+  -webkit-tap-highlight-color: rgba(239, 189, 114, 0.22);
+}
+
+/* Avoid layout wobble when scrollbars appear */
+@supports (scrollbar-gutter: stable) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+/* Logo polish */
+.footer-logo,
+.hero-logo {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+/* =========================================================
+   Site-wide star twinkle system
+   Applies to real star elements and decorative pseudo-stars
+   ========================================================= */
+
+.site-header-star,
+.nav-star,
+.hero-divider strong,
+.hero-buttons a::before,
+.hero-buttons a::after,
+.blog-card-top-tags::before,
+.blog-card-top-tags span + span::before,
+.blog-post-tags span + span::before,
+.featured-shop-widget::after,
+.breadcrumb-trail span,
+.footer-breadcrumb-wrap .breadcrumb-trail span,
+.footer-bottom::before,
+.about-closing-card p::before,
+.about-closing-card p::after,
+.eyebrow span[aria-hidden="true"],
+.blog-calendar-clear::before,
+.blog-calendar > .blog-calendar-clear::before {
+  display: inline-block;
+  transform-origin: center;
+  animation: vv-star-twinkle 5.8s ease-in-out infinite;
+  will-change: opacity, transform, text-shadow;
+}
+
+/* Stagger the sparkles so they do not blink together */
+.nav-star:nth-of-type(2n),
+.hero-buttons a:nth-child(2)::before,
+.hero-buttons a:nth-child(2)::after,
+.blog-card-top-tags span:nth-child(2n)::before,
+.blog-post-tags span:nth-child(2n)::before,
+.about-closing-card p::after {
+  animation-delay: 1.35s;
+}
+
+.nav-star:nth-of-type(3n),
+.hero-buttons a:nth-child(3)::before,
+.hero-buttons a:nth-child(3)::after,
+.blog-card-top-tags span:nth-child(3n)::before,
+.blog-post-tags span:nth-child(3n)::before,
+.footer-bottom::before {
+  animation-delay: 2.7s;
+}
+
+.eyebrow span[aria-hidden="true"],
+.featured-shop-widget::after,
+.breadcrumb-trail span {
+  animation-delay: 0.65s;
+}
+
+@keyframes vv-star-twinkle {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.94) rotate(0deg);
+
+    text-shadow:
+      0 0 4px rgba(216, 164, 93, 0.28),
+      0 1px 0 rgba(255, 250, 245, 0.18),
+      0 4px 10px rgba(0, 0, 0, 0.22);
+  }
+
+  42% {
+    opacity: 0.96;
+    transform: scale(1.08) rotate(7deg);
+
+    text-shadow:
+      0 0 12px rgba(216, 164, 93, 0.82),
+      0 0 22px rgba(239, 189, 114, 0.3),
+      0 1px 0 rgba(255, 250, 245, 0.32),
+      0 4px 10px rgba(0, 0, 0, 0.28);
+  }
+
+  56% {
+    opacity: 0.72;
+    transform: scale(0.99) rotate(-3deg);
+  }
+}
+
+/* Decorative button stars already exist, this just keeps them subtle */
+.hero-buttons a::before,
+.hero-buttons a::after {
+  animation-duration: 6.4s;
+}
+
+/* Featured shop and footer star are slower, almost candle-flicker */
+.featured-shop-widget::after,
+.footer-bottom::before {
+  animation-duration: 7.2s;
+}
+
+/* Respect people who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .site-header-star,
+  .nav-star,
+  .hero-divider strong,
+  .hero-buttons a::before,
+  .hero-buttons a::after,
+  .blog-card-top-tags::before,
+  .blog-card-top-tags span + span::before,
+  .blog-post-tags span + span::before,
+  .featured-shop-widget::after,
+  .breadcrumb-trail span,
+  .footer-breadcrumb-wrap .breadcrumb-trail span,
+  .footer-bottom::before,
+  .about-closing-card p::before,
+  .about-closing-card p::after,
+  .eyebrow span[aria-hidden="true"],
+  .blog-calendar-clear::before,
+  .blog-calendar > .blog-calendar-clear::before {
+    animation: none !important;
+  }
+}

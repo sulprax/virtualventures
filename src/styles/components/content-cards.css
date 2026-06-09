@@ -1,0 +1,189 @@
+/* =========================================================
+   CONTENT CARDS
+   Shared card sections for About, FAQ, guides and future pages
+   ========================================================= */
+
+.content-intro-card,
+.content-card,
+.content-closing-card {
+  position: relative;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(239, 189, 114, 0.12),
+      transparent 14rem
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 250, 245, 0.97),
+      rgba(245, 239, 230, 0.88)
+    );
+
+  border: 1px solid rgba(139, 94, 60, 0.16);
+  border-radius: var(--radius-card);
+
+  box-shadow:
+    0 20px 46px rgba(59, 43, 34, 0.13),
+    0 7px 16px rgba(59, 43, 34, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.content-intro-card {
+  max-width: 900px;
+  margin: 0 auto clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  text-align: center;
+}
+
+.content-section {
+  display: flex;
+  margin-top: clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.content-left {
+  justify-content: flex-start;
+}
+
+.content-right {
+  justify-content: flex-end;
+}
+
+.content-card {
+  width: min(100%, 720px);
+  padding: clamp(1.35rem, 3.5vw, 2.25rem);
+}
+
+.content-right .content-card {
+  text-align: right;
+}
+
+.content-intro-card h1,
+.content-card h2 {
+  position: relative;
+  margin: 0;
+  color: var(--dark);
+  font-family: var(--font-title);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.content-intro-card h1 {
+  max-width: 820px;
+  margin-inline: auto;
+  font-size: clamp(2.1rem, 5vw, 4rem);
+}
+
+.content-card h2 {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.content-intro-card h1::after,
+.content-card h2::after {
+  content: "";
+  display: block;
+  width: min(100%, 22rem);
+  height: 0.16rem;
+  margin-top: 0.65rem;
+
+  background: linear-gradient(
+    to right,
+    rgba(122, 82, 48, 0.92),
+    rgba(216, 164, 93, 0.72),
+    transparent
+  );
+
+  border-radius: var(--radius-pill);
+
+  box-shadow:
+    0 1px 0 rgba(255, 250, 245, 0.85),
+    0 5px 12px rgba(59, 43, 34, 0.12);
+}
+
+.content-intro-card h1::after {
+  margin-inline: auto;
+}
+
+.content-right .content-card h2::after {
+  margin-left: auto;
+
+  background: linear-gradient(
+    to left,
+    rgba(122, 82, 48, 0.92),
+    rgba(216, 164, 93, 0.72),
+    transparent
+  );
+}
+
+.content-intro-card p,
+.content-card p,
+.content-closing-card p {
+  color: rgba(45, 34, 24, 0.84);
+  font-size: clamp(1rem, 1.3vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.content-intro-card p {
+  max-width: 760px;
+  margin: 1rem auto 0;
+}
+
+.content-card p {
+  margin: 0.95rem 0 0;
+}
+
+.content-closing-card {
+  overflow: hidden;
+  max-width: 760px;
+  margin: clamp(2.4rem, 5vw, 4rem) auto 0;
+  padding: clamp(1.65rem, 4vw, 2.35rem) clamp(1.25rem, 4vw, 2.25rem);
+  text-align: center;
+}
+
+.content-closing-card p {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  margin: 0 auto;
+  color: rgba(74, 48, 31, 0.94);
+  font-family: var(--font-title);
+  font-size: clamp(1.18rem, 2vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+}
+
+.content-closing-card p::before,
+.content-closing-card p::after {
+  content: "✧";
+  display: inline-block;
+  margin: 0 0.55rem;
+  color: var(--gold);
+  font-size: 0.78em;
+  line-height: 1;
+
+  text-shadow:
+    0 0 10px rgba(216, 164, 93, 0.55),
+    0 1px 0 rgba(255, 250, 245, 0.8);
+}
+
+@media (max-width: 760px) {
+  .content-section {
+    display: block;
+  }
+
+  .content-right .content-card {
+    text-align: left;
+  }
+
+  .content-right .content-card h2::after {
+    margin-left: 0;
+
+    background: linear-gradient(
+      to right,
+      rgba(122, 82, 48, 0.92),
+      rgba(216, 164, 93, 0.72),
+      transparent
+    );
+  }
+}

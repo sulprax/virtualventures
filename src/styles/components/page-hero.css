@@ -1,0 +1,127 @@
+/* =========================================================
+   PAGE HERO
+   Compact shared banner for normal pages
+   ========================================================= */
+
+.page-hero-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  min-height: clamp(190px, 24vw, 300px);
+  padding: clamp(5.2rem, 7vw, 6.5rem) 1.25rem clamp(2rem, 4vw, 3rem);
+
+  display: grid;
+  place-items: center;
+
+  color: #fff7ed;
+  text-align: center;
+  background: var(--coffee-dark);
+}
+
+.page-hero-banner > *:not(.cover-slideshow) {
+  position: relative;
+  z-index: 2;
+}
+
+.page-hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.28) 45%,
+      rgba(0, 0, 0, 0.72) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(43, 27, 17, 0.7),
+      rgba(43, 27, 17, 0.18) 48%,
+      rgba(20, 13, 9, 0.72)
+    );
+}
+
+.page-hero-banner .cover-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.page-hero-banner .blog-hero-banner-inner {
+  width: min(820px, 100%);
+  margin-inline: auto;
+}
+
+.page-hero-banner .eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--amber);
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.page-hero-banner h1 {
+  max-width: 900px;
+  margin: 0 auto;
+
+  color: #fffaf5;
+
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 4.3vw, 3.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+
+  text-shadow:
+    0 3px 0 rgba(45, 34, 24, 0.9),
+    0 10px 22px rgba(0, 0, 0, 0.72),
+    0 0 34px rgba(0, 0, 0, 0.38);
+}
+
+.page-hero-banner p:not(.eyebrow) {
+  max-width: 720px;
+  margin: 0.65rem auto 0;
+
+  color: rgba(255, 250, 245, 0.96);
+
+  font-size: clamp(0.92rem, 1.18vw, 1.05rem);
+  font-weight: 700;
+  line-height: 1.5;
+
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.82),
+    0 0 20px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 900px) {
+  .page-hero-banner {
+    min-height: clamp(170px, 32vw, 240px);
+    padding: 5.25rem 1rem 2rem;
+  }
+
+  .page-hero-banner h1 {
+    font-size: clamp(1.9rem, 8vw, 3rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .page-hero-banner {
+    min-height: 180px;
+    padding: 5rem 1rem 1.65rem;
+  }
+
+  .page-hero-banner h1 {
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
+    line-height: 1;
+  }
+
+  .page-hero-banner p:not(.eyebrow) {
+    display: none;
+  }
+}

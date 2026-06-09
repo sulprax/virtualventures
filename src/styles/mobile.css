@@ -1541,3 +1541,228 @@
     min-height: 2.6rem;
   }
 }
+
+/* ==================================================
+   Mobile homepage hero
+   Poster-style mobile landing page
+   ================================================== */
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 100svh;
+    padding: 0 1rem 7.4rem;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  /* Top row: socials left, hamburger right */
+  .hero-topbar {
+    position: absolute;
+    top: 0.75rem;
+    left: 1rem;
+    right: 1rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+    padding: 0;
+  }
+
+  .hero-socials {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .mobile-menu {
+    position: relative;
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.15rem;
+    height: 3.15rem;
+    border: 1px solid rgba(239, 189, 114, 0.56);
+    border-radius: 999px;
+    background: rgba(45, 34, 24, 0.42);
+    color: #efbd72;
+    font-size: 1.8rem;
+    box-shadow:
+      0 0.7rem 1.8rem rgba(24, 15, 10, 0.28),
+      inset 0 1px 0 rgba(255, 250, 245, 0.12);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Main text layer */
+  .hero-panel {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: none;
+    margin: clamp(8rem, 22vh, 10rem) 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    text-align: left;
+    overflow: visible;
+  }
+
+  .hero-panel::before,
+  .hero-panel::after {
+    display: none;
+  }
+
+  /* Giant faded logo watermark behind the title */
+  .hero-logo-wrap {
+    position: absolute;
+    top: -10.5rem;
+    left: -10.5rem;
+    width: clamp(16rem, 82vw, 22rem);
+    max-width: none;
+    opacity: 0.26;
+    pointer-events: none;
+    filter: drop-shadow(0 0 1.2rem rgba(255, 250, 245, 0.14))
+      drop-shadow(0 0 2rem rgba(239, 189, 114, 0.12));
+  }
+
+  .hero-logo {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Big title, forced into two clean lines */
+  .hero-panel h1 {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    color: #fffaf5;
+    font-size: clamp(3.3rem, 17vw, 5.3rem);
+    line-height: 0.86;
+    letter-spacing: -0.06em;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    text-align: left;
+    text-shadow:
+      0 0.18rem 0.35rem rgba(0, 0, 0, 0.76),
+      0 0.75rem 1.6rem rgba(0, 0, 0, 0.56),
+      0 0 2.2rem rgba(239, 189, 114, 0.3);
+  }
+
+  .hero-panel h1::first-line {
+    line-height: 0.86;
+  }
+
+  /* Force title text visually into:
+     Virtual
+     Ventures
+  */
+  .hero-panel h1 {
+    max-width: 7.4ch;
+  }
+
+  /* Tagline, split into two beautiful lines */
+  .hero-panel h2 {
+    display: block;
+    max-width: none;
+    margin: 1rem 0 0;
+    color: #fff2d8;
+    font-size: 0;
+    line-height: 1;
+    text-align: left;
+    text-shadow:
+      0 0.16rem 0.35rem rgba(0, 0, 0, 0.74),
+      0 0 1.4rem rgba(239, 189, 114, 0.3);
+  }
+
+  .hero-panel h2::before {
+    content: "Handmade with a";
+    display: block;
+    margin-left: 0;
+    font-size: clamp(1.35rem, 6.2vw, 1.9rem);
+    line-height: 1.05;
+  }
+
+  .hero-panel h2::after {
+    content: "Little Everyday Magic";
+    display: block;
+    margin-left: 1.35rem;
+    font-size: clamp(1.35rem, 6.2vw, 1.9rem);
+    line-height: 1.05;
+  }
+
+  .hero-divider {
+    display: none;
+  }
+
+  .hero-panel p {
+    display: none;
+  }
+
+  /* Slideshow caption lower-right above buttons */
+  .cover-slideshow--home .cover-slideshow__caption {
+    right: 1rem;
+    bottom: clamp(7.8rem, 17vh, 9.6rem);
+    width: min(20rem, 78vw);
+    text-align: right;
+  }
+
+  .cover-slideshow--home .cover-slideshow__caption::before {
+    inset: -1.4rem -1rem -1.25rem -1rem;
+    background:
+      radial-gradient(
+        ellipse at center,
+        rgba(24, 15, 10, 0.62),
+        rgba(24, 15, 10, 0.32) 44%,
+        transparent 74%
+      ),
+      radial-gradient(
+        ellipse at center,
+        color-mix(in srgb, var(--star-one, #efbd72), transparent 86%),
+        transparent 68%
+      );
+  }
+
+  .cover-slideshow--home .cover-slideshow__eyebrow {
+    font-size: 0.62rem;
+  }
+
+  .cover-slideshow--home .cover-slideshow__caption h2 {
+    font-size: clamp(1.08rem, 5vw, 1.45rem);
+  }
+
+  .cover-slideshow--home .cover-slideshow__description {
+    display: none;
+  }
+
+  .cover-slideshow--home .cover-slideshow__link {
+    font-size: 0.78rem;
+  }
+
+  /* Bottom buttons */
+  .hero-buttons {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: clamp(1rem, 4vh, 1.45rem);
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+    width: auto;
+    margin: 0;
+  }
+
+  .hero-buttons a {
+    min-width: 0;
+    padding: 0.85rem 0.4rem;
+    border-radius: 1rem;
+  }
+}

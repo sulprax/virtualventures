@@ -1,0 +1,29 @@
+/* =========================================================
+   PAGE SHELL
+   Shared page background and spacing
+   ========================================================= */
+
+.page-shell {
+  min-height: 100vh;
+  padding: clamp(3rem, 5vw, 4.5rem) clamp(1rem, 4vw, 4rem);
+  color: var(--dark);
+  background: var(--page-bg);
+}
+
+.content-page {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding-top: clamp(3rem, 5vw, 4.5rem);
+  padding-bottom: clamp(4.5rem, 7vw, 6.5rem);
+}
+
+@media (max-width: 760px) {
+  .page-shell {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .content-page {
+    width: min(100%, calc(100% - 1rem));
+    padding-top: 2rem;
+  }
+}

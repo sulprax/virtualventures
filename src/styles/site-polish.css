@@ -1,0 +1,285 @@
+/* =========================================================
+   VIRTUAL VENTURES FINAL OVERRIDES
+   Loads last. Used for safety fixes during CSS split cleanup.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Hidden means hidden. No old CSS gets to argue.
+   --------------------------------------------------------- */
+
+[hidden],
+.site-header-nav-drawer[hidden],
+.mobile-side-drawer-backdrop[hidden],
+.blog-card-expanded[hidden],
+.blog-image-lightbox[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ---------------------------------------------------------
+   Homepage / mobile header drawer safety
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .site-header-nav-drawer[hidden] {
+    display: none !important;
+    transform: translateX(110%) !important;
+    opacity: 0 !important;
+  }
+
+  .site-header-nav-drawer:not([hidden]) {
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   Shared mobile side drawer: Blog now, Gallery/Shop later
+   --------------------------------------------------------- */
+
+:root {
+  --mobile-side-drawer-footer-gap: 0px;
+  --mobile-side-drawer-tab-lift: clamp(14rem, 55vh, 27.5rem);
+}
+
+@media (max-width: 900px) {
+  body.has-open-mobile-side-drawer {
+    overflow: hidden;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root] {
+    position: relative;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer-toggle {
+    position: fixed !important;
+    left: 0 !important;
+    top: 50% !important;
+    z-index: 150 !important;
+
+    width: auto !important;
+    min-width: 2.7rem !important;
+    min-height: 8.5rem !important;
+    margin: 0 !important;
+    padding: 0.85rem 0.45rem !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    writing-mode: vertical-rl !important;
+    text-orientation: mixed !important;
+
+    color: #1d1208 !important;
+    background: linear-gradient(145deg, #efbd72, #f5efe6) !important;
+
+    border: 1px solid rgba(216, 164, 93, 0.72) !important;
+    border-left: 0 !important;
+    border-radius: 0 18px 18px 0 !important;
+
+    font-family: var(--font-script) !important;
+    font-size: 0.95rem !important;
+    font-weight: 950 !important;
+
+    box-shadow:
+      0 14px 30px rgba(59, 43, 34, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+
+    transform: translateY(-50%) !important;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root] .mobile-side-drawer {
+    position: fixed !important;
+
+    top: var(--site-header-height, 76px) !important;
+    right: 0 !important;
+    bottom: var(--mobile-side-drawer-footer-gap, 0px) !important;
+    left: auto !important;
+
+    z-index: 140 !important;
+
+    width: min(88vw, 24rem) !important;
+    height: calc(
+      100dvh - var(--site-header-height, 76px) -
+        var(--mobile-side-drawer-footer-gap, 0px)
+    ) !important;
+    max-height: calc(
+      100dvh - var(--site-header-height, 76px) -
+        var(--mobile-side-drawer-footer-gap, 0px)
+    ) !important;
+
+    margin: 0 !important;
+    padding: 1rem !important;
+
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+
+    color: var(--dark) !important;
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(239, 189, 114, 0.12),
+        transparent 11rem
+      ),
+      linear-gradient(160deg, rgba(70, 45, 30, 0.96), rgba(31, 22, 16, 0.98)) !important;
+
+    border-left: 1px solid rgba(216, 164, 93, 0.46) !important;
+    border-radius: 24px 0 0 24px !important;
+
+    box-shadow:
+      -22px 0 54px rgba(31, 22, 16, 0.38),
+      inset 1px 0 0 rgba(255, 246, 229, 0.16) !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+
+    transform: translateX(105%) !important;
+
+    transition:
+      transform 220ms ease,
+      bottom 160ms ease,
+      height 160ms ease !important;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer.is-open {
+    transform: translateX(0) !important;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer-backdrop {
+    position: fixed !important;
+    top: var(--site-header-height, 76px) !important;
+    right: 0 !important;
+    bottom: var(--mobile-side-drawer-footer-gap, 0px) !important;
+    left: 0 !important;
+
+    z-index: 130 !important;
+
+    background: rgba(31, 22, 16, 0.42) !important;
+    border: 0 !important;
+
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+  }
+
+  /* Drawer cards inside Blog Tools */
+  .mobile-side-drawer .blog-widget {
+    margin: 0 0 1rem !important;
+    padding: 1rem !important;
+
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(239, 189, 114, 0.11),
+        transparent 9rem
+      ),
+      linear-gradient(
+        145deg,
+        rgba(255, 250, 245, 0.96),
+        rgba(245, 239, 230, 0.86)
+      ) !important;
+
+    border: 1px solid rgba(255, 246, 229, 0.5) !important;
+    border-radius: 22px !important;
+
+    box-shadow:
+      0 16px 34px rgba(31, 22, 16, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.78) !important;
+  }
+
+  .mobile-side-drawer .blog-widget:first-child {
+    margin-top: 0 !important;
+  }
+
+  .mobile-side-drawer .blog-widget h2 {
+    margin-top: 0 !important;
+    color: var(--dark) !important;
+    font-family: var(--font-title) !important;
+  }
+
+  .mobile-side-drawer .blog-calendar-widget {
+    padding-top: 1rem !important;
+  }
+}
+
+/* =========================================================
+   MOBILE DRAWER SLIVER FIX
+   Removes the little background peek at the bottom of the side drawer.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .has-mobile-side-drawer[data-mobile-side-drawer-root] .mobile-side-drawer {
+    top: var(--site-header-height, 76px) !important;
+    bottom: var(--mobile-side-drawer-footer-gap, 0px) !important;
+
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+
+    border-radius: 24px 0 0 0 !important;
+
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(239, 189, 114, 0.12),
+        transparent 11rem
+      ),
+      linear-gradient(160deg, rgba(70, 45, 30, 0.98), rgba(31, 22, 16, 1)) !important;
+
+    background-clip: border-box !important;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer.is-open {
+    transform: translateX(0) !important;
+  }
+
+  .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer-backdrop {
+    bottom: var(--mobile-side-drawer-footer-gap, 0px) !important;
+  }
+}
+
+/* =========================================================
+   MOBILE DRAWER TAB FOOTER LIFT
+   Moves Blog/Gallery/Shop side tab above the footer like back-to-top.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer-toggle {
+    top: auto !important;
+    bottom: calc(
+      var(--mobile-side-drawer-footer-gap, 0px) +
+        var(--mobile-side-drawer-tab-lift)
+    ) !important;
+
+    transform: none !important;
+  }
+
+  body.has-open-mobile-side-drawer
+    .has-mobile-side-drawer[data-mobile-side-drawer-root]
+    .mobile-side-drawer-toggle {
+    bottom: calc(
+      var(--mobile-side-drawer-footer-gap, 0px) +
+        var(--mobile-side-drawer-tab-lift)
+    ) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --mobile-side-drawer-tab-lift: clamp(12rem, 50vh, 22rem);
+  }
+}
+
+@media (min-width: 421px) and (max-width: 900px) {
+  :root {
+    --mobile-side-drawer-tab-lift: clamp(14rem, 55vh, 27.5rem);
+  }
+}

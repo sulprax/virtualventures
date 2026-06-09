@@ -1,0 +1,8 @@
+/* =========================================================
+   ABOUT PAGE
+   Page-specific tweaks only
+   ========================================================= */
+
+.about-page .content-intro-card {
+  max-width: 900px;
+}

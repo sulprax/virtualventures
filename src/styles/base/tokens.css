@@ -1,0 +1,72 @@
+/* =========================================================
+   DESIGN TOKENS
+   Generated during CSS split cleanup
+   ========================================================= */
+
+/* =========================================================
+   01. DESIGN TOKENS
+   ========================================================= */
+
+:root {
+  --cream: #f5efe6;
+  --vanilla: #fffaf5;
+  --foam: #e6d8c9;
+
+  --dark: #2d2218;
+  --dark-soft: #3a2a1d;
+  --ink: var(--dark);
+
+  --coffee: #7a5230;
+  --coffee-dark: #4a301f;
+  --mocha: #a67b5b;
+
+  --gold: #d9a15b;
+  --amber: #efbd72;
+
+  --page-bg:
+    radial-gradient(
+      circle at top left,
+      rgba(196, 138, 74, 0.13),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(216, 161, 91, 0.1),
+      transparent 34rem
+    ),
+    linear-gradient(135deg, #f6efe5, #fff6e9);
+
+  --glass-light: linear-gradient(
+    145deg,
+    rgba(255, 250, 245, 0.96),
+    rgba(245, 239, 230, 0.84)
+  );
+
+  --glass-dark: linear-gradient(
+    to bottom,
+    rgba(44, 31, 22, 0.98),
+    rgba(31, 22, 16, 0.96)
+  );
+
+  --shadow-soft:
+    0 20px 55px rgba(59, 43, 34, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  --shadow-medium:
+    0 24px 70px rgba(59, 43, 34, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+
+  --shadow-header:
+    0 10px 24px rgba(0, 0, 0, 0.28), 0 22px 48px rgba(0, 0, 0, 0.18),
+    0 1px 0 rgba(255, 247, 237, 0.08) inset,
+    inset 0 -1px 0 rgba(239, 189, 114, 0.12);
+
+  --border-soft: 1px solid rgba(139, 94, 60, 0.18);
+  --border-gold: 1px solid rgba(216, 164, 93, 0.42);
+
+  --radius-card: 28px;
+  --radius-large: 34px;
+  --radius-pill: 999px;
+
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-title: Georgia, "Times New Roman", serif;
+  --font-script: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+}

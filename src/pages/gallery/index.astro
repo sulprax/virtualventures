@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/page/PageHero.astro";
-import "../../styles/gallery.css";
+import "../../styles/pages/gallery.css";
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 

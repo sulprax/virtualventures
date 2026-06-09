@@ -1,8 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/site/Breadcrumbs.astro";
-import { getCollection, render } from "astro:content";
 import PageHero from "../../components/page/PageHero.astro";
+import "../../styles/pages/blog-post.css";
+import { getCollection, render } from "astro:content";
 
 const categoryLabels: Record<string, string> = {
   crochet: "Crochet",
@@ -74,9 +75,12 @@ const relatedPosts = allPosts
 
   <main class="page-shell blog-post-page">
     <article class="blog-post">
-      <a href="/blog/" class="blog-back-link blog-back-link-top">
-        ← Back to all blog posts
-      </a>
+      <nav class="blog-post-top-actions" aria-label="Blog post navigation">
+        <a href="/blog/" class="blog-back-link blog-back-link-top">
+          ← Back to all blog posts
+        </a>
+        <span class="blog-post-top-rule" aria-hidden="true"></span>
+      </nav>
 
       <header class="blog-post-header">
         <p class="eyebrow">{categoryLabel}</p>
@@ -229,6 +233,54 @@ const relatedPosts = allPosts
     const postImages = Array.from(
       document.querySelectorAll(".blog-post-content img"),
     );
+
+    function turnImagesIntoFigures() {
+      postImages.forEach((image) => {
+        const imageParagraph = image.closest("p");
+
+        if (
+          !imageParagraph ||
+          imageParagraph.classList.contains("is-figure-ready")
+        ) {
+          return;
+        }
+
+        const possibleCaption = imageParagraph.nextElementSibling;
+        let captionText = "";
+
+        if (
+          possibleCaption &&
+          possibleCaption.tagName.toLowerCase() === "p" &&
+          possibleCaption.querySelector("em")
+        ) {
+          captionText = possibleCaption.textContent?.trim() ?? "";
+          possibleCaption.classList.add("blog-caption-consumed");
+        }
+
+        const figure = document.createElement("figure");
+        figure.className = "blog-content-figure";
+
+        const parent = imageParagraph.parentNode;
+
+        if (!parent) {
+          return;
+        }
+
+        parent.insertBefore(figure, imageParagraph);
+        figure.appendChild(image);
+
+        if (captionText) {
+          const figcaption = document.createElement("figcaption");
+          figcaption.textContent = captionText;
+          figure.appendChild(figcaption);
+        }
+
+        imageParagraph.remove();
+        imageParagraph.classList.add("is-figure-ready");
+      });
+    }
+
+    turnImagesIntoFigures();
 
     let currentImageIndex = 0;
     let touchStartX = 0;

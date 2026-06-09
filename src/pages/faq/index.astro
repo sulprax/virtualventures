@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/page/PageHero.astro";
+import "../../styles/pages/faq.css";
 ---
 
 <Layout
@@ -14,8 +15,8 @@ import PageHero from "../../components/page/PageHero.astro";
     description="Friendly answers about patterns, handmade items, privacy, shop plans and the way Virtual Ventures is growing."
   />
 
-  <main class="page-shell about-page">
-    <section id="faq-intro" class="about-intro">
+  <main class="page-shell content-page faq-page">
+    <section id="faq-intro" class="content-intro-card">
       <p class="eyebrow">
         <span aria-hidden="true">✦</span>
         Helpful bits
@@ -37,11 +38,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </p>
     </section>
 
-    <section
-      id="what-is-virtual-ventures"
-      class="about-story-section about-story-left"
-    >
-      <div class="about-story-content">
+    <section id="what-is-virtual-ventures" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           The basics
@@ -63,8 +61,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="ai-patterns" class="about-story-section about-story-right">
-      <div class="about-story-content">
+    <section id="ai-patterns" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Pattern honesty
@@ -86,8 +84,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="finished-items" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="finished-items" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Handmade items
@@ -108,8 +106,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="custom-orders" class="about-story-section about-story-right">
-      <div class="about-story-content">
+    <section id="custom-orders" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Custom work
@@ -129,8 +127,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="where-to-buy" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="where-to-buy" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Shop plans
@@ -151,11 +149,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section
-      id="digital-downloads"
-      class="about-story-section about-story-right"
-    >
-      <div class="about-story-content">
+    <section id="digital-downloads" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Downloads
@@ -176,8 +171,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="beginner-crochet" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="beginner-crochet" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Learning crochet
@@ -199,11 +194,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section
-      id="photos-and-process"
-      class="about-story-section about-story-right"
-    >
-      <div class="about-story-content">
+    <section id="photos-and-process" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Behind the scenes
@@ -224,8 +216,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="privacy" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="privacy" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Privacy
@@ -246,8 +238,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="copyright" class="about-story-section about-story-right">
-      <div class="about-story-content">
+    <section id="copyright" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Sharing safely
@@ -267,8 +259,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="why-slow" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="why-slow" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Slow building
@@ -289,7 +281,7 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="faq-closing-note" class="about-closing-card">
+    <section id="faq-closing-note" class="content-closing-card">
       <p>
         If something is not answered here yet, it probably belongs in a future
         blog post, guide or update as Virtual Ventures grows.

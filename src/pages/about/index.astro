@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/page/PageHero.astro";
+import "../../styles/pages/about.css";
 ---
 
 <Layout
@@ -14,8 +15,8 @@ import PageHero from "../../components/page/PageHero.astro";
     description="A UK-based handmade workshop for crochet creatures, pattern ideas, laser engraved details, 3D printed helpers, planners, tutorials and useful little creative things."
   />
 
-  <main class="page-shell about-page">
-    <section id="hello-from-the-workshop" class="about-intro">
+  <main class="page-shell content-page about-page">
+    <section id="hello-from-the-workshop" class="content-intro-card">
       <p class="eyebrow">
         <span aria-hidden="true">✦</span>
         Hello from the workshop
@@ -42,9 +43,9 @@ import PageHero from "../../components/page/PageHero.astro";
 
     <section
       id="maker-behind-virtual-ventures"
-      class="about-story-section about-story-left"
+      class="content-section content-left"
     >
-      <div class="about-story-content">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Who am I?
@@ -70,11 +71,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section
-      id="why-virtual-ventures"
-      class="about-story-section about-story-right"
-    >
-      <div class="about-story-content">
+    <section id="why-virtual-ventures" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Why Virtual Ventures?
@@ -100,8 +98,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="what-do-i-make" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="what-do-i-make" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           What do I make?
@@ -125,11 +123,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section
-      id="handmade-honesty"
-      class="about-story-section about-story-right"
-    >
-      <div class="about-story-content">
+    <section id="handmade-honesty" class="content-section content-right">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Handmade honesty
@@ -161,11 +156,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section
-      id="behind-the-scenes"
-      class="about-story-section about-story-left"
-    >
-      <div class="about-story-content">
+    <section id="behind-the-scenes" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Behind the scenes
@@ -192,9 +184,9 @@ import PageHero from "../../components/page/PageHero.astro";
 
     <section
       id="dog-friendly-workshop"
-      class="about-story-section about-story-right about-story-photo-stack"
+      class="content-section content-right about-story-photo-stack"
     >
-      <div class="about-story-content">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           Dog-friendly workshop
@@ -226,8 +218,8 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="what-comes-next" class="about-story-section about-story-left">
-      <div class="about-story-content">
+    <section id="what-comes-next" class="content-section content-left">
+      <div class="content-card">
         <p class="eyebrow">
           <span aria-hidden="true">✦</span>
           What comes next?
@@ -252,7 +244,7 @@ import PageHero from "../../components/page/PageHero.astro";
       </div>
     </section>
 
-    <section id="about-closing-note" class="about-closing-card">
+    <section id="about-closing-note" class="content-closing-card">
       <p>
         Virtual Ventures exists to share creativity, document the process and
         make handmade things that carry a little smile with them.
