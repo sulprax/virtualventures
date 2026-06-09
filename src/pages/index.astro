@@ -1,7 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroHome from "../components/home/HeroHome.astro";
+import HeroHomeMobile from "../components/home/HeroHomeMobile.astro";
 import "../styles/pages/home.css";
+import "../styles/pages/home-mobile.css";
 ---
 
 <Layout
@@ -11,4 +13,5 @@ import "../styles/pages/home.css";
   showFooterBreadcrumbs={false}
 >
   <HeroHome />
+  <HeroHomeMobile />
 </Layout>

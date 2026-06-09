@@ -283,3 +283,122 @@
     --mobile-side-drawer-tab-lift: clamp(14rem, 55vh, 27.5rem);
   }
 }
+
+/* =========================================================
+   SHARED HAMBURGER MENU ANIMATION
+   Applies to the normal site header drawer and homepage mobile drawer.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .site-header-menu-button {
+    transition:
+      transform 220ms ease,
+      color 180ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease !important;
+  }
+
+  .site-header-menu-button.is-menu-open {
+    transform: rotate(90deg) scale(1.04) !important;
+
+    color: #1d1208 !important;
+    background: linear-gradient(145deg, #efbd72, #f5efe6) !important;
+
+    box-shadow:
+      0 16px 34px rgba(31, 22, 16, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.58) !important;
+  }
+
+  .site-header-nav-drawer {
+    transform: translateX(110%) scale(0.985) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+
+    transition:
+      transform 260ms cubic-bezier(0.22, 0.8, 0.28, 1),
+      opacity 190ms ease,
+      visibility 190ms ease !important;
+
+    will-change: transform, opacity;
+  }
+
+  .site-header-nav-drawer.is-open {
+    transform: translateX(0) scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .site-header-nav-drawer.is-closing {
+    transform: translateX(110%) scale(0.985) !important;
+    opacity: 0 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+  }
+
+  .site-header-nav-drawer nav a,
+  .site-header-drawer-search {
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease,
+      background 180ms ease,
+      color 180ms ease !important;
+  }
+
+  .site-header-nav-drawer.is-open nav a,
+  .site-header-nav-drawer.is-open .site-header-drawer-search {
+    animation: vvMenuItemFloatIn 260ms ease both;
+  }
+
+  .site-header-nav-drawer.is-open nav a:nth-child(1) {
+    animation-delay: 30ms;
+  }
+
+  .site-header-nav-drawer.is-open nav a:nth-child(2) {
+    animation-delay: 55ms;
+  }
+
+  .site-header-nav-drawer.is-open nav a:nth-child(3) {
+    animation-delay: 80ms;
+  }
+
+  .site-header-nav-drawer.is-open nav a:nth-child(4) {
+    animation-delay: 105ms;
+  }
+
+  .site-header-nav-drawer.is-open nav a:nth-child(5) {
+    animation-delay: 130ms;
+  }
+
+  .site-header-nav-drawer.is-open nav a:nth-child(6) {
+    animation-delay: 155ms;
+  }
+
+  .site-header-nav-drawer.is-open .site-header-drawer-search {
+    animation-delay: 180ms;
+  }
+}
+
+@keyframes vvMenuItemFloatIn {
+  from {
+    opacity: 0;
+    transform: translateX(0.8rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header-menu-button,
+  .site-header-nav-drawer,
+  .site-header-nav-drawer nav a,
+  .site-header-drawer-search {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,7 +1,7 @@
 ---
 import { siteNav } from "../../data/navigation";
+import { visibleSocials } from "../../data/socials";
 
-const { mode = "sticky" } = Astro.props;
 const navItems = siteNav;
 const currentPath = Astro.url.pathname;
 
@@ -16,63 +16,46 @@ function isActivePath(href: string) {
 }
 ---
 
-<header class:list={["site-header", `site-header-${mode}`]} data-site-header>
-  <a class="site-header-brand" href="/" aria-label="Virtual Ventures home">
-    <img src="/images/brand/logo.png" alt="" />
-    <span>Virtual Ventures</span>
-  </a>
+<section class="home-mobile-hero" aria-label="Virtual Ventures mobile homepage">
+  <div class="home-mobile-hero-bg" aria-hidden="true"></div>
+  <div class="home-mobile-hero-vignette" aria-hidden="true"></div>
 
-  <nav class="site-header-nav" aria-label="Main navigation">
-    {
-      navItems.map((item, index) => (
-        <>
+  <header class="home-mobile-topbar">
+    <nav class="home-mobile-socials" aria-label="Social links">
+      {
+        visibleSocials.map((social) => (
           <a
-            href={item.href}
-            class:list={[{ "is-active": isActivePath(item.href) }]}
-            aria-current={isActivePath(item.href) ? "page" : undefined}
+            href={social.href}
+            aria-label={social.label}
+            title={social.label}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            {item.label}
+            <span aria-hidden="true">{social.icon}</span>
           </a>
+        ))
+      }
+    </nav>
 
-          {index < navItems.length - 1 && (
-            <span class="site-header-star" aria-hidden="true">
-              ✦
-            </span>
-          )}
-        </>
-      ))
-    }
-  </nav>
-
-  <form class="site-header-search" action="/search/" method="get" role="search">
-    <label for="site-header-search-input">Search the site</label>
-    <input
-      id="site-header-search-input"
-      type="search"
-      name="q"
-      placeholder="Search..."
-    />
-    <button type="submit" aria-label="Search">⌕</button>
-  </form>
-
-  <button
-    class="site-header-menu-button"
-    type="button"
-    aria-label="Open menu"
-    aria-controls="site-header-nav-drawer"
-    aria-expanded="false"
-    data-site-menu-toggle
-  >
-    ☰
-  </button>
+    <button
+      class="site-header-menu-button home-mobile-menu-button"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="home-mobile-nav-drawer"
+      aria-expanded="false"
+      data-site-menu-toggle
+    >
+      ☰
+    </button>
+  </header>
 
   <div
-    id="site-header-nav-drawer"
-    class="site-header-nav-drawer"
+    id="home-mobile-nav-drawer"
+    class="site-header-nav-drawer home-mobile-nav-drawer"
     hidden
     data-site-menu-drawer
   >
-    <nav aria-label="Mobile navigation">
+    <nav aria-label="Mobile homepage navigation">
       {
         navItems.map((item) => (
           <a
@@ -92,17 +75,65 @@ function isActivePath(href: string) {
       method="get"
       role="search"
     >
-      <label for="site-header-drawer-search-input">Search the site</label>
+      <label for="home-mobile-search">Search the site</label>
       <input
-        id="site-header-drawer-search-input"
-        type="search"
+        id="home-mobile-search"
         name="q"
+        type="search"
         placeholder="Search..."
       />
       <button type="submit" aria-label="Search">⌕</button>
     </form>
   </div>
-</header>
+
+  <div class="home-mobile-brand">
+    <p class="home-mobile-kicker">Handmade with</p>
+
+    <h1>
+      <span>Virtual</span>
+      <span>Ventures</span>
+    </h1>
+
+    <p class="home-mobile-tagline">a little everyday magic</p>
+  </div>
+
+  <nav class="hero-buttons home-mobile-primary-links" aria-label="Featured homepage links">
+    <a href="/blog/">
+      <span class="button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"
+          ></path>
+          <path
+            d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"
+          ></path>
+        </svg>
+      </span>
+      <span>Blog</span>
+    </a>
+
+    <a href="/gallery/">
+      <span class="button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+          <circle cx="9" cy="10" r="1.5"></circle>
+          <path d="M7 17l4.2-4.2 2.5 2.5L16 13l3 4"></path>
+        </svg>
+      </span>
+      <span>Gallery</span>
+    </a>
+
+    <a href="/shop/">
+      <span class="button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 8h12l-1 12H7L6 8Z"></path>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+        </svg>
+      </span>
+      <span>Shop</span>
+    </a>
+  </nav>
+</section>
 
 <script>
   const siteMenuToggle = document.querySelector("[data-site-menu-toggle]");
