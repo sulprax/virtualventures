@@ -3,7 +3,7 @@
    Google Fonts and site-wide font variables.
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Berkshire+Swash&family=Caveat:wght@400..700&family=Uncial+Antiqua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Berkshire+Swash&family=Caveat:wght@400..700&family=Bungee&display=swap");
 
 :root {
   --font-body:
@@ -17,7 +17,7 @@
   /* Keep this alias because lots of existing CSS already uses it. */
   --font-script: var(--font-handmade);
 
-  --font-ancient: "Uncial Antiqua", Georgia, "Times New Roman", serif;
+  --font-ancient: "Bungee", Georgia, "Times New Roman", serif;
 }
 
 /* ---------------------------------------------------------
@@ -115,7 +115,7 @@ select {
 }
 
 /* ---------------------------------------------------------
-   Rare decorative accent only
+   Rare bold decorative accent only
    Use this class deliberately, not everywhere.
    --------------------------------------------------------- */
 
