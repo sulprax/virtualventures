@@ -1458,7 +1458,8 @@
   }
 }
 
-Last rules Do not move above other mobile hero */ @media (max-width: 760px) {
+/* Last rules. Do not move above other mobile hero. */
+@media (max-width: 760px) {
   body:has(.hero) {
     overflow: hidden;
   }
