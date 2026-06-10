@@ -1,6 +1,6 @@
 /* =========================================================
-   VIRTUAL VENTURES GLOBAL CSS
-   Shared site-wide styles only
+   VIRTUAL VENTURES MAIN CSS
+   One doorway into the stylesheet forest.
    ========================================================= */
 
 /* Base */
@@ -15,16 +15,19 @@
 @import "./layout/header.css";
 @import "./layout/footer.css";
 @import "./layout/breadcrumbs.css";
+@import "./layout/page-shell.css";
 
 /* Components */
 @import "./components/page-hero.css";
 @import "./components/buttons.css";
 @import "./components/cards.css";
+@import "./components/content-cards.css";
 @import "./components/search.css";
 @import "./components/pagination.css";
 @import "./components/calendar.css";
 @import "./components/lightbox.css";
-@import "./layout/page-shell.css";
-@import "./components/content-cards.css";
 @import "./components/mobile-filter-drawer.css";
 @import "./components/unsorted.css";
+
+/* Shared feature styles */
+@import "./cover-slideshow.css";
