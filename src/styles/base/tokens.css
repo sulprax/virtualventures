@@ -65,8 +65,5 @@
   --radius-card: 28px;
   --radius-large: 34px;
   --radius-pill: 999px;
-
-  --font-body: Arial, Helvetica, sans-serif;
-  --font-title: Georgia, "Times New Roman", serif;
-  --font-script: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  /* Font variables live in src/styles/base/fonts.css */
 }

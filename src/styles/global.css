@@ -5,6 +5,7 @@
 
 /* Base */
 @import "./base/tokens.css";
+@import "./base/fonts.css";
 @import "./base/reset.css";
 @import "./base/accessibility.css";
 @import "./base/animations.css";

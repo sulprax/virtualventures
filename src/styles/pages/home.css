@@ -1447,3 +1447,118 @@
     border-radius: 1rem;
   }
 }
+/* --------------------------------------------------
+   Mobile homepage poster layout
+   -------------------------------------------------- */
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 100svh;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  .hero-panel {
+    position: absolute;
+    z-index: 4;
+    top: 6rem;
+    left: 0;
+    width: min(100%, 34rem);
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    pointer-events: none;
+  }
+
+  .hero-logo-wrap {
+    position: absolute;
+    top: -2rem;
+    left: -2.2rem;
+    width: 16rem;
+    max-width: 62vw;
+    opacity: 0.48;
+    filter: drop-shadow(0 0.7rem 1.4rem rgba(34, 20, 10, 0.35));
+  }
+
+  .hero-logo {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-title-poster {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: start;
+    column-gap: 0.28em;
+    margin: 0;
+    padding-left: clamp(1.4rem, 7vw, 2.2rem);
+    color: var(--cream, #fff6df);
+    text-shadow: 0 0.2rem 0.8rem rgba(23, 13, 6, 0.72);
+    line-height: 0.9;
+  }
+
+  .hero-title-virtual {
+    grid-column: 1 / 3;
+    font-size: clamp(3.4rem, 15vw, 5.8rem);
+    letter-spacing: 0.24em;
+    text-transform: lowercase;
+  }
+
+  .hero-title-virtual::first-letter {
+    text-transform: uppercase;
+  }
+
+  .hero-title-ventures {
+    grid-column: 1;
+    display: block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: clamp(3rem, 14vw, 5.2rem);
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+  }
+
+  .hero-title-ventures::first-letter {
+    text-transform: uppercase;
+  }
+
+  .hero-panel h2 {
+    position: relative;
+    z-index: 3;
+    width: min(72vw, 23rem);
+    margin: -8.8rem 0 0 clamp(6.2rem, 29vw, 10rem);
+    color: var(--cream, #fff6df);
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    line-height: 1.2;
+    text-align: left;
+    text-shadow: 0 0.18rem 0.7rem rgba(23, 13, 6, 0.82);
+  }
+
+  .hero-divider,
+  .hero-panel p {
+    display: none;
+  }
+
+  .hero-buttons {
+    position: fixed;
+    z-index: 6;
+    left: 0;
+    right: 0;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.4rem, 2vw, 0.75rem);
+    width: 100%;
+    padding: 0 clamp(0.35rem, 2vw, 0.7rem);
+  }
+
+  .hero-buttons a {
+    min-width: 0;
+    padding: 0.85rem 0.35rem;
+    font-size: clamp(0.95rem, 4vw, 1.35rem);
+  }
+}

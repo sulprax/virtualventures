@@ -873,3 +873,166 @@
     min-height: 2.6rem;
   }
 }
+
+/* =========================================================
+   MOBILE FOOTER POLISH
+   Compact whole-site mobile footer
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .site-footer {
+    padding: 2.5rem 1rem 1.25rem;
+  }
+
+  .footer-layout {
+    width: min(100%, 430px);
+    margin-inline: auto;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    text-align: center;
+  }
+
+  .footer-right {
+    order: -1;
+  }
+
+  .footer-brand-lockup {
+    min-height: auto;
+  }
+
+  .footer-logo {
+    width: clamp(115px, 34vw, 145px);
+    margin: 0 auto -0.8rem;
+  }
+
+  .footer-right h2 {
+    font-size: clamp(3rem, 15vw, 4.4rem);
+    line-height: 0.82;
+  }
+
+  .footer-description {
+    max-width: 24rem;
+    margin-inline: auto;
+
+    font-size: 0.95rem;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .footer-socials,
+  .footer-socials-strip {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  .footer-tree {
+    width: min(100%, 430px);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+
+    text-align: center;
+  }
+
+  .footer-column h3 {
+    font-size: 0.72rem;
+    letter-spacing: 0.09em;
+  }
+
+  .footer-column ul {
+    display: grid;
+    justify-items: center;
+    gap: 0.45rem;
+  }
+
+  .footer-column li + li {
+    margin-top: 0;
+  }
+
+  .footer-column a {
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
+  .footer-actions {
+    width: min(100%, 430px);
+    margin-inline: auto;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footer-search label,
+  .footer-subscribe label {
+    text-align: center;
+  }
+
+  .footer-form-row {
+    min-height: 58px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+
+    padding: 0.35rem;
+
+    border-radius: 999px;
+  }
+
+  .footer-form-row input {
+    min-height: 2.75rem;
+    padding: 0 0.9rem;
+  }
+
+  .footer-form-row button {
+    width: auto;
+    min-width: 108px;
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+  }
+
+  .footer-rss-row {
+    width: min(100%, 20rem);
+    margin-inline: auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+
+    padding: 0.35rem;
+
+    border-radius: 999px;
+  }
+
+  .footer-rss-button {
+    width: 100%;
+    min-height: 2.6rem;
+  }
+
+  .footer-legal {
+    max-width: 26rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-form-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .footer-form-row button {
+    min-width: 94px;
+    font-size: 0.82rem;
+  }
+
+  .footer-rss-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
