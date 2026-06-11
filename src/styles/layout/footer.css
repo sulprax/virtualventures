@@ -1036,3 +1036,742 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* =========================================================
+   MOBILE FOOTER TREE POLISH
+   Keeps Explore, Craft Paths and Helpful as compact columns
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .site-footer {
+    padding: 2.2rem 0.85rem 1.35rem;
+  }
+
+  .footer-layout {
+    width: min(100%, 34rem);
+
+    grid-template-columns: 1fr;
+    gap: 1.65rem;
+  }
+
+  .footer-left {
+    width: 100%;
+    max-width: none;
+
+    gap: 1.2rem;
+  }
+
+  .footer-socials {
+    margin-bottom: 0.35rem;
+  }
+
+  .footer-tree {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(0.65rem, 3vw, 1rem);
+
+    text-align: center;
+  }
+
+  .footer-column {
+    min-width: 0;
+  }
+
+  .footer-column h3 {
+    margin-bottom: 0.7rem;
+
+    font-size: clamp(0.72rem, 3.2vw, 0.9rem);
+    line-height: 1.05;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-column ul {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .footer-column a {
+    display: inline-block;
+
+    font-size: clamp(0.82rem, 3.5vw, 0.98rem);
+    line-height: 1.25;
+  }
+
+  .footer-actions {
+    margin-top: 0.4rem;
+
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .footer-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-form-row button,
+  .footer-rss-button {
+    width: 100%;
+  }
+
+  .footer-right {
+    text-align: center;
+  }
+
+  .footer-brand-lockup {
+    justify-content: center;
+  }
+
+  .footer-description {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 390px) {
+  .site-footer {
+    padding-inline: 0.65rem;
+  }
+
+  .footer-tree {
+    gap: 0.45rem;
+  }
+
+  .footer-column h3 {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  .footer-column a {
+    font-size: 0.78rem;
+  }
+}
+
+
+/* =========================================================
+   FOOTER FORM POLISH
+   Tidier search, subscribe and RSS controls
+   ========================================================= */
+
+.footer-actions {
+  display: grid;
+  gap: 1rem;
+}
+
+.footer-search,
+.footer-subscribe {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.footer-search label,
+.footer-subscribe label {
+  color: #fff1dc;
+
+  font-family: var(--font-title);
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  line-height: 1;
+  text-align: center;
+
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.45),
+    0 0 12px rgba(239, 189, 114, 0.12);
+}
+
+.footer-form-row {
+  width: min(100%, 28rem);
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.55rem;
+
+  padding: 0.35rem;
+
+  background: rgba(255, 246, 229, 0.07);
+
+  border: 1px solid rgba(239, 189, 114, 0.2);
+  border-radius: 999px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 26px rgba(0, 0, 0, 0.16);
+}
+
+.footer-form-row input {
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.72rem 1rem;
+
+  color: #fff7ed;
+  background: rgba(23, 14, 9, 0.74);
+
+  border: 1px solid rgba(239, 189, 114, 0.16);
+  border-radius: 999px;
+  outline: 0;
+
+  font: inherit;
+  font-size: 0.94rem;
+
+  box-shadow: inset 0 1px 7px rgba(0, 0, 0, 0.28);
+}
+
+.footer-form-row input::placeholder {
+  color: rgba(255, 241, 220, 0.56);
+}
+
+.footer-form-row input:focus {
+  border-color: rgba(239, 189, 114, 0.72);
+
+  box-shadow:
+    0 0 0 3px rgba(239, 189, 114, 0.16),
+    inset 0 1px 7px rgba(0, 0, 0, 0.28);
+}
+
+.footer-form-row button,
+.footer-rss-button {
+  min-height: 2.75rem;
+  padding: 0.72rem 1.05rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #21140c;
+  background: linear-gradient(145deg, #efbd72, #f9e7c7);
+
+  border: 1px solid rgba(255, 246, 229, 0.36);
+  border-radius: 999px;
+
+  text-decoration: none;
+
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.footer-form-row button:hover,
+.footer-form-row button:focus-visible,
+.footer-rss-button:hover,
+.footer-rss-button:focus-visible {
+  transform: translateY(-1px);
+
+  background: linear-gradient(145deg, #f6d49c, #fff4df);
+
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.footer-rss-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.footer-rss-button {
+  width: 100%;
+}
+
+/* Footer forms need to breathe differently on phones */
+@media (max-width: 760px) {
+  .footer-actions {
+    gap: 1rem;
+  }
+
+  .footer-search,
+  .footer-subscribe {
+    gap: 0.5rem;
+  }
+
+  .footer-form-row {
+    width: min(100%, 24rem);
+
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .footer-form-row input,
+  .footer-form-row button,
+  .footer-rss-button {
+    width: 100%;
+    min-height: 2.9rem;
+
+    border-radius: 1rem;
+  }
+
+  .footer-form-row input {
+    text-align: center;
+  }
+
+  .footer-rss-row {
+    width: min(100%, 20rem);
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .footer-form-row {
+    width: 100%;
+  }
+
+  .footer-search label,
+  .footer-subscribe label {
+    font-size: 1.05rem;
+  }
+
+  .footer-form-row input,
+  .footer-form-row button,
+  .footer-rss-button {
+    min-height: 2.65rem;
+    padding: 0.65rem 0.85rem;
+
+    font-size: 0.86rem;
+  }
+}
+
+
+/* =========================================================
+   FOOTER COMPACT ICON FORMS
+   Search/email fields with icon submit buttons
+   ========================================================= */
+
+.footer-search label,
+.footer-subscribe label {
+  font-family: var(--font-ancient);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer-form-row {
+  width: min(100%, 28rem);
+
+  grid-template-columns: minmax(0, 1fr) 3.15rem;
+  align-items: stretch;
+  gap: 0;
+
+  padding: 0.18rem;
+
+  background: rgba(18, 11, 7, 0.74);
+
+  border: 1px solid rgba(239, 189, 114, 0.28);
+  border-radius: 999px;
+
+  overflow: hidden;
+}
+
+.footer-form-row input {
+  min-height: 2.85rem;
+  padding: 0.7rem 1rem;
+
+  color: #fff7ed;
+  background: transparent;
+
+  border: 0;
+  border-radius: 999px 0 0 999px;
+
+  text-align: left;
+}
+
+.footer-form-row input:focus {
+  box-shadow: inset 0 0 0 2px rgba(239, 189, 114, 0.42);
+}
+
+.footer-icon-button,
+.footer-form-row button.footer-icon-button {
+  width: 3.15rem;
+  min-width: 3.15rem;
+  min-height: 2.85rem;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  font-size: 0;
+}
+
+.footer-icon-button svg,
+.footer-rss-button svg {
+  width: 1.2rem;
+  height: 1.2rem;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-rss-row {
+  width: min(100%, 20rem);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.footer-rss-button {
+  min-height: 2.9rem;
+  padding: 0.7rem 0.85rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  border-radius: 999px;
+}
+
+.footer-rss-button span {
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .footer-search,
+  .footer-subscribe {
+    width: min(100%, 24rem);
+    margin-inline: auto;
+  }
+
+  .footer-form-row {
+    width: 100%;
+
+    grid-template-columns: minmax(0, 1fr) 3rem;
+    padding: 0.18rem;
+
+    background: rgba(18, 11, 7, 0.74);
+    border: 1px solid rgba(239, 189, 114, 0.28);
+    border-radius: 999px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 8px 18px rgba(0, 0, 0, 0.16);
+  }
+
+  .footer-form-row input {
+    width: 100%;
+    min-height: 2.75rem;
+
+    text-align: left;
+    border-radius: 999px 0 0 999px;
+  }
+
+  .footer-form-row button.footer-icon-button {
+    width: 3rem;
+    min-width: 3rem;
+    min-height: 2.75rem;
+
+    border-radius: 999px;
+  }
+
+  .footer-rss-row {
+    width: min(100%, 20rem);
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-rss-button {
+    width: 100%;
+    min-height: 2.75rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .footer-search,
+  .footer-subscribe,
+  .footer-rss-row {
+    width: 100%;
+  }
+
+  .footer-rss-button span {
+    font-size: 0.82rem;
+  }
+}
+
+
+/* =========================================================
+   FOOTER FINAL COMPACT CONTROLS
+   Compact search, subscribe, RSS and Feedly controls
+   ========================================================= */
+
+.footer-search label,
+.footer-subscribe label {
+  font-family: "Bungee", var(--font-ancient), system-ui, sans-serif;
+  font-size: clamp(0.86rem, 3.2vw, 1.05rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.footer-actions {
+  width: min(100%, 24rem);
+  margin-inline: auto;
+
+  display: grid;
+  gap: 1rem;
+}
+
+.footer-search,
+.footer-subscribe {
+  width: 100%;
+
+  display: grid;
+  gap: 0.45rem;
+}
+
+.footer-form-row {
+  width: 100% !important;
+
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 3rem !important;
+  align-items: stretch;
+  gap: 0 !important;
+
+  padding: 0.16rem !important;
+
+  background: rgba(18, 11, 7, 0.82) !important;
+
+  border: 1px solid rgba(239, 189, 114, 0.32) !important;
+  border-radius: 999px !important;
+
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 18px rgba(0, 0, 0, 0.18) !important;
+}
+
+.footer-form-row input {
+  width: 100% !important;
+  min-width: 0;
+  min-height: 2.7rem !important;
+  padding: 0.68rem 0.95rem !important;
+
+  color: #fff7ed;
+  background: transparent !important;
+
+  border: 0 !important;
+  border-radius: 999px 0 0 999px !important;
+  outline: 0;
+
+  text-align: left !important;
+
+  box-shadow: none !important;
+}
+
+.footer-form-row input::placeholder {
+  color: rgba(255, 241, 220, 0.55);
+}
+
+.footer-form-row input:focus {
+  box-shadow: inset 0 0 0 2px rgba(239, 189, 114, 0.42) !important;
+}
+
+.footer-icon-button,
+.footer-form-row button.footer-icon-button {
+  width: 3rem !important;
+  min-width: 3rem !important;
+  max-width: 3rem !important;
+  min-height: 2.7rem !important;
+  padding: 0 !important;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  color: #24150b;
+  background: linear-gradient(145deg, #efbd72, #fff0d3) !important;
+
+  border: 0 !important;
+  border-left: 1px solid rgba(239, 189, 114, 0.24) !important;
+  border-radius: 999px !important;
+
+  font-size: 0 !important;
+  line-height: 1;
+
+  overflow: hidden;
+}
+
+.footer-icon-button svg,
+.footer-rss-button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer-feed-links {
+  width: min(100%, 24rem);
+  margin-inline: auto;
+}
+
+.footer-rss-row {
+  width: 100% !important;
+
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.5rem !important;
+
+  padding: 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.footer-rss-button {
+  width: 100% !important;
+  min-height: 2.75rem !important;
+  padding: 0.65rem 0.75rem !important;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+
+  color: #24150b;
+  background: linear-gradient(145deg, #efbd72, #fff0d3) !important;
+
+  border: 1px solid rgba(255, 246, 229, 0.32) !important;
+  border-radius: 999px !important;
+
+  text-decoration: none;
+}
+
+.footer-rss-button span {
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .footer-actions,
+  .footer-feed-links {
+    width: min(100%, 22rem);
+  }
+
+  .footer-form-row {
+    grid-template-columns: minmax(0, 1fr) 2.85rem !important;
+  }
+
+  .footer-icon-button,
+  .footer-form-row button.footer-icon-button {
+    width: 2.85rem !important;
+    min-width: 2.85rem !important;
+    max-width: 2.85rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .footer-actions,
+  .footer-feed-links {
+    width: 100%;
+  }
+
+  .footer-rss-button span {
+    font-size: 0.82rem;
+  }
+}
+
+
+/* =========================================================
+   FOOTER RSS ROW FINAL FIX
+   Prevent RSS links from inheriting search input grid sizing
+   ========================================================= */
+
+.footer-form-row.footer-rss-row {
+  width: min(100%, 22rem) !important;
+  margin-inline: auto !important;
+
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.55rem !important;
+
+  padding: 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+
+  box-shadow: none !important;
+}
+
+.footer-form-row.footer-rss-row .footer-rss-button {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  min-height: 2.75rem !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem !important;
+
+  padding: 0.65rem 0.8rem !important;
+
+  white-space: nowrap;
+
+  border-radius: 999px !important;
+}
+
+.footer-form-row.footer-rss-row .footer-rss-button svg {
+  flex: 0 0 auto;
+
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.footer-form-row.footer-rss-row .footer-rss-button span {
+  display: inline-block;
+
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@media (max-width: 390px) {
+  .footer-form-row.footer-rss-row {
+    gap: 0.45rem !important;
+  }
+
+  .footer-form-row.footer-rss-row .footer-rss-button {
+    padding-inline: 0.55rem !important;
+  }
+
+  .footer-form-row.footer-rss-row .footer-rss-button span {
+    font-size: 0.82rem;
+  }
+}
