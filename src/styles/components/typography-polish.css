@@ -446,3 +446,33 @@
   justify-content: flex-end !important;
   text-align: right !important;
 }
+
+/* =========================================================
+   BRAND EYEBROW STAR
+   Tiny decorative star used across page intros and section labels
+   ========================================================= */
+
+.eyebrow span[aria-hidden="true"] {
+  color: var(--gold);
+
+  text-shadow:
+    0 0 8px rgba(216, 164, 93, 0.45),
+    0 1px 0 rgba(255, 250, 245, 0.8);
+}
+
+/* Blog card top tag sparkle */
+.blog-card-top-tags::before {
+  content: "✦";
+
+  margin-right: 0.45rem;
+
+  color: var(--gold);
+
+  font-size: 0.72em;
+  font-weight: 900;
+
+  text-shadow:
+    0 0 8px rgba(216, 164, 93, 0.55),
+    0 1px 0 rgba(255, 250, 245, 0.9),
+    0 3px 8px rgba(59, 43, 34, 0.18);
+}

@@ -1,0 +1,59 @@
+/* =========================================================
+   20. FINAL POLISH LAYER
+   Tiny site-wide details, safe motion, and sparkle system
+   ========================================================= */
+
+/* Better anchor jumps under the sticky header */
+html {
+  scroll-padding-top: 6.5rem;
+}
+
+/* Soft branded text highlight */
+::selection {
+  color: var(--dark);
+  background: rgba(239, 189, 114, 0.45);
+}
+
+/* Keep long titles pretty on modern browsers */
+h1,
+h2,
+h3,
+.page-intro p,
+.blog-hero-banner p,
+.about-intro p,
+.about-closing-card p {
+  text-wrap: balance;
+}
+
+/* Consistent keyboard focus for anything clickable */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid rgba(239, 189, 114, 0.76);
+  outline-offset: 4px;
+}
+
+/* Smoother interactive bits */
+a,
+button {
+  -webkit-tap-highlight-color: rgba(239, 189, 114, 0.22);
+}
+
+/* Avoid layout wobble when scrollbars appear */
+@supports (scrollbar-gutter: stable) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+/* Logo polish */
+.footer-logo,
+.hero-logo {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    filter 180ms ease;
+}
