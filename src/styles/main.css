@@ -13,6 +13,7 @@
 
 /* Layout */
 @import "./layout/header.css";
+@import "./layout/navigation-polish.css";
 @import "./layout/footer.css";
 @import "./layout/breadcrumbs.css";
 @import "./layout/page-shell.css";
