@@ -6,72 +6,51 @@ import "../../styles/pages/home.css";
 const coverSlides = await getCoverMedia();
 ---
 
-<section class="hero">
+<section class="hero" aria-labelledby="home-title">
   <CoverSlideshow slides={coverSlides} variant="home" />
 
   <div class="hero-top-fade" aria-hidden="true"></div>
   <div class="hero-bottom-fade" aria-hidden="true"></div>
-  <div class="hero-panel">
-    <div class="hero-logo-wrap">
-      <img
-        src="/images/brand/logo.png"
-        alt="Virtual Ventures logo"
-        class="hero-logo"
-        width="1536"
-        height="1024"
-        loading="eager"
-        decoding="async"
-      />
-    </div>
 
-    <h1
-      class="hero-title-poster hero-title-brand-v2"
-      aria-label="Virtual Ventures"
-    >
-      <span class="hero-brand-line hero-brand-line-virtual" aria-hidden="true">
-        <span class="hero-brand-v">V</span>irtual
-      </span>
-      <span class="hero-brand-line hero-brand-line-ventures" aria-hidden="true">
-        <span class="hero-brand-inline-logo">
-          <img
-            src="/images/brand/logo.png"
-            alt=""
-            width="1536"
-            height="1024"
-            loading="eager"
-            decoding="async"
-          />
-        </span>
-        <span class="hero-brand-word-ventures">
-          <span class="hero-brand-v">V</span>entures
-        </span>
-      </span>
-    </h1>
-    <h2>Handmade with a<br />little everyday magic</h2>
+  <div class="hero-content">
+    <article class="hero-panel">
+      <div class="hero-logo-wrap" aria-hidden="true">
+        <img
+          src="/images/brand/logo.png"
+          alt=""
+          class="hero-logo"
+          width="1536"
+          height="1024"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
 
-    <div class="hero-divider" aria-hidden="true">
-      <span></span>
-      <strong>✦</strong>
-      <span></span>
-    </div>
+      <h1 id="home-title">Virtual Ventures</h1>
 
-    <p>
-      A cozy craft workshop for crochet creatures, fantasy-inspired makes, laser
-      engraved details, 3D printed helpers, patterns, stories, and small
-      handmade treasures.
-    </p>
+      <p class="hero-kicker">
+        Handmade with a<br />little everyday magic
+      </p>
+
+      <div class="hero-divider" aria-hidden="true">
+        <span></span>
+        <strong>✦</strong>
+        <span></span>
+      </div>
+
+      <p class="hero-intro">
+        Crochet creatures, pattern books, laser engraved details, 3D printed
+        helpers, shop notes and cosy handmade experiments.
+      </p>
+    </article>
   </div>
 
   <nav class="hero-buttons" aria-label="Featured homepage links">
     <a href="/blog/">
       <span class="button-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
-          <path
-            d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"
-          ></path>
-          <path
-            d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"
-          ></path>
+          <path d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"></path>
+          <path d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"></path>
         </svg>
       </span>
       <span>Blog</span>
