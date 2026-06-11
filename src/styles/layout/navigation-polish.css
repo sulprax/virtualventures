@@ -329,3 +329,262 @@
     max-height: calc(100svh - 70px) !important;
   }
 }
+
+/* =========================================================
+   NAVIGATION DETAILS
+   Stars, drawer link icons, and mobile drawer search polish
+   ========================================================= */
+
+.site-header-star {
+  color: var(--gold) !important;
+  opacity: 0.95 !important;
+
+  font-size: 0.82rem !important;
+  line-height: 1 !important;
+
+  filter: drop-shadow(0 0 5px rgba(239, 189, 114, 0.48))
+    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.24)) !important;
+
+  animation: vv-nav-star-twinkle 3.8s ease-in-out infinite !important;
+}
+
+.site-header-star:nth-of-type(2n) {
+  animation-delay: 0.7s !important;
+}
+
+.site-header-star:nth-of-type(3n) {
+  animation-delay: 1.35s !important;
+}
+
+@keyframes vv-nav-star-twinkle {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.92) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.12) rotate(12deg);
+  }
+
+  70% {
+    opacity: 0.86;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+
+@media (max-width: 980px) {
+  .site-header-nav-drawer nav {
+    width: 100% !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .site-header-nav-drawer nav a {
+    position: relative !important;
+
+    width: 100% !important;
+    min-height: 2.75rem !important;
+    padding: 0.68rem 0.85rem !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0.6rem !important;
+
+    color: rgba(255, 247, 237, 0.94) !important;
+    background: transparent !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    box-shadow: none !important;
+
+    text-align: left !important;
+    text-decoration: none !important;
+
+    font-family: var(--font-script) !important;
+    font-size: 1.18rem !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.02em !important;
+
+    text-shadow:
+      0 2px 8px rgba(30, 18, 10, 0.82),
+      0 0 18px rgba(120, 73, 37, 0.45) !important;
+
+    transition:
+      color 180ms ease,
+      transform 180ms ease,
+      text-shadow 180ms ease,
+      padding-left 180ms ease !important;
+  }
+
+  .site-header-nav-drawer nav a::before {
+    min-width: 1.45rem !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-family: var(--font-body) !important;
+    font-size: 1rem !important;
+    line-height: 1 !important;
+
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25)) !important;
+  }
+
+  .site-header-nav-drawer nav a[href="/blog/"]::before {
+    content: "📖";
+  }
+
+  .site-header-nav-drawer nav a[href="/gallery/"]::before {
+    content: "🖼️";
+  }
+
+  .site-header-nav-drawer nav a[href="/shop/"]::before {
+    content: "🛍️";
+  }
+
+  .site-header-nav-drawer nav a[href="/about/"]::before {
+    content: "🌿";
+  }
+
+  .site-header-nav-drawer nav a[href="/contact/"]::before {
+    content: "💌";
+  }
+
+  .site-header-nav-drawer nav a[href="/faq/"]::before {
+    content: "❔";
+  }
+
+  .site-header-nav-drawer nav a::after {
+    content: "";
+
+    position: absolute;
+    left: 2.95rem;
+    bottom: 0.38rem;
+
+    width: 0;
+    height: 2px;
+
+    background: linear-gradient(
+      to right,
+      rgba(239, 189, 114, 0.95),
+      rgba(245, 239, 230, 0.18)
+    );
+
+    border-radius: var(--radius-pill);
+
+    transition: width 180ms ease;
+  }
+
+  .site-header-nav-drawer nav a:hover,
+  .site-header-nav-drawer nav a:focus-visible {
+    color: #ffd992 !important;
+
+    transform: translateX(3px) !important;
+
+    outline: none !important;
+
+    text-shadow:
+      0 2px 10px rgba(30, 18, 10, 0.9),
+      0 0 16px rgba(216, 164, 93, 0.55) !important;
+  }
+
+  .site-header-nav-drawer nav a:hover::after,
+  .site-header-nav-drawer nav a:focus-visible::after {
+    width: 4.5rem;
+  }
+
+  .site-header-nav-drawer nav a.is-active,
+  .site-header-nav-drawer nav a[aria-current="page"] {
+    padding-left: 1.15rem !important;
+
+    color: #ffd992 !important;
+
+    transform: translateX(0.25rem) !important;
+
+    text-shadow:
+      0 2px 10px rgba(30, 18, 10, 0.9),
+      0 0 18px rgba(216, 164, 93, 0.55) !important;
+  }
+
+  .site-header-nav-drawer nav a.is-active::before,
+  .site-header-nav-drawer nav a[aria-current="page"]::before {
+    content: "✦" !important;
+
+    color: var(--gold) !important;
+
+    font-family: var(--font-title) !important;
+    font-size: 0.95rem !important;
+  }
+
+  .site-header-nav-drawer nav a.is-active::after,
+  .site-header-nav-drawer nav a[aria-current="page"]::after {
+    width: 5.5rem;
+  }
+
+  .site-header-drawer-search {
+    width: 100% !important;
+    max-width: none !important;
+    height: 48px !important;
+    margin: 1rem 0 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 250, 245, 0.94),
+      rgba(230, 216, 201, 0.82)
+    ) !important;
+
+    border: 1px solid rgba(239, 189, 114, 0.42) !important;
+    border-radius: var(--radius-pill) !important;
+
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.48) !important;
+
+    overflow: hidden !important;
+  }
+
+  .site-header-drawer-search input {
+    min-width: 0 !important;
+    flex: 1 !important;
+
+    padding-inline: 1rem !important;
+
+    color: #2a160a !important;
+    background: transparent !important;
+
+    border: 0 !important;
+    outline: 0 !important;
+
+    font: inherit !important;
+  }
+
+  .site-header-drawer-search button {
+    width: 2.75rem !important;
+    min-width: 2.75rem !important;
+    height: 2.75rem !important;
+    margin-right: 0.18rem !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #2a160a !important;
+    background: rgba(239, 189, 114, 0.48) !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+
+    font-size: 1.1rem !important;
+    line-height: 1 !important;
+  }
+}
