@@ -147,7 +147,7 @@ export const staticSearchItems: SearchItem[] = [
     href: "/about/#dog-friendly-workshop",
     type: "Page Section",
     emoji: "🐾",
-    image: "/images/about/about-dog-friendly.jpg",
+    image: "/images/about/about-dog-friendly.webp",
     imageAlt:
       "A crochet blanket in progress with yarn, colour notes and two dogs resting nearby in a cosy dog-friendly home workshop.",
     searchText: makeSearchText([
@@ -332,7 +332,7 @@ export const staticSearchItems: SearchItem[] = [
     href: "/about/#dog-friendly-workshop",
     type: "Image",
     emoji: "🖼️",
-    image: "/images/about/about-dog-friendly.jpg",
+    image: "/images/about/about-dog-friendly.webp",
     imageAlt:
       "A crochet blanket in progress with yarn, colour notes and two dogs resting nearby in a cosy dog-friendly home workshop.",
     searchText: makeSearchText([

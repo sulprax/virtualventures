@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import PageHero from "../../components/page/PageHero.astro";
 import { getCollection } from "astro:content";
 import {
   makeSearchText,
@@ -82,23 +81,27 @@ const searchItems: SearchItem[] = [
 ---
 
 <Layout
-  title="Search | Virtual Ventures"
+  title={query
+    ? `Search results for ${query} | Virtual Ventures`
+    : "Search | Virtual Ventures"}
   description={description}
   showFooterBreadcrumbs={false}
 >
-  <PageHero eyebrow="Search" title="Search" description={description} />
-
-  <main class="page-shell search-page">
-    <section class="page-intro search-panel">
-      <p class="eyebrow">
+  <main class="search-page">
+    <section class="search-panel" aria-labelledby="search-page-title">
+      <p class="search-kicker">
         <span aria-hidden="true">✦</span>
-        Workshop search
+        Search results
         <span aria-hidden="true">✦</span>
       </p>
 
-      <h1>
-        {query ? `Results for "${query}"` : "Find a project, post or picture"}
+      <h1 id="search-page-title">
+        {query ? `Results for “${query}”` : "Find a project, post or picture"}
       </h1>
+
+      <p class="search-intro">
+        Search blog posts, page sections, handmade projects and workshop images.
+      </p>
 
       <form
         class="search-page-form"
@@ -115,7 +118,7 @@ const searchItems: SearchItem[] = [
             name="q"
             type="search"
             value={query}
-            placeholder="Try AI, crochet, planner, laser, dogs, shop..."
+            placeholder="Try dogs, crochet, planner, laser..."
             autocomplete="off"
             data-search-input
           />
@@ -130,7 +133,7 @@ const searchItems: SearchItem[] = [
           class="search-filter-chip is-active"
           data-search-filter="all"
         >
-          ✨ All
+          All
         </button>
 
         <button
@@ -146,7 +149,7 @@ const searchItems: SearchItem[] = [
           class="search-filter-chip"
           data-search-filter="Page Section"
         >
-          Page Sections
+          Sections
         </button>
 
         <button
@@ -154,7 +157,7 @@ const searchItems: SearchItem[] = [
           class="search-filter-chip"
           data-search-filter="Blog Post"
         >
-          Blog Posts
+          Blog
         </button>
 
         <button
@@ -191,7 +194,7 @@ const searchItems: SearchItem[] = [
                 />
               )}
 
-              <span class="search-result-date">{item.type}</span>
+              <span class="search-result-type">{item.type}</span>
 
               <span class="search-result-title-row">
                 <span class="search-result-emoji" aria-hidden="true">
@@ -208,8 +211,8 @@ const searchItems: SearchItem[] = [
     </section>
 
     <p class="search-empty" data-search-empty hidden>
-      No matching results found. Try “AI”, “crochet”, “planner”, “laser”,
-      “website”, or “shop”. ✨
+      No matching results found. Try “crochet”, “planner”, “laser”, “dogs”, or
+      “shop”. ✨
     </p>
   </main>
 
@@ -234,7 +237,8 @@ const searchItems: SearchItem[] = [
     }
 
     function applySearch(rawQuery: string) {
-      const query = normaliseSearchText(rawQuery);
+      const cleanedQuery = rawQuery.trim();
+      const query = normaliseSearchText(cleanedQuery);
       const terms = query.split(" ").filter(Boolean);
 
       let visibleCount = 0;
@@ -250,7 +254,6 @@ const searchItems: SearchItem[] = [
           terms.every((term) => searchText.includes(term));
 
         const matchesFilter = activeFilter === "all" || type === activeFilter;
-
         const isMatch = matchesText && matchesFilter;
 
         card.hidden = !isMatch;
@@ -267,7 +270,7 @@ const searchItems: SearchItem[] = [
         if (terms.length === 0) {
           summary.textContent = `Showing ${visibleCount} searchable ${filterLabel}.`;
         } else {
-          summary.textContent = `Found ${visibleCount} result${visibleCount === 1 ? "" : "s"} for “${rawQuery}”.`;
+          summary.textContent = `Found ${visibleCount} result${visibleCount === 1 ? "" : "s"} for “${cleanedQuery}”.`;
         }
       }
 
