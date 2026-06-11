@@ -1,11 +1,8 @@
 ---
-import { siteNav } from "../../data/navigation";
-import { visibleSocials } from "../../data/socials";
 import CoverSlideshow from "../site/CoverSlideshow.astro";
 import { getCoverMedia } from "../../lib/getCoverMedia";
 import "../../styles/pages/home.css";
 
-const navItems = siteNav;
 const coverSlides = await getCoverMedia();
 ---
 
@@ -14,58 +11,6 @@ const coverSlides = await getCoverMedia();
 
   <div class="hero-top-fade" aria-hidden="true"></div>
   <div class="hero-bottom-fade" aria-hidden="true"></div>
-
-  <header class="hero-topbar">
-    <nav class="hero-socials" aria-label="Social links">
-      {
-        visibleSocials.map((social) => (
-          <a
-            href={social.href}
-            aria-label={social.label}
-            title={social.label}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span aria-hidden="true">{social.icon}</span>
-          </a>
-        ))
-      }
-    </nav>
-
-    <button
-      class="mobile-menu"
-      type="button"
-      aria-label="Open menu"
-      aria-controls="hero-navigation"
-      aria-expanded="false"
-      data-mobile-menu
-    >
-      ☰
-    </button>
-
-    <nav
-      id="hero-navigation"
-      class="hero-menu"
-      aria-label="Main navigation"
-      data-hero-menu
-    >
-      <div class="hero-menu-links">
-        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
-      </div>
-
-      <form class="hero-search" action="/search/" method="get" role="search">
-        <label class="sr-only" for="hero-search">Search the site</label>
-        <input
-          id="hero-search"
-          name="q"
-          type="search"
-          placeholder="Search..."
-        />
-        <button type="submit" aria-label="Search">⌕</button>
-      </form>
-    </nav>
-  </header>
-
   <div class="hero-panel">
     <div class="hero-logo-wrap">
       <img
@@ -154,33 +99,3 @@ const coverSlides = await getCoverMedia();
     </a>
   </nav>
 </section>
-
-<script>
-  const mobileMenuButton = document.querySelector("[data-mobile-menu]");
-  const heroNavigation = document.querySelector("[data-hero-menu]");
-
-  if (
-    mobileMenuButton instanceof HTMLButtonElement &&
-    heroNavigation instanceof HTMLElement
-  ) {
-    mobileMenuButton.addEventListener("click", () => {
-      const isOpen = heroNavigation.classList.toggle("is-open");
-
-      mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
-      mobileMenuButton.setAttribute(
-        "aria-label",
-        isOpen ? "Close menu" : "Open menu",
-      );
-      mobileMenuButton.textContent = isOpen ? "×" : "☰";
-    });
-
-    heroNavigation.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        heroNavigation.classList.remove("is-open");
-        mobileMenuButton.setAttribute("aria-expanded", "false");
-        mobileMenuButton.setAttribute("aria-label", "Open menu");
-        mobileMenuButton.textContent = "☰";
-      });
-    });
-  }
-</script>
