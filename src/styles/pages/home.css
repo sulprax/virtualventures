@@ -1041,3 +1041,44 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   MOBILE HOMEPAGE OPERA STABILITY
+   Keep the poster design, but reduce repaint chaos
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .hero .cover-slideshow__slide {
+    transform: none !important;
+    transition: opacity 1400ms ease-in-out !important;
+    will-change: auto !important;
+  }
+
+  .hero .cover-slideshow__slide.is-active,
+  .hero .cover-slideshow__slide.is-leaving {
+    transform: none !important;
+  }
+
+  .hero .cover-slideshow::before,
+  .hero .cover-slideshow::after,
+  .hero .cover-slideshow__stars--one,
+  .hero .cover-slideshow__stars--two {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .hero .hero-buttons,
+  .hero .hero-buttons a,
+  .hero .hero-buttons a::before,
+  .hero .hero-buttons a::after {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  .hero .hero-buttons a::after {
+    opacity: 1 !important;
+    transform: translateY(-50%) !important;
+  }
+}

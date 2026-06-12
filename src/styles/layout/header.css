@@ -781,3 +781,31 @@ etc.
     font-size: 0.88rem;
   }
 }
+
+/* =========================================================
+   MOBILE MENU STABILITY
+   Keep drawer above the homepage hero poster
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .site-header-nav-drawer:not([hidden]) {
+    position: fixed;
+    top: calc(var(--site-header-height, 76px) + 0.75rem);
+    right: 1rem;
+    left: auto;
+    z-index: 10065;
+
+    width: min(16rem, calc(100vw - 2rem));
+    max-height: calc(100svh - var(--site-header-height, 76px) - 2rem);
+    overflow: auto;
+
+    display: grid;
+  }
+
+  .site-header-menu-button[aria-expanded="true"] {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10070;
+  }
+}
