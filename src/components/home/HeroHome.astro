@@ -154,20 +154,28 @@ const heroCopySlides = coverSlides
   </nav>
 
   <script>
-    function syncHeroSlideCopy() {
+    function syncHeroSlideCopy(activeIndexFromEvent?: number) {
+      const hero = document.querySelector(".hero");
+      if (!hero) return;
+
       const slides = Array.from(
-        document.querySelectorAll(".cover-slideshow__slide"),
+        hero.querySelectorAll(".cover-slideshow__slide"),
       );
       const copySlides = Array.from(
-        document.querySelectorAll("[data-hero-slide-copy]"),
+        hero.querySelectorAll("[data-hero-slide-copy]"),
       );
 
       if (!slides.length || !copySlides.length) return;
 
-      const activeIndex = Math.max(
-        0,
-        slides.findIndex((slide) => slide.classList.contains("is-active")),
-      );
+      const activeIndex =
+        typeof activeIndexFromEvent === "number"
+          ? activeIndexFromEvent
+          : Math.max(
+              0,
+              slides.findIndex((slide) =>
+                slide.classList.contains("is-active"),
+              ),
+            );
 
       copySlides.forEach((slide, index) => {
         if (!(slide instanceof HTMLElement)) return;
@@ -178,16 +186,15 @@ const heroCopySlides = coverSlides
     document.addEventListener("DOMContentLoaded", () => {
       syncHeroSlideCopy();
 
-      const slideshow = document.querySelector(".cover-slideshow");
-      if (slideshow) {
-        new MutationObserver(syncHeroSlideCopy).observe(slideshow, {
-          attributes: true,
-          childList: true,
-          subtree: true,
-        });
-      }
+      const hero = document.querySelector(".hero");
+      const slideshow = hero?.querySelector(".cover-slideshow");
 
-      window.setInterval(syncHeroSlideCopy, 750);
+      if (!slideshow) return;
+
+      slideshow.addEventListener("cover-slide-change", (event: Event) => {
+        const slideEvent = event as CustomEvent<{ activeIndex?: number }>;
+        syncHeroSlideCopy(slideEvent.detail?.activeIndex);
+      });
     });
   </script>
 </section>

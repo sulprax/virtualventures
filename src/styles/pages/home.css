@@ -946,48 +946,6 @@
   .hero-kicker::after {
     content: none;
   }
-
-  /* Opera Android: keep mobile leather tabs stable during slideshow repaints */
-  .hero .hero-buttons {
-    z-index: 90;
-
-    isolation: auto;
-    contain: none;
-
-    opacity: 1;
-    visibility: visible;
-
-    transform: none !important;
-    animation: none !important;
-    transition: none !important;
-    will-change: auto;
-  }
-
-  .hero .hero-buttons *,
-  .hero .hero-buttons *::before,
-  .hero .hero-buttons *::after {
-    animation: none !important;
-    transition: none !important;
-    will-change: auto;
-  }
-
-  .hero .hero-buttons a,
-  .hero .hero-buttons a:hover,
-  .hero .hero-buttons a:focus-visible {
-    opacity: 1 !important;
-    visibility: visible !important;
-
-    transform: none !important;
-    animation: none !important;
-    transition: border-color 180ms ease !important;
-  }
-
-  .hero .hero-buttons a::before,
-  .hero .hero-buttons a::after {
-    opacity: 1 !important;
-    transform: translateY(-50%) !important;
-  }
-  /* End Opera Android stable tabs */
 }
 
 @media (max-width: 390px) {

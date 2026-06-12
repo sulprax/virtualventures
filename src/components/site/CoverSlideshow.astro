@@ -131,38 +131,99 @@ function getSlideStyle(slide: Slide, index: number) {
     const slides = Array.from(root.querySelectorAll("[data-cover-slide]"));
     const dots = Array.from(root.querySelectorAll("[data-cover-dot]"));
 
-    if (slides.length <= 1) return;
+    if (!slides.length) return;
 
-    let activeIndex = 0;
     const intervalMs = Number(root.dataset.intervalMs || "9500");
     const transitionMs = Number(root.dataset.transitionMs || "3600");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let activeIndex = Math.max(
+      0,
+      slides.findIndex((slide) => slide.classList.contains("is-active")),
+    );
+
+    let cleanupTimer = 0;
+    let intervalTimer = 0;
+    let isTransitioning = false;
+
+    function emitSlideChange(index) {
+      root.dispatchEvent(
+        new CustomEvent("cover-slide-change", {
+          bubbles: true,
+          detail: { activeIndex: index },
+        }),
+      );
+    }
+
+    function syncDots(index) {
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === index);
+      });
+    }
+
+    function normaliseSlides(index) {
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("is-active", slideIndex === index);
+        slide.classList.remove("is-leaving");
+      });
+
+      syncDots(index);
+      emitSlideChange(index);
+    }
+
+    normaliseSlides(activeIndex);
+
+    if (slides.length <= 1) return;
 
     function showSlide(nextIndex) {
+      if (document.hidden) return;
+
+      if (!root.isConnected) {
+        window.clearInterval(intervalTimer);
+        window.clearTimeout(cleanupTimer);
+        return;
+      }
+
+      if (isTransitioning) return;
+
       const previousIndex = activeIndex;
       const previousSlide = slides[previousIndex];
       const nextSlide = slides[nextIndex];
 
       if (!nextSlide || previousIndex === nextIndex) return;
 
-      previousSlide?.classList.add("is-leaving");
-      previousSlide?.classList.remove("is-active");
+      isTransitioning = true;
+      window.clearTimeout(cleanupTimer);
 
       nextSlide.classList.add("is-active");
-
-      dots.forEach((dot, dotIndex) => {
-        dot.classList.toggle("is-active", dotIndex === nextIndex);
-      });
-
-      window.setTimeout(() => {
-        previousSlide?.classList.remove("is-leaving");
-      }, transitionMs + 150);
+      syncDots(nextIndex);
 
       activeIndex = nextIndex;
+      emitSlideChange(nextIndex);
+
+      window.requestAnimationFrame(() => {
+        previousSlide?.classList.add("is-leaving");
+      });
+
+      const cleanupDelay = reducedMotion.matches ? 1300 : transitionMs + 200;
+
+      cleanupTimer = window.setTimeout(() => {
+        previousSlide?.classList.remove("is-active");
+        previousSlide?.classList.remove("is-leaving");
+        isTransitioning = false;
+      }, cleanupDelay);
     }
 
-    window.setInterval(() => {
+    intervalTimer = window.setInterval(() => {
       const nextIndex = (activeIndex + 1) % slides.length;
       showSlide(nextIndex);
     }, intervalMs);
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        normaliseSlides(activeIndex);
+        isTransitioning = false;
+      }
+    });
   });
 </script>
