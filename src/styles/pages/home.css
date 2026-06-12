@@ -872,10 +872,6 @@
   }
 
   .hero-buttons a {
-    --vv-tab-peek-distance: 0.52rem;
-    --vv-tab-peek-delay: 1.2s;
-    --vv-tab-peek-duration: 18s;
-
     min-height: 3.65rem;
     margin-left: 0;
     padding: 0.74rem 1rem 0.74rem 1.8rem;
@@ -895,19 +891,7 @@
       inset 0 -14px 20px rgba(35, 18, 10, 0.36);
 
     transform: none;
-    animation: vv-mobile-tab-peek var(--vv-tab-peek-duration) ease-in-out
-      infinite;
-    animation-delay: var(--vv-tab-peek-delay);
-  }
-
-  .hero-buttons a:nth-child(2) {
-    --vv-tab-peek-distance: 0.58rem;
-    --vv-tab-peek-delay: 6.8s;
-  }
-
-  .hero-buttons a:nth-child(3) {
-    --vv-tab-peek-distance: 0.5rem;
-    --vv-tab-peek-delay: 12.4s;
+    animation: none;
   }
 
   .hero-buttons a:hover,
@@ -961,26 +945,6 @@
 
   .hero-kicker::after {
     content: none;
-  }
-
-  @keyframes vv-mobile-tab-peek {
-    0%,
-    11%,
-    100% {
-      margin-left: 0;
-    }
-
-    3% {
-      margin-left: 0.14rem;
-    }
-
-    5.5% {
-      margin-left: var(--vv-tab-peek-distance);
-    }
-
-    8.5% {
-      margin-left: 0.12rem;
-    }
   }
 }
 
