@@ -2555,7 +2555,8 @@ body.lightbox-open {
   .mobile-side-drawer .blog-archive-widget h2,
   .mobile-side-drawer .blog-mini-list-widget h2,
   .mobile-side-drawer .featured-shop-widget h2 {
-    font-family: "Bungee", var(--font-ancient), system-ui, sans-serif !important;
+    font-family:
+      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
     font-size: clamp(1rem, 5vw, 1.25rem) !important;
     line-height: 1.15 !important;
     letter-spacing: 0.015em;
@@ -2570,7 +2571,8 @@ body.lightbox-open {
   .mobile-side-drawer .blog-archive-month,
   .mobile-side-drawer .blog-mini-list time,
   .mobile-side-drawer time {
-    font-family: "Bungee", var(--font-ancient), system-ui, sans-serif !important;
+    font-family:
+      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
     font-size: 0.76rem !important;
     line-height: 1.35 !important;
     letter-spacing: 0.01em;
@@ -2584,7 +2586,8 @@ body.lightbox-open {
   .mobile-side-drawer .blog-mini-list a,
   .mobile-side-drawer .blog-mini-list button,
   .mobile-side-drawer .featured-shop-widget a {
-    font-family: "Bungee", var(--font-ancient), system-ui, sans-serif !important;
+    font-family:
+      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
     font-size: 0.78rem !important;
     line-height: 1.28 !important;
     letter-spacing: 0.005em;
@@ -2601,12 +2604,14 @@ body.lightbox-open {
   .mobile-side-drawer .blog-calendar-day,
   .mobile-side-drawer .blog-calendar-date,
   .mobile-side-drawer .blog-calendar-empty {
-    font-family: "Bungee", var(--font-ancient), system-ui, sans-serif !important;
+    font-family:
+      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
     font-size: 0.68rem !important;
   }
 
   .mobile-side-drawer .blog-filter-chip {
-    font-family: "Bungee", var(--font-ancient), system-ui, sans-serif !important;
+    font-family:
+      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
     font-size: 0.72rem !important;
     letter-spacing: 0.005em;
   }
@@ -2642,7 +2647,8 @@ body.lightbox-open {
   .mobile-side-drawer .blog-archive-widget h2,
   .mobile-side-drawer .blog-mini-list-widget h2,
   .mobile-side-drawer .featured-shop-widget h2 {
-    font-family: "Bungee", var(--font-ancient), system-ui, sans-serif !important;
+    font-family:
+      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
     font-size: clamp(0.95rem, 4.4vw, 1.18rem) !important;
     line-height: 1.2 !important;
     letter-spacing: 0.025em !important;

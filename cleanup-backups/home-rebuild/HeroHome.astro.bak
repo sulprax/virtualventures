@@ -1,0 +1,98 @@
+---
+import CoverSlideshow from "../site/CoverSlideshow.astro";
+import { getCoverMedia } from "../../lib/getCoverMedia";
+import "../../styles/pages/home.css";
+
+const coverSlides = await getCoverMedia();
+---
+
+<section class="hero" aria-labelledby="home-title">
+  <CoverSlideshow slides={coverSlides} variant="home" />
+
+  <div class="hero-top-fade" aria-hidden="true"></div>
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <article class="hero-panel">
+      <div class="hero-logo-wrap" aria-hidden="true">
+        <img
+          src="/images/brand/logo.png"
+          alt=""
+          class="hero-logo"
+          width="1536"
+          height="1024"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      <svg
+        class="hero-mobile-curve-brand"
+        viewBox="0 0 260 260"
+        aria-hidden="true"
+      >
+        <defs>
+          <path
+            id="hero-mobile-brand-arc"
+            d="M 58 228 A 132 132 0 0 1 224 62"
+          />
+        </defs>
+        <text>
+          <textPath href="#hero-mobile-brand-arc" startOffset="50%">
+            Virtual Ventures
+          </textPath>
+        </text>
+      </svg>
+
+      <h1 id="home-title">Virtual Ventures</h1>
+
+      <p class="hero-kicker">
+        Handmade with a<br />little everyday magic
+      </p>
+
+      <div class="hero-divider" aria-hidden="true">
+        <span></span>
+        <strong>✦</strong>
+        <span></span>
+      </div>
+
+      <p class="hero-intro">
+        Crochet creatures, pattern books, laser engraved details, 3D printed
+        helpers, shop notes and cosy handmade experiments.
+      </p>
+    </article>
+  </div>
+
+  <nav class="hero-buttons" aria-label="Featured homepage links">
+    <a href="/blog/">
+      <span class="button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"></path>
+          <path d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"></path>
+        </svg>
+      </span>
+      <span>Blog</span>
+    </a>
+
+    <a href="/gallery/">
+      <span class="button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+          <circle cx="9" cy="10" r="1.5"></circle>
+          <path d="M7 17l4.2-4.2 2.5 2.5L16 13l3 4"></path>
+        </svg>
+      </span>
+      <span>Gallery</span>
+    </a>
+
+    <a href="/shop/">
+      <span class="button-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 8h12l-1 12H7L6 8Z"></path>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+        </svg>
+      </span>
+      <span>Shop</span>
+    </a>
+  </nav>
+</section>

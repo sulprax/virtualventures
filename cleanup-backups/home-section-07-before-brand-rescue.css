@@ -1,0 +1,864 @@
+/* =========================================================
+   VIRTUAL VENTURES HOME PAGE
+   Clean homepage-only styling
+   ========================================================= */
+
+/* =========================================================
+   01. ROOT
+   ========================================================= */
+
+.hero {
+  --hero-header: var(--site-header-height, 76px);
+  --hero-gold: #efc270;
+  --hero-cream: #fff6e5;
+  --hero-brown: #3a2012;
+  --hero-leather: #87522b;
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+
+  color: var(--hero-cream);
+  background: #160c07;
+}
+
+/* =========================================================
+   02. SLIDESHOW
+   ========================================================= */
+
+.hero .cover-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero .cover-slideshow__slide {
+  background-size: cover;
+  background-position: 68% 34%;
+  filter: saturate(1.05) contrast(1.03) brightness(0.96);
+}
+
+.hero .cover-slideshow__caption {
+  display: none !important;
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 67% 40%,
+      transparent 0 36%,
+      rgba(18, 11, 7, 0.14) 62%,
+      rgba(18, 11, 7, 0.54) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(18, 11, 7, 0.34),
+      transparent 20%,
+      transparent 60%,
+      rgba(18, 11, 7, 0.78)
+    ),
+    linear-gradient(
+      to right,
+      rgba(18, 11, 7, 0.72),
+      rgba(18, 11, 7, 0.28) 28%,
+      rgba(18, 11, 7, 0.06) 55%,
+      rgba(18, 11, 7, 0.35)
+    );
+}
+
+/* =========================================================
+   03. DESKTOP TAG
+   ========================================================= */
+
+.hero-content {
+  position: absolute;
+  z-index: 5;
+  top: calc(var(--hero-header) + clamp(3rem, 8vh, 5.4rem));
+  left: clamp(4rem, 10vw, 10rem);
+  width: clamp(20rem, 25vw, 29rem);
+}
+
+.hero-panel {
+  position: relative;
+  min-height: clamp(24rem, 52vh, 32rem);
+  padding: clamp(1rem, 2vw, 1.55rem);
+
+  color: #2b1a10;
+  background:
+    linear-gradient(rgba(255, 250, 245, 0.5), rgba(255, 250, 245, 0.5)),
+    repeating-linear-gradient(
+      to right,
+      rgba(139, 86, 45, 0.045) 0 1px,
+      transparent 1px 2rem
+    ),
+    linear-gradient(135deg, rgba(255, 247, 234, 0.98), rgba(232, 219, 202, 0.92));
+
+  border: 1px solid rgba(255, 250, 245, 0.72);
+  border-radius: 26px;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 2rem),
+    calc(100% - 1.45rem) 100%,
+    0 100%
+  );
+
+  box-shadow:
+    0 22px 54px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0.7rem;
+  z-index: 0;
+  border: 2px dashed rgba(166, 97, 34, 0.78);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  top: 0.95rem;
+  left: 50%;
+  z-index: 2;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 250, 245, 0.9), rgba(82, 49, 29, 0.32));
+  border: 1px solid rgba(139, 86, 45, 0.42);
+  box-shadow:
+    0 0 0 0.28rem rgba(82, 49, 29, 0.12),
+    inset 0 1px 2px rgba(0, 0, 0, 0.16);
+  transform: translateX(-50%);
+}
+
+.hero-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logo-wrap {
+  width: min(76%, 17rem);
+  margin: 0 auto;
+  opacity: 0.82;
+  filter:
+    drop-shadow(0 10px 24px rgba(0, 0, 0, 0.16))
+    drop-shadow(0 0 22px rgba(216, 164, 93, 0.12));
+}
+
+.hero-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(to bottom, black 0 62%, rgba(0, 0, 0, 0.32) 84%, transparent);
+  mask-image: linear-gradient(to bottom, black 0 62%, rgba(0, 0, 0, 0.32) 84%, transparent);
+}
+
+.hero-mobile-curve-brand {
+  display: none;
+}
+
+.hero-panel h1 {
+  margin: clamp(-4.2rem, -5.8vw, -3rem) 0 0;
+  color: #2b1a10;
+  font-family: var(--font-title);
+  font-size: clamp(3.2rem, 5.2vw, 5.9rem);
+  font-weight: 500;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  text-align: center;
+  text-shadow:
+    0 1px 0 rgba(255, 246, 229, 0.72),
+    0 4px 8px rgba(69, 39, 20, 0.34),
+    0 14px 24px rgba(69, 39, 20, 0.18);
+}
+
+.hero-kicker {
+  width: min(100%, 18rem);
+  margin: 0.85rem 0 0 auto;
+  padding-right: 20px;
+  color: #86522d;
+  font-family: var(--font-script);
+  font-size: clamp(1.25rem, 1.55vw, 1.85rem);
+  font-weight: 850;
+  line-height: 1.05;
+  text-align: right;
+}
+
+.hero-divider {
+  width: min(80%, 17rem);
+  margin: 0.9rem 0 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.hero-divider span {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(166, 97, 34, 0.35), transparent);
+}
+
+.hero-divider strong {
+  color: var(--hero-gold);
+  font-size: 0.9rem;
+  animation: vv-star-twinkle 2.8s ease-in-out infinite;
+}
+
+.hero-intro {
+  margin: 1.1rem 0 0;
+  color: rgba(45, 34, 24, 0.92);
+  font-size: clamp(0.82rem, 0.92vw, 0.98rem);
+  font-weight: 750;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* =========================================================
+   04. HOMEPAGE SLIDE TEXT
+   ========================================================= */
+
+.hero-slide-copy {
+  position: absolute;
+  z-index: 6;
+  right: clamp(3rem, 6vw, 7rem);
+  bottom: clamp(12.5rem, 23vh, 17rem);
+  width: min(31rem, 35vw);
+  color: rgba(255, 250, 245, 0.98);
+  text-align: right;
+  pointer-events: none;
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.98),
+    0 8px 20px rgba(0, 0, 0, 0.76);
+}
+
+.hero-slide-copy-card {
+  display: none;
+}
+
+.hero-slide-copy-card.is-active {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.hero-slide-copy-tag {
+  margin: 0;
+  color: var(--hero-gold);
+  font-family: "Bungee", var(--font-ancient), system-ui, sans-serif;
+  font-size: clamp(0.58rem, 0.68vw, 0.78rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.hero-slide-copy h2 {
+  margin: 0;
+  color: rgba(255, 250, 245, 0.96);
+  font-family: "Bungee", var(--font-ancient), system-ui, sans-serif;
+  font-size: clamp(1.15rem, 1.75vw, 1.85rem);
+  font-weight: 900;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.hero-slide-copy-description {
+  margin: 0.2rem 0 0;
+  color: rgba(255, 250, 245, 0.96);
+  font-size: clamp(0.78rem, 0.9vw, 0.96rem);
+  font-weight: 850;
+  line-height: 1.38;
+  text-align: justify;
+  text-align-last: right;
+}
+
+.hero-slide-copy-link {
+  justify-self: end;
+  margin-top: 0.25rem;
+  color: rgba(211, 239, 178, 0.96);
+  font-size: clamp(0.74rem, 0.84vw, 0.9rem);
+  font-weight: 950;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+/* =========================================================
+   05. LEATHER BUTTONS
+   ========================================================= */
+
+.hero-buttons {
+  position: absolute;
+  left: 50%;
+  bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px));
+  z-index: 7;
+  width: min(43rem, calc(100% - 2rem));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.8vw, 1.4rem);
+  transform: translateX(-50%);
+}
+
+.hero-buttons a {
+  position: relative;
+  min-height: 3.65rem;
+  padding: 0.74rem 1.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+
+  color: #fff3df;
+  background:
+    radial-gradient(circle at 28% 12%, rgba(255, 224, 165, 0.25), transparent 38%),
+    linear-gradient(145deg, #8b562d, #4a2c19 62%, #2d1a10);
+  border: 1.5px solid rgba(216, 164, 93, 0.9);
+  border-radius: 15px;
+  outline: 1px dashed rgba(239, 189, 114, 0.58);
+  outline-offset: -0.42rem;
+
+  font-family: "Bungee", var(--font-ancient), system-ui, sans-serif;
+  font-size: clamp(0.82rem, 0.98vw, 1rem);
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 246, 229, 0.24),
+    inset 0 -12px 22px rgba(32, 18, 10, 0.32);
+}
+
+.hero-buttons a:hover,
+.hero-buttons a:focus-visible {
+  transform: translateY(-0.16rem);
+  border-color: rgba(255, 219, 148, 0.98);
+}
+
+.hero-buttons a::before,
+.hero-buttons a::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff3cc, #d8a45d 44%, #8b562d 78%);
+  transform: translateY(-50%);
+}
+
+.hero-buttons a::before {
+  left: 0.75rem;
+}
+
+.hero-buttons a::after {
+  right: 0.75rem;
+}
+
+.button-icon {
+  width: 1.28rem;
+  height: 1.28rem;
+  color: var(--hero-gold);
+  display: inline-grid;
+  place-items: center;
+}
+
+.button-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.95;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   06. DESKTOP SAFETY
+   ========================================================= */
+
+@media (min-width: 1280px) {
+  .hero .cover-slideshow__slide {
+    background-position: 70% 32%;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 860px) {
+  .hero-content {
+    top: calc(var(--hero-header) + 2.3rem);
+    width: clamp(18rem, 23vw, 25rem);
+  }
+
+  .hero-panel {
+    min-height: clamp(22rem, 50vh, 27rem);
+    padding: 1rem;
+  }
+
+  .hero-logo-wrap {
+    width: min(68%, 14rem);
+  }
+
+  .hero-panel h1 {
+    font-size: clamp(2.8rem, 4.2vw, 4.6rem);
+  }
+
+  .hero-kicker {
+    font-size: clamp(1.05rem, 1.32vw, 1.42rem);
+  }
+
+  .hero-intro {
+    margin-top: 0.85rem;
+    font-size: clamp(0.74rem, 0.86vw, 0.88rem);
+    line-height: 1.38;
+  }
+
+  .hero-slide-copy {
+    bottom: calc(11rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-buttons {
+    bottom: calc(5.45rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-buttons a {
+    min-height: 3.35rem;
+  }
+}
+
+/* =========================================================
+   07. MOBILE BOOK COVER
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .hero {
+    margin-inline: auto;
+    max-width: 430px;
+
+    border-radius: 1.45rem;
+
+    background:
+      radial-gradient(circle at 18% 12%, rgba(163, 101, 55, 0.42), transparent 9rem),
+      linear-gradient(145deg, #6c4428 0%, #30190e 48%, #7b4b2c 100%);
+
+    box-shadow:
+      0 18px 34px rgba(0, 0, 0, 0.38),
+      inset 0 1px 0 rgba(255, 237, 204, 0.12),
+      inset 0 -18px 28px rgba(24, 12, 7, 0.34);
+  }
+
+  /*
+    Leather frame.
+    This is transparent in the middle, so the brown does NOT sit over the photo.
+    The inset shadows create the inlaid-photo effect.
+  */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0.42rem;
+    z-index: 10;
+    pointer-events: none;
+
+    border-radius: 1.22rem;
+
+    box-shadow:
+      inset 0 0 0 0.44rem #3a2012,
+      inset 0 0 0 0.68rem rgba(151, 91, 48, 0.88),
+      inset 0 0 0 0.86rem rgba(53, 29, 17, 0.9),
+      inset 0 0 22px rgba(0, 0, 0, 0.34),
+      inset 0 0 42px rgba(0, 0, 0, 0.22);
+  }
+
+  /*
+    Double stitching.
+    One stitch line near the outer leather edge, one nearer the image.
+  */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0.72rem;
+    z-index: 14;
+    pointer-events: none;
+
+    border-radius: 1.04rem;
+
+    border: 1px dashed rgba(239, 194, 112, 0.68);
+    outline: 1px dashed rgba(239, 194, 112, 0.42);
+    outline-offset: -0.42rem;
+
+    box-shadow:
+      0 0 0 1px rgba(45, 24, 13, 0.72),
+      inset 0 0 0 1px rgba(255, 244, 218, 0.04),
+      inset 0 0 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .hero .cover-slideshow {
+    inset: 0.95rem;
+    overflow: hidden;
+
+    border-radius: 0.92rem;
+
+    background: #160c07;
+
+    box-shadow:
+      0 0 0 1px rgba(239, 194, 112, 0.08),
+      0 0 24px rgba(0, 0, 0, 0.34);
+  }
+
+  .hero .cover-slideshow__slide {
+    background-position: 67% 26%;
+    filter: saturate(1.04) contrast(1.03) brightness(0.84);
+  }
+
+  .hero-shade {
+    inset: 0.95rem;
+    z-index: 3;
+
+    border-radius: 0.92rem;
+
+    background:
+      radial-gradient(
+        ellipse at 58% 30%,
+        transparent 0 28%,
+        rgba(18, 11, 7, 0.18) 58%,
+        rgba(18, 11, 7, 0.68) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(18, 11, 7, 0.08),
+        rgba(18, 11, 7, 0.18) 42%,
+        rgba(18, 11, 7, 0.76) 88%,
+        rgba(18, 11, 7, 0.92)
+      );
+  }
+
+  .hero-content,
+  .hero-panel {
+    position: static;
+
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    clip-path: none;
+  }
+
+  .hero-panel::before,
+  .hero-panel::after,
+  .hero-divider,
+  .hero-intro {
+    display: none;
+  }
+
+  .hero-logo-wrap {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    z-index: 4;
+
+    width: 16rem;
+    height: 16rem;
+    margin: 0;
+
+    opacity: 0.22;
+    pointer-events: none;
+  }
+
+  .hero-logo {
+    width: 100%;
+    height: auto;
+
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero-panel h1 {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /*
+    Curved brand name.
+    Kept safely inside the stitched frame, no chopping.
+  */
+  .hero-mobile-curve-brand {
+    position: absolute;
+    top: calc(var(--hero-header) + 1.1rem);
+    left: 0.05rem;
+    z-index: 22;
+
+    width: 21.2rem;
+    height: 13.8rem;
+
+    display: block;
+    overflow: visible;
+
+    transform: rotate(-27deg);
+    transform-origin: 28% 32%;
+
+    pointer-events: none;
+
+    filter:
+      drop-shadow(0 2px 1px rgba(0, 0, 0, 0.98))
+      drop-shadow(0 8px 12px rgba(0, 0, 0, 0.64));
+  }
+
+  .hero-mobile-curve-brand text {
+    fill: rgba(255, 250, 245, 0.99);
+
+    font-family: var(--font-title);
+    font-size: 2.72rem;
+    font-weight: 500;
+    letter-spacing: -0.052em;
+
+    paint-order: stroke fill;
+    stroke: rgba(45, 24, 13, 0.74);
+    stroke-width: 2px;
+  }
+
+  /*
+    Stars stay inside the leather frame.
+  */
+  .hero-content::before,
+  .hero-kicker::after {
+    content: "✦";
+    position: absolute;
+    z-index: 23;
+
+    color: var(--hero-gold);
+
+    text-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.82),
+      0 0 12px rgba(239, 194, 112, 0.42);
+
+    animation: vv-star-twinkle 2.8s ease-in-out infinite;
+
+    pointer-events: none;
+  }
+
+  .hero-content::before {
+    top: calc(var(--hero-header) + 1.35rem);
+    left: 1.45rem;
+
+    font-size: 1.02rem;
+  }
+
+  .hero-slide-copy {
+    left: 1.55rem;
+    right: 1.55rem;
+    bottom: calc(15rem + env(safe-area-inset-bottom, 0px));
+    z-index: 24;
+
+    width: auto;
+
+    text-align: right;
+  }
+
+  .hero-slide-copy-card.is-active {
+    gap: 0.18rem;
+  }
+
+  .hero-slide-copy-tag {
+    font-size: 0.58rem;
+    text-align: right;
+  }
+
+  .hero-slide-copy h2 {
+    font-size: clamp(1.1rem, 5vw, 1.45rem);
+    line-height: 1;
+    text-align: center;
+  }
+
+  .hero-slide-copy-description {
+    font-size: clamp(0.64rem, 2.9vw, 0.76rem);
+    line-height: 1.28;
+    text-align: justify;
+    text-align-last: left;
+  }
+
+  .hero-slide-copy-link {
+    font-size: 0.66rem;
+  }
+
+  /*
+    Leather straps holding the book shut.
+    Left side has no rivet and no stitch, so it feels folded behind.
+  */
+  .hero-buttons {
+    left: -1.25rem;
+    bottom: calc(2.35rem + env(safe-area-inset-bottom, 0px));
+    z-index: 25;
+
+    width: 9.5rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.78rem;
+
+    transform: none;
+  }
+
+  .hero-buttons a {
+    min-height: 3.65rem;
+    padding: 0.74rem 1rem 0.74rem 1.8rem;
+
+    justify-content: flex-start;
+    gap: 0.55rem;
+
+    border-left: 0;
+    border-radius: 0 1.15rem 1.15rem 0;
+
+    font-size: 0.88rem;
+
+    box-shadow:
+      10px 12px 22px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 244, 219, 0.2),
+      inset 0 -14px 20px rgba(35, 18, 10, 0.34);
+
+    animation: vv-mobile-tab-peek 8.4s ease-in-out infinite;
+  }
+
+  .hero-buttons a:nth-child(2) {
+    animation-delay: 2.8s;
+  }
+
+  .hero-buttons a:nth-child(3) {
+    animation-delay: 5.6s;
+  }
+
+  .hero-buttons a::before {
+    display: none;
+  }
+
+  .hero-buttons a::after {
+    right: 0.8rem;
+  }
+
+  .button-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    color: var(--hero-gold);
+  }
+
+  .hero-kicker {
+    position: absolute;
+    right: 1.05rem;
+    bottom: calc(2.45rem + env(safe-area-inset-bottom, 0px));
+    z-index: 25;
+
+    width: calc(100% - 11.2rem);
+    min-height: 12.2rem;
+    margin: 0;
+    padding-left: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    color: rgba(255, 246, 229, 0.98);
+
+    font-family: var(--font-script);
+    font-size: clamp(1.18rem, 5.4vw, 1.48rem);
+    font-weight: 900;
+    line-height: 1.05;
+    text-align: right;
+
+    text-shadow:
+      0 2px 5px rgba(0, 0, 0, 0.98),
+      0 8px 18px rgba(0, 0, 0, 0.72);
+
+    pointer-events: none;
+  }
+
+  .hero-kicker::after {
+    right: 0.15rem;
+    bottom: 0.32rem;
+
+    font-size: 0.88rem;
+  }
+
+  @keyframes vv-mobile-tab-peek {
+    0%,
+    9%,
+    100% {
+      transform: translateX(0);
+    }
+
+    4.5% {
+      transform: translateX(0.42rem);
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-mobile-curve-brand {
+    top: calc(var(--hero-header) + 1.2rem);
+    left: 0;
+    width: 20.4rem;
+    height: 13.2rem;
+    transform: rotate(-28deg);
+  }
+
+  .hero-mobile-curve-brand text {
+    font-size: 2.55rem;
+  }
+
+  .hero-slide-copy {
+    bottom: calc(14.35rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-buttons {
+    left: -1.3rem;
+    width: 9rem;
+    bottom: calc(2.2rem + env(safe-area-inset-bottom, 0px));
+    gap: 0.68rem;
+  }
+
+  .hero-buttons a {
+    min-height: 3.45rem;
+    font-size: 0.78rem;
+  }
+
+  .hero-kicker {
+    width: calc(100% - 10.5rem);
+    font-size: clamp(1.05rem, 5vw, 1.28rem);
+  }
+}
+
+
+/* =========================================================
+   08. MOTION SAFETY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-divider strong,
+  .hero-content::before,
+  .hero-kicker::after,
+  .hero-buttons a {
+    animation: none !important;
+  }
+
+  .hero-buttons a {
+    transition: none;
+  }
+}

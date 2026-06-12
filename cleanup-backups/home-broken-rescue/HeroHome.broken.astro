@@ -13,13 +13,24 @@ const heroCopySlides = coverSlides
     const title = item.title || item.name || item.alt || "";
     const description =
       item.description || item.summary || item.caption || item.alt || "";
-    const href = item.href || item.url || item.link || item.postHref || "";
+
+    const blogHref =
+      item.href || item.url || item.link || item.postHref || "";
+
+    const shopHref = item.shopUrl || item.productUrl || "";
 
     return {
       tag,
       title,
       description,
-      href,
+      actions: [
+        ...(blogHref
+          ? [{ href: blogHref, label: "Read the blog ✦" }]
+          : []),
+        ...(shopHref
+          ? [{ href: shopHref, label: "View in shop ✦" }]
+          : []),
+      ],
     };
   })
   .filter((slide) => slide.title || slide.description);
@@ -28,7 +39,8 @@ const heroCopySlides = coverSlides
 <section class="hero" aria-labelledby="home-title">
   <CoverSlideshow slides={coverSlides} variant="home" />
 
-  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-top-fade" aria-hidden="true"></div>
+  <div class="hero-bottom-fade" aria-hidden="true"></div>
 
   <div class="hero-content">
     <article class="hero-panel" aria-label="Virtual Ventures introduction">
@@ -46,21 +58,22 @@ const heroCopySlides = coverSlides
 
       <svg
         class="hero-mobile-curve-brand"
-        viewBox="0 0 520 220"
+        viewBox="0 0 430 320"
         aria-hidden="true"
-        preserveAspectRatio="xMidYMid meet"
       >
         <defs>
           <path
             id="hero-mobile-brand-arc"
-            d="M 70 155 C 150 55, 370 55, 450 155"></path>
+            d="M 56 292 C 68 145, 205 30, 396 62"
+          />
         </defs>
 
         <text>
           <textPath
             href="#hero-mobile-brand-arc"
             startOffset="50%"
-            text-anchor="middle"
+            textLength="336"
+            lengthAdjust="spacingAndGlyphs"
           >
             Virtual Ventures
           </textPath>
@@ -86,17 +99,14 @@ const heroCopySlides = coverSlides
     </article>
   </div>
 
-  <span class="hero-mobile-star hero-mobile-star-top" aria-hidden="true">✦</span
-  >
-  <span class="hero-mobile-star hero-mobile-star-bottom" aria-hidden="true"
-    >✦</span
-  >
-
   <aside class="hero-slide-copy" aria-label="Featured slide details">
     {
       heroCopySlides.map((slide, index) => (
         <article
-          class:list={["hero-slide-copy-card", { "is-active": index === 0 }]}
+          class:list={[
+            "hero-slide-copy-card",
+            { "is-active": index === 0 },
+          ]}
           data-hero-slide-copy
         >
           <p class="hero-slide-copy-tag">{slide.tag}</p>
@@ -104,10 +114,12 @@ const heroCopySlides = coverSlides
           {slide.description && (
             <p class="hero-slide-copy-description">{slide.description}</p>
           )}
-          {slide.href && (
-            <a class="hero-slide-copy-link" href={slide.href}>
-              Read the blog ✦
-            </a>
+          {slide.actions.length > 0 && (
+            <div class="hero-slide-copy-actions">
+              {slide.actions.map((action) => (
+                <a href={action.href}>{action.label}</a>
+              ))}
+            </div>
           )}
         </article>
       ))
@@ -118,12 +130,8 @@ const heroCopySlides = coverSlides
     <a href="/blog/">
       <span class="button-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
-          <path
-            d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"
-          ></path>
-          <path
-            d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"
-          ></path>
+          <path d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"></path>
+          <path d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"></path>
         </svg>
       </span>
       <span>Blog</span>
@@ -150,12 +158,12 @@ const heroCopySlides = coverSlides
       <span>Shop</span>
     </a>
   </nav>
-
   <script>
     function syncHeroSlideCopy() {
       const slides = Array.from(
         document.querySelectorAll(".cover-slideshow__slide"),
       );
+
       const copySlides = Array.from(
         document.querySelectorAll("[data-hero-slide-copy]"),
       );
@@ -175,6 +183,7 @@ const heroCopySlides = coverSlides
 
     document.addEventListener("DOMContentLoaded", () => {
       syncHeroSlideCopy();
+      window.setInterval(syncHeroSlideCopy, 500);
 
       const slideshow = document.querySelector(".cover-slideshow");
       if (slideshow) {
@@ -184,8 +193,6 @@ const heroCopySlides = coverSlides
           subtree: true,
         });
       }
-
-      window.setInterval(syncHeroSlideCopy, 750);
     });
   </script>
 </section>

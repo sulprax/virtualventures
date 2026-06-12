@@ -495,8 +495,7 @@
    ========================================================= */
 
 @media (max-width: 900px) {
-  .has-mobile-side-drawer[data-mobile-side-drawer-root]
-    .mobile-side-drawer {
+  .has-mobile-side-drawer[data-mobile-side-drawer-root] .mobile-side-drawer {
     padding: clamp(0.75rem, 3vw, 1rem) !important;
 
     background:
@@ -505,11 +504,7 @@
         rgba(239, 189, 114, 0.18),
         transparent 12rem
       ),
-      linear-gradient(
-        145deg,
-        rgba(58, 36, 24, 0.98),
-        rgba(30, 19, 13, 0.99)
-      ) !important;
+      linear-gradient(145deg, rgba(58, 36, 24, 0.98), rgba(30, 19, 13, 0.99)) !important;
 
     border-right: 1px solid rgba(239, 189, 114, 0.48) !important;
     border-radius: 0 24px 24px 0 !important;
@@ -554,8 +549,7 @@
 
     padding: 0.7rem 0.32rem !important;
 
-    background:
-      linear-gradient(145deg, #f2c77f, #fff2d6) !important;
+    background: linear-gradient(145deg, #f2c77f, #fff2d6) !important;
 
     border-color: rgba(216, 164, 93, 0.78) !important;
     border-radius: 0 16px 16px 0 !important;
