@@ -611,15 +611,22 @@
     overflow: hidden;
 
     border-radius: var(--vv-mobile-photo-radius);
+    clip-path: inset(0 round var(--vv-mobile-photo-radius));
 
     background: #120906;
+    background-clip: padding-box;
 
     box-shadow:
       0 0 0 1px rgba(239, 194, 112, 0.08),
       0 0 26px rgba(0, 0, 0, 0.36);
+
+    contain: paint;
+    transform: translateZ(0);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
   .hero .cover-slideshow__slide {
+    border-radius: inherit;
     background-position: 67% 26%;
     filter: saturate(1.04) contrast(1.03) brightness(0.84);
   }
@@ -628,7 +635,9 @@
     inset: var(--vv-mobile-photo-top) 0.95rem var(--vv-mobile-photo-bottom);
     z-index: 3;
 
+    overflow: hidden;
     border-radius: var(--vv-mobile-photo-radius);
+    clip-path: inset(0 round var(--vv-mobile-photo-radius));
 
     background:
       radial-gradient(
@@ -644,6 +653,10 @@
         rgba(18, 11, 7, 0.76) 88%,
         rgba(18, 11, 7, 0.94)
       );
+
+    contain: paint;
+    transform: translateZ(0);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
   .hero-content,
@@ -859,7 +872,12 @@
   }
 
   .hero-buttons a {
+    --vv-tab-peek-distance: 0.52rem;
+    --vv-tab-peek-delay: 1.2s;
+    --vv-tab-peek-duration: 18s;
+
     min-height: 3.65rem;
+    margin-left: 0;
     padding: 0.74rem 1rem 0.74rem 1.8rem;
 
     justify-content: flex-start;
@@ -876,15 +894,25 @@
       inset 0 1px 0 rgba(255, 244, 219, 0.22),
       inset 0 -14px 20px rgba(35, 18, 10, 0.36);
 
-    animation: vv-mobile-tab-peek 8.4s ease-in-out infinite;
+    transform: none;
+    animation: vv-mobile-tab-peek var(--vv-tab-peek-duration) ease-in-out
+      infinite;
+    animation-delay: var(--vv-tab-peek-delay);
   }
 
   .hero-buttons a:nth-child(2) {
-    animation-delay: 2.8s;
+    --vv-tab-peek-distance: 0.58rem;
+    --vv-tab-peek-delay: 6.8s;
   }
 
   .hero-buttons a:nth-child(3) {
-    animation-delay: 5.6s;
+    --vv-tab-peek-distance: 0.5rem;
+    --vv-tab-peek-delay: 12.4s;
+  }
+
+  .hero-buttons a:hover,
+  .hero-buttons a:focus-visible {
+    transform: none;
   }
 
   .hero-buttons a::before {
@@ -937,13 +965,21 @@
 
   @keyframes vv-mobile-tab-peek {
     0%,
-    9%,
+    11%,
     100% {
-      transform: translateX(0);
+      margin-left: 0;
     }
 
-    4.5% {
-      transform: translateX(0.42rem);
+    3% {
+      margin-left: 0.14rem;
+    }
+
+    5.5% {
+      margin-left: var(--vv-tab-peek-distance);
+    }
+
+    8.5% {
+      margin-left: 0.12rem;
     }
   }
 }
