@@ -76,7 +76,10 @@ const archiveMonths = [
   ...new Map(
     rawPosts.map((post) => {
       const date = post.data.pubDate;
-      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+      const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+        2,
+        "0",
+      )}`;
 
       const count = rawPosts.filter((item) => {
         const itemDate = item.data.pubDate;
@@ -456,6 +459,8 @@ const calendarMonth = calendarBaseDate.getMonth();
           </ul>
         </section>
       </aside>
+
+      <span class="mobile-side-drawer-frame" aria-hidden="true"></span>
     </div>
   </main>
 
@@ -492,17 +497,6 @@ const calendarMonth = calendarBaseDate.getMonth();
     const calendarPrevButton = document.querySelector("[data-calendar-prev]");
     const calendarNextButton = document.querySelector("[data-calendar-next]");
     const clearDateButton = document.querySelector("[data-clear-date-filter]");
-
-    const mobileSideToggle = document.querySelector(
-      "[data-mobile-side-toggle]",
-    );
-    const mobileSideDrawer = document.querySelector(
-      "[data-mobile-side-drawer]",
-    );
-    const mobileSideBackdrop = document.querySelector(
-      "[data-mobile-side-backdrop]",
-    );
-    const siteFooter = document.querySelector(".site-footer");
 
     const postsPerPage = 8;
     const postDates = new Set(
