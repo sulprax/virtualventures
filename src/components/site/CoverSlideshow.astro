@@ -199,7 +199,6 @@ function getSlideStyle(slide: Slide, index: number) {
       syncDots(nextIndex);
 
       activeIndex = nextIndex;
-      emitSlideChange(nextIndex);
 
       window.requestAnimationFrame(() => {
         previousSlide?.classList.add("is-leaving");
@@ -211,6 +210,8 @@ function getSlideStyle(slide: Slide, index: number) {
         previousSlide?.classList.remove("is-active");
         previousSlide?.classList.remove("is-leaving");
         isTransitioning = false;
+
+        emitSlideChange(nextIndex);
       }, cleanupDelay);
     }
 

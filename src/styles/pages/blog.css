@@ -1,10 +1,25 @@
 /* =========================================================
    BLOG PAGE
-   Generated during CSS split cleanup
+   Clean optimized blog styles for Virtual Ventures.
+
+   Includes:
+   - blog index cards
+   - desktop sidebar
+   - desktop/mobile calendar
+   - filters
+   - pagination
+   - standalone blog posts
+   - image lightbox
+
+   Note:
+   The shared leather wallet drawer now belongs in:
+   src/styles/components/mobile-filter-drawer.css
    ========================================================= */
 
 /* =========================================================
-   09. BLOG HERO BANNER
+   01. BLOG HERO BANNER FALLBACK
+   Current blog index uses PageHero, but these styles remain
+   useful for standalone/future blog banner layouts.
    ========================================================= */
 
 .blog-hero-banner {
@@ -13,7 +28,6 @@
   overflow: hidden;
 
   min-height: clamp(180px, 22vw, 260px);
-
   padding: clamp(4.2rem, 6vw, 5.5rem) 1.25rem clamp(2rem, 4vw, 3rem);
 
   display: grid;
@@ -23,9 +37,9 @@
   background-image: image-set(
     url("/images/hero/hero-1.webp") type("image/webp")
   );
-  background-size: cover;
   background-position: center 44%;
   background-repeat: no-repeat;
+  background-size: cover;
 
   text-align: center;
 }
@@ -37,6 +51,7 @@
 
 .blog-hero-banner::before {
   content: "";
+
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -113,7 +128,7 @@
 }
 
 /* =========================================================
-   10. BLOG INDEX LAYOUT
+   02. BLOG INDEX LAYOUT
    ========================================================= */
 
 .blog-page {
@@ -131,7 +146,8 @@
   align-items: start;
 }
 
-.blog-posts-area {
+.blog-posts-area,
+.blog-grid {
   min-width: 0;
 }
 
@@ -144,6 +160,10 @@
   grid-template-columns: 1fr;
   gap: clamp(1.2rem, 3vw, 2rem);
 }
+
+/* =========================================================
+   03. BLOG CARDS
+   ========================================================= */
 
 .blog-card {
   position: relative;
@@ -197,9 +217,10 @@
 }
 
 .blog-card-toggle {
+  position: relative;
+
   width: 100%;
   min-height: 250px;
-
   padding: clamp(1.35rem, 2.5vw, 1.75rem);
 
   display: grid;
@@ -212,6 +233,8 @@
   border: 0;
 
   text-align: left;
+
+  cursor: pointer;
 }
 
 .blog-card-topline {
@@ -259,10 +282,11 @@
 
   border: 0;
   border-radius: 0;
-  box-shadow: none;
 
   font-size: inherit;
   font-weight: 950;
+
+  box-shadow: none;
 
   text-shadow:
     0 1px 0 rgba(255, 250, 245, 0.8),
@@ -328,8 +352,21 @@
 
 .blog-card-title {
   position: relative;
+
   width: fit-content;
   max-width: 100%;
+
+  display: block;
+
+  margin-top: 0.15rem;
+
+  color: var(--dark);
+
+  font-family: var(--font-title);
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
 }
 
 .blog-card-title::after {
@@ -354,52 +391,6 @@
   box-shadow:
     0 1px 0 rgba(255, 250, 245, 0.85),
     0 5px 12px rgba(59, 43, 34, 0.12);
-}
-
-.blog-post h1,
-.blog-post-title {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.blog-post h1::after,
-.blog-post-title::after {
-  content: "";
-
-  position: absolute;
-  left: 0;
-  bottom: -0.35rem;
-
-  width: 100%;
-  height: 0.16rem;
-
-  background: linear-gradient(
-    to right,
-    rgba(122, 82, 48, 0.92),
-    rgba(216, 164, 93, 0.72),
-    transparent
-  );
-
-  border-radius: var(--radius-pill);
-
-  box-shadow:
-    0 1px 0 rgba(255, 250, 245, 0.85),
-    0 5px 12px rgba(59, 43, 34, 0.12);
-}
-
-.blog-card-title {
-  display: block;
-
-  margin-top: 0.15rem;
-
-  color: var(--dark);
-
-  font-family: var(--font-title);
-  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
 }
 
 .blog-card-description {
@@ -428,6 +419,10 @@
     0 1px 0 rgba(255, 250, 245, 0.85),
     0 3px 9px rgba(59, 43, 34, 0.08);
 }
+
+/* =========================================================
+   04. BLOG CARD EXPANDED CONTENT
+   ========================================================= */
 
 .blog-card-expanded {
   padding: 0 clamp(1.35rem, 2.5vw, 1.75rem) clamp(1.35rem, 2.5vw, 1.75rem);
@@ -459,6 +454,7 @@
 
 .blog-card-image {
   display: block;
+
   width: 100%;
   max-height: 420px;
 
@@ -515,7 +511,100 @@
 }
 
 /* =========================================================
-   11. BLOG SIDEBAR
+   05. BLOG CARD IMAGE PREVIEWS
+   ========================================================= */
+
+.blog-card-preview-thumbs {
+  position: absolute;
+  right: clamp(1rem, 2vw, 1.5rem);
+  bottom: 1.1rem;
+  z-index: 2;
+
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: flex-end;
+
+  pointer-events: none;
+}
+
+.blog-card-preview-thumb {
+  width: 100px;
+  height: 68px;
+
+  display: block;
+  overflow: hidden;
+
+  background: rgba(255, 250, 245, 0.55);
+
+  border: 1px solid rgba(216, 164, 93, 0.52);
+  border-radius: 14px;
+
+  box-shadow:
+    0 10px 24px rgba(59, 43, 34, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+  transform: rotate(-1deg);
+}
+
+.blog-card-preview-thumb:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.blog-card-preview-thumb:nth-child(3) {
+  transform: rotate(-0.5deg);
+}
+
+.blog-card-preview-thumb img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.blog-card-preview-more {
+  width: 34px;
+  height: 34px;
+
+  display: inline-grid;
+  place-items: center;
+
+  align-self: center;
+
+  color: #fff6e9;
+  background:
+    radial-gradient(
+      circle at 30% 18%,
+      rgba(255, 239, 205, 0.24),
+      transparent 42%
+    ),
+    linear-gradient(145deg, rgba(126, 78, 39, 0.94), rgba(54, 35, 23, 0.96));
+
+  border: 1px solid rgba(216, 164, 93, 0.86);
+  border-radius: 999px;
+
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+
+  box-shadow:
+    0 10px 24px rgba(59, 43, 34, 0.22),
+    0 0 0 1px rgba(255, 246, 229, 0.06) inset,
+    inset 0 1px 0 rgba(255, 246, 229, 0.24);
+
+  transform: rotate(1deg);
+}
+
+.blog-card.is-open .blog-card-preview-thumbs {
+  display: none;
+}
+
+/* =========================================================
+   06. DESKTOP SIDEBAR / WIDGETS
    ========================================================= */
 
 .blog-sidebar {
@@ -564,25 +653,56 @@
   line-height: 1.6;
 }
 
+.featured-shop-widget {
+  position: relative;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(239, 189, 114, 0.18),
+      transparent 12rem
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 250, 245, 0.94),
+      rgba(245, 239, 230, 0.82)
+    );
+}
+
+.featured-shop-widget::after {
+  content: "✦";
+
+  position: absolute;
+  top: 0.85rem;
+  right: 1rem;
+
+  color: var(--gold);
+
+  font-size: 0.8rem;
+
+  text-shadow: 0 0 10px rgba(216, 164, 93, 0.45);
+}
+
+/* =========================================================
+   07. FILTERS
+   ========================================================= */
+
 .blog-filter-stack {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-/* Hide extra topic tags until More topics is clicked */
 .blog-filter-chip.is-mobile-extra:not(.is-mobile-revealed) {
   display: none;
 }
 
-/* Keep the More topics button at the end of the chip list */
 .blog-filter-more {
   order: 999;
 }
 
 .blog-filter-chip {
   min-height: 36px;
-
   padding: 0.5rem 0.75rem;
 
   display: inline-flex;
@@ -617,29 +737,38 @@
 }
 
 .blog-filter-chip:hover,
+.blog-filter-chip:focus-visible,
 .blog-filter-chip.is-active {
   transform: translateY(-1px);
 
   color: #1d1208;
   background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+  outline: none;
 }
+
+/* =========================================================
+   08. CALENDAR
+   ========================================================= */
 
 .blog-calendar {
   display: grid;
+  gap: 0.75rem;
+}
+
+.blog-calendar-header {
+  width: 100%;
+  margin: 0 auto 0.35rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.55rem;
 }
 
-.blog-calendar-title {
-  flex: 1;
-
-  text-align: center;
-}
-
 .blog-calendar-arrow,
-.blog-calendar-clear {
-  width: 2rem;
-  height: 2rem;
-
+.blog-calendar-clear,
+.blog-calendar-header button {
   display: grid;
   place-items: center;
 
@@ -659,46 +788,92 @@
   cursor: pointer;
 }
 
+.blog-calendar-arrow,
+.blog-calendar-header .blog-calendar-arrow {
+  flex: 0 0 2.2rem;
+
+  width: 2.2rem;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  min-height: 2.2rem;
+  padding: 0;
+
+  position: static;
+
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.blog-calendar-title-button,
+.blog-calendar-header .blog-calendar-title-button {
+  flex: 0 1 auto;
+
+  width: auto;
+  min-width: 8.75rem;
+  max-width: 12rem;
+  min-height: 2.2rem;
+  padding: 0.25rem 0.8rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  position: static;
+
+  color: var(--coffee);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 245, 0.58),
+    rgba(230, 216, 201, 0.22)
+  );
+
+  border: 1px solid rgba(139, 94, 60, 0.08);
+  border-radius: var(--radius-pill);
+
+  text-align: center;
+  white-space: nowrap;
+
+  font-family: var(--font-script);
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1.1;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    0 6px 14px rgba(59, 43, 34, 0.06);
+
+  cursor: pointer;
+}
+
+.blog-calendar-title-button span,
+.blog-calendar-title-button [data-calendar-label] {
+  display: inline-block;
+  width: auto;
+
+  text-align: center;
+  white-space: nowrap;
+}
+
 .blog-calendar-arrow:hover,
 .blog-calendar-arrow:focus-visible,
-.blog-calendar-clear:hover,
-.blog-calendar-clear:focus-visible {
+.blog-calendar-title-button:hover,
+.blog-calendar-title-button:focus-visible {
   color: #1d1208;
   background: rgba(216, 164, 93, 0.18);
 
   outline: none;
 }
 
-.blog-calendar-header button {
-  width: 2rem;
-  height: 2rem;
-
-  display: grid;
-  place-items: center;
-
-  color: var(--gold);
-  background: transparent;
-
-  border: 0;
-  border-radius: var(--radius-pill);
-
-  font-weight: 900;
-
-  text-shadow:
-    0 0 10px rgba(216, 164, 93, 0.8),
-    0 1px 0 rgba(255, 250, 245, 0.25),
-    0 4px 10px rgba(0, 0, 0, 0.28);
-}
-
-.blog-calendar-header button:hover {
-  color: #1d1208;
-  background: rgba(216, 164, 93, 0.18);
+.blog-calendar-view {
+  width: 100%;
+  margin-top: 0.1rem;
 }
 
 .blog-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.25rem;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.32rem;
 }
 
 .blog-calendar-day,
@@ -737,7 +912,9 @@
   transition:
     transform 180ms ease,
     background 180ms ease,
-    color 180ms ease;
+    color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .blog-calendar-date:disabled {
@@ -771,6 +948,106 @@
     0 10px 24px rgba(59, 43, 34, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
+
+.blog-calendar-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.blog-calendar-picker-button {
+  min-height: 2.35rem;
+  padding: 0.45rem 0.35rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--coffee);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 245, 0.9),
+    rgba(230, 216, 201, 0.58)
+  );
+
+  border: 1px solid rgba(139, 94, 60, 0.1);
+  border-radius: 14px;
+
+  font-size: 0.82rem;
+  font-weight: 900;
+
+  box-shadow:
+    0 8px 18px rgba(59, 43, 34, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.blog-calendar-picker-button:hover,
+.blog-calendar-picker-button:focus-visible,
+.blog-calendar-picker-button.is-active {
+  transform: translateY(-1px);
+
+  color: #1d1208;
+  background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+  outline: none;
+}
+
+.blog-calendar > .blog-calendar-clear {
+  width: fit-content;
+  min-height: 2.35rem;
+
+  margin: 0.45rem auto 0;
+  padding: 0.55rem 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+
+  color: var(--coffee);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 245, 0.9),
+    rgba(230, 216, 201, 0.58)
+  );
+
+  border: 1px solid rgba(139, 94, 60, 0.12);
+  border-radius: var(--radius-pill);
+
+  font-size: 0.78rem;
+  font-weight: 900;
+
+  box-shadow:
+    0 8px 18px rgba(59, 43, 34, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+
+  cursor: pointer;
+}
+
+.blog-calendar > .blog-calendar-clear::before {
+  content: "✦";
+
+  color: var(--gold);
+}
+
+.blog-calendar > .blog-calendar-clear:hover,
+.blog-calendar > .blog-calendar-clear:focus-visible {
+  color: #1d1208;
+  background: linear-gradient(145deg, #efbd72, #f5efe6);
+
+  outline: none;
+}
+
+/* =========================================================
+   09. MINI LISTS
+   ========================================================= */
 
 .blog-mini-list {
   margin: 0;
@@ -820,42 +1097,20 @@
   font-size: 0.82rem;
 }
 
-.blog-mini-list button:hover strong {
+.blog-mini-list button:hover strong,
+.blog-mini-list a:hover strong {
   color: var(--dark);
 }
 
-.featured-shop-widget {
-  position: relative;
+.featured-shop-link {
+  color: var(--coffee);
 
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(239, 189, 114, 0.18),
-      transparent 12rem
-    ),
-    linear-gradient(
-      145deg,
-      rgba(255, 250, 245, 0.94),
-      rgba(245, 239, 230, 0.82)
-    );
-}
-
-.featured-shop-widget::after {
-  content: "✦";
-
-  position: absolute;
-  top: 0.85rem;
-  right: 1rem;
-
-  color: var(--gold);
-
-  font-size: 0.8rem;
-
-  text-shadow: 0 0 10px rgba(216, 164, 93, 0.45);
+  font-weight: 900;
+  text-underline-offset: 0.22rem;
 }
 
 /* =========================================================
-   12. BLOG PAGINATION
+   10. PAGINATION
    ========================================================= */
 
 .blog-pagination {
@@ -907,6 +1162,8 @@
     0 8px 18px rgba(59, 43, 34, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.72);
 
+  cursor: pointer;
+
   transition:
     transform 180ms ease,
     background 180ms ease,
@@ -923,8 +1180,8 @@
 }
 
 .blog-page-button:disabled {
-  opacity: 0.4;
   cursor: not-allowed;
+  opacity: 0.4;
   transform: none;
 }
 
@@ -970,7 +1227,7 @@
 }
 
 /* =========================================================
-   13. SINGLE BLOG POST
+   11. STANDALONE BLOG POST
    ========================================================= */
 
 .blog-post-page {
@@ -1008,6 +1265,39 @@
   font-size: clamp(2.2rem, 5vw, 4.2rem);
   line-height: 0.95;
   letter-spacing: -0.045em;
+}
+
+.blog-post h1,
+.blog-post-title {
+  position: relative;
+
+  width: fit-content;
+  max-width: 100%;
+}
+
+.blog-post h1::after,
+.blog-post-title::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+
+  width: 100%;
+  height: 0.16rem;
+
+  background: linear-gradient(
+    to right,
+    rgba(122, 82, 48, 0.92),
+    rgba(216, 164, 93, 0.72),
+    transparent
+  );
+
+  border-radius: var(--radius-pill);
+
+  box-shadow:
+    0 1px 0 rgba(255, 250, 245, 0.85),
+    0 5px 12px rgba(59, 43, 34, 0.12);
 }
 
 .blog-post-emoji {
@@ -1099,6 +1389,7 @@
 
 .blog-post-feature-image {
   display: block;
+
   width: 100%;
   max-height: 460px;
 
@@ -1167,11 +1458,16 @@
 .blog-post-content img {
   display: block;
 
-  margin: 1.6rem auto;
+  width: min(100%, 920px);
 
-  border-radius: 22px;
+  margin: 2rem auto 0.75rem;
 
-  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(139, 94, 60, 0.22);
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 48px rgba(59, 43, 34, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .blog-post-content .video-label {
@@ -1187,9 +1483,9 @@
 .blog-post-content iframe,
 .blog-post-content video {
   display: block;
+
   width: 100%;
   max-width: 100%;
-
   aspect-ratio: 16 / 9;
   height: auto;
 
@@ -1234,570 +1530,12 @@
 }
 
 /* =========================================================
-   BLOG CALENDAR + BLOG TITLE POLISH
-   Final tidy version
+   12. IMAGE LIGHTBOX
    ========================================================= */
-
-/* Standalone blog post title underline */
-.blog-post h1,
-.blog-post-title {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-}
-
-.blog-post h1::after,
-.blog-post-title::after {
-  content: "";
-
-  position: absolute;
-  left: 0;
-  bottom: -0.35rem;
-
-  width: 100%;
-  height: 0.16rem;
-
-  background: linear-gradient(
-    to right,
-    rgba(122, 82, 48, 0.92),
-    rgba(216, 164, 93, 0.72),
-    transparent
-  );
-
-  border-radius: var(--radius-pill);
-
-  box-shadow:
-    0 1px 0 rgba(255, 250, 245, 0.85),
-    0 5px 12px rgba(59, 43, 34, 0.12);
-}
-
-/* Calendar layout */
-.blog-calendar {
-  display: grid;
-  gap: 0.75rem;
-}
-
-/* Header should read: < June 2026 > */
-.blog-calendar-header {
-  width: 100%;
-
-  display: grid;
-  grid-template-columns: 2.35rem minmax(0, 1fr) 2.35rem;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-/* In the current blog index, the clear button may still live inside the header.
-   Hide it there so the month row stays clean. */
-.blog-calendar-header .blog-calendar-clear {
-  display: none;
-}
-
-.blog-calendar-arrow {
-  position: static;
-
-  width: 2.35rem;
-  height: 2.35rem;
-  min-width: 2.35rem;
-  padding: 0;
-
-  display: grid;
-  place-items: center;
-
-  color: var(--gold);
-  background: transparent;
-
-  border: 0;
-  border-radius: var(--radius-pill);
-
-  font-size: 1.2rem;
-  font-weight: 900;
-  line-height: 1;
-
-  text-shadow:
-    0 0 10px rgba(216, 164, 93, 0.8),
-    0 1px 0 rgba(255, 250, 245, 0.25),
-    0 4px 10px rgba(0, 0, 0, 0.28);
-
-  cursor: pointer;
-}
-
-.blog-calendar-title-button {
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  min-height: 2.35rem;
-
-  padding: 0.25rem 0.55rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--coffee);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 245, 0.52),
-    rgba(230, 216, 201, 0.22)
-  );
-
-  border: 1px solid rgba(139, 94, 60, 0.08);
-  border-radius: var(--radius-pill);
-
-  text-align: center;
-  white-space: nowrap;
-
-  font-family: var(--font-script);
-  font-size: 0.94rem;
-  font-weight: 900;
-  line-height: 1.1;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.46),
-    0 6px 14px rgba(59, 43, 34, 0.06);
-
-  cursor: pointer;
-}
-
-.blog-calendar-title-button span,
-.blog-calendar-title-button [data-calendar-label] {
-  display: block;
-  width: 100%;
-
-  text-align: center;
-  white-space: nowrap;
-}
-
-.blog-calendar-arrow:hover,
-.blog-calendar-arrow:focus-visible,
-.blog-calendar-title-button:hover,
-.blog-calendar-title-button:focus-visible {
-  color: #1d1208;
-  background: rgba(216, 164, 93, 0.18);
-
-  outline: none;
-}
-
-/* Calendar day grid */
-.blog-calendar-view {
-  width: 100%;
-  margin-top: 0.1rem;
-}
-
-.blog-calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 0.32rem;
-}
-
-.blog-calendar-day,
-.blog-calendar-date,
-.blog-calendar-empty {
-  min-width: 0;
-  aspect-ratio: 1;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 10px;
-
-  font-size: 0.72rem;
-  font-weight: 800;
-}
-
-.blog-calendar-day {
-  color: rgba(45, 34, 24, 0.48);
-}
-
-.blog-calendar-empty {
-  opacity: 0;
-}
-
-.blog-calendar-date {
-  color: rgba(45, 34, 24, 0.68);
-  background: rgba(255, 250, 245, 0.48);
-
-  border: 1px solid rgba(139, 94, 60, 0.08);
-
-  text-decoration: none;
-
-  cursor: pointer;
-
-  transition:
-    transform 180ms ease,
-    background 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.blog-calendar-date:disabled {
-  cursor: default;
-  opacity: 0.45;
-}
-
-.blog-calendar-date.has-post {
-  color: #fff7ed;
-  background: linear-gradient(
-    145deg,
-    rgba(126, 78, 39, 0.9),
-    rgba(54, 35, 23, 0.92)
-  );
-
-  box-shadow:
-    0 8px 18px rgba(59, 43, 34, 0.16),
-    inset 0 1px 0 rgba(255, 246, 229, 0.2);
-}
-
-.blog-calendar-date.has-post:hover,
-.blog-calendar-date.is-active {
-  transform: translateY(-1px);
-
-  color: #1d1208;
-  background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-  border-color: rgba(216, 164, 93, 0.55);
-
-  box-shadow:
-    0 10px 24px rgba(59, 43, 34, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
-}
-
-/* Year/month picker grids */
-.blog-calendar-picker-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.45rem;
-}
-
-.blog-calendar-picker-button {
-  min-height: 2.35rem;
-  padding: 0.45rem 0.35rem;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--coffee);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 245, 0.9),
-    rgba(230, 216, 201, 0.58)
-  );
-
-  border: 1px solid rgba(139, 94, 60, 0.1);
-  border-radius: 14px;
-
-  font-size: 0.82rem;
-  font-weight: 900;
-
-  box-shadow:
-    0 8px 18px rgba(59, 43, 34, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
-
-  cursor: pointer;
-
-  transition:
-    transform 180ms ease,
-    background 180ms ease,
-    color 180ms ease;
-}
-
-.blog-calendar-picker-button:hover,
-.blog-calendar-picker-button:focus-visible,
-.blog-calendar-picker-button.is-active {
-  transform: translateY(-1px);
-
-  color: #1d1208;
-  background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-  outline: none;
-}
-
-/* Clear button, designed to sit under the calendar if moved out of the header */
-.blog-calendar-clear {
-  width: fit-content;
-  min-height: 2.35rem;
-
-  margin: 0.35rem auto 0;
-  padding: 0.55rem 0.95rem;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-
-  color: var(--coffee);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 245, 0.9),
-    rgba(230, 216, 201, 0.58)
-  );
-
-  border: 1px solid rgba(139, 94, 60, 0.12);
-  border-radius: var(--radius-pill);
-
-  font-size: 0.78rem;
-  font-weight: 900;
-
-  box-shadow:
-    0 8px 18px rgba(59, 43, 34, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
-
-  cursor: pointer;
-}
-
-.blog-calendar-clear::before {
-  content: "✦";
-  color: var(--gold);
-}
-
-.blog-calendar-clear:hover,
-.blog-calendar-clear:focus-visible {
-  color: #1d1208;
-  background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-  outline: none;
-}
-
-/* Focus safety */
-.blog-calendar-date:focus-visible,
-.blog-filter-chip:focus-visible,
-.blog-mini-list button:focus-visible {
-  outline: 3px solid rgba(239, 189, 114, 0.72);
-  outline-offset: 3px;
-}
-
-/* Mobile tidy-up */
-@media (max-width: 760px) {
-  .blog-calendar {
-    gap: 0.7rem;
-  }
-
-  .blog-calendar-header {
-    grid-template-columns: 2.2rem minmax(0, 1fr) 2.2rem;
-    gap: 0.35rem;
-  }
-
-  .blog-calendar-arrow {
-    width: 2.2rem;
-    height: 2.2rem;
-    min-width: 2.2rem;
-  }
-
-  .blog-calendar-title-button {
-    min-height: 2.2rem;
-    padding-inline: 0.4rem;
-
-    font-size: 0.86rem;
-  }
-
-  .blog-calendar-grid {
-    gap: 0.28rem;
-  }
-
-  .blog-calendar-picker-grid {
-    gap: 0.4rem;
-  }
-
-  .blog-calendar-picker-button {
-    min-height: 2.25rem;
-
-    font-size: 0.78rem;
-  }
-}
-
-/* =========================================================
-   BLOG CALENDAR HEADER OVERRIDE
-   Final clean version: ‹  June 2026  ›
-   ========================================================= */
-
-.blog-calendar-header {
-  width: 100% !important;
-  margin: 0 auto 0.35rem !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.55rem !important;
-}
-
-.blog-calendar-header .blog-calendar-arrow {
-  flex: 0 0 2.2rem !important;
-
-  width: 2.2rem !important;
-  min-width: 2.2rem !important;
-  height: 2.2rem !important;
-  min-height: 2.2rem !important;
-  padding: 0 !important;
-
-  display: inline-grid !important;
-  place-items: center !important;
-
-  position: static !important;
-
-  color: var(--gold) !important;
-  background: transparent !important;
-
-  border: 0 !important;
-  border-radius: var(--radius-pill) !important;
-
-  font-family: var(--font-title) !important;
-  font-size: 1.25rem !important;
-  font-weight: 900 !important;
-  line-height: 1 !important;
-
-  text-align: center !important;
-  text-shadow:
-    0 0 10px rgba(216, 164, 93, 0.8),
-    0 1px 0 rgba(255, 250, 245, 0.25),
-    0 4px 10px rgba(0, 0, 0, 0.28) !important;
-}
-
-.blog-calendar-header .blog-calendar-title-button {
-  flex: 0 1 auto !important;
-
-  width: auto !important;
-  min-width: 8.75rem !important;
-  max-width: 12rem !important;
-  min-height: 2.2rem !important;
-  padding: 0.25rem 0.8rem !important;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  position: static !important;
-
-  color: var(--coffee) !important;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 245, 0.58),
-    rgba(230, 216, 201, 0.22)
-  ) !important;
-
-  border: 1px solid rgba(139, 94, 60, 0.08) !important;
-  border-radius: var(--radius-pill) !important;
-
-  text-align: center !important;
-  white-space: nowrap !important;
-
-  font-family: var(--font-script) !important;
-  font-size: 0.92rem !important;
-  font-weight: 900 !important;
-  line-height: 1.1 !important;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.46),
-    0 6px 14px rgba(59, 43, 34, 0.06) !important;
-}
-
-.blog-calendar-header .blog-calendar-title-button span,
-.blog-calendar-header .blog-calendar-title-button [data-calendar-label] {
-  display: inline-block !important;
-  width: auto !important;
-
-  text-align: center !important;
-  white-space: nowrap !important;
-}
-
-.blog-calendar-header .blog-calendar-arrow:hover,
-.blog-calendar-header .blog-calendar-arrow:focus-visible,
-.blog-calendar-header .blog-calendar-title-button:hover,
-.blog-calendar-header .blog-calendar-title-button:focus-visible {
-  color: #1d1208 !important;
-  background: rgba(216, 164, 93, 0.18) !important;
-
-  outline: none !important;
-}
-
-/* Clear button belongs under the calendar, not in the header */
-.blog-calendar > .blog-calendar-clear {
-  width: fit-content !important;
-  min-height: 2.35rem !important;
-
-  margin: 0.45rem auto 0 !important;
-  padding: 0.55rem 1rem !important;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.35rem !important;
-
-  color: var(--coffee) !important;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 245, 0.9),
-    rgba(230, 216, 201, 0.58)
-  ) !important;
-
-  border: 1px solid rgba(139, 94, 60, 0.12) !important;
-  border-radius: var(--radius-pill) !important;
-
-  font-size: 0.78rem !important;
-  font-weight: 900 !important;
-
-  box-shadow:
-    0 8px 18px rgba(59, 43, 34, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
-}
-
-.blog-calendar > .blog-calendar-clear::before {
-  content: "✦";
-  color: var(--gold);
-}
-
-.blog-calendar > .blog-calendar-clear:hover,
-.blog-calendar > .blog-calendar-clear:focus-visible {
-  color: #1d1208 !important;
-  background: linear-gradient(145deg, #efbd72, #f5efe6) !important;
-
-  outline: none !important;
-}
-
-@media (max-width: 760px) {
-  .blog-calendar-header {
-    gap: 0.4rem !important;
-  }
-
-  .blog-calendar-header .blog-calendar-arrow {
-    flex-basis: 2rem !important;
-    width: 2rem !important;
-    min-width: 2rem !important;
-    height: 2rem !important;
-    min-height: 2rem !important;
-
-    font-size: 1.12rem !important;
-  }
-
-  .blog-calendar-header .blog-calendar-title-button {
-    min-width: 7.8rem !important;
-    max-width: 10rem !important;
-    min-height: 2rem !important;
-    padding-inline: 0.65rem !important;
-
-    font-size: 0.86rem !important;
-  }
-}
-
-/* =========================================================
-   BLOG IMAGE LIGHTBOX
-   Clickable blog images with arrows and mobile swipe
-   ========================================================= */
-
-.blog-post-content img {
-  display: block;
-  width: min(100%, 920px);
-  margin: 2rem auto 0.75rem;
-  border-radius: 24px;
-  border: 1px solid rgba(139, 94, 60, 0.22);
-  box-shadow:
-    0 20px 48px rgba(59, 43, 34, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
 
 .blog-clickable-image {
   cursor: zoom-in;
+
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
@@ -1808,7 +1546,9 @@
 .blog-clickable-image:focus-visible {
   transform: translateY(-2px);
   filter: brightness(1.02);
+
   outline: none;
+
   box-shadow:
     0 26px 60px rgba(59, 43, 34, 0.23),
     0 0 0 4px rgba(217, 161, 91, 0.24);
@@ -1823,10 +1563,10 @@
   inset: 0;
   z-index: 5000;
 
+  padding: clamp(1rem, 3vw, 2.5rem);
+
   display: grid;
   place-items: center;
-
-  padding: clamp(1rem, 3vw, 2.5rem);
 
   background:
     radial-gradient(
@@ -1847,6 +1587,7 @@ body.lightbox-open {
 .blog-lightbox-figure {
   width: min(100%, 1120px);
   max-height: 88vh;
+
   margin: 0;
 
   display: grid;
@@ -1860,8 +1601,8 @@ body.lightbox-open {
 
   object-fit: contain;
 
-  border-radius: 28px;
   border: 1px solid rgba(255, 250, 245, 0.42);
+  border-radius: 28px;
 
   box-shadow:
     0 34px 90px rgba(0, 0, 0, 0.48),
@@ -1880,6 +1621,7 @@ body.lightbox-open {
   border-radius: 999px;
 
   text-align: center;
+
   font-size: 0.95rem;
   line-height: 1.45;
 
@@ -1948,8 +1690,227 @@ body.lightbox-open {
 .blog-lightbox-arrow:focus-visible {
   color: #1d1208;
   background: linear-gradient(145deg, #efbd72, #a26324);
+
   outline: none;
 }
+
+/* Image click hint, wrapped in @supports so older browsers ignore safely. */
+@supports selector(p:has(> img)) {
+  .blog-post-content p:has(> img.blog-clickable-image) {
+    position: relative;
+
+    width: fit-content;
+    max-width: 100%;
+
+    margin: 2rem auto 0.75rem;
+  }
+
+  .blog-post-content p:has(> img.blog-clickable-image)::after {
+    content: "🔍 Click to enlarge";
+
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    z-index: 2;
+
+    min-width: 155px;
+    min-height: 48px;
+    padding: 0.65rem 1.2rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff6e9;
+    background:
+      radial-gradient(
+        circle at 30% 12%,
+        rgba(255, 239, 205, 0.2),
+        transparent 42%
+      ),
+      linear-gradient(145deg, rgba(126, 78, 39, 0.92), rgba(54, 35, 23, 0.94));
+
+    border: 1px solid rgba(216, 164, 93, 0.86);
+    border-radius: 17px;
+
+    text-align: center;
+    text-decoration: none;
+
+    font-family: var(--font-title);
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+
+    box-shadow:
+      0 16px 34px rgba(0, 0, 0, 0.38),
+      0 0 0 1px rgba(255, 246, 229, 0.06) inset,
+      inset 0 1px 0 rgba(255, 246, 229, 0.24),
+      inset 0 -12px 24px rgba(36, 22, 14, 0.28);
+
+    pointer-events: none;
+
+    transform: translateX(-50%);
+
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease,
+      background 180ms ease;
+  }
+
+  .blog-post-content p:has(> img.blog-clickable-image)::before {
+    content: "✦";
+
+    position: absolute;
+    left: calc(50% - 98px);
+    bottom: 38px;
+    z-index: 3;
+
+    color: var(--gold);
+
+    font-size: 0.68rem;
+
+    pointer-events: none;
+
+    text-shadow:
+      0 0 12px rgba(216, 164, 93, 0.85),
+      0 2px 8px rgba(0, 0, 0, 0.65);
+  }
+
+  .blog-post-content p:has(> img.blog-clickable-image):hover::after,
+  .blog-post-content p:has(> img.blog-clickable-image):focus-within::after {
+    color: #1d1208;
+    background:
+      radial-gradient(
+        circle at 30% 12%,
+        rgba(255, 239, 205, 0.34),
+        transparent 42%
+      ),
+      linear-gradient(145deg, #efbd72, #a26324);
+
+    transform: translateX(-50%) translateY(-3px);
+  }
+}
+
+/* =========================================================
+   13. TABLET / MOBILE LAYOUT
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .blog-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-sidebar {
+    position: static;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .breadcrumb-trail,
+  .blog-page {
+    padding-left: clamp(3.05rem, 10vw, 3.65rem);
+    padding-right: 0.75rem;
+  }
+
+  .blog-card-topline {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  .blog-card-top-tags {
+    justify-content: flex-start;
+
+    text-align: left;
+  }
+
+  .blog-card-toggle {
+    min-height: 230px;
+  }
+
+  .blog-calendar-header {
+    gap: 0.4rem;
+  }
+
+  .blog-calendar-arrow,
+  .blog-calendar-header .blog-calendar-arrow {
+    flex-basis: 2rem;
+
+    width: 2rem;
+    min-width: 2rem;
+    height: 2rem;
+    min-height: 2rem;
+
+    font-size: 1.12rem;
+  }
+
+  .blog-calendar-title-button,
+  .blog-calendar-header .blog-calendar-title-button {
+    min-width: 7.8rem;
+    max-width: 10rem;
+    min-height: 2rem;
+    padding-inline: 0.65rem;
+
+    font-size: 0.86rem;
+  }
+
+  .blog-calendar-grid {
+    gap: 0.28rem;
+  }
+
+  .blog-calendar-picker-grid {
+    gap: 0.4rem;
+  }
+
+  .blog-calendar-picker-button {
+    min-height: 2.25rem;
+
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .blog-card-preview-thumbs {
+    position: static;
+
+    margin: 1rem 0 0;
+
+    justify-content: flex-start;
+  }
+
+  .blog-card-preview-thumb {
+    width: 74px;
+    height: 54px;
+
+    border-radius: 12px;
+  }
+
+  .blog-card-preview-more {
+    width: 30px;
+    height: 30px;
+
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-card-preview-thumb {
+    width: 64px;
+    height: 48px;
+  }
+
+  .blog-card-preview-more {
+    width: 28px;
+    height: 28px;
+
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================================================
+   14. LIGHTBOX MOBILE
+   ========================================================= */
 
 @media (max-width: 700px) {
   .blog-image-lightbox {
@@ -1958,11 +1919,13 @@ body.lightbox-open {
 
   .blog-lightbox-figure img {
     max-height: 72vh;
+
     border-radius: 20px;
   }
 
   .blog-lightbox-figure figcaption {
     border-radius: 20px;
+
     font-size: 0.88rem;
   }
 
@@ -1985,776 +1948,67 @@ body.lightbox-open {
   .blog-lightbox-next {
     right: calc(50% - 62px);
   }
-}
 
-/* =========================================================
-   BLOG IMAGE CLICK HINT
-   Little banner on clickable blog images
-   ========================================================= */
+  @supports selector(p:has(> img)) {
+    .blog-post-content p:has(> img.blog-clickable-image)::after {
+      min-width: 145px;
+      min-height: 44px;
 
-.blog-post-content p:has(> img.blog-clickable-image) {
-  position: relative;
-  width: fit-content;
-  max-width: 100%;
-  margin: 2rem auto 0.75rem;
-}
+      bottom: 14px;
 
-.blog-post-content p:has(> img.blog-clickable-image)::after {
-  content: "🔍 Click to enlarge";
+      padding: 0.55rem 1rem;
 
-  position: absolute;
-  left: 50%;
-  bottom: 20px;
-  z-index: 2;
+      font-size: 0.9rem;
+    }
 
-  min-width: 155px;
-  min-height: 48px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0.65rem 1.2rem;
-
-  color: #fff6e9;
-  background:
-    radial-gradient(
-      circle at 30% 12%,
-      rgba(255, 239, 205, 0.2),
-      transparent 42%
-    ),
-    linear-gradient(145deg, rgba(126, 78, 39, 0.92), rgba(54, 35, 23, 0.94));
-
-  border: 1px solid rgba(216, 164, 93, 0.86);
-  border-radius: 17px;
-
-  text-align: center;
-  text-decoration: none;
-
-  font-family: var(--font-title);
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-
-  box-shadow:
-    0 16px 34px rgba(0, 0, 0, 0.38),
-    0 0 0 1px rgba(255, 246, 229, 0.06) inset,
-    inset 0 1px 0 rgba(255, 246, 229, 0.24),
-    inset 0 -12px 24px rgba(36, 22, 14, 0.28);
-
-  pointer-events: none;
-
-  transform: translateX(-50%);
-  transition:
-    transform 180ms ease,
-    opacity 180ms ease,
-    background 180ms ease;
-}
-
-.blog-post-content p:has(> img.blog-clickable-image)::before {
-  content: "✦";
-
-  position: absolute;
-  left: calc(50% - 98px);
-  bottom: 38px;
-  z-index: 3;
-
-  color: var(--gold);
-  font-size: 0.68rem;
-
-  pointer-events: none;
-
-  text-shadow:
-    0 0 12px rgba(216, 164, 93, 0.85),
-    0 2px 8px rgba(0, 0, 0, 0.65);
-}
-
-.blog-post-content p:has(> img.blog-clickable-image):hover::after,
-.blog-post-content p:has(> img.blog-clickable-image):focus-within::after {
-  color: #1d1208;
-  background:
-    radial-gradient(
-      circle at 30% 12%,
-      rgba(255, 239, 205, 0.34),
-      transparent 42%
-    ),
-    linear-gradient(145deg, #efbd72, #a26324);
-
-  transform: translateX(-50%) translateY(-3px);
-}
-
-@media (max-width: 700px) {
-  .blog-post-content p:has(> img.blog-clickable-image)::after {
-    min-width: 145px;
-    min-height: 44px;
-
-    bottom: 14px;
-
-    padding: 0.55rem 1rem;
-
-    font-size: 0.9rem;
-  }
-
-  .blog-post-content p:has(> img.blog-clickable-image)::before {
-    left: calc(50% - 92px);
-    bottom: 30px;
+    .blog-post-content p:has(> img.blog-clickable-image)::before {
+      left: calc(50% - 92px);
+      bottom: 30px;
+    }
   }
 }
 
 /* =========================================================
-   BLOG CARD IMAGE PREVIEWS
-   Tiny photo previews on closed blog cards
+   15. FOCUS SAFETY
    ========================================================= */
 
-.blog-card-toggle {
-  position: relative;
-}
-
-.blog-card-preview-thumbs {
-  position: absolute;
-  right: clamp(1rem, 2vw, 1.5rem);
-  bottom: 1.1rem;
-  z-index: 2;
-
-  display: flex;
-  gap: 0.45rem;
-  align-items: center;
-  justify-content: flex-end;
-
-  pointer-events: none;
-}
-
-.blog-card-preview-thumb {
-  width: 100px;
-  height: 68px;
-
-  display: block;
-  overflow: hidden;
-
-  border: 1px solid rgba(216, 164, 93, 0.52);
-  border-radius: 14px;
-
-  background: rgba(255, 250, 245, 0.55);
-
-  box-shadow:
-    0 10px 24px rgba(59, 43, 34, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
-
-  transform: rotate(-1deg);
-}
-
-.blog-card-preview-thumb:nth-child(2) {
-  transform: rotate(1deg);
-}
-
-.blog-card-preview-thumb:nth-child(3) {
-  transform: rotate(-0.5deg);
-}
-
-.blog-card-preview-thumb img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-  object-position: center;
-}
-
-.blog-card.is-open .blog-card-preview-thumbs {
-  display: none;
-}
-
-@media (max-width: 850px) {
-  .blog-card-preview-thumbs {
-    position: static;
-
-    margin: 1rem 0 0;
-
-    justify-content: flex-start;
-  }
-
-  .blog-card-preview-thumb {
-    width: 74px;
-    height: 54px;
-
-    border-radius: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-card-preview-thumb {
-    width: 64px;
-    height: 48px;
-  }
-}
-
-.blog-card-preview-more {
-  width: 34px;
-  height: 34px;
-
-  display: inline-grid;
-  place-items: center;
-
-  align-self: center;
-
-  color: #fff6e9;
-  background:
-    radial-gradient(
-      circle at 30% 18%,
-      rgba(255, 239, 205, 0.24),
-      transparent 42%
-    ),
-    linear-gradient(145deg, rgba(126, 78, 39, 0.94), rgba(54, 35, 23, 0.96));
-
-  border: 1px solid rgba(216, 164, 93, 0.86);
-  border-radius: 999px;
-
-  font-family: var(--font-title);
-  font-size: 1rem;
-  font-weight: 900;
-  line-height: 1;
-
-  box-shadow:
-    0 10px 24px rgba(59, 43, 34, 0.22),
-    0 0 0 1px rgba(255, 246, 229, 0.06) inset,
-    inset 0 1px 0 rgba(255, 246, 229, 0.24);
-
-  transform: rotate(1deg);
-}
-
-@media (max-width: 850px) {
-  .blog-card-preview-more {
-    width: 30px;
-    height: 30px;
-
-    font-size: 0.92rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-card-preview-more {
-    width: 28px;
-    height: 28px;
-
-    font-size: 0.85rem;
-  }
-}
-.hero-home {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-}
-
-.hero-home > *:not(.cover-slideshow) {
-  position: relative;
-  z-index: 1;
+.blog-calendar-date:focus-visible,
+.blog-filter-chip:focus-visible,
+.blog-mini-list button:focus-visible,
+.blog-mini-list a:focus-visible,
+.featured-shop-link:focus-visible {
+  outline: 3px solid rgba(239, 189, 114, 0.72);
+  outline-offset: 3px;
 }
 
 /* =========================================================
-   02. TABLET LAYOUT
+   16. MOTION SAFETY
    ========================================================= */
 
-@media (max-width: 1100px) {
-  .footer-layout {
-    grid-template-columns: 1fr;
-    gap: 2.6rem;
-    align-items: start;
+@media (prefers-reduced-motion: reduce) {
+  .blog-card,
+  .blog-filter-chip,
+  .blog-calendar-date,
+  .blog-calendar-picker-button,
+  .blog-page-button,
+  .blog-page-number,
+  .blog-clickable-image {
+    transition: none !important;
   }
 
-  .footer-right {
-    order: -1;
-  }
-
-  .footer-left {
-    max-width: none;
-  }
-
-  .footer-brand-lockup {
-    min-height: 220px;
-  }
-
-  .footer-logo {
-    width: clamp(130px, 22vw, 180px);
-  }
-
-  .footer-description {
-    max-width: 520px;
-  }
-
-  .blog-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .blog-sidebar {
-    position: static;
-
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-}
-
-/* =========================================================
-   MOBILE SIDE DRAWER
-   Blog tools / filters / calendar drawer
-   ========================================================= */
-
-@media (max-width: 760px) {
-  .has-mobile-side-drawer {
-    position: relative;
-  }
-
-  .mobile-side-drawer-toggle {
-    position: fixed;
-    top: 50%;
-    left: 0;
-    z-index: 10040;
-
-    width: 42px;
-    min-height: 132px;
-    padding: 0.8rem 0.35rem;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border: 1px solid rgba(255, 250, 245, 0.55);
-    border-left: 0;
-    border-radius: 0 18px 18px 0;
-
-    box-shadow:
-      8px 12px 26px rgba(0, 0, 0, 0.24),
-      inset 0 1px 0 rgba(255, 255, 255, 0.42);
-
-    font-family: var(--font-script);
-    font-size: 0.95rem;
-    font-weight: 900;
-    line-height: 1;
-
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-
-    transform: translateY(-50%);
-
-    transition:
-      transform 180ms ease,
-      background 180ms ease,
-      color 180ms ease,
-      box-shadow 180ms ease;
-  }
-
-  .mobile-side-drawer-toggle:hover,
-  .mobile-side-drawer-toggle:focus-visible {
-    color: #fffaf5;
-    background: linear-gradient(
-      145deg,
-      rgba(126, 78, 39, 0.98),
-      rgba(54, 35, 23, 0.98)
-    );
-
-    outline: none;
-
-    box-shadow:
-      10px 16px 34px rgba(0, 0, 0, 0.32),
-      inset 0 1px 0 rgba(255, 246, 229, 0.18);
-  }
-
-  .mobile-side-drawer-toggle[aria-expanded="true"] {
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    transform: translateY(-50%) translateX(min(88vw, 360px));
-  }
-
-  .mobile-side-drawer-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 10020;
-
-    display: block;
-
-    background: rgba(20, 13, 9, 0.52);
-
-    border: 0;
-
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-  }
-
-  .mobile-side-drawer-backdrop[hidden] {
-    display: none;
-  }
-
-  .mobile-side-drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 10030;
-
-    width: min(88vw, 360px);
-    height: 100vh;
-    height: 100svh;
-
-    padding: 5.4rem 1rem 1.25rem;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    align-content: start;
-    gap: 1rem;
-
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-
-    background:
-      radial-gradient(
-        circle at top left,
-        rgba(239, 189, 114, 0.22),
-        transparent 36%
-      ),
-      linear-gradient(
-        155deg,
-        rgba(66, 44, 30, 0.98) 0%,
-        rgba(43, 29, 21, 0.98) 44%,
-        rgba(24, 17, 13, 0.98) 100%
-      );
-
-    border-right: 1px solid rgba(239, 189, 114, 0.34);
-    border-radius: 0 22px 22px 0;
-
-    box-shadow:
-      18px 0 45px rgba(0, 0, 0, 0.38),
-      inset -1px 0 0 rgba(255, 246, 229, 0.08);
-
-    backdrop-filter: blur(18px) saturate(1.12);
-    -webkit-backdrop-filter: blur(18px) saturate(1.12);
-
-    transform: translateX(-105%);
-    transition: transform 220ms ease;
-  }
-
-  .mobile-side-drawer.is-open {
-    transform: translateX(0);
-  }
-
-  .mobile-side-drawer .blog-widget {
-    margin: 0;
-  }
-
-  .mobile-side-drawer {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(239, 189, 114, 0.72) rgba(31, 22, 16, 0.55);
-    scrollbar-gutter: stable;
-  }
-
-  .mobile-side-drawer::-webkit-scrollbar {
-    width: 0.65rem;
-  }
-
-  .mobile-side-drawer::-webkit-scrollbar-track {
-    background: rgba(31, 22, 16, 0.55);
-    border-radius: var(--radius-pill);
-  }
-
-  .mobile-side-drawer::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #efbd72, #7a5230);
-    border: 2px solid rgba(31, 22, 16, 0.55);
-    border-radius: var(--radius-pill);
-  }
-
-  .mobile-side-drawer .blog-widget {
-    overflow: visible;
-  }
-
-  .mobile-side-drawer .blog-calendar {
-    min-width: 0;
-  }
-
-  .mobile-side-drawer .blog-calendar-grid {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 0.32rem;
-  }
-
-  .mobile-side-drawer .blog-calendar-day,
-  .mobile-side-drawer .blog-calendar-date,
-  .mobile-side-drawer .blog-calendar-empty {
-    width: 100%;
-    min-width: 0;
-    min-height: 1.95rem;
-    padding: 0;
-
-    display: grid;
-    place-items: center;
-
-    font-size: 0.68rem;
-    line-height: 1;
-  }
-
-  .mobile-side-drawer .blog-calendar-date {
-    touch-action: manipulation;
-  }
-
-  .mobile-side-drawer .blog-calendar-date:focus-visible,
-  .mobile-side-drawer .blog-filter-chip:focus-visible,
-  .mobile-side-drawer .blog-mini-list button:focus-visible,
-  .mobile-side-drawer .featured-shop-link:focus-visible {
-    outline: 3px solid rgba(239, 189, 114, 0.78);
-    outline-offset: 3px;
-  }
-
-  .mobile-side-drawer .blog-filter-stack {
-    gap: 0.55rem;
-  }
-
-  .mobile-side-drawer .blog-mini-list {
-    max-height: none;
-  }
-
-  .has-open-mobile-side-drawer {
-    overflow: hidden;
-  }
-}
-
-@media (min-width: 761px) {
-  .mobile-side-drawer-toggle,
-  .mobile-side-drawer-backdrop {
-    display: none;
-  }
-}
-
-/* =========================================================
-   09. BLOG CONTENT OFFSET
-   Keeps breadcrumbs and cards aligned beside the left Blog Tools tab
-   ========================================================= */
-
-@media (max-width: 760px) {
-  .breadcrumb-trail,
-  .blog-page {
-    padding-left: clamp(3.05rem, 10vw, 3.65rem);
-    padding-right: 0.75rem;
-  }
-
-  .blog-posts-area,
-  .blog-grid {
-    min-width: 0;
-  }
-}
-
-/* =========================================================
-   BLOG MOBILE DRAWER READABILITY POLISH
-   Makes drawer headings and dates simpler to scan
-   ========================================================= */
-
-@media (max-width: 900px) {
-  .mobile-side-drawer .blog-widget h2,
-  .mobile-side-drawer .blog-calendar-widget h2,
-  .mobile-side-drawer .blog-filter-widget h2,
-  .mobile-side-drawer .blog-archive-widget h2,
-  .mobile-side-drawer .blog-mini-list-widget h2,
-  .mobile-side-drawer .featured-shop-widget h2 {
-    font-family:
-      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
-    font-size: clamp(1rem, 5vw, 1.25rem) !important;
-    line-height: 1.15 !important;
-    letter-spacing: 0.015em;
-    text-transform: none;
-  }
-
-  .mobile-side-drawer .blog-calendar-label,
-  .mobile-side-drawer .blog-calendar-title,
-  .mobile-side-drawer .blog-calendar-title-button,
-  .mobile-side-drawer .blog-calendar-month,
-  .mobile-side-drawer .blog-calendar-year,
-  .mobile-side-drawer .blog-archive-month,
-  .mobile-side-drawer .blog-mini-list time,
-  .mobile-side-drawer time {
-    font-family:
-      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
-    font-size: 0.76rem !important;
-    line-height: 1.35 !important;
-    letter-spacing: 0.01em;
-  }
-
-  .mobile-side-drawer .blog-archive-month {
-    color: var(--coffee);
-    font-size: 0.9rem !important;
-  }
-
-  .mobile-side-drawer .blog-mini-list a,
-  .mobile-side-drawer .blog-mini-list button,
-  .mobile-side-drawer .featured-shop-widget a {
-    font-family:
-      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
-    font-size: 0.78rem !important;
-    line-height: 1.28 !important;
-    letter-spacing: 0.005em;
-  }
-
-  .mobile-side-drawer .blog-widget p,
-  .mobile-side-drawer .blog-archive-count,
-  .mobile-side-drawer .featured-shop-widget p {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    line-height: 1.55;
-  }
-
-  .mobile-side-drawer .blog-calendar-day,
-  .mobile-side-drawer .blog-calendar-date,
-  .mobile-side-drawer .blog-calendar-empty {
-    font-family:
-      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
-    font-size: 0.68rem !important;
-  }
-
-  .mobile-side-drawer .blog-filter-chip {
-    font-family:
-      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
-    font-size: 0.72rem !important;
-    letter-spacing: 0.005em;
-  }
-}
-
-@media (max-width: 430px) {
-  .mobile-side-drawer .blog-widget h2,
-  .mobile-side-drawer .blog-calendar-widget h2,
-  .mobile-side-drawer .blog-filter-widget h2,
-  .mobile-side-drawer .blog-archive-widget h2,
-  .mobile-side-drawer .blog-mini-list-widget h2,
-  .mobile-side-drawer .featured-shop-widget h2 {
-    font-size: 1rem !important;
-  }
-
-  .mobile-side-drawer .blog-mini-list a,
-  .mobile-side-drawer .blog-mini-list button,
-  .mobile-side-drawer .featured-shop-widget a {
-    font-size: 0.72rem !important;
-  }
-}
-
-/* =========================================================
-   BLOG DRAWER FINAL READABLE TYPE
-   Keep headings branded, make drawer content easy to read
-   ========================================================= */
-
-@media (max-width: 900px) {
-  /* Main widget headings only */
-  .mobile-side-drawer .blog-widget h2,
-  .mobile-side-drawer .blog-calendar-widget h2,
-  .mobile-side-drawer .blog-filter-widget h2,
-  .mobile-side-drawer .blog-archive-widget h2,
-  .mobile-side-drawer .blog-mini-list-widget h2,
-  .mobile-side-drawer .featured-shop-widget h2 {
-    font-family:
-      "Bungee", var(--font-ancient), system-ui, sans-serif !important;
-    font-size: clamp(0.95rem, 4.4vw, 1.18rem) !important;
-    line-height: 1.2 !important;
-    letter-spacing: 0.025em !important;
-    text-transform: uppercase !important;
-  }
-
-  /* Calendar month pill */
-  .mobile-side-drawer .blog-calendar-label,
-  .mobile-side-drawer .blog-calendar-title,
-  .mobile-side-drawer .blog-calendar-title-button {
-    font-family: var(--font-body) !important;
-    font-size: 0.82rem !important;
-    font-weight: 800 !important;
-    line-height: 1.3 !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
-  }
-
-  /* Calendar weekdays and numbers */
-  .mobile-side-drawer .blog-calendar-day,
-  .mobile-side-drawer .blog-calendar-date,
-  .mobile-side-drawer .blog-calendar-empty {
-    font-family: var(--font-body) !important;
-    font-size: 0.78rem !important;
-    font-weight: 800 !important;
-    line-height: 1 !important;
-    letter-spacing: 0 !important;
-  }
-
-  /* Filter buttons */
-  .mobile-side-drawer .blog-filter-chip {
-    font-family: var(--font-body) !important;
-    font-size: 0.82rem !important;
-    font-weight: 850 !important;
-    line-height: 1.2 !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
-  }
-
-  /* Archive month names and counts */
-  .mobile-side-drawer .blog-archive-month,
-  .mobile-side-drawer .blog-archive-list a,
-  .mobile-side-drawer .blog-archive-count {
-    font-family: var(--font-body) !important;
-    font-size: 0.95rem !important;
-    font-weight: 800 !important;
-    line-height: 1.35 !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
-  }
-
-  .mobile-side-drawer .blog-archive-count {
-    color: rgba(45, 34, 24, 0.68);
-    font-size: 0.86rem !important;
-    font-weight: 650 !important;
-  }
-
-  /* Latest Notes list */
-  .mobile-side-drawer .blog-mini-list a,
-  .mobile-side-drawer .blog-mini-list button,
-  .mobile-side-drawer .blog-mini-list strong,
-  .mobile-side-drawer .blog-mini-list time,
-  .mobile-side-drawer time {
-    font-family: var(--font-body) !important;
-    font-size: 0.92rem !important;
-    font-weight: 750 !important;
-    line-height: 1.35 !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
-  }
-
-  .mobile-side-drawer .blog-mini-list time,
-  .mobile-side-drawer time {
-    color: rgba(45, 34, 24, 0.62);
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
-  }
-
-  /* Featured card content */
-  .mobile-side-drawer .featured-shop-widget p,
-  .mobile-side-drawer .featured-shop-widget a {
-    font-family: var(--font-body) !important;
-    font-size: 0.94rem !important;
-    line-height: 1.5 !important;
-    letter-spacing: 0 !important;
-    text-transform: none !important;
-  }
-
-  .mobile-side-drawer .featured-shop-widget a {
-    font-weight: 800 !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .mobile-side-drawer .blog-widget h2,
-  .mobile-side-drawer .blog-calendar-widget h2,
-  .mobile-side-drawer .blog-filter-widget h2,
-  .mobile-side-drawer .blog-archive-widget h2,
-  .mobile-side-drawer .blog-mini-list-widget h2,
-  .mobile-side-drawer .featured-shop-widget h2 {
-    font-size: 0.95rem !important;
-  }
-
-  .mobile-side-drawer .blog-mini-list a,
-  .mobile-side-drawer .blog-mini-list button,
-  .mobile-side-drawer .blog-mini-list strong {
-    font-size: 0.86rem !important;
+  .blog-card:hover,
+  .blog-filter-chip:hover,
+  .blog-filter-chip.is-active,
+  .blog-calendar-date.has-post:hover,
+  .blog-calendar-date.is-active,
+  .blog-calendar-picker-button:hover,
+  .blog-calendar-picker-button:focus-visible,
+  .blog-calendar-picker-button.is-active,
+  .blog-page-button:hover,
+  .blog-page-number:hover,
+  .blog-page-number.is-active,
+  .blog-clickable-image:hover,
+  .blog-clickable-image:focus-visible {
+    transform: none !important;
   }
 }
