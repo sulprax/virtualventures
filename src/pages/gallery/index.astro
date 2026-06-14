@@ -19,6 +19,7 @@ const galleryItems = posts
         tags: item.tags ?? [],
         colours: item.colours ?? [],
         blogTitle: post.data.title,
+        blogDescription: post.data.description,
         blogUrl: `/blog/${post.id.replace(/\.md$/, "")}/`,
         pubDate: post.data.pubDate,
         updatedDate: post.data.updatedDate ?? post.data.pubDate,
@@ -41,8 +42,12 @@ const categories = [
 });
 
 const colourCount = new Set(galleryItems.flatMap((item) => item.colours)).size;
-const photoCount = galleryItems.filter((item) => item.mediaType !== "video").length;
-const videoCount = galleryItems.filter((item) => item.mediaType === "video").length;
+const photoCount = galleryItems.filter(
+  (item) => item.mediaType !== "video",
+).length;
+const videoCount = galleryItems.filter(
+  (item) => item.mediaType === "video",
+).length;
 
 const mediaLabel = (mediaType: string) =>
   mediaType === "video" ? "video" : "photo";
@@ -55,6 +60,34 @@ const optionLabel = (value: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 };
+
+const tagChoices = [
+  ...new Set(galleryItems.flatMap((item) => item.tags)),
+].sort((a, b) => a.localeCompare(b));
+
+const colourChoices = [
+  ...new Set(galleryItems.flatMap((item) => item.colours)),
+].sort((a, b) => a.localeCompare(b));
+
+const filterChoices = [
+  { value: "all", label: "All" },
+  { value: "media:image", label: "Photos" },
+  { value: "media:video", label: "Videos" },
+  ...categories
+    .filter((category) => category !== "all")
+    .map((category) => ({
+      value: category,
+      label: optionLabel(category),
+    })),
+  ...colourChoices.map((colour) => ({
+    value: `colour:${colour}`,
+    label: `Colour: ${optionLabel(colour)}`,
+  })),
+  ...tagChoices.map((tag) => ({
+    value: `tag:${tag}`,
+    label: `Tag: ${optionLabel(tag)}`,
+  })),
+];
 ---
 
 <Layout
@@ -63,7 +96,7 @@ const optionLabel = (value: string) => {
   showFooterBreadcrumbs={false}
 >
   <PageHero
-    eyebrow="Project peeks"
+    eyebrow="Handmade Showcase"
     title="Gallery"
     description="This is the visual home for finished makes, behind-the-scenes shots, experiments, product photos and tiny handmade treasures."
   />
@@ -73,8 +106,13 @@ const optionLabel = (value: string) => {
       latestItems.length > 0 && (
         <section class="gallery-latest" aria-labelledby="latest-gallery-title">
           <div class="gallery-section-heading">
-            <p class="eyebrow">Fresh from the workbench</p>
             <h2 id="latest-gallery-title">Latest photos & videos</h2>
+
+            <p class="gallery-mobile-latest-note">
+              {latestItems[0]?.mediaType === "video"
+                ? "1 recently uploaded video"
+                : "1 recently uploaded photo"}
+            </p>
           </div>
 
           <div class="gallery-latest-grid">
@@ -96,6 +134,7 @@ const optionLabel = (value: string) => {
                   data-colours={item.colours.join(", ")}
                   data-blog-url={item.blogUrl}
                   data-blog-title={item.blogTitle}
+                  data-blog-description={item.blogDescription}
                 >
                   <span class="gallery-media-wrap">
                     {item.mediaType === "video" && item.videoSrc ? (
@@ -167,13 +206,48 @@ const optionLabel = (value: string) => {
 
           <label>
             <span>Sort</span>
+
             <select id="gallery-sort">
               <option value="newest">Newest first</option>
               <option value="oldest">Oldest first</option>
+              <option value="title">Title A to Z</option>
+              <option value="title-desc">Title Z to A</option>
               <option value="type">Type</option>
+              <option value="media">Photos first</option>
+              <option value="shape">Shape</option>
               <option value="colour">Colour</option>
               <option value="modified">Recently modified</option>
             </select>
+
+            <div class="gallery-choice-list" aria-label="Desktop gallery sort choices">
+              <button type="button" data-gallery-sort-choice="newest">
+                Newest first
+              </button>
+              <button type="button" data-gallery-sort-choice="oldest">
+                Oldest first
+              </button>
+              <button type="button" data-gallery-sort-choice="title">
+                Title A to Z
+              </button>
+              <button type="button" data-gallery-sort-choice="title-desc">
+                Title Z to A
+              </button>
+              <button type="button" data-gallery-sort-choice="type">
+                Type
+              </button>
+              <button type="button" data-gallery-sort-choice="media">
+                Photos first
+              </button>
+              <button type="button" data-gallery-sort-choice="shape">
+                Shape
+              </button>
+              <button type="button" data-gallery-sort-choice="colour">
+                Colour
+              </button>
+              <button type="button" data-gallery-sort-choice="modified">
+                Recently modified
+              </button>
+            </div>
           </label>
         </section>
 
@@ -182,13 +256,24 @@ const optionLabel = (value: string) => {
 
           <label>
             <span>Filter</span>
+
             <select id="gallery-filter">
               {
-                categories.map((category) => (
-                  <option value={category}>{optionLabel(category)}</option>
+                filterChoices.map((choice) => (
+                  <option value={choice.value}>{choice.label}</option>
                 ))
               }
             </select>
+
+            <div class="gallery-choice-list" aria-label="Desktop gallery filter choices">
+              {
+                filterChoices.map((choice) => (
+                  <button type="button" data-gallery-filter-choice={choice.value}>
+                    {choice.label}
+                  </button>
+                ))
+              }
+            </div>
           </label>
         </section>
 
@@ -218,7 +303,8 @@ const optionLabel = (value: string) => {
           </div>
 
           <p class="gallery-result-note">
-            Showing <strong data-gallery-result-count>{galleryItems.length}</strong>{" "}
+            Showing{" "}
+            <strong data-gallery-result-count>{galleryItems.length}</strong>{" "}
             item{galleryItems.length === 1 ? "" : "s"} right now.
           </p>
         </section>
@@ -255,6 +341,10 @@ const optionLabel = (value: string) => {
               class:list={["gallery-card", `gallery-card--${item.shape}`]}
               data-category={item.category}
               data-colours={item.colours.join(",")}
+              data-tags={item.tags.join(",")}
+              data-title={item.title}
+              data-media-type={item.mediaType}
+              data-shape={item.shape}
               data-date={item.pubDate.toISOString()}
               data-modified={item.updatedDate.toISOString()}
             >
@@ -274,6 +364,7 @@ const optionLabel = (value: string) => {
                 data-colours={item.colours.join(", ")}
                 data-blog-url={item.blogUrl}
                 data-blog-title={item.blogTitle}
+                data-blog-description={item.blogDescription}
               >
                 <span class="gallery-media-wrap">
                   {item.mediaType === "video" && item.videoSrc ? (
@@ -343,45 +434,56 @@ const optionLabel = (value: string) => {
       </div>
 
       <div class="gallery-lightbox-content">
-        <p class="gallery-card-category" data-gallery-lightbox-category></p>
-        <h2 id="gallery-lightbox-title" data-gallery-lightbox-title></h2>
+        <div class="gallery-lightbox-meta-row">
+          <p class="gallery-card-category" data-gallery-lightbox-category></p>
 
-        <div class="gallery-lightbox-detail-block">
-          <h3>Description</h3>
-          <p data-gallery-lightbox-description></p>
+          <div class="gallery-lightbox-icon-actions">
+            <button
+              class="gallery-lightbox-like"
+              type="button"
+              data-gallery-lightbox-like
+              aria-label="Like this gallery item"
+            >
+              ♡
+            </button>
+
+            <button
+              class="gallery-lightbox-share"
+              type="button"
+              data-gallery-lightbox-share
+              aria-label="Share this gallery item"
+            >
+              ↗
+            </button>
+          </div>
         </div>
 
-        <div class="gallery-lightbox-detail-block">
-          <h3 class="gallery-tags-heading">Tags</h3>
-          <div class="gallery-tags" data-gallery-lightbox-tags></div>
-        </div>
+        <section class="gallery-lightbox-index-card gallery-lightbox-title-card">
+          <h2 id="gallery-lightbox-title" data-gallery-lightbox-title></h2>
 
-        <div class="gallery-lightbox-detail-block">
-          <h3 class="gallery-colours-heading">Colours</h3>
-          <div class="gallery-tags" data-gallery-lightbox-colours></div>
-        </div>
+          <div class="gallery-lightbox-detail-block">
+            <h3>Description</h3>
 
-        <div class="gallery-lightbox-actions">
-          <a class="gallery-lightbox-link" data-gallery-lightbox-blog href="#">
-            Read the blog post
-          </a>
+            <p class="gallery-lightbox-description-line">
+              <span data-gallery-lightbox-description></span>
+              <a class="gallery-lightbox-link" data-gallery-lightbox-blog href="#">
+                Continue reading
+              </a>
+            </p>
+          </div>
+        </section>
 
-          <button
-            class="gallery-lightbox-like"
-            type="button"
-            data-gallery-lightbox-like
-          >
-            ♡ Like
-          </button>
+        <section class="gallery-lightbox-index-card gallery-lightbox-tags-card">
+          <div class="gallery-lightbox-detail-block">
+            <h3 class="gallery-tags-heading">Tags</h3>
+            <div class="gallery-tags" data-gallery-lightbox-tags></div>
+          </div>
 
-          <button
-            class="gallery-lightbox-share"
-            type="button"
-            data-gallery-lightbox-share
-          >
-            Share
-          </button>
-        </div>
+          <div class="gallery-lightbox-detail-block">
+            <h3 class="gallery-colours-heading">Colours</h3>
+            <div class="gallery-tags" data-gallery-lightbox-colours></div>
+          </div>
+        </section>
       </div>
 
       <button
@@ -404,6 +506,12 @@ const optionLabel = (value: string) => {
     );
     const resultCount = document.querySelector<HTMLElement>(
       "[data-gallery-result-count]",
+    );
+    const sortChoiceButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>("[data-gallery-sort-choice]"),
+    );
+    const filterChoiceButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>("[data-gallery-filter-choice]"),
     );
 
     const lightbox = document.querySelector<HTMLElement>(
@@ -504,7 +612,11 @@ const optionLabel = (value: string) => {
       pillElement?.classList.toggle("is-liked", liked);
 
       if (lightboxLike) {
-        lightboxLike.textContent = liked ? "♥ Liked" : "♡ Like";
+        lightboxLike.textContent = liked ? "♥" : "♡";
+        lightboxLike.setAttribute(
+          "aria-label",
+          liked ? "Unlike this gallery item" : "Like this gallery item",
+        );
         lightboxLike.classList.toggle("is-liked", liked);
       }
     }
@@ -512,6 +624,22 @@ const optionLabel = (value: string) => {
     function hydrateLikes() {
       getOpenButtons().forEach((button) => {
         setLiked(button, isLiked(button));
+      });
+    }
+
+    function syncGalleryChoiceButtons() {
+      sortChoiceButtons.forEach((button) => {
+        button.classList.toggle(
+          "is-active",
+          button.dataset.gallerySortChoice === sort?.value,
+        );
+      });
+
+      filterChoiceButtons.forEach((button) => {
+        button.classList.toggle(
+          "is-active",
+          button.dataset.galleryFilterChoice === filter?.value,
+        );
       });
     }
 
@@ -553,11 +681,26 @@ const optionLabel = (value: string) => {
       const cards = getCards();
 
       cards.forEach((card) => {
-        const matchesCategory =
-          selectedCategory === "all" ||
-          card.dataset.category === selectedCategory;
+        const cardTags = (card.dataset.tags ?? "")
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean);
+        const cardColours = (card.dataset.colours ?? "")
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean);
 
-        card.hidden = !matchesCategory;
+        const matchesFilter =
+          selectedCategory === "all" ||
+          card.dataset.category === selectedCategory ||
+          (selectedCategory.startsWith("tag:") &&
+            cardTags.includes(selectedCategory.replace("tag:", ""))) ||
+          (selectedCategory.startsWith("colour:") &&
+            cardColours.includes(selectedCategory.replace("colour:", ""))) ||
+          (selectedCategory.startsWith("media:") &&
+            card.dataset.mediaType === selectedCategory.replace("media:", ""));
+
+        card.hidden = !matchesFilter;
       });
 
       const sortedCards = cards.sort((a, b) => {
@@ -569,9 +712,29 @@ const optionLabel = (value: string) => {
           return getNumberDate(b, "modified") - getNumberDate(a, "modified");
         }
 
+        if (selectedSort === "title") {
+          return (a.dataset.title ?? "").localeCompare(b.dataset.title ?? "");
+        }
+
+        if (selectedSort === "title-desc") {
+          return (b.dataset.title ?? "").localeCompare(a.dataset.title ?? "");
+        }
+
         if (selectedSort === "type") {
           return (a.dataset.category ?? "").localeCompare(
             b.dataset.category ?? "",
+          );
+        }
+
+        if (selectedSort === "media") {
+          return (a.dataset.mediaType ?? "image").localeCompare(
+            b.dataset.mediaType ?? "image",
+          );
+        }
+
+        if (selectedSort === "shape") {
+          return (a.dataset.shape ?? "square").localeCompare(
+            b.dataset.shape ?? "square",
           );
         }
 
@@ -591,6 +754,8 @@ const optionLabel = (value: string) => {
 
         resultCount.textContent = String(visibleCount);
       }
+
+      syncGalleryChoiceButtons();
     }
 
     function pausePreviewVideo(video: HTMLVideoElement) {
@@ -699,9 +864,7 @@ const optionLabel = (value: string) => {
       );
 
       lightboxBlog.href = button.dataset.blogUrl ?? "#";
-      lightboxBlog.textContent = button.dataset.blogTitle
-        ? `Read: ${button.dataset.blogTitle}`
-        : "Read the blog post";
+      lightboxBlog.textContent = "Continue reading";
 
       setLiked(button, isLiked(button));
 
@@ -794,16 +957,16 @@ const optionLabel = (value: string) => {
         }
 
         await navigator.clipboard.writeText(shareUrl);
-        lightboxShare.textContent = "Copied link";
+        lightboxShare.textContent = "✓";
 
         setTimeout(() => {
-          lightboxShare.textContent = "Share";
+          lightboxShare.textContent = "↗";
         }, 1600);
       } catch {
-        lightboxShare.textContent = "Could not share";
+        lightboxShare.textContent = "!";
 
         setTimeout(() => {
-          lightboxShare.textContent = "Share";
+          lightboxShare.textContent = "↗";
         }, 1600);
       }
     });
@@ -832,6 +995,24 @@ const optionLabel = (value: string) => {
     sort?.addEventListener("change", () => {
       applyGalleryControls();
       closeGalleryToolsDrawer();
+    });
+
+    sortChoiceButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!sort) return;
+
+        sort.value = button.dataset.gallerySortChoice ?? "newest";
+        applyGalleryControls();
+      });
+    });
+
+    filterChoiceButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!filter) return;
+
+        filter.value = button.dataset.galleryFilterChoice ?? "all";
+        applyGalleryControls();
+      });
     });
 
     resetButton?.addEventListener("click", () => {

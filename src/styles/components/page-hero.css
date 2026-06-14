@@ -1,7 +1,12 @@
 /* =========================================================
    PAGE HERO
-   Compact shared banner for normal pages
+   Shared banner for normal pages.
+   Desktop: cinematic slideshow hero.
+   Mobile: folded leather strap banner.
+   Homepage/index stays separate and untouched.
    ========================================================= */
+
+/* ---------- Desktop / default ---------- */
 
 .page-hero-banner {
   position: relative;
@@ -60,10 +65,16 @@
 
 .page-hero-banner .eyebrow {
   margin: 0 0 0.35rem;
+
   color: var(--amber);
+
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: clamp(0.72rem, 1vw, 0.9rem);
+  font-weight: 900;
   letter-spacing: 0.22em;
+  line-height: 1.1;
   text-transform: uppercase;
+
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
 }
 
@@ -76,7 +87,7 @@
   font-family: var(--font-title);
   font-size: clamp(2rem, 4.3vw, 3.8rem);
   line-height: 0.95;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.035em;
 
   text-shadow:
     0 3px 0 rgba(45, 34, 24, 0.9),
@@ -99,29 +110,304 @@
     0 0 20px rgba(0, 0, 0, 0.45);
 }
 
+/* =========================================================
+   MOBILE PAGE HERO
+   Folded leather strap banner for normal subpages.
+   No slideshow / no image background on mobile.
+   ========================================================= */
+
 @media (max-width: 900px) {
-  .page-hero-banner {
-    min-height: clamp(170px, 32vw, 240px);
-    padding: 5.25rem 1rem 2rem;
+  .page-hero-banner,
+  .blog-hero-banner.page-hero-banner {
+    position: relative;
+    overflow: visible;
+
+    min-height: auto;
+    margin: 0;
+    padding: 1.55rem 0.7rem 0.7rem;
+
+    display: block;
+
+    color: #fff7ed;
+    text-align: center;
+
+    background: var(--page-bg) !important;
+    background-image: var(--page-bg) !important;
+    box-shadow: none !important;
   }
 
-  .page-hero-banner h1 {
-    font-size: clamp(1.9rem, 8vw, 3rem);
+  .page-hero-banner::before,
+  .blog-hero-banner.page-hero-banner::before {
+    content: none !important;
+  }
+
+  .page-hero-banner .cover-slideshow,
+  .blog-hero-banner.page-hero-banner .cover-slideshow {
+    display: none !important;
+  }
+
+  .page-hero-banner .blog-hero-banner-inner,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
+    position: relative;
+    isolation: isolate;
+
+    width: min(100%, 34rem);
+    margin: 1.05rem auto 0;
+    padding: 2.55rem 1.25rem 1.25rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.28rem;
+    align-items: start;
+    justify-items: stretch;
+
+    overflow: visible;
+
+    border: 1px solid rgba(201, 142, 75, 0.74);
+    border-top: 0;
+    border-radius: 0 0 1.35rem 1.35rem;
+
+    background:
+      repeating-linear-gradient(
+        115deg,
+        rgba(255, 230, 185, 0.025) 0,
+        rgba(255, 230, 185, 0.025) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      radial-gradient(
+        circle at 18% 18%,
+        rgba(255, 205, 132, 0.24),
+        transparent 34%
+      ),
+      radial-gradient(
+        circle at 82% 8%,
+        rgba(255, 246, 229, 0.08),
+        transparent 32%
+      ),
+      linear-gradient(145deg, #7b4a27, #3e2112 58%, #1b0b05);
+
+    box-shadow:
+      0 1rem 1.65rem rgba(63, 37, 21, 0.28),
+      0 0.35rem 0.8rem rgba(92, 49, 31, 0.2),
+      inset 0 1px 0 rgba(255, 246, 229, 0.16),
+      inset 0 -1rem 1.65rem rgba(9, 4, 2, 0.24);
+  }
+
+  /* Folded leather lip over the top */
+  .page-hero-banner .blog-hero-banner-inner::after,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::after {
+    content: "";
+    position: absolute;
+
+    top: -0.72rem;
+    left: -0.05rem;
+    right: -0.05rem;
+    height: 1.35rem;
+    z-index: -1;
+
+    border: 1px solid rgba(201, 142, 75, 0.78);
+    border-bottom: 0;
+    border-radius: 1.1rem 1.1rem 0.28rem 0.28rem;
+
+    background:
+      repeating-linear-gradient(
+        115deg,
+        rgba(255, 230, 185, 0.035) 0,
+        rgba(255, 230, 185, 0.035) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 219, 166, 0.18),
+        rgba(255, 219, 166, 0)
+      ),
+      linear-gradient(145deg, #9a612e, #4b2815 58%, #2a1309);
+
+    box-shadow:
+      0 0.38rem 0.68rem rgba(0, 0, 0, 0.24),
+      inset 0 1px 0 rgba(255, 225, 170, 0.35);
+  }
+
+  /* Stitched border, no top stitching */
+  .page-hero-banner .blog-hero-banner-inner::before,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
+    content: "";
+    position: absolute;
+    inset: 0.5rem;
+    z-index: 0;
+
+    border-right: 1px dashed rgba(239, 189, 114, 0.72);
+    border-bottom: 1px dashed rgba(239, 189, 114, 0.72);
+    border-left: 1px dashed rgba(239, 189, 114, 0.72);
+    border-top: 0;
+
+    border-radius: 0 0 0.95rem 0.95rem;
+
+    pointer-events: none;
+  }
+
+  .page-hero-banner .blog-hero-banner-inner > *,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-hero-banner .eyebrow,
+  .blog-hero-banner.page-hero-banner .eyebrow {
+    display: block;
+
+    width: 100%;
+    max-width: 24rem;
+    margin: 0 auto 0.18rem;
+
+    color: #efbd72;
+
+    font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+    font-size: clamp(0.8rem, 3.3vw, 1rem);
+    font-weight: 900;
+    letter-spacing: 0.09em;
+    line-height: 1.05;
+    text-align: right;
+    text-transform: uppercase;
+
+    text-shadow:
+      0 2px 8px rgba(20, 10, 5, 0.85),
+      0 0 0.85rem rgba(239, 189, 114, 0.26);
+  }
+
+  .page-hero-banner h1,
+  .blog-hero-banner.page-hero-banner h1 {
+    position: static !important;
+    top: auto !important;
+    transform: none !important;
+    translate: none !important;
+
+    max-width: 24rem;
+    margin: 0.08rem auto 0;
+
+    color: #fff0dc;
+
+    font-family: var(--font-title);
+    font-size: clamp(2.27rem, 10.6vw, 3.22rem) !important;
+    line-height: 0.9;
+    letter-spacing: 0.018em;
+    text-align: center;
+
+    -webkit-text-stroke: 0.15px rgba(65, 30, 12, 0.42);
+
+    text-shadow:
+      0 1px 0 rgba(255, 246, 229, 0.64),
+      0 -1px 0 rgba(52, 24, 10, 0.68),
+      1px 1px 0 rgba(72, 34, 15, 0.58),
+      -1px 1px 0 rgba(72, 34, 15, 0.3),
+      0 2px 0 rgba(38, 16, 7, 0.82),
+      0 0.42rem 0.78rem rgba(0, 0, 0, 0.32);
+
+    filter: drop-shadow(0 0.1rem 0.08rem rgba(13, 6, 3, 0.24));
+  }
+
+  .page-hero-banner p:not(.eyebrow),
+  .blog-hero-banner.page-hero-banner p:not(.eyebrow),
+  .page-hero-banner h3,
+  .blog-hero-banner.page-hero-banner h3 {
+    display: block;
+
+    width: 100%;
+    max-width: 21rem;
+    margin: 0.58rem auto 0;
+
+    color: #bd8559;
+
+    font-family: var(--font-handmade);
+    font-size: clamp(1.2rem, 5vw, 1.38rem) !important;
+    font-weight: 700;
+    line-height: 1.08;
+    text-align: left;
+
+    text-shadow: none;
+  }
+
+  /* Pull page content back up after the mobile leather banner */
+  .page-hero-banner ~ .page-shell,
+  .page-hero-banner ~ main.page-shell,
+  .page-hero-banner ~ .content-page,
+  .page-hero-banner ~ main.content-page {
+    padding-top: 1.35rem !important;
+  }
+
+  .page-hero-banner ~ .breadcrumb-trail + .page-shell,
+  .page-hero-banner ~ .breadcrumb-trail + main.page-shell,
+  .page-hero-banner ~ .breadcrumb-trail + .content-page,
+  .page-hero-banner ~ .breadcrumb-trail + main.content-page {
+    padding-top: 1.35rem !important;
   }
 }
 
-@media (max-width: 640px) {
-  .page-hero-banner {
-    min-height: 180px;
-    padding: 5rem 1rem 1.65rem;
+/* =========================================================
+   SMALL MOBILE
+   Narrow phone tidy-up.
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .page-hero-banner,
+  .blog-hero-banner.page-hero-banner {
+    padding: 1.4rem 0.55rem 0.6rem;
+
+    background: var(--page-bg) !important;
+    background-image: var(--page-bg) !important;
+    box-shadow: none !important;
   }
 
-  .page-hero-banner h1 {
-    font-size: clamp(1.75rem, 10vw, 2.5rem);
-    line-height: 1;
+  .page-hero-banner .blog-hero-banner-inner,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
+    margin-top: 1rem;
+    padding: 2.35rem 1rem 1.05rem;
+    border-radius: 0 0 1.15rem 1.15rem;
   }
 
-  .page-hero-banner p:not(.eyebrow) {
-    display: none;
+  .page-hero-banner .blog-hero-banner-inner::before,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
+    inset: 0.42rem;
+    border-radius: 0 0 0.78rem 0.78rem;
+  }
+
+  .page-hero-banner .blog-hero-banner-inner::after,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::after {
+    top: -0.66rem;
+    height: 1.2rem;
+    border-radius: 1rem 1rem 0.26rem 0.26rem;
+  }
+
+  .page-hero-banner .eyebrow,
+  .blog-hero-banner.page-hero-banner .eyebrow {
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+  }
+
+  .page-hero-banner h1,
+  .blog-hero-banner.page-hero-banner h1 {
+    font-size: clamp(2.17rem, 10.2vw, 2.97rem) !important;
+    letter-spacing: 0.018em;
+  }
+
+  .page-hero-banner p:not(.eyebrow),
+  .blog-hero-banner.page-hero-banner p:not(.eyebrow),
+  .page-hero-banner h3,
+  .blog-hero-banner.page-hero-banner h3 {
+    max-width: 18.5rem;
+    font-size: clamp(1.08rem, 4.6vw, 1.25rem) !important;
+  }
+
+  .page-hero-banner ~ .page-shell,
+  .page-hero-banner ~ main.page-shell,
+  .page-hero-banner ~ .content-page,
+  .page-hero-banner ~ main.content-page,
+  .page-hero-banner ~ .breadcrumb-trail + .page-shell,
+  .page-hero-banner ~ .breadcrumb-trail + main.page-shell,
+  .page-hero-banner ~ .breadcrumb-trail + .content-page,
+  .page-hero-banner ~ .breadcrumb-trail + main.content-page {
+    padding-top: 1.2rem !important;
   }
 }
