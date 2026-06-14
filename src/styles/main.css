@@ -34,3 +34,6 @@
 
 /* Shared feature styles */
 @import "./cover-slideshow.css";
+
+/* Page-scoped polish */
+@import "./pages/blog-journal-theme.css";
