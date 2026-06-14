@@ -14,6 +14,10 @@
   margin-top: clamp(1.25rem, 3vw, 2rem);
 }
 
+.gallery-layout {
+  position: relative;
+}
+
 /* ==================================================
    Section Heading
    ================================================== */
@@ -211,31 +215,26 @@
     filter 240ms ease;
 }
 
-/* Small tidy square */
 .gallery-card--square {
   grid-column: span 3;
   grid-row: span 3;
 }
 
-/* Tall product/character photo */
 .gallery-card--portrait {
   grid-column: span 3;
   grid-row: span 4;
 }
 
-/* Wide stage/detail photo */
 .gallery-card--landscape {
   grid-column: span 5;
   grid-row: span 3;
 }
 
-/* Extra wide shelf/stage/process photo */
 .gallery-card--banner {
   grid-column: span 7;
   grid-row: span 3;
 }
 
-/* Big tall feature image */
 .gallery-card--tall {
   grid-column: span 4;
   grid-row: span 5;
@@ -406,7 +405,7 @@
 .gallery-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 11000;
   display: grid;
   place-items: center;
   padding: clamp(1rem, 4vw, 2rem);
@@ -615,10 +614,41 @@
 }
 
 /* ==================================================
-   Mobile
+   Gallery Mobile Tools Drawer
+   Reuses the shared leather pull-tab wallet drawer.
    ================================================== */
 
-@media (max-width: 880px) {
+@media (min-width: 901px) {
+  .gallery-tools-drawer.mobile-side-drawer {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .gallery-tools-drawer {
+    align-items: end;
+  }
+
+  .gallery-tools-drawer .gallery-tool-widget {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .gallery-tools-drawer .gallery-tool-widget > h2,
+  .gallery-tools-drawer .gallery-helper-widget {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 900px) {
   .gallery-page {
     width: min(100% - 1rem, 720px);
     padding-top: 1rem;
@@ -632,14 +662,185 @@
     display: none;
   }
 
-  .gallery-controls {
-    flex-direction: column;
-    padding-inline: 0;
+  .gallery-tools-drawer {
+    --vv-card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M4 5h16v2H4V5Zm3 6h10v2H7v-2Zm3 6h4v2h-4v-2Z'/%3E%3C/svg%3E");
+
+    margin-top: 0 !important;
+    padding-inline: var(--vv-wallet-pad-left, 1rem)
+      var(--vv-wallet-pad-right, 0.92rem) !important;
   }
 
-  .gallery-controls select {
+  .gallery-sort-widget {
+    --vv-card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M7 4h2v10h3l-4 5l-4-5h3V4Zm8 1h5v2h-5V5Zm0 5h4v2h-4v-2Zm0 5h3v2h-3v-2Z'/%3E%3C/svg%3E");
+  }
+
+  .gallery-filter-widget {
+    --vv-card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M4 5h16l-6 7v6l-4 2v-8L4 5Z'/%3E%3C/svg%3E");
+  }
+
+  .gallery-stats-widget {
+    --vv-card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M5 19V9h3v10H5Zm5 0V5h3v14h-3Zm5 0v-7h3v7h-3Z'/%3E%3C/svg%3E");
+  }
+
+  .gallery-action-widget {
+    --vv-card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 5a7 7 0 1 1-6.2 3.8H3.5A9 9 0 1 0 12 3v2Zm-1 2v6l5 3l1-1.7l-4-2.3V7h-2Z'/%3E%3C/svg%3E");
+  }
+
+  .gallery-tip-widget {
+    --vv-card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M11 18h2v-2h-2v2Zm1-16a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2Zm2.8 11.1l-.8.6V15h-4v-1.3l-.8-.6A5 5 0 1 1 14.8 13.1Z'/%3E%3C/svg%3E");
+  }
+
+  .gallery-tools-drawer .gallery-tool-widget > h2,
+  .gallery-tools-drawer .gallery-helper-widget > h2 {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+
+  .gallery-tools-drawer label {
     width: 100%;
     min-width: 0;
+  }
+
+  .gallery-tools-drawer label > span {
+    color: var(--coffee);
+    font-family: var(--font-script, cursive);
+    font-size: 1.1rem;
+    font-weight: 950;
+    line-height: var(--vv-paper-line-height, 1.54rem);
+    text-shadow:
+      0 1px 0 rgba(255, 250, 245, 0.52),
+      0 5px 12px rgba(59, 43, 34, 0.07);
+  }
+
+  .gallery-tools-drawer select {
+    width: 100%;
+    min-width: 0;
+    margin-top: 0.2rem;
+
+    border: 1px solid rgba(126, 78, 39, 0.22);
+    border-radius: 999px;
+
+    background:
+      linear-gradient(45deg, transparent 50%, rgba(111, 78, 55, 0.9) 50%) right
+        1.15rem center / 0.45rem 0.45rem no-repeat,
+      linear-gradient(135deg, rgba(111, 78, 55, 0.9) 50%, transparent 50%) right
+        0.85rem center / 0.45rem 0.45rem no-repeat,
+      linear-gradient(
+        180deg,
+        rgba(255, 250, 239, 0.94),
+        rgba(238, 222, 198, 0.9)
+      );
+
+    color: var(--dark);
+    font-family: var(--font-body, system-ui, sans-serif);
+    font-weight: 850;
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.62),
+      0 0.7rem 1.4rem rgba(61, 39, 24, 0.1);
+  }
+
+  .gallery-tools-drawer select:focus {
+    outline: 2px solid rgba(216, 164, 93, 0.62);
+    outline-offset: 3px;
+  }
+
+  .gallery-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.2rem;
+  }
+
+  .gallery-stat-grid span {
+    display: grid;
+    gap: 0.05rem;
+    border: 1px solid rgba(126, 78, 39, 0.18);
+    border-radius: 1rem;
+    padding: 0.62rem 0.55rem;
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(239, 189, 114, 0.18),
+        transparent 65%
+      ),
+      rgba(255, 250, 239, 0.38);
+    text-align: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  }
+
+  .gallery-stat-grid strong {
+    color: var(--coffee);
+    font-family: var(--font-script, cursive);
+    font-size: 1.35rem;
+    font-weight: 950;
+    line-height: 1;
+  }
+
+  .gallery-stat-grid small {
+    color: rgba(45, 34, 24, 0.6);
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .gallery-result-note,
+  .gallery-helper-widget p {
+    margin: 0.65rem 0 0;
+    color: rgba(45, 34, 24, 0.75);
+    font-family: var(--font-body, system-ui, sans-serif);
+    font-size: 0.9rem;
+    line-height: var(--vv-paper-line-height, 1.54rem);
+  }
+
+  .gallery-result-note strong {
+    color: var(--coffee);
+    font-weight: 950;
+  }
+
+  .gallery-reset-button {
+    width: fit-content;
+    min-height: auto;
+    margin-top: 0.35rem;
+    padding: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    color: var(--coffee);
+    background: transparent;
+
+    border: 0;
+    border-radius: 0;
+
+    font-family: var(--font-script, cursive);
+    font-size: 1.08rem;
+    font-weight: 950;
+    line-height: var(--vv-paper-line-height, 1.54rem);
+
+    box-shadow: none;
+
+    text-align: left;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .gallery-reset-button:hover,
+  .gallery-reset-button:focus-visible {
+    color: #1d1208;
+    outline: none;
   }
 
   .gallery-grid {

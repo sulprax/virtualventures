@@ -15,6 +15,9 @@ const galleryItems = posts
         mediaType: item.mediaType ?? "image",
         poster: item.poster ?? item.src,
         shape: item.shape ?? "square",
+        category: item.category ?? "uncategorised",
+        tags: item.tags ?? [],
+        colours: item.colours ?? [],
         blogTitle: post.data.title,
         blogUrl: `/blog/${post.id.replace(/\.md$/, "")}/`,
         pubDate: post.data.pubDate,
@@ -30,10 +33,28 @@ const latestItems = galleryItems
 const categories = [
   "all",
   ...new Set(galleryItems.map((item) => item.category)),
-];
+].sort((a, b) => {
+  if (a === "all") return -1;
+  if (b === "all") return 1;
+
+  return a.localeCompare(b);
+});
+
+const colourCount = new Set(galleryItems.flatMap((item) => item.colours)).size;
+const photoCount = galleryItems.filter((item) => item.mediaType !== "video").length;
+const videoCount = galleryItems.filter((item) => item.mediaType === "video").length;
 
 const mediaLabel = (mediaType: string) =>
   mediaType === "video" ? "video" : "photo";
+
+const optionLabel = (value: string) => {
+  if (value === "all") return "All";
+
+  return value
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
 ---
 
 <Layout
@@ -72,7 +93,7 @@ const mediaLabel = (mediaType: string) =>
                   data-alt={item.alt}
                   data-category={item.category}
                   data-tags={item.tags.join(", ")}
-                  data-colours={(item.colours ?? []).join(", ")}
+                  data-colours={item.colours.join(", ")}
                   data-blog-url={item.blogUrl}
                   data-blog-title={item.blogTitle}
                 >
@@ -111,91 +132,182 @@ const mediaLabel = (mediaType: string) =>
       )
     }
 
-    <section class="gallery-controls" aria-label="Gallery controls">
-      <label>
-        <span>Sort</span>
-        <select id="gallery-sort">
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-          <option value="type">Type</option>
-          <option value="colour">Colour</option>
-          <option value="modified">Recently modified</option>
-        </select>
-      </label>
+    <div
+      class="gallery-layout has-mobile-side-drawer"
+      data-mobile-side-drawer-root
+    >
+      <button
+        class="mobile-side-drawer-toggle"
+        type="button"
+        aria-label="Open gallery tools"
+        aria-controls="gallery-side-drawer"
+        aria-expanded="false"
+        data-mobile-side-toggle
+        data-open-label="Gallery Tools"
+        data-close-label="Close"
+      >
+        Gallery Tools
+      </button>
 
-      <label>
-        <span>Filter</span>
-        <select id="gallery-filter">
-          {
-            categories.map((category) => (
-              <option value={category}>
-                {category === "all" ? "All" : category}
-              </option>
-            ))
-          }
-        </select>
-      </label>
-    </section>
+      <button
+        class="mobile-side-drawer-backdrop"
+        type="button"
+        aria-label="Close gallery tools"
+        hidden
+        data-mobile-side-backdrop></button>
 
-    <section class="gallery-grid" aria-label="Gallery photos and videos">
-      {
-        galleryItems.map((item) => (
-          <article
-            class:list={["gallery-card", `gallery-card--${item.shape}`]}
-            data-category={item.category}
-            data-colours={(item.colours ?? []).join(",")}
-            data-date={item.pubDate.toISOString()}
-            data-modified={item.updatedDate.toISOString()}
-          >
-            <button
-              class="gallery-card-button"
-              type="button"
-              data-gallery-open
-              data-title={item.title}
-              data-description={item.description}
-              data-image={item.src}
-              data-video-src={item.videoSrc ?? ""}
-              data-poster={item.poster ?? item.src}
-              data-media-type={item.mediaType}
-              data-alt={item.alt}
+      <aside
+        id="gallery-side-drawer"
+        class="gallery-controls gallery-tools-drawer mobile-side-drawer"
+        aria-label="Gallery tools"
+        data-mobile-side-drawer
+      >
+        <section class="blog-widget gallery-tool-widget gallery-sort-widget">
+          <h2>Sort Gallery</h2>
+
+          <label>
+            <span>Sort</span>
+            <select id="gallery-sort">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="type">Type</option>
+              <option value="colour">Colour</option>
+              <option value="modified">Recently modified</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="blog-widget gallery-tool-widget gallery-filter-widget">
+          <h2>Filter Gallery</h2>
+
+          <label>
+            <span>Filter</span>
+            <select id="gallery-filter">
+              {
+                categories.map((category) => (
+                  <option value={category}>{optionLabel(category)}</option>
+                ))
+              }
+            </select>
+          </label>
+        </section>
+
+        <section class="blog-widget gallery-helper-widget gallery-stats-widget">
+          <h2>Gallery Snapshot</h2>
+
+          <div class="gallery-stat-grid" aria-label="Gallery snapshot">
+            <span>
+              <strong>{galleryItems.length}</strong>
+              <small>Items</small>
+            </span>
+
+            <span>
+              <strong>{photoCount}</strong>
+              <small>Photos</small>
+            </span>
+
+            <span>
+              <strong>{videoCount}</strong>
+              <small>Videos</small>
+            </span>
+
+            <span>
+              <strong>{colourCount}</strong>
+              <small>Colours</small>
+            </span>
+          </div>
+
+          <p class="gallery-result-note">
+            Showing <strong data-gallery-result-count>{galleryItems.length}</strong>{" "}
+            item{galleryItems.length === 1 ? "" : "s"} right now.
+          </p>
+        </section>
+
+        <section class="blog-widget gallery-helper-widget gallery-action-widget">
+          <h2>Quick Reset</h2>
+
+          <p>
+            Lost in the scrapbook? Reset the view back to all photos and newest
+            first.
+          </p>
+
+          <button type="button" class="gallery-reset-button" data-gallery-reset>
+            ✦ Reset gallery view
+          </button>
+        </section>
+
+        <section class="blog-widget gallery-helper-widget gallery-tip-widget">
+          <h2>Viewing Tip</h2>
+
+          <p>
+            Tap a photo to open the cosy lightbox with tags, colours, blog links,
+            likes and sharing.
+          </p>
+        </section>
+      </aside>
+
+      <span class="mobile-side-drawer-frame" aria-hidden="true"></span>
+
+      <section class="gallery-grid" aria-label="Gallery photos and videos">
+        {
+          galleryItems.map((item) => (
+            <article
+              class:list={["gallery-card", `gallery-card--${item.shape}`]}
               data-category={item.category}
-              data-tags={item.tags.join(", ")}
-              data-colours={(item.colours ?? []).join(", ")}
-              data-blog-url={item.blogUrl}
-              data-blog-title={item.blogTitle}
+              data-colours={item.colours.join(",")}
+              data-date={item.pubDate.toISOString()}
+              data-modified={item.updatedDate.toISOString()}
             >
-              <span class="gallery-media-wrap">
-                {item.mediaType === "video" && item.videoSrc ? (
-                  <>
-                    <video
-                      src={item.videoSrc}
-                      poster={item.poster ?? item.src}
-                      muted
-                      playsinline
-                      preload="metadata"
-                      data-gallery-preview-video
-                      data-autoplay-preview={String(item.autoplayPreview)}
-                    />
-                    <span class="gallery-media-badge">
-                      ▶ {item.duration ?? "Video"}
-                    </span>
-                  </>
-                ) : (
-                  <img src={item.src} alt={item.alt} loading="lazy" />
-                )}
-              </span>
+              <button
+                class="gallery-card-button"
+                type="button"
+                data-gallery-open
+                data-title={item.title}
+                data-description={item.description}
+                data-image={item.src}
+                data-video-src={item.videoSrc ?? ""}
+                data-poster={item.poster ?? item.src}
+                data-media-type={item.mediaType}
+                data-alt={item.alt}
+                data-category={item.category}
+                data-tags={item.tags.join(", ")}
+                data-colours={item.colours.join(", ")}
+                data-blog-url={item.blogUrl}
+                data-blog-title={item.blogTitle}
+              >
+                <span class="gallery-media-wrap">
+                  {item.mediaType === "video" && item.videoSrc ? (
+                    <>
+                      <video
+                        src={item.videoSrc}
+                        poster={item.poster ?? item.src}
+                        muted
+                        playsinline
+                        preload="metadata"
+                        data-gallery-preview-video
+                        data-autoplay-preview={String(item.autoplayPreview)}
+                      />
+                      <span class="gallery-media-badge">
+                        ▶ {item.duration ?? "Video"}
+                      </span>
+                    </>
+                  ) : (
+                    <img src={item.src} alt={item.alt} loading="lazy" />
+                  )}
+                </span>
 
-              <span class="gallery-card-glow" aria-hidden="true" />
+                <span class="gallery-card-glow" aria-hidden="true" />
 
-              <span class="gallery-like-pill" data-like-pill>
-                <span data-like-heart>♡</span>
-                <span data-like-count>0</span>
-              </span>
-            </button>
-          </article>
-        ))
-      }
-    </section>
+                <span class="gallery-like-pill" data-like-pill>
+                  <span data-like-heart>♡</span>
+                  <span data-like-count>0</span>
+                </span>
+              </button>
+            </article>
+          ))
+        }
+      </section>
+    </div>
   </main>
 
   <div class="gallery-lightbox" data-gallery-lightbox hidden>
@@ -287,6 +399,12 @@ const mediaLabel = (mediaType: string) =>
     const filter = document.querySelector<HTMLSelectElement>("#gallery-filter");
     const sort = document.querySelector<HTMLSelectElement>("#gallery-sort");
     const grid = document.querySelector<HTMLElement>(".gallery-grid");
+    const resetButton = document.querySelector<HTMLButtonElement>(
+      "[data-gallery-reset]",
+    );
+    const resultCount = document.querySelector<HTMLElement>(
+      "[data-gallery-result-count]",
+    );
 
     const lightbox = document.querySelector<HTMLElement>(
       "[data-gallery-lightbox]",
@@ -345,8 +463,13 @@ const mediaLabel = (mediaType: string) =>
         .filter((button): button is HTMLButtonElement => Boolean(button));
     }
 
+    function getButtonKey(button: HTMLButtonElement) {
+      return `${button.dataset.image ?? ""}::${button.dataset.title ?? ""}`;
+    }
+
     function getNumberDate(card: HTMLElement, key: "date" | "modified") {
       const value = card.dataset[key];
+
       return value ? new Date(value).getTime() : 0;
     }
 
@@ -462,6 +585,12 @@ const mediaLabel = (mediaType: string) =>
       });
 
       sortedCards.forEach((card) => grid.appendChild(card));
+
+      if (resultCount) {
+        const visibleCount = cards.filter((card) => !card.hidden).length;
+
+        resultCount.textContent = String(visibleCount);
+      }
     }
 
     function pausePreviewVideo(video: HTMLVideoElement) {
@@ -578,6 +707,17 @@ const mediaLabel = (mediaType: string) =>
 
       lightbox.hidden = false;
       document.body.classList.add("gallery-lightbox-is-open");
+      document.dispatchEvent(new CustomEvent("vv:close-mobile-side-drawers"));
+    }
+
+    function openLightboxForButton(button: HTMLButtonElement) {
+      const visibleButtons = getVisibleButtons();
+      const key = getButtonKey(button);
+      const index = visibleButtons.findIndex(
+        (visibleButton) => getButtonKey(visibleButton) === key,
+      );
+
+      openLightbox(index >= 0 ? index : 0);
     }
 
     function closeLightbox() {
@@ -597,11 +737,13 @@ const mediaLabel = (mediaType: string) =>
       openLightbox(nextIndex);
     }
 
+    function closeGalleryToolsDrawer() {
+      document.dispatchEvent(new CustomEvent("vv:close-mobile-side-drawers"));
+    }
+
     getOpenButtons().forEach((button) => {
       button.addEventListener("click", () => {
-        const visibleButtons = getVisibleButtons();
-        const index = visibleButtons.indexOf(button);
-        openLightbox(index >= 0 ? index : 0);
+        openLightboxForButton(button);
       });
     });
 
@@ -641,21 +783,29 @@ const mediaLabel = (mediaType: string) =>
       }`;
       const shareTitle = button.dataset.title ?? "Virtual Ventures Gallery";
 
-      if (navigator.share) {
-        await navigator.share({
-          title: shareTitle,
-          text: button.dataset.description ?? "",
-          url: shareUrl,
-        });
-        return;
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: shareTitle,
+            text: button.dataset.description ?? "",
+            url: shareUrl,
+          });
+          return;
+        }
+
+        await navigator.clipboard.writeText(shareUrl);
+        lightboxShare.textContent = "Copied link";
+
+        setTimeout(() => {
+          lightboxShare.textContent = "Share";
+        }, 1600);
+      } catch {
+        lightboxShare.textContent = "Could not share";
+
+        setTimeout(() => {
+          lightboxShare.textContent = "Share";
+        }, 1600);
       }
-
-      await navigator.clipboard.writeText(shareUrl);
-      lightboxShare.textContent = "Copied link";
-
-      setTimeout(() => {
-        lightboxShare.textContent = "Share";
-      }, 1600);
     });
 
     document.addEventListener("keydown", (event) => {
@@ -674,9 +824,25 @@ const mediaLabel = (mediaType: string) =>
       }
     });
 
-    filter?.addEventListener("change", applyGalleryControls);
-    sort?.addEventListener("change", applyGalleryControls);
+    filter?.addEventListener("change", () => {
+      applyGalleryControls();
+      closeGalleryToolsDrawer();
+    });
 
+    sort?.addEventListener("change", () => {
+      applyGalleryControls();
+      closeGalleryToolsDrawer();
+    });
+
+    resetButton?.addEventListener("click", () => {
+      if (filter) filter.value = "all";
+      if (sort) sort.value = "newest";
+
+      applyGalleryControls();
+      closeGalleryToolsDrawer();
+    });
+
+    applyGalleryControls();
     hydrateLikes();
     setupVideoPreviews();
   </script>
