@@ -756,6 +756,7 @@
   font-size: 0.86rem;
   line-height: 1.42;
 
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
