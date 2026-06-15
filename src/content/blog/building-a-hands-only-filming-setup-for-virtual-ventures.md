@@ -1,8 +1,8 @@
 ---
-title: "Building a Hands-Only Filming Setup for Virtual Ventures"
+title: "Hands-Only Filming Setup"
 description: "Why I am planning a hands-only filming setup for Virtual Ventures, and how clear close-up videos will help with crochet, tutorials, livestreams, and community support."
 pubDate: 2026-06-14
-updatedDate: 2026-06-14
+updatedDate: 2026-06-15
 author: "Virtual Ventures"
 category: "behind-the-scenes"
 tags:
