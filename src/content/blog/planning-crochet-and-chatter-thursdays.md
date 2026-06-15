@@ -1,8 +1,8 @@
 ---
-title: "Planning Crochet & Chatter Thursdays"
+title: "Crochet & Chatter Thursdays"
 description: "A look at the future idea for hands-only Crochet & Chatter sessions, with calm crochet time, pattern help, project notes, and a cosy Virtual Ventures setup."
 pubDate: 2026-06-01
-updatedDate: 2026-06-01
+updatedDate: 2026-06-15
 author: "Virtual Ventures"
 category: "crochet"
 tags:
@@ -18,13 +18,13 @@ images: []
 
 One of the ideas I’m most excited about for the future of **Virtual Ventures** is something I’m calling **Crochet & Chatter Thursdays**.
 
-I’m not talking about a huge, polished studio production with ten cameras and a smoke machine. I want something much simpler: a calm, hands-only crochet session where the focus stays exactly where it should be—on making, chatting, and helping each other through tricky patterns. I’m not going to rush into this before the website and setup are fully ready, but it is definitely a big part of the long-term plan.
+I’m not talking about a huge, polished studio production with ten cameras and a smoke machine. I want something much simpler: a calm, hands-only crochet session where the focus stays exactly where it should be, on making, chatting, and helping each other through tricky patterns. I’m not going to rush into this before the website and setup are fully ready, but it is definitely a big part of the long-term plan.
 
 ## Why Hands-Only?
 
 For Virtual Ventures, hands-only content just feels right. It keeps the spotlight on the crochet, the yarn, and the technique itself. By focusing the camera on my workspace, I can clearly show the stitches, the hook placement, my pattern notes, and the work in progress.
 
-It allows the brand to feel personal and helpful without the pressure of everything being face-focused. It keeps the making at the very center of the conversation.
+It allows the brand to feel personal and helpful without the pressure of everything being face-focused. It keeps the making at the very centre of the conversation.
 
 ## Why Thursdays?
 
@@ -39,10 +39,10 @@ I want these sessions to be a gentle, low-pressure corner of the internet. They 
 - Working through Virtual Ventures patterns together
 - Helping people who might be stuck on a specific stitch
 - Answering crochet questions and sharing progress
-- Chatting about favorite tools, yarn hauls, and future plans
+- Chatting about favourite tools, yarn hauls, and future plans
 - Giving a behind-the-scenes look at how I develop new patterns
 
-The idea is to provide useful company. It’s that feeling of sitting in a cozy room where the hook keeps moving and the kettle is spiritually present.
+The idea is to provide useful company. It’s that feeling of sitting in a cosy room where the hook keeps moving and the kettle is spiritually present.
 
 ## Helping You Find Your Way Through a Pattern
 
@@ -52,7 +52,7 @@ By hosting a live or recorded session, I can help people see what a pattern is _
 
 ## Keeping the Planner Close
 
-I also want my crochet planner to be visible during these sessions. It feels right for the brand to show how I actually use it. The planner can show what I’m currently testing, what patterns I’m adjusting, or what projects are coming up next. It connects the books, the patterns, and the physical crochet work into one practical setup. To me, the planner isn't just a product—it’s a vital part of the making process.
+I also want my crochet planner to be visible during these sessions. It feels right for the brand to show how I actually use it. The planner can show what I’m currently testing, what patterns I’m adjusting, or what projects are coming up next. It connects the books, the patterns, and the physical crochet work into one practical setup. To me, the planner isn't just a product. It’s a vital part of the making process.
 
 ## Getting the Setup Right
 
