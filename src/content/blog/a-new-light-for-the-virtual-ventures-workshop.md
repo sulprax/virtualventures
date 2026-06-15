@@ -1,8 +1,8 @@
 ---
-title: "A New Light for the Virtual Ventures Workshop"
+title: "A New Workshop Light"
 description: "A behind-the-scenes update about one of the first big pieces of equipment for the Virtual Ventures photo and video setup, and why good lighting matters for handmade work."
 pubDate: 2026-06-12
-updatedDate: 2026-06-12
+updatedDate: 2026-06-15
 author: "Virtual Ventures"
 category: "behind-the-scenes"
 tags:
