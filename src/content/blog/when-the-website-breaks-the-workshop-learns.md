@@ -1,8 +1,8 @@
 ---
-title: "When the Website Breaks, the Workshop Learns"
+title: "When the Website Breaks"
 description: "An honest behind-the-scenes update about fixing the Virtual Ventures website, improving the mobile layout, and learning why a strong foundation matters."
 pubDate: 2026-06-12
-updatedDate: 2026-06-12
+updatedDate: 2026-06-15
 author: "Virtual Ventures"
 category: "website"
 tags:
