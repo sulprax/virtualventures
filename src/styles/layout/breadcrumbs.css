@@ -1,4 +1,274 @@
 /* =========================================================
    BREADCRUMBS
-   Generated during CSS split cleanup
+   Stitched leather book-band trail
    ========================================================= */
+
+.breadcrumb-trail,
+.footer-breadcrumb-wrap .breadcrumb-trail {
+  position: relative;
+  z-index: 5;
+
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0.78rem clamp(2.6rem, 5vw, 4.8rem);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.62rem;
+
+  isolation: isolate;
+  overflow: visible;
+
+  color: #ffe8b8;
+
+  background:
+    radial-gradient(
+      circle at 8% 38%,
+      rgba(255, 222, 142, 0.34),
+      transparent 8rem
+    ),
+    radial-gradient(circle at 92% 100%, rgba(20, 7, 3, 0.48), transparent 42%),
+    linear-gradient(135deg, #925b2c 0%, #603718 48%, #2b1408 100%);
+
+  border-top: 1px solid rgba(255, 222, 163, 0.46);
+  border-bottom: 1px solid rgba(24, 10, 4, 0.94);
+  border-radius: 0;
+
+  box-shadow:
+    0 16px 32px rgba(242, 198, 161, 0.22),
+    0 22px 38px rgba(28, 12, 5, 0.26),
+    inset 0 1px 0 rgba(255, 236, 188, 0.32),
+    inset 0 -12px 18px rgba(16, 6, 2, 0.32);
+}
+
+/* Top and bottom stitching, edge to edge */
+.breadcrumb-trail::before,
+.footer-breadcrumb-wrap .breadcrumb-trail::before {
+  content: "";
+  position: absolute;
+  inset: 0.34rem 0;
+  z-index: 1;
+  pointer-events: none;
+
+  border-top: 1px dashed rgba(255, 224, 166, 0.8);
+  border-bottom: 1px dashed rgba(255, 224, 166, 0.58);
+}
+
+/* Soft peach glow behind the leather band */
+.breadcrumb-trail::after,
+.footer-breadcrumb-wrap .breadcrumb-trail::after {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: -0.95rem;
+  height: 1.5rem;
+  z-index: -1;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(247, 197, 162, 0.44) 0%,
+    rgba(247, 197, 162, 0.22) 45%,
+    transparent 76%
+  );
+
+  filter: blur(13px);
+}
+
+/* Subtle folded leather edge shadows */
+.breadcrumb-trail .breadcrumb-glow-icon::before,
+.breadcrumb-trail .breadcrumb-glow-icon::after {
+  content: "";
+  position: fixed;
+  top: auto;
+  width: 2rem;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Breadcrumb text layer */
+.breadcrumb-link,
+.breadcrumb-current,
+.breadcrumb-separator,
+.breadcrumb-glow-icon {
+  position: relative;
+  z-index: 2;
+}
+
+/* Gold handwriting */
+.breadcrumb-link,
+.breadcrumb-current,
+.footer-breadcrumb-wrap .breadcrumb-link,
+.footer-breadcrumb-wrap .breadcrumb-current,
+.footer-breadcrumb-wrap .breadcrumb-trail a,
+.footer-breadcrumb-wrap .breadcrumb-trail strong {
+  font-family: var(--font-handmade);
+  font-size: clamp(1.2rem, 2vw, 1.46rem);
+  font-weight: 700;
+  line-height: 1.05;
+
+  color: #ffe9bb;
+
+  text-shadow:
+    0 1px 1px rgba(20, 7, 2, 0.95),
+    0 0 7px rgba(255, 220, 155, 0.24);
+}
+
+.breadcrumb-link,
+.footer-breadcrumb-wrap .breadcrumb-link,
+.footer-breadcrumb-wrap .breadcrumb-trail a {
+  color: #ffe9bb;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.breadcrumb-link:hover,
+.footer-breadcrumb-wrap .breadcrumb-link:hover,
+.footer-breadcrumb-wrap .breadcrumb-trail a:hover {
+  color: #fff4d4;
+  text-shadow:
+    0 1px 1px rgba(20, 7, 2, 0.95),
+    0 0 10px rgba(255, 221, 151, 0.42);
+}
+
+/* Current page is slightly stronger */
+.breadcrumb-current,
+.footer-breadcrumb-wrap .breadcrumb-current,
+.footer-breadcrumb-wrap .breadcrumb-trail strong {
+  color: #fff2c9;
+  font-weight: 800;
+}
+
+/* Vertical divider instead of stars */
+.breadcrumb-separator,
+.footer-breadcrumb-wrap .breadcrumb-separator {
+  width: 1px;
+  height: 1.05rem;
+  display: inline-block;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 226, 172, 0.9),
+    rgba(255, 226, 172, 0.9),
+    transparent
+  );
+
+  box-shadow:
+    1px 0 0 rgba(25, 9, 3, 0.55),
+    0 0 7px rgba(255, 210, 143, 0.26);
+
+  transform: rotate(7deg);
+}
+
+/* Little glowing star sitting inside the light patch */
+.breadcrumb-glow-icon,
+.footer-breadcrumb-wrap .breadcrumb-glow-icon {
+  position: absolute;
+  left: clamp(1.1rem, 2.2vw, 1.8rem);
+  top: 50%;
+
+  color: #ffd77f;
+  font-size: 0.95rem;
+  line-height: 1;
+
+  text-shadow:
+    0 0 6px rgba(255, 216, 127, 0.95),
+    0 0 14px rgba(255, 183, 79, 0.58),
+    0 1px 0 rgba(36, 15, 5, 0.85);
+
+  transform: translateY(-50%);
+  animation: breadcrumb-glow-twinkle 3.8s ease-in-out infinite;
+}
+
+.breadcrumb-glow-icon::before,
+.footer-breadcrumb-wrap .breadcrumb-glow-icon::before {
+  content: "";
+  position: absolute;
+  inset: -0.55rem;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 214, 126, 0.18),
+    transparent 68%
+  );
+
+  border-radius: 999px;
+  z-index: -1;
+}
+
+@keyframes breadcrumb-glow-twinkle {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translateY(-50%) scale(0.92) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.12) rotate(12deg);
+  }
+
+  65% {
+    opacity: 0.86;
+    transform: translateY(-50%) scale(1) rotate(-8deg);
+  }
+}
+
+/* Footer breadcrumb must match the top breadcrumb */
+.footer-breadcrumb-wrap {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.footer-breadcrumb-wrap .breadcrumb-trail {
+  margin: 0;
+}
+
+/* Stop floating back-to-top button from visually eating the breadcrumb */
+.back-to-top-button {
+  z-index: 20;
+}
+
+/* Reduced motion: keep sparkle, remove movement */
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb-glow-icon,
+  .footer-breadcrumb-wrap .breadcrumb-glow-icon {
+    animation: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .breadcrumb-trail,
+  .footer-breadcrumb-wrap .breadcrumb-trail {
+    width: 100%;
+    padding: 0.78rem 2.35rem;
+  }
+
+  .breadcrumb-link,
+  .breadcrumb-current,
+  .footer-breadcrumb-wrap .breadcrumb-link,
+  .footer-breadcrumb-wrap .breadcrumb-current,
+  .footer-breadcrumb-wrap .breadcrumb-trail a,
+  .footer-breadcrumb-wrap .breadcrumb-trail strong {
+    font-size: 1.2rem;
+  }
+
+  .breadcrumb-glow-icon,
+  .footer-breadcrumb-wrap .breadcrumb-glow-icon {
+    left: 0.95rem;
+    font-size: 0.86rem;
+  }
+}

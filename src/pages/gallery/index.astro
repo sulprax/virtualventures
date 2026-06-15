@@ -61,9 +61,9 @@ const optionLabel = (value: string) => {
     .join(" ");
 };
 
-const tagChoices = [
-  ...new Set(galleryItems.flatMap((item) => item.tags)),
-].sort((a, b) => a.localeCompare(b));
+const tagChoices = [...new Set(galleryItems.flatMap((item) => item.tags))].sort(
+  (a, b) => a.localeCompare(b),
+);
 
 const colourChoices = [
   ...new Set(galleryItems.flatMap((item) => item.colours)),
@@ -219,7 +219,10 @@ const filterChoices = [
               <option value="modified">Recently modified</option>
             </select>
 
-            <div class="gallery-choice-list" aria-label="Desktop gallery sort choices">
+            <div
+              class="gallery-choice-list"
+              aria-label="Desktop gallery sort choices"
+            >
               <button type="button" data-gallery-sort-choice="newest">
                 Newest first
               </button>
@@ -265,10 +268,16 @@ const filterChoices = [
               }
             </select>
 
-            <div class="gallery-choice-list" aria-label="Desktop gallery filter choices">
+            <div
+              class="gallery-choice-list"
+              aria-label="Desktop gallery filter choices"
+            >
               {
                 filterChoices.map((choice) => (
-                  <button type="button" data-gallery-filter-choice={choice.value}>
+                  <button
+                    type="button"
+                    data-gallery-filter-choice={choice.value}
+                  >
                     {choice.label}
                   </button>
                 ))
@@ -304,12 +313,16 @@ const filterChoices = [
 
           <p class="gallery-result-note">
             Showing{" "}
-            <strong data-gallery-result-count>{galleryItems.length}</strong>{" "}
+            <strong data-gallery-result-count>{galleryItems.length}</strong>{
+              " "
+            }
             item{galleryItems.length === 1 ? "" : "s"} right now.
           </p>
         </section>
 
-        <section class="blog-widget gallery-helper-widget gallery-action-widget">
+        <section
+          class="blog-widget gallery-helper-widget gallery-action-widget"
+        >
           <h2>Quick Reset</h2>
 
           <p>
@@ -326,8 +339,8 @@ const filterChoices = [
           <h2>Viewing Tip</h2>
 
           <p>
-            Tap a photo to open the cosy lightbox with tags, colours, blog links,
-            likes and sharing.
+            Tap a photo to open the cosy lightbox with tags, colours, blog
+            links, likes and sharing.
           </p>
         </section>
       </aside>
@@ -458,7 +471,9 @@ const filterChoices = [
           </div>
         </div>
 
-        <section class="gallery-lightbox-index-card gallery-lightbox-title-card">
+        <section
+          class="gallery-lightbox-index-card gallery-lightbox-title-card"
+        >
           <h2 id="gallery-lightbox-title" data-gallery-lightbox-title></h2>
 
           <div class="gallery-lightbox-detail-block">
@@ -466,7 +481,11 @@ const filterChoices = [
 
             <p class="gallery-lightbox-description-line">
               <span data-gallery-lightbox-description></span>
-              <a class="gallery-lightbox-link" data-gallery-lightbox-blog href="#">
+              <a
+                class="gallery-lightbox-link"
+                data-gallery-lightbox-blog
+                href="#"
+              >
                 Continue reading
               </a>
             </p>
@@ -508,10 +527,14 @@ const filterChoices = [
       "[data-gallery-result-count]",
     );
     const sortChoiceButtons = Array.from(
-      document.querySelectorAll<HTMLButtonElement>("[data-gallery-sort-choice]"),
+      document.querySelectorAll<HTMLButtonElement>(
+        "[data-gallery-sort-choice]",
+      ),
     );
     const filterChoiceButtons = Array.from(
-      document.querySelectorAll<HTMLButtonElement>("[data-gallery-filter-choice]"),
+      document.querySelectorAll<HTMLButtonElement>(
+        "[data-gallery-filter-choice]",
+      ),
     );
 
     const lightbox = document.querySelector<HTMLElement>(

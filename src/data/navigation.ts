@@ -17,7 +17,7 @@ export const heroNav: NavItem[] = [
 export const mainNav: NavItem[] = [
   { label: "About", href: "/about/" },
   { label: "Contact", href: "/contact/" },
-  { label: "FAQ", href: "/faq/" },
+  { label: "F.A.Q", href: "/faq/" },
 ];
 
 export const siteNav: NavItem[] = [...heroNav, ...mainNav];

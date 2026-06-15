@@ -17,106 +17,40 @@ draft: false
 images: []
 ---
 
-One of the first book-style products connected to **Virtual Ventures** is my **Project Planner: For Crochet & Knitting**.
+One of the very first book-style products connected to **Virtual Ventures** is my **Project Planner: For Crochet & Knitting**. It originally launched as a physical paperback through Amazon KDP back on **15 January 2026**.
 
-It was first published as a paperback through Amazon KDP on **15 January 2026**.
+Right now, the book is officially published under **Sulprax Studio**, but my long-term plan is to bring all my future books and creative products much closer to the Virtual Ventures name and style.
 
-At the moment, the book is published under **Sulprax Studio**, but the long-term plan is to bring future books and creative products closer to the **Virtual Ventures** name and style.
+This little 80-page planner is designed specifically for keeping track of crochet and knitting notes, yarn details, hook or needle sizes, project progress, pattern tweaks, and future ideas. It might not be the absolute final form of the Virtual Ventures book world, but it is a massive and important beginning for me.
 
-It is an 80-page project planner made for crochet and knitting notes, yarn details, hook or needle sizes, project progress, pattern changes, and future ideas.
+## Why a Project Planner?
 
-It is not the final form of the Virtual Ventures book world.
+If you are a maker, you already know that crochet and knitting projects can get messy fast. One minute you have a neat ball of yarn and a lovely, organized plan. The next minute, you’re drowning in different hook sizes, half-written notes on scrap paper, stray yarn labels, and a mysterious project bag that seems to have swallowed reality.
 
-But it is an important beginning.
-
-## Why a project planner?
-
-Crochet and knitting projects can get messy quickly.
-
-One minute there is a neat ball of yarn and a plan.
-
-The next minute there are hook sizes, stitch counts, half-written notes, yarn labels, colour ideas, pattern changes, and a mysterious project bag that seems to have swallowed reality.
-
-A planner gives all of that somewhere to go.
-
-It can help track:
-
-- project names
-- yarn details
-- hook or needle sizes
-- pattern notes
-- progress
-- changes made
-- gift ideas
-- future makes
-- finished project details
-
-For anyone who makes a lot, those notes matter.
+A planner gives all of that beautiful chaos somewhere to go. It’s a dedicated space to track project names, yarn details, hook or needle sizes, pattern notes, and any changes you made along the way. It's also great for jotting down gift ideas and future makes. For anyone who creates a lot, having those notes in one place matters immensely.
 
 ## Why KDP?
 
-KDP makes it possible to create a physical paperback without needing to order a large box of books upfront.
+Using Amazon KDP (Kindle Direct Publishing) has been a game-changer. It makes it possible to create a physical paperback without needing to order a massive, expensive box of books upfront. That is so incredibly useful for a small creative brand because it lets the idea exist as a real, tangible book while the business is still growing.
 
-That is useful for a small creative brand because it lets the idea exist as a real book while the business is still growing.
+It also opens the door to so many future possibilities, such as specialized crochet planners, full pattern books, themed collections, printable craft journals, and seasonal making books. This first planner is truly the seed for everything else.
 
-It also opens the door to future books, such as:
+## Why I Want to Redesign It
 
-- crochet planners
-- pattern books
-- themed crochet collections
-- printable craft journals
-- project trackers
-- seasonal making books
+Even though the planner already exists and I’m proud of it, I really want future versions to feel more aligned with the Virtual Ventures brand. This current version was a vital first step—it got the idea out of my head and turned it into a real book instead of leaving it trapped in a notebook.
 
-The first planner is the seed.
+But now that Virtual Ventures is finding its identity with a warmer, cozy "coffee-and-cream" style, I want the planner's cover and aesthetic to match. I want it to feel like it belongs to the same creative world as the website, blog, gallery, and future pattern books.
 
-## Why I want to redesign it
+Because of that, the next version will likely feature warmer colors, softer handmade styling, a clearer brand connection, and better product photos (especially once my new photo stage is ready!). I might even release a matching printable or digital version later down the line. The goal isn't to pretend this first version never happened; it's just about letting it grow up alongside the brand.
 
-The planner already exists, but I want future versions to feel more connected to the Virtual Ventures brand.
+## The Bigger Plan
 
-The current version was an important first step. It helped turn the idea into a real paperback instead of leaving it trapped in a notebook.
+This planner isn't just a single, standalone product to me. It’s a stepping stone toward building a full creative bookshelf for Virtual Ventures. The dream is to create a whole library of books and digital files that help makers plan, organize, create, and truly enjoy their crafts.
 
-Now that Virtual Ventures has a warmer coffee-and-cream style, I want the planner cover and photos to feel like they belong to the same creative world as the website, blog, gallery, and future pattern books.
+Whether those turn out to be practical trackers, cozy pattern collections, or downloadable printables, the most important thing is that they feel useful, cozy, and connected.
 
-That means the next version may have:
+## A Small Beginning
 
-- warmer colours
-- softer handmade styling
-- clearer brand connection
-- better product photos
-- a cover that fits the Virtual Ventures look
-- possibly a matching printable or digital version later
+Every creative business has to start somewhere, and for Virtual Ventures, this planner is one of those essential early bricks in the path. It will definitely be updated, reskinned, improved, re-photographed, and eventually joined by a lot more books.
 
-The goal is not to pretend the first version never happened.
-
-The goal is to let it grow up with the brand.
-
-## The bigger plan
-
-This planner is not just a single product.
-
-It is a step toward a full creative bookshelf for Virtual Ventures.
-
-The dream is to make books and digital files that help makers plan, organise, create, and enjoy their projects.
-
-Some books may be practical planners.
-
-Some may be crochet pattern collections.
-
-Some may become printable downloads.
-
-The important thing is that they feel useful, cosy, and connected.
-
-## A small beginning
-
-Every creative business starts somewhere.
-
-For Virtual Ventures, this planner is one of those early bricks in the path.
-
-It may be updated, reskinned, improved, photographed again, and eventually joined by more books.
-
-But it already exists.
-
-And that counts.
-
-A finished thing is always better than a perfect idea that never left the notebook.
+But the most exciting part? It already exists in the world, and that counts for so much. A finished thing is always better than a perfect idea that never actually leaves your notebook.

@@ -48,6 +48,12 @@ const relatedPosts = allPosts
     return sameCategory || sharedTag;
   })
   .slice(0, 3);
+
+const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
 ---
 
 <Layout
@@ -83,6 +89,20 @@ const relatedPosts = allPosts
       </nav>
 
       <header class="blog-post-header">
+        <div class="blog-post-entry-top">
+          <div class="blog-post-entry-tags" aria-label="Post tags">
+            <span>{categoryLabel}</span>
+            {post.data.tags.map((tag) => <span>#{tag}</span>)}
+          </div>
+
+          <time
+            class="blog-post-entry-date"
+            datetime={post.data.pubDate.toISOString()}
+          >
+            {publishedDate}
+          </time>
+        </div>
+
         <p class="eyebrow">{categoryLabel}</p>
 
         <div class="blog-post-emoji" aria-hidden="true">
@@ -91,22 +111,7 @@ const relatedPosts = allPosts
 
         <h1>{post.data.title}</h1>
 
-        <p class="blog-post-meta">
-          Published {
-            post.data.pubDate.toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })
-          }
-        </p>
-
         <p class="blog-post-description">{post.data.description}</p>
-
-        <div class="blog-post-tags">
-          <span>{categoryLabel}</span>
-          {post.data.tags.map((tag) => <span>#{tag}</span>)}
-        </div>
       </header>
 
       {
@@ -138,7 +143,7 @@ const relatedPosts = allPosts
               <strong>{previousPost.data.title}</strong>
             </a>
           ) : (
-            <span />
+            <span aria-hidden="true" />
           )
         }
 
@@ -149,7 +154,7 @@ const relatedPosts = allPosts
               <strong>{nextPost.data.title}</strong>
             </a>
           ) : (
-            <span />
+            <span aria-hidden="true" />
           )
         }
       </nav>
@@ -179,17 +184,15 @@ const relatedPosts = allPosts
         )
       }
 
-      <footer class="blog-post-footer-actions">
-        <a href="/blog/" class="blog-back-link"> ← Back to all blog posts </a>
-
-        {
-          post.data.shopUrl && (
+      {
+        post.data.shopUrl && (
+          <footer class="blog-post-footer-actions">
             <a href={post.data.shopUrl} class="featured-shop-link">
               View in shop
             </a>
-          )
-        }
-      </footer>
+          </footer>
+        )
+      }
     </article>
   </main>
 
@@ -275,8 +278,8 @@ const relatedPosts = allPosts
           figure.appendChild(figcaption);
         }
 
-        imageParagraph.remove();
         imageParagraph.classList.add("is-figure-ready");
+        imageParagraph.remove();
       });
     }
 
@@ -286,14 +289,11 @@ const relatedPosts = allPosts
     let touchStartX = 0;
 
     function getCaptionForImage(image) {
-      const nextElement = image.parentElement?.nextElementSibling;
+      const figure = image.closest("figure");
+      const figureCaption = figure?.querySelector("figcaption");
 
-      if (
-        nextElement &&
-        nextElement.tagName.toLowerCase() === "p" &&
-        nextElement.querySelector("em")
-      ) {
-        return nextElement.textContent?.trim() ?? "";
+      if (figureCaption?.textContent) {
+        return figureCaption.textContent.trim();
       }
 
       return image.alt ?? "";

@@ -301,7 +301,6 @@ body {
   outline-offset: 3px;
 }
 
-
 .gallery-choice-list {
   display: none;
 }
@@ -435,7 +434,6 @@ body {
     outline-offset: 3px;
   }
 
-
   .gallery-filter-widget label {
     justify-items: end;
     text-align: right;
@@ -447,7 +445,6 @@ body {
     text-align: right;
   }
 }
-
 
 /* ==================================================
    Desktop Scrapbook Gallery Wall
@@ -461,8 +458,7 @@ body {
   width: 100%;
   margin: clamp(1.35rem, 3vw, 2rem) 0 1rem;
   color: rgba(111, 78, 55, 0.88);
-  font-family:
-    "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: clamp(0.78rem, 1.2vw, 0.9rem);
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -835,8 +831,7 @@ body {
     ),
     linear-gradient(155deg, #6b3f22, #2f180d 58%, #130704);
   color: #fff3df;
-  font-family:
-    "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: 0.88rem;
   font-weight: 800;
   line-height: 1;
@@ -1092,8 +1087,7 @@ body {
   margin: 0 0 0.9rem;
   padding-bottom: 0.56rem;
   color: #1f1209;
-  font-family:
-    "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: clamp(1rem, 2.2vw, 1.36rem);
   font-weight: 900;
   line-height: 1.08;
@@ -1120,9 +1114,8 @@ body {
   margin-top: 0.9rem;
 }
 
-.gallery-lightbox-detail-block h3:not(.gallery-tags-heading):not(
-    .gallery-colours-heading
-  ) {
+.gallery-lightbox-detail-block
+  h3:not(.gallery-tags-heading):not(.gallery-colours-heading) {
   margin: 0 0 0.35rem;
   color: var(--coffee, #6f4e37);
   font-family: var(--font-script, cursive);
@@ -1209,8 +1202,7 @@ body {
   width: 100%;
   margin: 0 0 0.38rem 0;
   color: rgba(111, 78, 55, 0.88);
-  font-family:
-    "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: 0.78rem;
   font-weight: 900;
   line-height: 1.1;
@@ -1586,8 +1578,7 @@ body {
       ),
       rgba(38, 20, 10, 0.62);
     color: #fff3df;
-    font-family:
-      "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+    font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
     font-size: 0.62rem;
     font-weight: 900;
     letter-spacing: 0.07em;
@@ -1671,8 +1662,7 @@ body {
     padding: 0.3rem 0.54rem;
     background: rgba(38, 20, 10, 0.58);
     color: #ffd894;
-    font-family:
-      "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+    font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
     font-size: 0.58rem;
     font-weight: 900;
     letter-spacing: 0.09em;

@@ -45,7 +45,6 @@ const rawPosts = (await getCollection("blog"))
 const posts = await Promise.all(
   rawPosts.map(async (post) => {
     const { Content } = await render(post);
-
     const categoryLabel =
       categoryLabels[post.data.category] ?? post.data.category;
 
@@ -164,7 +163,13 @@ const calendarMonth = calendarBaseDate.getMonth();
                 data-tags={post.data.tags.join(",")}
                 data-date={post.isoDate}
               >
-                <button class="blog-card-toggle" type="button" data-post-toggle>
+                <button
+                  class="blog-card-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={`post-content-${post.id}`}
+                  data-post-toggle
+                >
                   <span class="blog-card-topline">
                     <span class="blog-date">
                       {post.data.pubDate.toLocaleDateString("en-GB", {
@@ -223,7 +228,12 @@ const calendarMonth = calendarBaseDate.getMonth();
                   </span>
                 </button>
 
-                <div class="blog-card-expanded" hidden data-post-content>
+                <div
+                  id={`post-content-${post.id}`}
+                  class="blog-card-expanded"
+                  hidden
+                  data-post-content
+                >
                   {post.data.image && (
                     <img
                       src={post.data.image}
@@ -259,15 +269,25 @@ const calendarMonth = calendarBaseDate.getMonth();
           data-blog-pagination
           aria-label="Blog pagination"
         >
-          <button type="button" class="blog-page-button" data-page-prev
-            >‹</button
+          <button
+            type="button"
+            class="blog-page-button"
+            data-page-prev
+            aria-label="Previous page"
           >
+            ‹
+          </button>
 
           <div class="blog-page-numbers" data-page-numbers></div>
 
-          <button type="button" class="blog-page-button" data-page-next
-            >›</button
+          <button
+            type="button"
+            class="blog-page-button"
+            data-page-next
+            aria-label="Next page"
           >
+            ›
+          </button>
 
           <form class="blog-page-jump" data-page-jump-form>
             <label for="blog-page-jump-input">Go to page</label>
@@ -521,11 +541,16 @@ const calendarMonth = calendarBaseDate.getMonth();
     let visibleYearPageStart = visibleCalendarYear - 5;
 
     function closePost(card) {
+      const toggle = card.querySelector("[data-post-toggle]");
       const content = card.querySelector("[data-post-content]");
       const label = card.querySelector("[data-read-label]");
 
       if (content instanceof HTMLElement) {
         content.hidden = true;
+      }
+
+      if (toggle instanceof HTMLButtonElement) {
+        toggle.setAttribute("aria-expanded", "false");
       }
 
       if (label instanceof HTMLElement) {
@@ -576,7 +601,12 @@ const calendarMonth = calendarBaseDate.getMonth();
         button.type = "button";
         button.className = "blog-page-number";
         button.textContent = String(page);
+        button.setAttribute("aria-label", `Go to page ${page}`);
         button.classList.toggle("is-active", page === currentPage);
+
+        if (page === currentPage) {
+          button.setAttribute("aria-current", "page");
+        }
 
         button.addEventListener("click", () => {
           currentPage = page;
@@ -879,9 +909,16 @@ const calendarMonth = calendarBaseDate.getMonth();
 
         content.hidden = !isOpening;
         card.classList.toggle("is-open", isOpening);
+        toggle.setAttribute("aria-expanded", String(isOpening));
 
         if (label instanceof HTMLElement) {
           label.textContent = isOpening ? "Close post" : "Open post";
+        }
+
+        if (isOpening) {
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }, 50);
         }
       });
     });
