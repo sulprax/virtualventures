@@ -1,8 +1,8 @@
 ---
-title: "Why My Past Crochet Projects Still Matter"
+title: "Why Old Projects Matter"
 description: "Old crochet projects are not wasted work. They are proof of learning, patience, style, and the path that led to Virtual Ventures."
 pubDate: 2026-06-01
-updatedDate: 2026-06-01
+updatedDate: 2026-06-15
 author: "Virtual Ventures"
 category: "crochet"
 tags:
@@ -22,7 +22,7 @@ But that doesn't mean those projects don't matter. My past crochet work is the v
 
 ## Finding Value in the Archive
 
-Whether it’s a finished blanket, an old amigurumi character, or a design experiment that took far longer than expected, every piece tells a part of the story. They are physical proof of the skills I’ve learned, the color palettes I’ve explored, and the mistakes I’ve survived.
+Whether it’s a finished blanket, an old amigurumi character, or a design experiment that took far longer than expected, every piece tells a part of the story. They are physical proof of the skills I’ve learned, the colour palettes I’ve explored, and the mistakes I’ve survived.
 
 Even if an item isn't for sale, it represents hours of built-up patience and techniques practiced. Those lessons are incredibly valuable, and they often hold the sparks for ideas that might return in a new way later down the road.
 
@@ -43,7 +43,7 @@ However, they absolutely belong in my archive. They show the sheer scale of past
 Old projects are wonderful starting points for new conversations. I want to use my past makes to fuel blog posts about:
 
 - The biggest lessons I learned from a specific project
-- Why certain color combinations worked (or didn't!)
+- Why certain colour combinations worked or didn't
 - What I would do differently if I made it again today
 - The reality of how long a large-scale project actually takes
 - How my past work shaped the identity of Virtual Ventures
