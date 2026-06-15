@@ -1,8 +1,8 @@
 ---
-title: "Testing Leather, Lasers, and Lessons Learned"
+title: "Leather, Lasers, and Lessons"
 description: "A behind-the-scenes look at my first leather testing for Virtual Ventures, including logo engraving, cutting practice, and learning carefully as I go."
 pubDate: 2026-06-13
-updatedDate: 2026-06-13
+updatedDate: 2026-06-15
 author: "Virtual Ventures"
 category: "laser"
 tags:
