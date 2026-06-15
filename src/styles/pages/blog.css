@@ -907,13 +907,20 @@
 @media (min-width: 901px) {
   .blog-sidebar,
   .blog-sidebar.mobile-side-drawer {
-    position: sticky;
-    top: 5.5rem;
-    align-self: start;
+    position: static;
+    inset: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
 
+    align-self: start;
+    height: auto;
     max-height: none;
     overflow: visible;
     padding-right: 0;
+
+    transform: none;
   }
 }
 
