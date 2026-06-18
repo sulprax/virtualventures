@@ -31,7 +31,46 @@
 @import "./components/mobile-filter-drawer.css";
 @import "./components/social-icons.css";
 @import "./components/typography-polish.css";
-@import "./components/scrapbook-media.css";
 
 /* Shared feature styles */
 @import "./cover-slideshow.css";
+
+/* =========================================================
+   GLOBAL LAYER SAFETY
+   Keeps the mobile leather tools drawer above page bands/footers,
+   while the main header and hamburger stay highest.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  body.has-open-mobile-side-drawer .has-mobile-side-drawer[data-mobile-side-drawer-root] {
+    position: relative !important;
+    z-index: 50000 !important;
+    isolation: isolate !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer-backdrop {
+    z-index: 50010 !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer {
+    z-index: 50020 !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer-frame {
+    z-index: 50030 !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer-toggle {
+    z-index: 50040 !important;
+  }
+
+  .site-header {
+    z-index: 50100 !important;
+  }
+
+  .site-header-menu-button,
+  .site-header-nav-drawer {
+    position: relative;
+    z-index: 50110 !important;
+  }
+}
