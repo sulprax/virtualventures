@@ -57,6 +57,18 @@ const featureImageTags =
     : post.data.tags.join(", ");
 const featureImageColours = featureImage?.colours?.join(", ") ?? "";
 
+const postImageMetadata = post.data.images.map((image) => ({
+  src: image.src,
+  title: image.title,
+  description: image.description || post.data.description,
+  alt: image.alt,
+  category: image.category
+    ? (categoryLabels[image.category] ?? image.category)
+    : categoryLabel,
+  tags: image.tags,
+  colours: image.colours,
+}));
+
 const relatedPosts = allPosts
   .filter((item) => item.id !== post.id)
   .filter((item) => {
@@ -264,26 +276,6 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
       <div class="gallery-lightbox-content">
         <div class="gallery-lightbox-meta-row">
           <p class="gallery-card-category" data-blog-lightbox-category></p>
-
-          <div class="gallery-lightbox-icon-actions">
-            <button
-              class="gallery-lightbox-like"
-              type="button"
-              data-blog-lightbox-like
-              aria-label="Like this blog image"
-            >
-              ♡
-            </button>
-
-            <button
-              class="gallery-lightbox-share"
-              type="button"
-              data-blog-lightbox-share
-              aria-label="Share this blog image"
-            >
-              ↗
-            </button>
-          </div>
         </div>
 
         <section
@@ -331,9 +323,10 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
     </article>
   </div>
 
-  <script>
+  <script define:vars={{ postImageMetadata }}>
     // @ts-nocheck
 
+    const imageMetadata = postImageMetadata ?? [];
     const postRoot = document.querySelector(".blog-post");
     const lightbox = document.querySelector("[data-blog-lightbox]");
     const lightboxImage = document.querySelector("[data-blog-lightbox-image]");
@@ -349,8 +342,26 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
       "[data-blog-lightbox-colours]",
     );
     const lightboxBlog = document.querySelector("[data-blog-lightbox-blog]");
-    const lightboxLike = document.querySelector("[data-blog-lightbox-like]");
-    const lightboxShare = document.querySelector("[data-blog-lightbox-share]");
+
+    function normaliseImagePath(value) {
+      if (!value) return "";
+
+      try {
+        return new URL(value, window.location.origin).pathname;
+      } catch {
+        return value;
+      }
+    }
+
+    function getImageMetadata(image) {
+      const src = normaliseImagePath(image.getAttribute("src") || image.src);
+
+      return (
+        imageMetadata.find(
+          (item) => normaliseImagePath(item.src) === src,
+        ) ?? {}
+      );
+    }
 
     function turnImagesIntoFigures() {
       Array.from(document.querySelectorAll(".blog-post-content img")).forEach(
@@ -413,13 +424,16 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
 
       container.innerHTML = "";
 
-      const items = (rawValue || "")
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean)
-        .slice(0, 3);
+      const items = Array.isArray(rawValue)
+        ? rawValue
+        : (rawValue || "")
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean);
 
-      if (items.length === 0) {
+      const visibleItems = items.filter(Boolean).slice(0, 3);
+
+      if (visibleItems.length === 0) {
         const emptyElement = document.createElement("span");
         emptyElement.className = "gallery-empty-pill";
         emptyElement.textContent = emptyText;
@@ -427,7 +441,7 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
         return;
       }
 
-      items.forEach((item) => {
+      visibleItems.forEach((item) => {
         const tagElement = document.createElement("span");
         tagElement.textContent = item;
         container.appendChild(tagElement);
@@ -443,27 +457,6 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
       }
 
       return image.alt || postRoot?.dataset.postDescription || "";
-    }
-
-    function getLikeKey(image) {
-      return `vv-blog-liked:${image.currentSrc || image.src}`;
-    }
-
-    function isLiked(image) {
-      return localStorage.getItem(getLikeKey(image)) === "true";
-    }
-
-    function setLiked(image, liked) {
-      localStorage.setItem(getLikeKey(image), String(liked));
-
-      if (lightboxLike) {
-        lightboxLike.textContent = liked ? "♥" : "♡";
-        lightboxLike.setAttribute(
-          "aria-label",
-          liked ? "Unlike this blog image" : "Like this blog image",
-        );
-        lightboxLike.classList.toggle("is-liked", liked);
-      }
     }
 
     function openLightbox(index) {
@@ -483,32 +476,34 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
 
       activeIndex = index;
 
-      const description = image.dataset.blogDescription || getCaptionForImage(image);
-      const title = image.dataset.blogTitle || postRoot?.dataset.postTitle || "Blog image";
+      const metadata = getImageMetadata(image);
+      const description =
+        image.dataset.blogDescription ||
+        metadata.description ||
+        getCaptionForImage(image);
+      const title =
+        image.dataset.blogTitle || metadata.title || postRoot?.dataset.postTitle || "Blog image";
+      const category =
+        image.dataset.blogCategory ||
+        metadata.category ||
+        postRoot?.dataset.postCategory ||
+        "blog photo";
+      const tags = image.dataset.blogTags || metadata.tags || postRoot?.dataset.postTags || "";
+      const colours = image.dataset.blogColours || metadata.colours || "";
 
       lightboxImage.hidden = false;
       lightboxImage.src = image.currentSrc || image.src;
-      lightboxImage.alt = image.alt || "";
+      lightboxImage.alt = image.alt || metadata.alt || "";
 
       lightboxTitle.textContent = title;
-      lightboxCategory.textContent = image.dataset.blogCategory || postRoot?.dataset.postCategory || "blog photo";
+      lightboxCategory.textContent = category;
       lightboxDescription.textContent = description || "No description has been added yet.";
 
-      fillTagList(
-        lightboxTags,
-        image.dataset.blogTags || postRoot?.dataset.postTags || "",
-        "No tags yet",
-      );
-      fillTagList(
-        lightboxColours,
-        image.dataset.blogColours || "",
-        "No colours yet",
-      );
+      fillTagList(lightboxTags, tags, "No tags yet");
+      fillTagList(lightboxColours, colours, "No colours yet");
 
       lightboxBlog.href = image.dataset.blogUrl || postRoot?.dataset.postUrl || window.location.pathname;
       lightboxBlog.textContent = "Continue reading";
-
-      setLiked(image, isLiked(image));
 
       lightbox.hidden = false;
       document.body.classList.add("gallery-lightbox-is-open");
@@ -554,46 +549,6 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
 
     document.querySelector("[data-blog-next]")?.addEventListener("click", () => {
       moveLightbox(1);
-    });
-
-    lightboxLike?.addEventListener("click", () => {
-      const image = postImages[activeIndex];
-      if (!image) return;
-      setLiked(image, !isLiked(image));
-    });
-
-    lightboxShare?.addEventListener("click", async () => {
-      const image = postImages[activeIndex];
-      if (!image || !lightboxShare) return;
-
-      const shareUrl = `${window.location.origin}${
-        image.dataset.blogUrl || postRoot?.dataset.postUrl || window.location.pathname
-      }`;
-      const shareTitle = image.dataset.blogTitle || postRoot?.dataset.postTitle || "Virtual Ventures Blog";
-
-      try {
-        if (navigator.share) {
-          await navigator.share({
-            title: shareTitle,
-            text: image.dataset.blogDescription || getCaptionForImage(image),
-            url: shareUrl,
-          });
-          return;
-        }
-
-        await navigator.clipboard.writeText(shareUrl);
-        lightboxShare.textContent = "✓";
-
-        setTimeout(() => {
-          lightboxShare.textContent = "↗";
-        }, 1600);
-      } catch {
-        lightboxShare.textContent = "!";
-
-        setTimeout(() => {
-          lightboxShare.textContent = "↗";
-        }, 1600);
-      }
     });
 
     document.addEventListener("keydown", (event) => {
