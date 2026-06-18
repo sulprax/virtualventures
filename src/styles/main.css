@@ -75,3 +75,42 @@
     z-index: 50110 !important;
   }
 }
+
+/* =========================================================
+   GLOBAL OVERLAY SAFETY
+   Lightboxes must sit above the sticky header. Footer sparkle stays
+   decorative and never expands over the copyright text.
+   ========================================================= */
+
+.gallery-lightbox,
+.blog-image-lightbox.gallery-lightbox {
+  z-index: 70000 !important;
+}
+
+.gallery-lightbox-panel {
+  z-index: 70010 !important;
+  pointer-events: auto !important;
+}
+
+.gallery-lightbox-close {
+  z-index: 70030 !important;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+}
+
+.gallery-lightbox-backdrop {
+  z-index: 0 !important;
+}
+
+.footer-bottom {
+  padding-top: max(1.65rem, 28px);
+}
+
+.footer-bottom::before {
+  width: 1.35rem !important;
+  height: 1.35rem !important;
+  animation: none !important;
+  will-change: auto !important;
+  transform: translate(-50%, -50%) scale(0.82) !important;
+  pointer-events: none !important;
+}
