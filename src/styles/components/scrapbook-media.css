@@ -1,0 +1,281 @@
+/* =========================================================
+   SCRAPBOOK MEDIA
+   Shared photo styling for blog posts and inline blog snippets.
+
+   Goal:
+   - let images be the star of the diary/scrapbook pages
+   - remove bulky boxes behind photos
+   - keep captions readable as bottom-right leather labels
+   - use subtle page-slit corners without making the layout messy
+   ========================================================= */
+
+:where(.blog-post-content, .blog-post-content-inline) {
+  --scrapbook-photo-radius: clamp(1rem, 2.4vw, 1.45rem);
+  --scrapbook-photo-shadow: 0 24px 58px rgba(59, 43, 34, 0.18),
+    0 10px 22px rgba(59, 43, 34, 0.1),
+    0 0 0 1px rgba(139, 94, 60, 0.14);
+  --scrapbook-caption-bg: linear-gradient(
+      145deg,
+      rgba(103, 61, 31, 0.94),
+      rgba(43, 22, 11, 0.9)
+    );
+  --scrapbook-caption-border: rgba(239, 189, 114, 0.38);
+  --scrapbook-slit: rgba(74, 42, 22, 0.42);
+}
+
+.blog-post-content figure.blog-content-figure,
+.blog-post-content-inline figure.blog-content-figure {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+
+  width: min(100%, 860px);
+  margin: clamp(1.8rem, 4vw, 2.6rem) auto;
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  border-radius: var(--scrapbook-photo-radius);
+  box-shadow: none;
+}
+
+.blog-post-content figure.blog-content-figure img,
+.blog-post-content-inline figure.blog-content-figure img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+  margin: 0;
+
+  object-fit: cover;
+
+  border: 0;
+  border-radius: var(--scrapbook-photo-radius);
+  box-shadow: var(--scrapbook-photo-shadow);
+
+  cursor: zoom-in;
+}
+
+/* Four small leather-like slits that make the photo feel tucked into the page. */
+.blog-post-content figure.blog-content-figure::before,
+.blog-post-content-inline figure.blog-content-figure::before {
+  content: "";
+  position: absolute;
+  inset: -0.38rem;
+  z-index: 2;
+  pointer-events: none;
+
+  background:
+    linear-gradient(135deg, transparent 0 45%, var(--scrapbook-slit) 46% 54%, transparent 55%) left top / 3.2rem 3.2rem no-repeat,
+    linear-gradient(45deg, transparent 0 45%, var(--scrapbook-slit) 46% 54%, transparent 55%) right top / 3.2rem 3.2rem no-repeat,
+    linear-gradient(45deg, transparent 0 45%, rgba(74, 42, 22, 0.3) 46% 54%, transparent 55%) left bottom / 3.2rem 3.2rem no-repeat,
+    linear-gradient(135deg, transparent 0 45%, rgba(74, 42, 22, 0.34) 46% 54%, transparent 55%) right bottom / 3.2rem 3.2rem no-repeat;
+
+  opacity: 0.62;
+}
+
+/* Soft page glow behind the photo, not a visible extra box. */
+.blog-post-content figure.blog-content-figure::after,
+.blog-post-content-inline figure.blog-content-figure::after {
+  content: "";
+  position: absolute;
+  inset: 8% 4% -0.8rem;
+  z-index: -1;
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(247, 217, 177, 0.34),
+    rgba(211, 164, 104, 0.12) 58%,
+    transparent 76%
+  );
+  border-radius: inherit;
+  filter: blur(10px);
+}
+
+.blog-post-content figure.blog-content-figure figcaption,
+.blog-post-content-inline figure.blog-content-figure figcaption {
+  position: absolute;
+  right: clamp(0.65rem, 2vw, 1rem);
+  bottom: clamp(0.65rem, 2vw, 1rem);
+  z-index: 4;
+
+  max-width: min(82%, 28rem);
+  padding: 0.52rem 0.78rem;
+
+  color: #fff4d4;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(255, 224, 166, 0.18), transparent 7rem),
+    var(--scrapbook-caption-bg);
+
+  border: 1px solid var(--scrapbook-caption-border);
+  border-radius: 0.85rem;
+
+  font-family: var(--font-handmade);
+  font-size: clamp(0.82rem, 1vw, 0.96rem);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.32;
+  text-align: left;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
+  box-shadow:
+    0 12px 26px rgba(24, 12, 6, 0.26),
+    inset 0 1px 0 rgba(255, 246, 229, 0.2);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.blog-post-content figure.blog-content-figure figcaption:empty,
+.blog-post-content-inline figure.blog-content-figure figcaption:empty {
+  display: none;
+}
+
+/* Fallback for markdown image paragraphs before JS upgrades them to figures. */
+@supports selector(p:has(> img)) {
+  .blog-post-content p:has(> img),
+  .blog-post-content-inline p:has(> img) {
+    position: relative;
+    overflow: visible;
+
+    width: min(100%, 860px);
+    margin: clamp(1.8rem, 4vw, 2.6rem) auto;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    border-radius: var(--scrapbook-photo-radius);
+    box-shadow: none;
+    text-indent: 0;
+  }
+
+  .blog-post-content p:has(> img) img,
+  .blog-post-content-inline p:has(> img) img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+    margin: 0;
+
+    border: 0;
+    border-radius: var(--scrapbook-photo-radius);
+    box-shadow: var(--scrapbook-photo-shadow);
+  }
+
+  .blog-post-content p:has(> img)::before,
+  .blog-post-content-inline p:has(> img)::before {
+    content: "";
+    position: absolute;
+    inset: -0.38rem;
+    z-index: 2;
+    pointer-events: none;
+
+    background:
+      linear-gradient(135deg, transparent 0 45%, var(--scrapbook-slit) 46% 54%, transparent 55%) left top / 3.2rem 3.2rem no-repeat,
+      linear-gradient(45deg, transparent 0 45%, var(--scrapbook-slit) 46% 54%, transparent 55%) right top / 3.2rem 3.2rem no-repeat,
+      linear-gradient(45deg, transparent 0 45%, rgba(74, 42, 22, 0.3) 46% 54%, transparent 55%) left bottom / 3.2rem 3.2rem no-repeat,
+      linear-gradient(135deg, transparent 0 45%, rgba(74, 42, 22, 0.34) 46% 54%, transparent 55%) right bottom / 3.2rem 3.2rem no-repeat;
+
+    opacity: 0.62;
+  }
+
+  .blog-post-content p:has(> img) + p:has(> em),
+  .blog-post-content-inline p:has(> img) + p:has(> em) {
+    position: relative;
+    z-index: 4;
+
+    width: fit-content;
+    max-width: min(82%, 28rem);
+    margin: -5rem 0.8rem 2.1rem auto;
+    padding: 0.52rem 0.78rem;
+
+    color: #fff4d4;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(255, 224, 166, 0.18), transparent 7rem),
+      var(--scrapbook-caption-bg);
+
+    border: 1px solid var(--scrapbook-caption-border);
+    border-radius: 0.85rem;
+
+    font-family: var(--font-handmade);
+    font-size: clamp(0.82rem, 1vw, 0.96rem);
+    font-weight: 800;
+    line-height: 1.32;
+    text-align: left;
+    text-indent: 0;
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
+    box-shadow:
+      0 12px 26px rgba(24, 12, 6, 0.26),
+      inset 0 1px 0 rgba(255, 246, 229, 0.2);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+
+  .blog-post-content p:has(> img) + p:has(> em) em,
+  .blog-post-content-inline p:has(> img) + p:has(> em) em {
+    font-style: normal;
+  }
+}
+
+/* Expanded blog index feature images. */
+.blog-card-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+  margin: clamp(1.2rem, 3vw, 1.8rem) auto;
+
+  border: 0;
+  border-radius: var(--scrapbook-photo-radius, 1.35rem);
+  box-shadow:
+    0 24px 58px rgba(59, 43, 34, 0.18),
+    0 10px 22px rgba(59, 43, 34, 0.1),
+    0 0 0 1px rgba(139, 94, 60, 0.14);
+}
+
+.blog-clickable-image:hover,
+.blog-clickable-image:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.02) saturate(1.03);
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  :where(.blog-post-content, .blog-post-content-inline) {
+    --scrapbook-photo-radius: 1.05rem;
+  }
+
+  .blog-post-content figure.blog-content-figure,
+  .blog-post-content-inline figure.blog-content-figure,
+  .blog-post-content p:has(> img),
+  .blog-post-content-inline p:has(> img) {
+    width: 100%;
+    margin-block: 1.65rem;
+  }
+
+  .blog-post-content figure.blog-content-figure::before,
+  .blog-post-content-inline figure.blog-content-figure::before,
+  .blog-post-content p:has(> img)::before,
+  .blog-post-content-inline p:has(> img)::before {
+    inset: -0.28rem;
+    background-size: 2.55rem 2.55rem;
+    opacity: 0.5;
+  }
+
+  .blog-post-content figure.blog-content-figure figcaption,
+  .blog-post-content-inline figure.blog-content-figure figcaption,
+  .blog-post-content p:has(> img) + p:has(> em),
+  .blog-post-content-inline p:has(> img) + p:has(> em) {
+    right: 0.55rem;
+    bottom: 0.55rem;
+    max-width: calc(100% - 1.1rem);
+    margin-top: -4.45rem;
+    padding: 0.46rem 0.65rem;
+    border-radius: 0.72rem;
+    font-size: 0.86rem;
+    line-height: 1.25;
+  }
+}
