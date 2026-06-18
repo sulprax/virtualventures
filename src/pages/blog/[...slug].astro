@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Breadcrumbs from "../../components/site/Breadcrumbs.astro";
 import PageHero from "../../components/page/PageHero.astro";
 import "../../styles/pages/blog-post.css";
+import "../../styles/pages/gallery.css";
 import { getCollection, render } from "astro:content";
 
 const categoryLabels: Record<string, string> = {
@@ -13,6 +14,9 @@ const categoryLabels: Record<string, string> = {
   shop: "Shop",
   website: "Website",
   "behind-the-scenes": "Behind the Scenes",
+  patterns: "Patterns",
+  "kdp-books": "KDP Books",
+  "tools-and-supplies": "Tools and Supplies",
 };
 
 export async function getStaticPaths() {
@@ -36,6 +40,22 @@ const previousPost = allPosts[currentIndex + 1];
 const nextPost = allPosts[currentIndex - 1];
 
 const categoryLabel = categoryLabels[post.data.category] ?? post.data.category;
+
+const featureImage =
+  post.data.images.find((image) => image.src === post.data.image) ??
+  post.data.images[0];
+
+const featureImageAlt = featureImage?.alt ?? post.data.title;
+const featureImageTitle = featureImage?.title ?? post.data.title;
+const featureImageCaption = featureImage?.description || post.data.description;
+const featureImageCategory = featureImage?.category
+  ? (categoryLabels[featureImage.category] ?? featureImage.category)
+  : categoryLabel;
+const featureImageTags =
+  featureImage?.tags && featureImage.tags.length > 0
+    ? featureImage.tags.join(", ")
+    : post.data.tags.join(", ");
+const featureImageColours = featureImage?.colours?.join(", ") ?? "";
 
 const relatedPosts = allPosts
   .filter((item) => item.id !== post.id)
@@ -80,7 +100,14 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
   />
 
   <main class="page-shell blog-post-page">
-    <article class="blog-post">
+    <article
+      class="blog-post"
+      data-post-title={post.data.title}
+      data-post-description={post.data.description}
+      data-post-category={categoryLabel}
+      data-post-tags={post.data.tags.join(", ")}
+      data-post-url={`/blog/${post.id.replace(/\.md$/, "")}/`}
+    >
       <nav class="blog-post-top-actions" aria-label="Blog post navigation">
         <a href="/blog/" class="blog-back-link blog-back-link-top">
           ← Back to all blog posts
@@ -119,11 +146,17 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
           <figure class="blog-post-figure">
             <img
               src={post.data.image}
-              alt=""
+              alt={featureImageAlt}
               loading="lazy"
               class="blog-post-feature-image"
+              data-blog-title={featureImageTitle}
+              data-blog-description={featureImageCaption}
+              data-blog-category={featureImageCategory}
+              data-blog-tags={featureImageTags}
+              data-blog-colours={featureImageColours}
+              data-blog-url={`/blog/${post.id.replace(/\.md$/, "")}/`}
             />
-            <figcaption>{post.data.title}</figcaption>
+            {featureImageCaption && <figcaption>{featureImageCaption}</figcaption>}
           </figure>
         )
       }
@@ -196,97 +229,210 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
     </article>
   </main>
 
-  <div class="blog-image-lightbox" data-blog-lightbox hidden>
-    <button class="blog-lightbox-close" type="button" aria-label="Close image">
-      ×
-    </button>
+  <div class="gallery-lightbox blog-image-lightbox" data-blog-lightbox hidden>
+    <div class="gallery-lightbox-backdrop" data-blog-close></div>
 
-    <button
-      class="blog-lightbox-arrow blog-lightbox-prev"
-      type="button"
-      aria-label="Previous image"
+    <article
+      class="gallery-lightbox-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="blog-lightbox-title"
     >
-      ‹
-    </button>
+      <button
+        class="gallery-lightbox-close"
+        type="button"
+        data-blog-close
+        aria-label="Close blog image"
+      >
+        ×
+      </button>
 
-    <figure class="blog-lightbox-figure">
-      <img src="" alt="" data-lightbox-image />
-      <figcaption data-lightbox-caption></figcaption>
-    </figure>
+      <button
+        class="gallery-lightbox-arrow gallery-lightbox-arrow--left"
+        type="button"
+        data-blog-prev
+        aria-label="Previous blog image"
+      >
+        ‹
+      </button>
 
-    <button
-      class="blog-lightbox-arrow blog-lightbox-next"
-      type="button"
-      aria-label="Next image"
-    >
-      ›
-    </button>
+      <div class="gallery-lightbox-image-wrap">
+        <img data-blog-lightbox-image src="" alt="" />
+        <video data-blog-lightbox-video controls playsinline hidden></video>
+      </div>
+
+      <div class="gallery-lightbox-content">
+        <div class="gallery-lightbox-meta-row">
+          <p class="gallery-card-category" data-blog-lightbox-category></p>
+
+          <div class="gallery-lightbox-icon-actions">
+            <button
+              class="gallery-lightbox-like"
+              type="button"
+              data-blog-lightbox-like
+              aria-label="Like this blog image"
+            >
+              ♡
+            </button>
+
+            <button
+              class="gallery-lightbox-share"
+              type="button"
+              data-blog-lightbox-share
+              aria-label="Share this blog image"
+            >
+              ↗
+            </button>
+          </div>
+        </div>
+
+        <section
+          class="gallery-lightbox-index-card gallery-lightbox-title-card"
+        >
+          <h2 id="blog-lightbox-title" data-blog-lightbox-title></h2>
+
+          <div class="gallery-lightbox-detail-block">
+            <h3>Description</h3>
+
+            <p class="gallery-lightbox-description-line">
+              <span data-blog-lightbox-description></span>
+              <a
+                class="gallery-lightbox-link"
+                data-blog-lightbox-blog
+                href="#"
+              >
+                Continue reading
+              </a>
+            </p>
+          </div>
+        </section>
+
+        <section class="gallery-lightbox-index-card gallery-lightbox-tags-card">
+          <div class="gallery-lightbox-detail-block">
+            <h3 class="gallery-tags-heading">Tags</h3>
+            <div class="gallery-tags" data-blog-lightbox-tags></div>
+          </div>
+
+          <div class="gallery-lightbox-detail-block">
+            <h3 class="gallery-colours-heading">Colours</h3>
+            <div class="gallery-tags" data-blog-lightbox-colours></div>
+          </div>
+        </section>
+      </div>
+
+      <button
+        class="gallery-lightbox-arrow gallery-lightbox-arrow--right"
+        type="button"
+        data-blog-next
+        aria-label="Next blog image"
+      >
+        ›
+      </button>
+    </article>
   </div>
 
   <script>
     // @ts-nocheck
 
+    const postRoot = document.querySelector(".blog-post");
     const lightbox = document.querySelector("[data-blog-lightbox]");
-    const lightboxImage = document.querySelector("[data-lightbox-image]");
-    const lightboxCaption = document.querySelector("[data-lightbox-caption]");
-    const closeButton = document.querySelector(".blog-lightbox-close");
-    const prevButton = document.querySelector(".blog-lightbox-prev");
-    const nextButton = document.querySelector(".blog-lightbox-next");
-
-    const postImages = Array.from(
-      document.querySelectorAll(".blog-post-content img"),
+    const lightboxImage = document.querySelector("[data-blog-lightbox-image]");
+    const lightboxTitle = document.querySelector("[data-blog-lightbox-title]");
+    const lightboxDescription = document.querySelector(
+      "[data-blog-lightbox-description]",
     );
+    const lightboxCategory = document.querySelector(
+      "[data-blog-lightbox-category]",
+    );
+    const lightboxTags = document.querySelector("[data-blog-lightbox-tags]");
+    const lightboxColours = document.querySelector(
+      "[data-blog-lightbox-colours]",
+    );
+    const lightboxBlog = document.querySelector("[data-blog-lightbox-blog]");
+    const lightboxLike = document.querySelector("[data-blog-lightbox-like]");
+    const lightboxShare = document.querySelector("[data-blog-lightbox-share]");
 
     function turnImagesIntoFigures() {
-      postImages.forEach((image) => {
-        const imageParagraph = image.closest("p");
+      Array.from(document.querySelectorAll(".blog-post-content img")).forEach(
+        (image) => {
+          const imageParagraph = image.closest("p");
 
-        if (
-          !imageParagraph ||
-          imageParagraph.classList.contains("is-figure-ready")
-        ) {
-          return;
-        }
+          if (
+            !imageParagraph ||
+            imageParagraph.classList.contains("is-figure-ready")
+          ) {
+            return;
+          }
 
-        const possibleCaption = imageParagraph.nextElementSibling;
-        let captionText = "";
+          const possibleCaption = imageParagraph.nextElementSibling;
+          let captionText = "";
 
-        if (
-          possibleCaption &&
-          possibleCaption.tagName.toLowerCase() === "p" &&
-          possibleCaption.querySelector("em")
-        ) {
-          captionText = possibleCaption.textContent?.trim() ?? "";
-          possibleCaption.classList.add("blog-caption-consumed");
-        }
+          if (
+            possibleCaption &&
+            possibleCaption.tagName.toLowerCase() === "p" &&
+            possibleCaption.querySelector("em")
+          ) {
+            captionText = possibleCaption.textContent?.trim() ?? "";
+            possibleCaption.classList.add("blog-caption-consumed");
+          }
 
-        const figure = document.createElement("figure");
-        figure.className = "blog-content-figure";
+          const figure = document.createElement("figure");
+          figure.className = "blog-content-figure";
 
-        const parent = imageParagraph.parentNode;
+          const parent = imageParagraph.parentNode;
 
-        if (!parent) {
-          return;
-        }
+          if (!parent) {
+            return;
+          }
 
-        parent.insertBefore(figure, imageParagraph);
-        figure.appendChild(image);
+          parent.insertBefore(figure, imageParagraph);
+          figure.appendChild(image);
 
-        if (captionText) {
-          const figcaption = document.createElement("figcaption");
-          figcaption.textContent = captionText;
-          figure.appendChild(figcaption);
-        }
+          if (captionText) {
+            const figcaption = document.createElement("figcaption");
+            figcaption.textContent = captionText;
+            figure.appendChild(figcaption);
+          }
 
-        imageParagraph.classList.add("is-figure-ready");
-        imageParagraph.remove();
-      });
+          imageParagraph.classList.add("is-figure-ready");
+          imageParagraph.remove();
+        },
+      );
     }
 
     turnImagesIntoFigures();
 
-    let currentImageIndex = 0;
-    let touchStartX = 0;
+    const postImages = Array.from(
+      document.querySelectorAll(".blog-post-feature-image, .blog-post-content img"),
+    );
+
+    let activeIndex = 0;
+
+    function fillTagList(container, rawValue, emptyText) {
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      const items = (rawValue || "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .slice(0, 3);
+
+      if (items.length === 0) {
+        const emptyElement = document.createElement("span");
+        emptyElement.className = "gallery-empty-pill";
+        emptyElement.textContent = emptyText;
+        container.appendChild(emptyElement);
+        return;
+      }
+
+      items.forEach((item) => {
+        const tagElement = document.createElement("span");
+        tagElement.textContent = item;
+        container.appendChild(tagElement);
+      });
+    }
 
     function getCaptionForImage(image) {
       const figure = image.closest("figure");
@@ -296,52 +442,90 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
         return figureCaption.textContent.trim();
       }
 
-      return image.alt ?? "";
+      return image.alt || postRoot?.dataset.postDescription || "";
+    }
+
+    function getLikeKey(image) {
+      return `vv-blog-liked:${image.currentSrc || image.src}`;
+    }
+
+    function isLiked(image) {
+      return localStorage.getItem(getLikeKey(image)) === "true";
+    }
+
+    function setLiked(image, liked) {
+      localStorage.setItem(getLikeKey(image), String(liked));
+
+      if (lightboxLike) {
+        lightboxLike.textContent = liked ? "♥" : "♡";
+        lightboxLike.setAttribute(
+          "aria-label",
+          liked ? "Unlike this blog image" : "Like this blog image",
+        );
+        lightboxLike.classList.toggle("is-liked", liked);
+      }
     }
 
     function openLightbox(index) {
       const image = postImages[index];
 
-      if (!lightbox || !lightboxImage || !lightboxCaption || !image) {
+      if (
+        !image ||
+        !lightbox ||
+        !lightboxImage ||
+        !lightboxTitle ||
+        !lightboxDescription ||
+        !lightboxCategory ||
+        !lightboxBlog
+      ) {
         return;
       }
 
-      currentImageIndex = index;
+      activeIndex = index;
 
+      const description = image.dataset.blogDescription || getCaptionForImage(image);
+      const title = image.dataset.blogTitle || postRoot?.dataset.postTitle || "Blog image";
+
+      lightboxImage.hidden = false;
       lightboxImage.src = image.currentSrc || image.src;
       lightboxImage.alt = image.alt || "";
-      lightboxCaption.textContent = getCaptionForImage(image);
+
+      lightboxTitle.textContent = title;
+      lightboxCategory.textContent = image.dataset.blogCategory || postRoot?.dataset.postCategory || "blog photo";
+      lightboxDescription.textContent = description || "No description has been added yet.";
+
+      fillTagList(
+        lightboxTags,
+        image.dataset.blogTags || postRoot?.dataset.postTags || "",
+        "No tags yet",
+      );
+      fillTagList(
+        lightboxColours,
+        image.dataset.blogColours || "",
+        "No colours yet",
+      );
+
+      lightboxBlog.href = image.dataset.blogUrl || postRoot?.dataset.postUrl || window.location.pathname;
+      lightboxBlog.textContent = "Continue reading";
+
+      setLiked(image, isLiked(image));
 
       lightbox.hidden = false;
-      document.body.classList.add("lightbox-open");
+      document.body.classList.add("gallery-lightbox-is-open");
+      document.dispatchEvent(new CustomEvent("vv:close-mobile-side-drawers"));
     }
 
     function closeLightbox() {
-      if (!lightbox || !lightboxImage) {
-        return;
-      }
+      if (!lightbox || !lightboxImage) return;
 
       lightbox.hidden = true;
       lightboxImage.src = "";
-      document.body.classList.remove("lightbox-open");
+      document.body.classList.remove("gallery-lightbox-is-open");
     }
 
-    function showNextImage() {
-      if (postImages.length === 0) {
-        return;
-      }
-
-      openLightbox((currentImageIndex + 1) % postImages.length);
-    }
-
-    function showPreviousImage() {
-      if (postImages.length === 0) {
-        return;
-      }
-
-      openLightbox(
-        (currentImageIndex - 1 + postImages.length) % postImages.length,
-      );
+    function moveLightbox(direction) {
+      if (postImages.length === 0) return;
+      openLightbox((activeIndex + direction + postImages.length) % postImages.length);
     }
 
     postImages.forEach((image, index) => {
@@ -360,50 +544,71 @@ const publishedDate = post.data.pubDate.toLocaleDateString("en-GB", {
       });
     });
 
-    closeButton?.addEventListener("click", closeLightbox);
-    nextButton?.addEventListener("click", showNextImage);
-    prevButton?.addEventListener("click", showPreviousImage);
-
-    lightbox?.addEventListener("click", (event) => {
-      if (event.target === lightbox) {
-        closeLightbox();
-      }
+    document.querySelectorAll("[data-blog-close]").forEach((button) => {
+      button.addEventListener("click", closeLightbox);
     });
 
-    lightbox?.addEventListener("touchstart", (event) => {
-      touchStartX = event.changedTouches[0].screenX;
+    document.querySelector("[data-blog-prev]")?.addEventListener("click", () => {
+      moveLightbox(-1);
     });
 
-    lightbox?.addEventListener("touchend", (event) => {
-      const touchEndX = event.changedTouches[0].screenX;
-      const swipeDistance = touchEndX - touchStartX;
+    document.querySelector("[data-blog-next]")?.addEventListener("click", () => {
+      moveLightbox(1);
+    });
 
-      if (Math.abs(swipeDistance) < 50) {
-        return;
-      }
+    lightboxLike?.addEventListener("click", () => {
+      const image = postImages[activeIndex];
+      if (!image) return;
+      setLiked(image, !isLiked(image));
+    });
 
-      if (swipeDistance < 0) {
-        showNextImage();
-      } else {
-        showPreviousImage();
+    lightboxShare?.addEventListener("click", async () => {
+      const image = postImages[activeIndex];
+      if (!image || !lightboxShare) return;
+
+      const shareUrl = `${window.location.origin}${
+        image.dataset.blogUrl || postRoot?.dataset.postUrl || window.location.pathname
+      }`;
+      const shareTitle = image.dataset.blogTitle || postRoot?.dataset.postTitle || "Virtual Ventures Blog";
+
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: shareTitle,
+            text: image.dataset.blogDescription || getCaptionForImage(image),
+            url: shareUrl,
+          });
+          return;
+        }
+
+        await navigator.clipboard.writeText(shareUrl);
+        lightboxShare.textContent = "✓";
+
+        setTimeout(() => {
+          lightboxShare.textContent = "↗";
+        }, 1600);
+      } catch {
+        lightboxShare.textContent = "!";
+
+        setTimeout(() => {
+          lightboxShare.textContent = "↗";
+        }, 1600);
       }
     });
 
     document.addEventListener("keydown", (event) => {
-      if (!lightbox || lightbox.hidden) {
-        return;
-      }
+      if (!lightbox || lightbox.hidden) return;
 
       if (event.key === "Escape") {
         closeLightbox();
       }
 
-      if (event.key === "ArrowRight") {
-        showNextImage();
+      if (event.key === "ArrowLeft") {
+        moveLightbox(-1);
       }
 
-      if (event.key === "ArrowLeft") {
-        showPreviousImage();
+      if (event.key === "ArrowRight") {
+        moveLightbox(1);
       }
     });
   </script>
