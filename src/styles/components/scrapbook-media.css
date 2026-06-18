@@ -4,7 +4,8 @@
    The blog uses the same leather scrapbook language as Gallery.
    ========================================================= */
 
-:where(.blog-page, .blog-post-page) {
+.blog-page,
+.blog-post-page {
   --vv-blog-photo-radius: clamp(1.05rem, 2.3vw, 1.55rem);
   --vv-blog-photo-edge: rgba(216, 164, 93, 0.48);
   --vv-blog-photo-stitch: rgba(239, 189, 114, 0.58);
@@ -15,8 +16,9 @@
   --vv-blog-paper-b: rgba(224, 205, 176, 0.94);
 }
 
-/* Gallery-style card for expanded blog index feature images. */
-.blog-page .blog-card-image {
+/* Expanded blog index top image. This is a single image, so it gets the
+   gallery leather frame even when there is no separate caption markup. */
+.blog-page .blog-card-expanded > .blog-card-image {
   display: block !important;
   box-sizing: border-box !important;
   width: 100% !important;
@@ -31,26 +33,24 @@
   box-shadow: 0 1.15rem 2.5rem rgba(35, 18, 10, 0.17), 0 0 0 1px rgba(255, 246, 229, 0.13), inset 0 1px 0 rgba(255, 246, 229, 0.15) !important;
 }
 
-/* Gallery-latest-card support when a blog image is wrapped later. */
-.blog-page .blog-card-gallery-photo.gallery-latest-card {
-  width: min(100%, 760px);
-  margin: clamp(1.2rem, 3vw, 1.8rem) auto;
-}
-
-/* Standalone post and generated markdown figures. */
-:where(.blog-post-page .blog-post-figure, .blog-post-page .blog-content-figure, .blog-page .blog-content-figure) {
+/* Generated markdown photo figures on blog post and blog index. */
+.blog-post-page .blog-post-figure,
+.blog-post-page .blog-post-content figure.blog-content-figure,
+.blog-page .blog-post-content-inline figure.blog-content-figure,
+.blog-post-page .blog-post-content p:has(> img),
+.blog-page .blog-post-content-inline p:has(> img) {
   position: relative !important;
   isolation: isolate !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   width: min(100%, 820px) !important;
   margin: clamp(1.6rem, 4vw, 2.4rem) auto !important;
-  padding: clamp(0.42rem, 1vw, 0.58rem) !important;
-  display: grid !important;
-  gap: clamp(0.55rem, 1.4vw, 0.76rem) !important;
+  padding: 0 !important;
+  display: block !important;
   background: linear-gradient(155deg, var(--vv-blog-leather-a), var(--vv-blog-leather-b) 62%, var(--vv-blog-leather-c)) !important;
   border: 1px solid var(--vv-blog-photo-edge) !important;
   border-radius: var(--vv-blog-photo-radius) !important;
   box-shadow: 0 1.15rem 2.5rem rgba(35, 18, 10, 0.17), 0 0 0 1px rgba(255, 246, 229, 0.13), inset 0 1px 0 rgba(255, 246, 229, 0.15) !important;
+  text-indent: 0 !important;
 }
 
 .blog-post-page .blog-post-figure {
@@ -58,30 +58,42 @@
   margin-top: 0 !important;
 }
 
-:where(.blog-post-page .blog-post-figure, .blog-post-page .blog-content-figure, .blog-page .blog-content-figure)::after {
+.blog-post-page .blog-post-figure::after,
+.blog-post-page .blog-post-content figure.blog-content-figure::after,
+.blog-page .blog-post-content-inline figure.blog-content-figure::after,
+.blog-post-page .blog-post-content p:has(> img)::after,
+.blog-page .blog-post-content-inline p:has(> img)::after {
   content: "" !important;
   position: absolute !important;
-  inset: 5px !important;
-  z-index: 3 !important;
+  inset: 0.44rem !important;
+  z-index: 4 !important;
   border: 1px dashed var(--vv-blog-photo-stitch) !important;
-  border-radius: calc(var(--vv-blog-photo-radius) - 0.28rem) !important;
+  border-radius: calc(var(--vv-blog-photo-radius) - 0.4rem) !important;
   pointer-events: none !important;
 }
 
-:where(.blog-post-page .blog-post-figure, .blog-post-page .blog-content-figure, .blog-page .blog-content-figure)::before {
+.blog-post-page .blog-post-figure::before,
+.blog-post-page .blog-post-content figure.blog-content-figure::before,
+.blog-page .blog-post-content-inline figure.blog-content-figure::before,
+.blog-post-page .blog-post-content p:has(> img)::before,
+.blog-page .blog-post-content-inline p:has(> img)::before {
   content: "" !important;
   position: absolute !important;
   top: 0.72rem !important;
   left: 0.72rem !important;
   right: 0.72rem !important;
-  z-index: 4 !important;
+  z-index: 5 !important;
   height: 0.7rem !important;
   background: radial-gradient(circle, #fff2ad 0 1px, #d49a35 1.4px 2.3px, #704012 2.7px 3.2px, transparent 3.7px) left top / 0.7rem 0.7rem no-repeat, radial-gradient(circle, #fff2ad 0 1px, #d49a35 1.4px 2.3px, #704012 2.7px 3.2px, transparent 3.7px) right top / 0.7rem 0.7rem no-repeat !important;
   opacity: 0.75 !important;
   pointer-events: none !important;
 }
 
-:where(.blog-post-page .blog-post-feature-image, .blog-post-page .blog-content-figure > img, .blog-page .blog-content-figure > img) {
+.blog-post-page .blog-post-feature-image,
+.blog-post-page .blog-post-content figure.blog-content-figure > img,
+.blog-page .blog-post-content-inline figure.blog-content-figure > img,
+.blog-post-page .blog-post-content p:has(> img) > img,
+.blog-page .blog-post-content-inline p:has(> img) > img {
   --vv-scrap-cut: 0.86rem;
   position: relative !important;
   z-index: 1 !important;
@@ -92,13 +104,17 @@
   padding: 0 !important;
   object-fit: cover !important;
   background: rgba(18, 10, 6, 0.35) !important;
-  border: 1px solid rgba(255, 246, 229, 0.2) !important;
-  border-radius: calc(var(--vv-blog-photo-radius) - 0.36rem) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 246, 229, 0.14), 0 1.1rem 2.4rem rgba(8, 3, 1, 0.18) !important;
+  border: 0 !important;
+  border-radius: var(--vv-blog-photo-radius) var(--vv-blog-photo-radius) 0 0 !important;
+  box-shadow: none !important;
   clip-path: polygon(var(--vv-scrap-cut) 0, calc(100% - var(--vv-scrap-cut)) 0, 100% var(--vv-scrap-cut), 100% 100%, 0 100%, 0 var(--vv-scrap-cut)) !important;
 }
 
-:where(.blog-post-page .blog-post-figure figcaption, .blog-post-page .blog-content-figure figcaption, .blog-page .blog-content-figure figcaption) {
+.blog-post-page .blog-post-figure figcaption,
+.blog-post-page .blog-post-content figure.blog-content-figure figcaption,
+.blog-page .blog-post-content-inline figure.blog-content-figure figcaption,
+.blog-post-page .blog-post-content p:has(> img) + p:has(> em),
+.blog-page .blog-post-content-inline p:has(> img) + p:has(> em) {
   position: relative !important;
   right: auto !important;
   bottom: auto !important;
@@ -106,11 +122,11 @@
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
-  padding: 0.95rem 1rem 1.05rem !important;
+  padding: 0.74rem 1rem 0.9rem !important;
   color: var(--coffee, #6f4e37) !important;
   background: linear-gradient(to bottom, transparent 0 2.25rem, rgba(142, 47, 47, 0.16) 2.26rem 2.3rem, transparent 2.31rem) left top / 100% 100% no-repeat, repeating-linear-gradient(to bottom, transparent 0 1.45rem, rgba(70, 78, 120, 0.045) 1.45rem 1.5rem) left 2rem / 100% 1.5rem repeat-y, linear-gradient(145deg, var(--vv-blog-paper-a), var(--vv-blog-paper-b)) !important;
-  border: 1px solid rgba(126, 78, 39, 0.2) !important;
-  border-radius: calc(var(--vv-blog-photo-radius) - 0.55rem) !important;
+  border: 0 !important;
+  border-radius: 0 0 var(--vv-blog-photo-radius) var(--vv-blog-photo-radius) !important;
   font-family: var(--font-script, var(--font-handmade, cursive)) !important;
   font-size: clamp(0.98rem, 1.45vw, 1.16rem) !important;
   font-style: normal !important;
@@ -124,91 +140,41 @@
   -webkit-backdrop-filter: none !important;
 }
 
-/* Blog post lightbox uses the same layout language as the gallery popup. */
-.blog-post-page .blog-image-lightbox {
+.blog-post-page .blog-post-content p:has(> img) + p:has(> em) em,
+.blog-page .blog-post-content-inline p:has(> img) + p:has(> em) em {
+  font-style: normal !important;
+}
+
+.blog-post-page .blog-post-content p.blog-caption-consumed {
+  display: none !important;
+}
+
+/* Blog post lightbox uses the same classes as the gallery popup. */
+.blog-image-lightbox.gallery-lightbox {
   z-index: 60000 !important;
-  background: radial-gradient(circle at 20% 10%, rgba(239, 189, 114, 0.16), transparent 18rem), rgba(18, 10, 6, 0.72) !important;
-  backdrop-filter: blur(15px) saturate(1.05) !important;
-  -webkit-backdrop-filter: blur(15px) saturate(1.05) !important;
 }
 
-.blog-post-page .blog-lightbox-figure {
-  width: min(1120px, calc(100vw - 1.15rem)) !important;
-  max-height: min(780px, calc(100dvh - 2rem)) !important;
-  padding: clamp(0.8rem, 2.5vw, 1.15rem) !important;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1.16fr) minmax(21rem, 0.84fr) !important;
-  gap: clamp(1rem, 3vw, 1.65rem) !important;
-  align-items: center !important;
-  border: 1px solid rgba(216, 164, 93, 0.58) !important;
-  border-radius: 2rem !important;
-  background: linear-gradient(155deg, #7a4a28, #3e2112 48%, #160905) !important;
-  box-shadow: 0 2rem 5rem rgba(8, 3, 1, 0.58), 0 0 0 1px rgba(255, 246, 229, 0.16), inset 0 1px 0 rgba(255, 246, 229, 0.15), inset 0 -2rem 3rem rgba(9, 4, 2, 0.25) !important;
-}
-
-.blog-post-page .blog-lightbox-figure::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0.48rem !important;
-  z-index: -1 !important;
-  border: 1px dashed rgba(239, 189, 114, 0.58) !important;
-  border-radius: 1.6rem !important;
-  pointer-events: none !important;
-}
-
-.blog-post-page .blog-lightbox-figure img {
-  --vv-scrap-cut: 1.05rem;
-  width: 100% !important;
-  height: min(68vh, 42rem) !important;
-  min-height: 32rem !important;
-  object-fit: cover !important;
-  border: 1px solid rgba(255, 246, 229, 0.2) !important;
-  border-radius: 1.12rem !important;
-  clip-path: polygon(var(--vv-scrap-cut) 0, calc(100% - var(--vv-scrap-cut)) 0, 100% var(--vv-scrap-cut), 100% calc(100% - var(--vv-scrap-cut)), calc(100% - var(--vv-scrap-cut)) 100%, var(--vv-scrap-cut) 100%, 0 calc(100% - var(--vv-scrap-cut)), 0 var(--vv-scrap-cut)) !important;
-}
-
-.blog-post-page .blog-lightbox-figure figcaption {
-  --vv-scrap-cut: 0.86rem;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 1rem 1rem 1.05rem !important;
-  color: #27180e !important;
-  background: linear-gradient(to bottom, transparent 0 3rem, rgba(142, 47, 47, 0.19) 3.02rem 3.07rem, transparent 3.08rem) left top / 100% 100% no-repeat, repeating-linear-gradient(to bottom, transparent 0 1.52rem, rgba(70, 78, 120, 0.055) 1.52rem 1.57rem) left 2.62rem / 100% 1.57rem repeat-y, linear-gradient(145deg, rgba(236, 222, 201, 0.96), rgba(216, 196, 168, 0.96)) !important;
-  border: 1px solid rgba(126, 78, 39, 0.2) !important;
-  border-radius: 0.92rem !important;
-  clip-path: polygon(var(--vv-scrap-cut) 0, calc(100% - var(--vv-scrap-cut)) 0, 100% var(--vv-scrap-cut), 100% calc(100% - var(--vv-scrap-cut)), calc(100% - var(--vv-scrap-cut)) 100%, var(--vv-scrap-cut) 100%, 0 calc(100% - var(--vv-scrap-cut)), 0 var(--vv-scrap-cut)) !important;
-  font-family: var(--font-body, system-ui, sans-serif) !important;
-  font-size: clamp(0.96rem, 1.45vw, 1.08rem) !important;
-  line-height: 1.62 !important;
-  text-align: left !important;
-  text-shadow: none !important;
+.blog-image-lightbox .gallery-lightbox-icon-actions {
+  display: none !important;
 }
 
 @media (max-width: 760px) {
-  :where(.blog-post-page .blog-post-figure, .blog-post-page .blog-content-figure, .blog-page .blog-content-figure) {
+  .blog-post-page .blog-post-figure,
+  .blog-post-page .blog-post-content figure.blog-content-figure,
+  .blog-page .blog-post-content-inline figure.blog-content-figure,
+  .blog-post-page .blog-post-content p:has(> img),
+  .blog-page .blog-post-content-inline p:has(> img) {
     --vv-blog-photo-radius: 1.12rem;
     width: 100% !important;
     margin-block: 1.5rem !important;
-    padding: 0.36rem !important;
-    gap: 0.5rem !important;
   }
 
-  .blog-post-page .blog-lightbox-figure {
-    width: min(100%, calc(100vw - 1rem)) !important;
-    max-height: calc(100dvh - 1rem) !important;
-    grid-template-columns: 1fr !important;
-    padding: 0.72rem !important;
-    border-radius: 1.45rem !important;
-  }
-
-  .blog-post-page .blog-lightbox-figure img {
-    height: min(52vh, 28rem) !important;
-    min-height: 15rem !important;
-  }
-
-  .blog-post-page .blog-lightbox-figure figcaption {
-    max-height: 30vh !important;
-    overflow: auto !important;
-    font-size: 0.94rem !important;
+  .blog-post-page .blog-post-figure figcaption,
+  .blog-post-page .blog-post-content figure.blog-content-figure figcaption,
+  .blog-page .blog-post-content-inline figure.blog-content-figure figcaption,
+  .blog-post-page .blog-post-content p:has(> img) + p:has(> em),
+  .blog-page .blog-post-content-inline p:has(> img) + p:has(> em) {
+    padding: 0.68rem 0.82rem 0.82rem !important;
+    font-size: clamp(0.92rem, 4vw, 1.05rem) !important;
   }
 }
