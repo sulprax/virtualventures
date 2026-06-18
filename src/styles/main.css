@@ -31,6 +31,7 @@
 @import "./components/mobile-filter-drawer.css";
 @import "./components/social-icons.css";
 @import "./components/typography-polish.css";
+@import "./components/blog-photo-polish.css";
 
 /* Shared feature styles */
 @import "./cover-slideshow.css";
