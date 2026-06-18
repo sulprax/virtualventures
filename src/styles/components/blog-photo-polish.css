@@ -1,0 +1,280 @@
+/* =========================================================
+   BLOG PHOTO + BREADCRUMB POLISH
+   Small final overrides for mobile reading comfort, photo captions,
+   page-slit photo corners, and breadcrumb glow placement.
+   ========================================================= */
+
+/* =========================================================
+   01. Breadcrumb glow star
+   Keep the decorative star inside the centred breadcrumb content,
+   not parked on the far left edge of the leather strap.
+   ========================================================= */
+
+.breadcrumb-glow-icon,
+.footer-breadcrumb-wrap .breadcrumb-glow-icon {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+
+  flex: 0 0 auto;
+  align-self: center;
+  margin-right: 0.18rem;
+
+  transform: none !important;
+  transform-origin: center;
+
+  animation: breadcrumb-glow-inline-twinkle 3.8s ease-in-out infinite !important;
+}
+
+@keyframes breadcrumb-glow-inline-twinkle {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.92) rotate(0deg);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.12) rotate(12deg);
+  }
+
+  65% {
+    opacity: 0.86;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+
+/* Footer breadcrumb gets a soft peach lift upward into the page. */
+.footer-breadcrumb-wrap .breadcrumb-trail {
+  box-shadow:
+    0 -18px 34px rgba(242, 198, 161, 0.22),
+    0 -30px 54px rgba(247, 197, 162, 0.2),
+    0 18px 34px rgba(28, 12, 5, 0.25),
+    inset 0 1px 0 rgba(255, 236, 188, 0.32),
+    inset 0 -12px 18px rgba(16, 6, 2, 0.32) !important;
+}
+
+.footer-breadcrumb-wrap .breadcrumb-trail::after {
+  top: -1rem !important;
+  bottom: auto !important;
+  height: 1.7rem !important;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(247, 197, 162, 0.52) 0%,
+    rgba(247, 197, 162, 0.28) 44%,
+    transparent 78%
+  ) !important;
+
+  filter: blur(14px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb-glow-icon,
+  .footer-breadcrumb-wrap .breadcrumb-glow-icon {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   02. Photo paper-slit styling
+   Removes the extra pale box behind article images and makes photos
+   look tucked into the diary page with corner slits.
+   ========================================================= */
+
+.blog-post-content figure.blog-content-figure,
+.blog-post-content p:has(> img),
+.blog-post-content-inline p:has(> img) {
+  position: relative !important;
+  overflow: visible !important;
+
+  width: min(100%, 820px) !important;
+  margin: clamp(1.7rem, 4vw, 2.5rem) auto !important;
+  padding: 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+
+  box-shadow: none !important;
+  text-indent: 0 !important;
+}
+
+.blog-post-content figure.blog-content-figure img,
+.blog-post-content p:has(> img) img,
+.blog-post-content-inline p:has(> img) img,
+.blog-post-content img.blog-clickable-image {
+  display: block !important;
+
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 auto !important;
+
+  border: 0 !important;
+  border-radius: 22px !important;
+
+  box-shadow:
+    0 22px 48px rgba(59, 43, 34, 0.16),
+    0 10px 20px rgba(59, 43, 34, 0.08),
+    0 0 0 1px rgba(139, 94, 60, 0.16) !important;
+}
+
+.blog-post-content figure.blog-content-figure::before,
+.blog-post-content p:has(> img)::before,
+.blog-post-content-inline p:has(> img)::before {
+  content: "";
+  position: absolute;
+  inset: -0.45rem;
+  z-index: 3;
+  pointer-events: none;
+
+  background:
+    linear-gradient(135deg, transparent 0 42%, rgba(83, 49, 27, 0.36) 43% 57%, transparent 58%) left top / 4rem 4rem no-repeat,
+    linear-gradient(45deg, transparent 0 42%, rgba(83, 49, 27, 0.32) 43% 57%, transparent 58%) right top / 4rem 4rem no-repeat,
+    linear-gradient(45deg, transparent 0 42%, rgba(83, 49, 27, 0.28) 43% 57%, transparent 58%) left bottom / 4rem 4rem no-repeat,
+    linear-gradient(135deg, transparent 0 42%, rgba(83, 49, 27, 0.34) 43% 57%, transparent 58%) right bottom / 4rem 4rem no-repeat;
+
+  opacity: 0.72;
+}
+
+.blog-post-content figure.blog-content-figure::after,
+.blog-post-content p:has(> img)::after,
+.blog-post-content-inline p:has(> img)::after {
+  content: "";
+  position: absolute;
+  inset: -0.32rem;
+  z-index: -1;
+  pointer-events: none;
+
+  border-radius: 26px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 248, 232, 0.48),
+    rgba(239, 213, 175, 0.16) 62%,
+    transparent 72%
+  );
+
+  filter: blur(1px);
+}
+
+/* Caption box over the bottom-right of generated standalone figures. */
+.blog-post-content figure.blog-content-figure figcaption {
+  right: clamp(0.65rem, 2vw, 1rem) !important;
+  bottom: clamp(0.65rem, 2vw, 1rem) !important;
+  z-index: 4 !important;
+
+  max-width: min(86%, 30rem) !important;
+  padding: 0.68rem 0.9rem !important;
+
+  color: #fff7df !important;
+  background:
+    radial-gradient(circle at 88% 15%, rgba(255, 230, 170, 0.18), transparent 7rem),
+    linear-gradient(145deg, rgba(88, 51, 26, 0.9), rgba(32, 17, 9, 0.86)) !important;
+
+  border: 1px solid rgba(239, 189, 114, 0.36) !important;
+  border-radius: 16px !important;
+
+  font-family: var(--font-handmade) !important;
+  font-size: clamp(0.92rem, 1.1vw, 1.06rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  text-align: left !important;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72) !important;
+  box-shadow:
+    0 14px 28px rgba(30, 15, 7, 0.24),
+    inset 0 1px 0 rgba(255, 246, 229, 0.18) !important;
+
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Blog index inline snippets do not run the standalone figure script,
+   so an italic paragraph directly after an image becomes the caption tag. */
+.blog-post-content-inline p:has(> img) + p:has(> em),
+.blog-post-content p:has(> img) + p:has(> em) {
+  position: relative !important;
+  z-index: 4 !important;
+
+  width: fit-content !important;
+  max-width: min(86%, 30rem) !important;
+  margin: -4.8rem 0.9rem 2rem auto !important;
+  padding: 0.68rem 0.9rem !important;
+
+  color: #fff7df !important;
+  background:
+    radial-gradient(circle at 88% 15%, rgba(255, 230, 170, 0.18), transparent 7rem),
+    linear-gradient(145deg, rgba(88, 51, 26, 0.9), rgba(32, 17, 9, 0.86)) !important;
+
+  border: 1px solid rgba(239, 189, 114, 0.36) !important;
+  border-radius: 16px !important;
+
+  font-family: var(--font-handmade) !important;
+  font-size: clamp(0.92rem, 1.1vw, 1.06rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  text-align: left !important;
+  text-indent: 0 !important;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72) !important;
+  box-shadow:
+    0 14px 28px rgba(30, 15, 7, 0.24),
+    inset 0 1px 0 rgba(255, 246, 229, 0.18) !important;
+
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.blog-post-content-inline p:has(> img) + p:has(> em) em,
+.blog-post-content p:has(> img) + p:has(> em) em {
+  font-style: normal !important;
+}
+
+/* The manually rendered feature image on expanded blog snippets gets
+   the same polished photo treatment even without a caption. */
+.blog-card-image {
+  border: 0 !important;
+  border-radius: 22px !important;
+
+  box-shadow:
+    0 22px 48px rgba(59, 43, 34, 0.16),
+    0 10px 20px rgba(59, 43, 34, 0.08),
+    0 0 0 1px rgba(139, 94, 60, 0.16) !important;
+}
+
+@media (max-width: 760px) {
+  .blog-post-content figure.blog-content-figure,
+  .blog-post-content p:has(> img),
+  .blog-post-content-inline p:has(> img) {
+    border-radius: 18px !important;
+  }
+
+  .blog-post-content figure.blog-content-figure img,
+  .blog-post-content p:has(> img) img,
+  .blog-post-content-inline p:has(> img) img,
+  .blog-post-content img.blog-clickable-image,
+  .blog-card-image {
+    border-radius: 18px !important;
+  }
+
+  .blog-post-content figure.blog-content-figure::before,
+  .blog-post-content p:has(> img)::before,
+  .blog-post-content-inline p:has(> img)::before {
+    inset: -0.32rem;
+    background-size: 3rem 3rem;
+    opacity: 0.58;
+  }
+
+  .blog-post-content figure.blog-content-figure figcaption,
+  .blog-post-content-inline p:has(> img) + p:has(> em),
+  .blog-post-content p:has(> img) + p:has(> em) {
+    right: 0.55rem !important;
+    bottom: 0.55rem !important;
+
+    max-width: calc(100% - 1.1rem) !important;
+    margin-top: -4.35rem !important;
+
+    border-radius: 14px !important;
+    font-size: 0.92rem !important;
+  }
+}
