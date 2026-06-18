@@ -25,33 +25,33 @@
 
 .blog-post-content figure.blog-content-figure,
 .blog-post-content-inline figure.blog-content-figure {
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
 
-  width: min(100%, 860px);
-  margin: clamp(1.8rem, 4vw, 2.6rem) auto;
-  padding: 0;
+  width: min(100%, 860px) !important;
+  margin: clamp(1.8rem, 4vw, 2.6rem) auto !important;
+  padding: 0 !important;
 
-  background: transparent;
-  border: 0;
-  border-radius: var(--scrapbook-photo-radius);
-  box-shadow: none;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: var(--scrapbook-photo-radius) !important;
+  box-shadow: none !important;
 }
 
 .blog-post-content figure.blog-content-figure img,
 .blog-post-content-inline figure.blog-content-figure img {
-  display: block;
+  display: block !important;
 
-  width: 100%;
-  height: auto;
-  margin: 0;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
 
-  object-fit: cover;
+  object-fit: cover !important;
 
-  border: 0;
-  border-radius: var(--scrapbook-photo-radius);
-  box-shadow: var(--scrapbook-photo-shadow);
+  border: 0 !important;
+  border-radius: var(--scrapbook-photo-radius) !important;
+  box-shadow: var(--scrapbook-photo-shadow) !important;
 
   cursor: zoom-in;
 }
@@ -95,72 +95,72 @@
 
 .blog-post-content figure.blog-content-figure figcaption,
 .blog-post-content-inline figure.blog-content-figure figcaption {
-  position: absolute;
-  right: clamp(0.65rem, 2vw, 1rem);
-  bottom: clamp(0.65rem, 2vw, 1rem);
-  z-index: 4;
+  position: absolute !important;
+  right: clamp(0.65rem, 2vw, 1rem) !important;
+  bottom: clamp(0.65rem, 2vw, 1rem) !important;
+  z-index: 4 !important;
 
-  max-width: min(82%, 28rem);
-  padding: 0.52rem 0.78rem;
+  max-width: min(82%, 28rem) !important;
+  padding: 0.52rem 0.78rem !important;
 
-  color: #fff4d4;
+  color: #fff4d4 !important;
   background:
     radial-gradient(circle at 90% 10%, rgba(255, 224, 166, 0.18), transparent 7rem),
-    var(--scrapbook-caption-bg);
+    var(--scrapbook-caption-bg) !important;
 
-  border: 1px solid var(--scrapbook-caption-border);
-  border-radius: 0.85rem;
+  border: 1px solid var(--scrapbook-caption-border) !important;
+  border-radius: 0.85rem !important;
 
-  font-family: var(--font-handmade);
-  font-size: clamp(0.82rem, 1vw, 0.96rem);
-  font-style: normal;
-  font-weight: 800;
-  line-height: 1.32;
-  text-align: left;
+  font-family: var(--font-handmade) !important;
+  font-size: clamp(0.82rem, 1vw, 0.96rem) !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  line-height: 1.32 !important;
+  text-align: left !important;
 
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72) !important;
   box-shadow:
     0 12px 26px rgba(24, 12, 6, 0.26),
-    inset 0 1px 0 rgba(255, 246, 229, 0.2);
+    inset 0 1px 0 rgba(255, 246, 229, 0.2) !important;
 
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px) !important;
+  -webkit-backdrop-filter: blur(7px) !important;
 }
 
 .blog-post-content figure.blog-content-figure figcaption:empty,
 .blog-post-content-inline figure.blog-content-figure figcaption:empty {
-  display: none;
+  display: none !important;
 }
 
 /* Fallback for markdown image paragraphs before JS upgrades them to figures. */
 @supports selector(p:has(> img)) {
   .blog-post-content p:has(> img),
   .blog-post-content-inline p:has(> img) {
-    position: relative;
-    overflow: visible;
+    position: relative !important;
+    overflow: visible !important;
 
-    width: min(100%, 860px);
-    margin: clamp(1.8rem, 4vw, 2.6rem) auto;
-    padding: 0;
+    width: min(100%, 860px) !important;
+    margin: clamp(1.8rem, 4vw, 2.6rem) auto !important;
+    padding: 0 !important;
 
-    background: transparent;
-    border: 0;
-    border-radius: var(--scrapbook-photo-radius);
-    box-shadow: none;
-    text-indent: 0;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: var(--scrapbook-photo-radius) !important;
+    box-shadow: none !important;
+    text-indent: 0 !important;
   }
 
   .blog-post-content p:has(> img) img,
   .blog-post-content-inline p:has(> img) img {
-    display: block;
+    display: block !important;
 
-    width: 100%;
-    height: auto;
-    margin: 0;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
 
-    border: 0;
-    border-radius: var(--scrapbook-photo-radius);
-    box-shadow: var(--scrapbook-photo-shadow);
+    border: 0 !important;
+    border-radius: var(--scrapbook-photo-radius) !important;
+    box-shadow: var(--scrapbook-photo-shadow) !important;
   }
 
   .blog-post-content p:has(> img)::before,
@@ -182,64 +182,64 @@
 
   .blog-post-content p:has(> img) + p:has(> em),
   .blog-post-content-inline p:has(> img) + p:has(> em) {
-    position: relative;
-    z-index: 4;
+    position: relative !important;
+    z-index: 4 !important;
 
-    width: fit-content;
-    max-width: min(82%, 28rem);
-    margin: -5rem 0.8rem 2.1rem auto;
-    padding: 0.52rem 0.78rem;
+    width: fit-content !important;
+    max-width: min(82%, 28rem) !important;
+    margin: -5rem 0.8rem 2.1rem auto !important;
+    padding: 0.52rem 0.78rem !important;
 
-    color: #fff4d4;
+    color: #fff4d4 !important;
     background:
       radial-gradient(circle at 90% 10%, rgba(255, 224, 166, 0.18), transparent 7rem),
-      var(--scrapbook-caption-bg);
+      var(--scrapbook-caption-bg) !important;
 
-    border: 1px solid var(--scrapbook-caption-border);
-    border-radius: 0.85rem;
+    border: 1px solid var(--scrapbook-caption-border) !important;
+    border-radius: 0.85rem !important;
 
-    font-family: var(--font-handmade);
-    font-size: clamp(0.82rem, 1vw, 0.96rem);
-    font-weight: 800;
-    line-height: 1.32;
-    text-align: left;
-    text-indent: 0;
+    font-family: var(--font-handmade) !important;
+    font-size: clamp(0.82rem, 1vw, 0.96rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.32 !important;
+    text-align: left !important;
+    text-indent: 0 !important;
 
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72) !important;
     box-shadow:
       0 12px 26px rgba(24, 12, 6, 0.26),
-      inset 0 1px 0 rgba(255, 246, 229, 0.2);
+      inset 0 1px 0 rgba(255, 246, 229, 0.2) !important;
 
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px) !important;
+    -webkit-backdrop-filter: blur(7px) !important;
   }
 
   .blog-post-content p:has(> img) + p:has(> em) em,
   .blog-post-content-inline p:has(> img) + p:has(> em) em {
-    font-style: normal;
+    font-style: normal !important;
   }
 }
 
 /* Expanded blog index feature images. */
 .blog-card-image {
-  display: block;
+  display: block !important;
 
-  width: 100%;
-  height: auto;
-  margin: clamp(1.2rem, 3vw, 1.8rem) auto;
+  width: 100% !important;
+  height: auto !important;
+  margin: clamp(1.2rem, 3vw, 1.8rem) auto !important;
 
-  border: 0;
-  border-radius: var(--scrapbook-photo-radius, 1.35rem);
+  border: 0 !important;
+  border-radius: var(--scrapbook-photo-radius, 1.35rem) !important;
   box-shadow:
     0 24px 58px rgba(59, 43, 34, 0.18),
     0 10px 22px rgba(59, 43, 34, 0.1),
-    0 0 0 1px rgba(139, 94, 60, 0.14);
+    0 0 0 1px rgba(139, 94, 60, 0.14) !important;
 }
 
 .blog-clickable-image:hover,
 .blog-clickable-image:focus-visible {
-  transform: translateY(-2px);
-  filter: brightness(1.02) saturate(1.03);
+  transform: translateY(-2px) !important;
+  filter: brightness(1.02) saturate(1.03) !important;
   outline: none;
 }
 
@@ -252,8 +252,8 @@
   .blog-post-content-inline figure.blog-content-figure,
   .blog-post-content p:has(> img),
   .blog-post-content-inline p:has(> img) {
-    width: 100%;
-    margin-block: 1.65rem;
+    width: 100% !important;
+    margin-block: 1.65rem !important;
   }
 
   .blog-post-content figure.blog-content-figure::before,
@@ -269,13 +269,13 @@
   .blog-post-content-inline figure.blog-content-figure figcaption,
   .blog-post-content p:has(> img) + p:has(> em),
   .blog-post-content-inline p:has(> img) + p:has(> em) {
-    right: 0.55rem;
-    bottom: 0.55rem;
-    max-width: calc(100% - 1.1rem);
-    margin-top: -4.45rem;
-    padding: 0.46rem 0.65rem;
-    border-radius: 0.72rem;
-    font-size: 0.86rem;
-    line-height: 1.25;
+    right: 0.55rem !important;
+    bottom: 0.55rem !important;
+    max-width: calc(100% - 1.1rem) !important;
+    margin-top: -4.45rem !important;
+    padding: 0.46rem 0.65rem !important;
+    border-radius: 0.72rem !important;
+    font-size: 0.86rem !important;
+    line-height: 1.25 !important;
   }
 }
