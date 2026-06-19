@@ -1,0 +1,105 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+---
+
+<Layout
+  title="Cookies | Virtual Ventures"
+  description="Cookie and local storage notes for Virtual Ventures, including gallery likes, Google Fonts, Cloudflare and future tools."
+  showFooterBreadcrumbs={false}
+>
+  <PageHero
+    eyebrow="Data Notes"
+    title="Cookies"
+    description="A clear note about cookies, local storage, outside services and future tools on Virtual Ventures."
+  />
+
+  <main class="page-shell">
+    <section class="page-intro">
+      <p class="eyebrow">Cookies and storage</p>
+      <h1>Tiny browser crumbs</h1>
+      <p>
+        This page explains the small technical bits that may be stored or loaded
+        when you visit Virtual Ventures.
+      </p>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Current cookie position</h2>
+        <p>
+          In the code checked for this draft, Virtual Ventures does not appear to
+          set marketing cookies, advertising cookies or customer account cookies.
+        </p>
+        <p>
+          Cloudflare settings may still add security or performance behaviour
+          outside the GitHub codebase, so the Cloudflare dashboard should be
+          checked before this page is published.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>Local gallery likes</h2>
+        <p>
+          The gallery uses browser local storage to remember whether you liked a
+          gallery item. The key begins with "vv-gallery-liked:" and is stored on
+          your own device.
+        </p>
+        <p>
+          This is not a public like system, not a customer account, and not a
+          mailing list. You can clear it by clearing site data in your browser.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Google Fonts</h2>
+        <p>
+          The site currently loads fonts from Google Fonts. This means your
+          browser may request font files from Google when pages load.
+        </p>
+        <p>
+          A more privacy-conscious future option would be to self-host the font
+          files instead, as long as the font licences allow it.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>Videos and embeds</h2>
+        <p>
+          No YouTube embeds were found in the current code checked for this
+          draft. If videos are added later, Virtual Ventures should prefer
+          privacy-conscious embeds, lazy loading, or click-to-load video blocks
+          where possible.
+        </p>
+        <p>
+          If a video is only linked, clicking it takes you to YouTube or another
+          platform with its own privacy and cookie rules.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Future tools</h2>
+        <p>
+          If analytics, Turnstile, a working contact form, email subscription,
+          comments, checkout, video embeds or other third-party tools are added,
+          this page should be updated before those tools go live.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-closing-card">
+      <p>
+        Cookie pages are not one-and-done parchment. They need checking whenever
+        the site gains a new tool.
+      </p>
+    </section>
+  </main>
+</Layout>
