@@ -42,7 +42,13 @@ export const footerNavGroups: FooterNavGroup[] = [
     title: "Helpful",
     links: [
       { label: "Privacy", href: "/privacy/" },
+      { label: "Cookies", href: "/cookies/" },
       { label: "Terms", href: "/terms/" },
+      { label: "Copyright", href: "/copyright/" },
+      { label: "Pattern Policy", href: "/pattern-policy/" },
+      { label: "Authenticity", href: "/authenticity/" },
+      { label: "Verify", href: "/verify/" },
+      { label: "Report a Copy", href: "/report-stolen-pattern/" },
     ],
   },
 ];
