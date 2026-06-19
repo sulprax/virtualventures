@@ -1,12 +1,136 @@
 ---
-import CraftLanding from "../../components/page/CraftLanding.astro";
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
 ---
 
-<CraftLanding
-  title="Terms"
-  eyebrow="Site Notes"
-  description="Terms and usage notes for Virtual Ventures patterns, handmade products and original content."
-  introEyebrow="Terms"
-  introTitle="A place for shop and pattern terms"
-  introText="This page is ready for final terms covering digital patterns, handmade items, original artwork and shop policies."
-/>
+<Layout
+  title="Terms | Virtual Ventures"
+  description="Plain English terms for using Virtual Ventures pages, patterns, links, videos and shop notes."
+  showFooterBreadcrumbs={false}
+>
+  <PageHero
+    eyebrow="Site Notes"
+    title="Terms"
+    description="Clear workshop rules for using the Virtual Ventures website, patterns, downloads, links and community support."
+  />
+
+  <main class="page-shell">
+    <section class="page-intro">
+      <p class="eyebrow">Website terms</p>
+      <h1>Kind rules, firm edges</h1>
+      <p>
+        These terms are draft website wording for review before publishing. They
+        are here to help visitors understand how Virtual Ventures content can be
+        used.
+      </p>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Using this website</h2>
+        <p>
+          You are welcome to read the blog, browse the gallery, use free pattern
+          pages on the website, share links, and use the site for personal craft
+          learning and inspiration.
+        </p>
+        <p>
+          Please do not attack the site, scrape it in bulk, copy large sections
+          into another database, pretend Virtual Ventures content is yours, or
+          use the site in a way that harms the workshop or other visitors.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>Patterns and downloads</h2>
+        <p>
+          Free pattern pages are free to read and use on the Virtual Ventures
+          website, but they are still copyrighted. Free does not mean public
+          domain.
+        </p>
+        <p>
+          Optional printable PDFs on Etsy and future printed KDP collections are
+          support purchases for people who prefer a polished printable or
+          physical copy. They do not remove the copyright from the original
+          pattern, photos, layout or files.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Shop and platform purchases</h2>
+        <p>
+          Virtual Ventures may link to Etsy for optional PDF pattern purchases
+          and to Amazon or KDP for future printed collections. Those purchases
+          are handled by the platform you buy from.
+        </p>
+        <p>
+          Please check the platform page, delivery information, download access,
+          refund rules and account settings before buying. Virtual Ventures does
+          not control Etsy, Amazon, KDP, YouTube or social platform rules.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>Videos and livestreams</h2>
+        <p>
+          Stitch videos, livestream replays and Crochet and Chatter sessions are
+          support and learning materials. They are not a promise that every
+          person will get the same result first time.
+        </p>
+        <p>
+          Crochet involves tension, yarn choice, hook size, stuffing, sewing,
+          frogging and tiny decisions along the way. Please pause, replay, ask
+          questions where available, and check the latest pattern version on the
+          website.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Safety and suitability</h2>
+        <p>
+          Patterns, tutorials and examples are for craft learning. Finished items
+          may need extra safety checks, especially if they include safety eyes,
+          buttons, beads, wire, stuffing, small parts, long cords or anything
+          that could become loose.
+        </p>
+        <p>
+          Unless a finished item is clearly sold as a tested toy by Virtual
+          Ventures, do not assume it is suitable for babies, children or pets.
+          Makers selling finished items are responsible for their own safety
+          checks, labels, local rules and customer information.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>Changes and corrections</h2>
+        <p>
+          Virtual Ventures may update website pages, pattern wording, stitch
+          explanations, photos, links, QR codes, prices, availability and policy
+          pages over time.
+        </p>
+        <p>
+          Official corrections and current versions should live on the Virtual
+          Ventures website, so pattern IDs and verification links can point
+          people back to the trusted source.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-closing-card">
+      <p>
+        These terms should be reviewed before the first live contact form,
+        newsletter, paid digital download, kit, toy sale or supporter video goes
+        live.
+      </p>
+    </section>
+  </main>
+</Layout>

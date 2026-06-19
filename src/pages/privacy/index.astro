@@ -1,12 +1,165 @@
 ---
-import CraftLanding from "../../components/page/CraftLanding.astro";
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
 ---
 
-<CraftLanding
-  title="Privacy"
-  eyebrow="Site Notes"
-  description="Privacy notes for Virtual Ventures visitors, customers and readers."
-  introEyebrow="Privacy"
-  introTitle="A place for clear privacy notes"
-  introText="This page is ready for the final privacy policy covering forms, analytics, shop links and newsletter tools."
-/>
+<Layout
+  title="Privacy | Virtual Ventures"
+  description="Plain English privacy notes for Virtual Ventures visitors, readers, pattern users and future subscribers."
+  showFooterBreadcrumbs={false}
+>
+  <PageHero
+    eyebrow="Site Notes"
+    title="Privacy"
+    description="A plain English note about what Virtual Ventures collects, what is not collected, and what will need updating before new tools go live."
+  />
+
+  <main class="page-shell">
+    <section class="page-intro">
+      <p class="eyebrow">Privacy notes</p>
+      <h1>A clear little privacy shelf</h1>
+      <p>
+        This page is written to be understandable, not scary. It explains the
+        current website setup and leaves room for future tools such as a contact
+        form or blog email subscription.
+      </p>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Current site snapshot</h2>
+        <p>
+          Virtual Ventures is currently mainly a public craft website with blog
+          posts, gallery items, pages, RSS, shop links and social links.
+        </p>
+        <p>
+          At the moment, the website does not sell directly through the site,
+          does not take payment details, does not create customer accounts, does
+          not have comments, and does not have a live email newsletter provider
+          connected.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>What may be used right now</h2>
+        <p>
+          The website may use normal technical information needed to deliver the
+          site, including server or Cloudflare security logs, browser requests,
+          page addresses visited and basic device/browser information.
+        </p>
+        <p>
+          The gallery currently uses local storage in your browser to remember
+          whether you liked a gallery item. This is stored on your own device and
+          is not a customer account or public like count.
+        </p>
+        <p>
+          The search page may place your search words in the page address, for
+          example as a search query. That can appear in your browser history and
+          may appear in hosting or security logs as part of a normal page request.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Fonts and outside services</h2>
+        <p>
+          This website currently loads Google Fonts from Google. Your browser may
+          contact Google to fetch those font files unless the site later switches
+          to self-hosted fonts.
+        </p>
+        <p>
+          The site is served through Cloudflare. Cloudflare may process technical
+          information to deliver the site, improve performance and protect the
+          site from unwanted traffic. Cloudflare settings can also add features
+          outside the codebase, so those settings need checking before publishing
+          this page.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>Contact form</h2>
+        <p>
+          The contact page is not currently a working contact form in the code I
+          checked. When a real contact form is added, this section should be
+          updated before it goes live.
+        </p>
+        <p>
+          A future contact form may ask for your name, email address and message
+          so Virtual Ventures can reply. The form should show a short notice at
+          the point where the message is sent, including where the message goes,
+          how long it is kept, and who can access it.
+        </p>
+        <p>
+          Please do not send payment details, passwords, medical details or very
+          sensitive personal information through the contact form.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Future blog subscription</h2>
+        <p>
+          A blog email subscription is planned but is not live yet. When it is
+          added, it should clearly say what people are signing up for before they
+          enter their email address.
+        </p>
+        <p>
+          Future subscription notices may include free pattern updates, Thursday
+          Crochet and Chatter livestream sections, new videos, optional Etsy PDF
+          releases, KDP printed collection news and other Virtual Ventures notes.
+        </p>
+        <p>
+          Provider: [email provider]. Unsubscribe link: [unsubscribe link]. Data
+          storage location: [data storage location]. Retention period: [retention
+          period].
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>External platforms</h2>
+        <p>
+          Virtual Ventures may link to Etsy, Amazon or KDP, YouTube, Feedly and
+          social platforms. When you click those links, you leave the Virtual
+          Ventures website and the other platform controls its own privacy,
+          cookies, accounts, payments and settings.
+        </p>
+        <p>
+          Purchases made on Etsy or Amazon/KDP are handled by those platforms,
+          not directly through this website.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Your choices</h2>
+        <p>
+          You can choose not to use the future contact form or subscription tool.
+          You can also use the RSS feed if you prefer a simple feed reader
+          instead of email updates.
+        </p>
+        <p>
+          If you contact Virtual Ventures in future, you can ask about the
+          personal information connected to your message or subscription. Contact
+          details should be added here before any form or email list goes live:
+          [contact email].
+        </p>
+      </article>
+    </section>
+
+    <section class="content-closing-card">
+      <p>
+        This page should be reviewed whenever a new form, analytics tool, email
+        provider, shop feature, video embed or Cloudflare feature is switched on.
+      </p>
+    </section>
+  </main>
+</Layout>

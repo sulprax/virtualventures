@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/page/PageHero.astro";
+---
+
+<Layout
+  title="Verify | Virtual Ventures"
+  description="Pattern verification notes for Virtual Ventures pattern IDs, QR codes, versions and official updates."
+  showFooterBreadcrumbs={false}
+>
+  <PageHero
+    eyebrow="Official Source"
+    title="Verify"
+    description="Check whether a Virtual Ventures pattern, QR code, PDF or printed collection points back to the official source."
+  />
+
+  <main class="page-shell">
+    <section class="page-intro">
+      <p class="eyebrow">Pattern verification</p>
+      <h1>Follow the official thread</h1>
+      <p>
+        Pattern verification pages help readers confirm they are using the real
+        Virtual Ventures source, especially when a pattern was found through a
+        marketplace, social post, printed QR code or shared link.
+      </p>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>What to check</h2>
+        <p>
+          A Virtual Ventures pattern may include a pattern ID, version number,
+          update date and QR code. Those details should point to the official
+          Virtual Ventures website.
+        </p>
+        <p>
+          Example pattern ID format: [VV-PATTERN-ID]. Example verification URL:
+          /verify/[pattern-id]/.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-right">
+      <article class="content-card">
+        <h2>What a future pattern page should show</h2>
+        <p>
+          Each future verification page should show the pattern title, pattern
+          ID, current version, latest update date, official free pattern link,
+          optional PDF link, known corrections and any important safety notes.
+        </p>
+        <p>
+          If there is no matching verification page yet, check the main pattern
+          page or contact Virtual Ventures before trusting a suspicious download.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-section content-left">
+      <article class="content-card">
+        <h2>Suspicious copies</h2>
+        <p>
+          If a listing or file removes the Virtual Ventures name, changes the QR
+          code, hides the pattern ID, uses Virtual Ventures photos, or sells a
+          copied free pattern as its own download, please report it.
+        </p>
+        <p>
+          Reporting page: <a href="/report-stolen-pattern/">Report a Copy</a>.
+        </p>
+      </article>
+    </section>
+
+    <section class="content-closing-card">
+      <p>
+        Verification pages are little signposts back to the real workshop door.
+      </p>
+    </section>
+  </main>
+</Layout>
