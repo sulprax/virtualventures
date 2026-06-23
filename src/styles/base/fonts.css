@@ -1,6 +1,7 @@
 /* =========================================================
    VIRTUAL VENTURES FONT SYSTEM
-   Google Fonts and site-wide font variables.
+   Google Fonts, site-wide font variables, and the main
+   heading/text hierarchy.
    ========================================================= */
 
 @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Berkshire+Swash&family=Caveat:wght@400..700&family=Bungee&display=swap");
@@ -10,26 +11,39 @@
     "Atkinson Hyperlegible", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
 
+  /* Storybook display font: use sparingly, mainly for H1/page titles. */
   --font-title: "Berkshire Swash", Georgia, "Times New Roman", serif;
 
+  /* Handwritten accent font: useful for H3s and softer handmade notes. */
   --font-handmade: "Caveat", "Segoe Print", "Bradley Hand", cursive;
 
   /* Keep this alias because lots of existing CSS already uses it. */
   --font-script: var(--font-handmade);
 
-  --font-ancient: "Bungee", Georgia, "Times New Roman", serif;
+  /* Strong readable display font: H2s, labels, nav, buttons and utility text. */
+  --font-ancient: "Bungee", system-ui, sans-serif;
 }
 
 /* ---------------------------------------------------------
-   Global readable foundation
+   Readable foundation
    --------------------------------------------------------- */
 
 html,
+body,
+input,
+textarea,
+select,
+button {
+  font-family: var(--font-body);
+}
+
 body {
   font-family: var(--font-body);
 }
 
-body,
+p,
+li,
+blockquote,
 input,
 textarea,
 select {
@@ -37,32 +51,58 @@ select {
 }
 
 /* ---------------------------------------------------------
-   Brand and storybook titles
+   Main heading hierarchy
+
+   H1 = storybook
+   H2 = Bungee
+   H3 = handwritten
+   H4-H6 = Bungee utility headings
+
+   Blog pages can still override these inside their page CSS.
    --------------------------------------------------------- */
 
 h1,
-h2,
-h3,
-.site-header-brand span,
 .page-hero-title,
 .blog-hero-banner h1,
 .hero-panel h1,
 .home-mobile-brand h1,
-.footer-brand-title,
-.footer-watermark,
-.content-card h2,
-.content-card h3,
-.blog-card h2,
-.blog-card h3,
-.blog-post-title,
+.blog-post-title {
+  font-family: var(--font-title);
+  letter-spacing: 0.04em;
+}
+
+h2,
+h4,
+h5,
+h6,
+.hero-panel h2,
+.section-title,
+.card-title,
 .shop-card h2,
 .gallery-title {
-  font-family: var(--font-title);
+  font-family: var(--font-ancient);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  word-spacing: 0.04em;
+}
+
+h3 {
+  font-family: var(--font-handmade);
+  font-weight: 800;
+  letter-spacing: 0.015em;
 }
 
 /* ---------------------------------------------------------
-   Handmade accents: nav, buttons, labels, captions
+   Brand, nav, buttons, labels and captions
    --------------------------------------------------------- */
+
+.site-header-brand span,
+.footer-brand-title,
+.footer-watermark {
+  font-family: var(--font-ancient);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
 
 button,
 .button,
@@ -79,7 +119,6 @@ button,
 .tag-pill,
 .filter-pill,
 .page-hero-kicker,
-.hero-panel h2,
 .home-mobile-kicker,
 .home-mobile-tagline,
 figcaption,
@@ -95,9 +134,6 @@ figcaption,
    Long-form reading stays readable
    --------------------------------------------------------- */
 
-p,
-li,
-blockquote,
 .blog-post-content,
 .blog-post-content p,
 .blog-post-body,
@@ -107,10 +143,7 @@ blockquote,
 .content-card p,
 .blog-card p,
 .shop-card p,
-.gallery-card p,
-input,
-textarea,
-select {
+.gallery-card p {
   font-family: var(--font-body);
 }
 
