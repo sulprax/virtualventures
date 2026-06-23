@@ -1,11 +1,8 @@
 /* =========================================================
    FAQ PAGE
-   Page-specific tweaks only
+   Page-specific layout tweaks only.
+   Shared typography comes from src/styles/base/fonts.css.
    ========================================================= */
-
-.faq-page .content-card h2 {
-  font-size: clamp(1.45rem, 3vw, 2.35rem);
-}
 
 .faq-page .content-card {
   width: min(100%, 780px);
