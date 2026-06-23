@@ -1,0 +1,71 @@
+/* =========================================================
+   LAYER AND OVERLAY SAFETY
+   Keeps drawers, headers, lightboxes and footer decoration in predictable layers.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  body.has-open-mobile-side-drawer .has-mobile-side-drawer[data-mobile-side-drawer-root] {
+    position: relative !important;
+    z-index: 50000 !important;
+    isolation: isolate !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer-backdrop {
+    z-index: 50010 !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer {
+    z-index: 50020 !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer-frame {
+    z-index: 50030 !important;
+  }
+
+  body.has-open-mobile-side-drawer .mobile-side-drawer-toggle {
+    z-index: 50040 !important;
+  }
+
+  .site-header {
+    z-index: 50100 !important;
+  }
+
+  .site-header-menu-button,
+  .site-header-nav-drawer {
+    position: relative;
+    z-index: 50110 !important;
+  }
+}
+
+.gallery-lightbox,
+.blog-image-lightbox.gallery-lightbox {
+  z-index: 70000 !important;
+}
+
+.gallery-lightbox-panel {
+  z-index: 70010 !important;
+  pointer-events: auto !important;
+}
+
+.gallery-lightbox-close {
+  z-index: 70030 !important;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+}
+
+.gallery-lightbox-backdrop {
+  z-index: 0 !important;
+}
+
+.footer-bottom {
+  padding-top: max(1.65rem, 28px);
+}
+
+.footer-bottom::before {
+  width: 1.35rem !important;
+  height: 1.35rem !important;
+  animation: none !important;
+  will-change: auto !important;
+  transform: translate(-50%, -50%) scale(0.82) !important;
+  pointer-events: none !important;
+}
