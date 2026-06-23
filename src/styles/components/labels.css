@@ -1,0 +1,244 @@
+/* =========================================================
+   LABELS AND SMALL TEXT DETAILS
+   Font families live in base/fonts.css.
+   This file only controls label shape, spacing and tiny decorative touches.
+   ========================================================= */
+
+.eyebrow,
+[class*="eyebrow"],
+.page-hero-kicker,
+.cover-slideshow__eyebrow,
+.content-intro-card .eyebrow,
+.search-panel .eyebrow,
+.gallery-eyebrow,
+.shop-eyebrow,
+.footer-column h3,
+.gallery-panel h3,
+.gallery-panel h4,
+.gallery-detail h3,
+.gallery-detail h4,
+.gallery-info h3,
+.gallery-info h4,
+.gallery-meta h3,
+.gallery-meta h4,
+.lightbox-panel h3,
+.lightbox-panel h4,
+.lightbox-details h3,
+.lightbox-details h4,
+.image-detail h3,
+.image-detail h4,
+.image-meta h3,
+.image-meta h4,
+.description-label,
+.tags-label,
+.colours-label,
+.colors-label,
+.gallery-description-label,
+.gallery-tags-label,
+.gallery-colours-label,
+.gallery-colors-label,
+.lightbox-description-label,
+.lightbox-tags-label,
+.lightbox-colours-label,
+.lightbox-colors-label,
+[data-label="description"],
+[data-label="tags"],
+[data-label="colours"],
+[data-label="colors"] {
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  word-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-column a {
+  letter-spacing: 0.01em;
+}
+
+.breadcrumb-trail,
+.footer-bottom,
+.footer-description,
+.gallery-description,
+.lightbox-description,
+.image-description,
+.gallery-info p,
+.lightbox-details p {
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+}
+
+.gallery-lightbox h3,
+.gallery-lightbox h4,
+.gallery-lightbox strong,
+.gallery-lightbox .eyebrow,
+.gallery-lightbox [class*="eyebrow"],
+.gallery-lightbox [class*="label"],
+.gallery-lightbox [class*="heading"],
+.blog-image-lightbox h3,
+.blog-image-lightbox h4,
+.blog-image-lightbox strong,
+.blog-image-lightbox .eyebrow,
+.blog-image-lightbox [class*="eyebrow"],
+.blog-image-lightbox [class*="label"],
+.blog-image-lightbox [class*="heading"],
+.gallery-modal h3,
+.gallery-modal h4,
+.gallery-modal strong,
+.gallery-modal .eyebrow,
+.gallery-modal [class*="eyebrow"],
+.gallery-modal [class*="label"],
+.gallery-modal [class*="heading"] {
+  font-weight: 400;
+  letter-spacing: 0.075em;
+  word-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gallery-lightbox h2,
+.blog-image-lightbox h2,
+.gallery-modal h2 {
+  letter-spacing: -0.035em;
+  text-transform: none;
+}
+
+.gallery-lightbox p,
+.blog-image-lightbox p,
+.gallery-modal p {
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+}
+
+.gallery-lightbox [class*="tag"],
+.blog-image-lightbox [class*="tag"],
+.gallery-modal [class*="tag"] {
+  text-align: right;
+}
+
+.gallery-lightbox [class*="tags"],
+.blog-image-lightbox [class*="tags"],
+.gallery-modal [class*="tags"] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  text-align: right;
+}
+
+.gallery-lightbox [class*="colour"],
+.gallery-lightbox [class*="color"],
+.blog-image-lightbox [class*="colour"],
+.blog-image-lightbox [class*="color"],
+.gallery-modal [class*="colour"],
+.gallery-modal [class*="color"] {
+  text-align: left;
+}
+
+.gallery-lightbox [class*="colours"],
+.gallery-lightbox [class*="colors"],
+.blog-image-lightbox [class*="colours"],
+.blog-image-lightbox [class*="colors"],
+.gallery-modal [class*="colours"],
+.gallery-modal [class*="colors"] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.45rem;
+  text-align: left;
+}
+
+.gallery-lightbox [class*="tag"] span,
+.gallery-lightbox [class*="colour"] span,
+.gallery-lightbox [class*="color"] span,
+.gallery-lightbox [class*="tag"] a,
+.gallery-lightbox [class*="colour"] a,
+.gallery-lightbox [class*="color"] a,
+.blog-image-lightbox [class*="tag"] span,
+.blog-image-lightbox [class*="colour"] span,
+.blog-image-lightbox [class*="color"] span,
+.blog-image-lightbox [class*="tag"] a,
+.blog-image-lightbox [class*="colour"] a,
+.blog-image-lightbox [class*="color"] a,
+.gallery-modal [class*="tag"] span,
+.gallery-modal [class*="colour"] span,
+.gallery-modal [class*="color"] span,
+.gallery-modal [class*="tag"] a,
+.gallery-modal [class*="colour"] a,
+.gallery-modal [class*="color"] a {
+  width: auto;
+}
+
+.eyebrow span[aria-hidden="true"] {
+  color: var(--gold);
+  text-shadow:
+    0 0 8px rgba(216, 164, 93, 0.45),
+    0 1px 0 rgba(255, 250, 245, 0.8);
+}
+
+.blog-card-top-tags::before {
+  content: "\2726";
+  margin-right: 0.45rem;
+  color: var(--gold);
+  font-size: 0.72em;
+  font-weight: 900;
+  text-shadow:
+    0 0 8px rgba(216, 164, 93, 0.55),
+    0 1px 0 rgba(255, 250, 245, 0.9),
+    0 3px 8px rgba(59, 43, 34, 0.18);
+}
+
+@media (max-width: 760px) {
+  .eyebrow,
+  [class*="eyebrow"],
+  .page-hero-kicker,
+  .cover-slideshow__eyebrow,
+  .content-intro-card .eyebrow,
+  .search-panel .eyebrow,
+  .gallery-eyebrow,
+  .shop-eyebrow,
+  .footer-column h3,
+  .gallery-panel h3,
+  .gallery-panel h4,
+  .gallery-detail h3,
+  .gallery-detail h4,
+  .gallery-info h3,
+  .gallery-info h4,
+  .gallery-meta h3,
+  .gallery-meta h4,
+  .lightbox-panel h3,
+  .lightbox-panel h4,
+  .lightbox-details h3,
+  .lightbox-details h4,
+  .image-detail h3,
+  .image-detail h4,
+  .image-meta h3,
+  .image-meta h4,
+  .description-label,
+  .tags-label,
+  .colours-label,
+  .colors-label,
+  .gallery-description-label,
+  .gallery-tags-label,
+  .gallery-colours-label,
+  .gallery-colors-label,
+  .lightbox-description-label,
+  .lightbox-tags-label,
+  .lightbox-colours-label,
+  .lightbox-colors-label,
+  .gallery-lightbox h3,
+  .gallery-lightbox h4,
+  .gallery-lightbox strong,
+  .gallery-lightbox [class*="label"],
+  .blog-image-lightbox h3,
+  .blog-image-lightbox h4,
+  .blog-image-lightbox strong,
+  .blog-image-lightbox [class*="label"],
+  .gallery-modal h3,
+  .gallery-modal h4,
+  .gallery-modal strong,
+  .gallery-modal [class*="label"] {
+    letter-spacing: 0.055em;
+    word-spacing: 0.04em;
+  }
+}
