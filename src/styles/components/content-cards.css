@@ -1,6 +1,6 @@
 /* =========================================================
    CONTENT CARDS
-   Shared card sections for About, FAQ, guides and future pages
+   Shared card sections for About, FAQ, guides and future pages.
    Font families live in base/fonts.css so page cards inherit the site hierarchy.
    ========================================================= */
 
@@ -149,7 +149,6 @@
   max-width: 650px;
   margin: 0 auto;
   color: rgba(74, 48, 31, 0.94);
-  font-family: var(--font-body);
   font-size: clamp(1.08rem, 1.8vw, 1.32rem);
   font-weight: 800;
   line-height: 1.55;
