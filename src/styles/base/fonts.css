@@ -17,7 +17,7 @@
   /* Handwritten accent font: useful for H3s and softer handmade notes. */
   --font-handmade: "Caveat", "Segoe Print", "Bradley Hand", cursive;
 
-  /* Keep this alias because lots of existing CSS already uses it. */
+  /* Keep this alias because existing CSS already uses it. */
   --font-script: var(--font-handmade);
 
   /* Strong readable display font: H2s, labels, nav, buttons and utility text. */
@@ -37,16 +37,27 @@ button {
   font-family: var(--font-body);
 }
 
-body {
-  font-family: var(--font-body);
-}
-
 p,
 li,
 blockquote,
 input,
 textarea,
-select {
+select,
+.blog-post-content,
+.blog-post-content p,
+.blog-post-body,
+.blog-post-body p,
+.post-content,
+.post-content p,
+.content-card p,
+.blog-card p,
+.shop-card p,
+.gallery-card p,
+.gallery-description,
+.lightbox-description,
+.image-description,
+.gallery-info p,
+.lightbox-details p {
   font-family: var(--font-body);
 }
 
@@ -66,7 +77,10 @@ h1,
 .blog-hero-banner h1,
 .hero-panel h1,
 .home-mobile-brand h1,
-.blog-post-title {
+.blog-post-title,
+.gallery-lightbox h2,
+.blog-image-lightbox h2,
+.gallery-modal h2 {
   font-family: var(--font-title);
   letter-spacing: 0.04em;
 }
@@ -79,7 +93,59 @@ h6,
 .section-title,
 .card-title,
 .shop-card h2,
-.gallery-title {
+.gallery-title,
+.footer-column h3,
+.eyebrow,
+[class*="eyebrow"],
+.page-hero-kicker,
+.cover-slideshow__eyebrow,
+.gallery-panel h3,
+.gallery-panel h4,
+.gallery-detail h3,
+.gallery-detail h4,
+.gallery-info h3,
+.gallery-info h4,
+.gallery-meta h3,
+.gallery-meta h4,
+.lightbox-panel h3,
+.lightbox-panel h4,
+.lightbox-details h3,
+.lightbox-details h4,
+.image-detail h3,
+.image-detail h4,
+.image-meta h3,
+.image-meta h4,
+.gallery-lightbox h3,
+.gallery-lightbox h4,
+.gallery-lightbox strong,
+.gallery-lightbox [class*="label"],
+.gallery-lightbox [class*="heading"],
+.blog-image-lightbox h3,
+.blog-image-lightbox h4,
+.blog-image-lightbox strong,
+.blog-image-lightbox [class*="label"],
+.blog-image-lightbox [class*="heading"],
+.gallery-modal h3,
+.gallery-modal h4,
+.gallery-modal strong,
+.gallery-modal [class*="label"],
+.gallery-modal [class*="heading"],
+.description-label,
+.tags-label,
+.colours-label,
+.colors-label,
+.gallery-description-label,
+.gallery-tags-label,
+.gallery-colours-label,
+.gallery-colors-label,
+.lightbox-description-label,
+.lightbox-tags-label,
+.lightbox-colours-label,
+.lightbox-colors-label,
+[data-label="description"],
+[data-label="tags"],
+[data-label="colours"],
+[data-label="colors"] {
   font-family: var(--font-ancient);
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -93,7 +159,7 @@ h3 {
 }
 
 /* ---------------------------------------------------------
-   Brand, nav, buttons, labels and captions
+   Brand, nav, buttons and handmade accents
    --------------------------------------------------------- */
 
 .site-header-brand span,
@@ -118,7 +184,6 @@ button,
 .pagination button,
 .tag-pill,
 .filter-pill,
-.page-hero-kicker,
 .home-mobile-kicker,
 .home-mobile-tagline,
 figcaption,
@@ -128,23 +193,6 @@ figcaption,
 .footer-tagline,
 .footer-column a {
   font-family: var(--font-handmade);
-}
-
-/* ---------------------------------------------------------
-   Long-form reading stays readable
-   --------------------------------------------------------- */
-
-.blog-post-content,
-.blog-post-content p,
-.blog-post-body,
-.blog-post-body p,
-.post-content,
-.post-content p,
-.content-card p,
-.blog-card p,
-.shop-card p,
-.gallery-card p {
-  font-family: var(--font-body);
 }
 
 /* ---------------------------------------------------------
