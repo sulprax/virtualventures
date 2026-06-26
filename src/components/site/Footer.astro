@@ -139,6 +139,39 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  .footer-left {
+    width: min(100%, 31rem) !important;
+    max-width: 31rem !important;
+    margin-inline: auto !important;
+
+    justify-self: center;
+    align-items: center;
+  }
+
+  .footer-left > * {
+    width: 100%;
+  }
+
+  .footer-socials {
+    width: min(100%, 31rem) !important;
+    margin-inline: auto !important;
+    justify-content: center !important;
+  }
+
+  .footer-tree {
+    width: min(100%, 31rem) !important;
+    margin-inline: auto !important;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    justify-items: center;
+  }
+
+  .footer-column {
+    width: max-content;
+    max-width: 100%;
+    justify-self: center;
+  }
+
   .footer-action-stack {
     width: 100%;
 
@@ -244,6 +277,12 @@ const year = new Date().getFullYear();
   }
 
   @media (max-width: 760px) {
+    .footer-left,
+    .footer-socials,
+    .footer-tree {
+      width: min(100%, 31rem) !important;
+    }
+
     .footer-action-stack .footer-search {
       width: min(100%, 24rem) !important;
     }
