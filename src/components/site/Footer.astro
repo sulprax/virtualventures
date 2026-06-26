@@ -43,7 +43,7 @@ const year = new Date().getFullYear();
       </nav>
 
       <div class="footer-actions">
-        <div class="footer-action-row">
+        <div class="footer-action-stack">
           <form
             class="footer-search"
             action="/search/"
@@ -137,3 +137,32 @@ const year = new Date().getFullYear();
     </p>
   </div>
 </footer>
+
+<style>
+  .footer-action-stack {
+    width: 100%;
+
+    display: grid;
+    gap: 0.7rem;
+    justify-items: center;
+  }
+
+  .footer-action-stack .footer-search,
+  .footer-action-stack .footer-feed-links {
+    width: min(100%, 24rem) !important;
+    margin-inline: auto !important;
+  }
+
+  .footer-action-stack .footer-form-row:not(.footer-rss-row) {
+    width: 100% !important;
+  }
+
+  .footer-action-stack .footer-form-row.footer-rss-row {
+    width: min(100%, 18rem) !important;
+    margin-inline: auto !important;
+  }
+
+  .footer-action-stack .footer-rss-button {
+    min-width: 0 !important;
+  }
+</style>
