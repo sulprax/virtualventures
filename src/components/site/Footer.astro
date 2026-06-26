@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer" aria-labelledby="footer-title">
   <div class="footer-inner footer-layout">
-    <section class="footer-left">
+    <section class="footer-left" aria-label="Footer links and search">
       <nav class="footer-socials" aria-label="Social media links">
         {
           visibleSocials.map((social) => (
@@ -27,7 +27,7 @@ const year = new Date().getFullYear();
       <nav class="footer-tree" aria-label="Footer navigation">
         {
           footerNavGroups.map((group) => (
-            <section class="footer-column">
+            <div class="footer-column">
               <h3>{group.title}</h3>
 
               <ul>
@@ -37,78 +37,69 @@ const year = new Date().getFullYear();
                   </li>
                 ))}
               </ul>
-            </section>
+            </div>
           ))
         }
       </nav>
 
       <div class="footer-actions">
-        <div class="footer-action-stack">
-          <form
-            class="footer-search"
-            action="/search/"
-            method="get"
-            role="search"
-          >
-            <label for="footer-search">Search</label>
+        <form class="footer-search" action="/search/" method="get" role="search">
+          <label for="footer-search">Search</label>
 
-            <div class="footer-form-row">
-              <input
-                id="footer-search"
-                name="q"
-                type="search"
-                placeholder="Search..."
-              />
+          <div class="footer-search-row">
+            <input
+              id="footer-search"
+              name="q"
+              type="search"
+              placeholder="Search..."
+            />
 
-              <button
-                class="footer-icon-button"
-                type="submit"
-                aria-label="Search the site"
-                title="Search"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24">
-                  <path d="M10.7 5.4a5.3 5.3 0 1 1 0 10.6a5.3 5.3 0 0 1 0-10.6Z"
-                  ></path>
-                  <path d="M14.8 14.9 19 19"></path>
-                </svg>
-              </button>
-            </div>
-          </form>
-
-          <div class="footer-feed-links" aria-label="Blog feed links">
-            <div class="footer-form-row footer-rss-row">
-              <a
-                class="footer-rss-button"
-                href="/rss.xml"
-                aria-label="RSS feed"
-                title="RSS feed"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24">
-                  <path d="M5 5c7.7 0 14 6.3 14 14"></path>
-                  <path d="M5 10c5 0 9 4 9 9"></path>
-                  <path d="M7 18.2a1.2 1.2 0 1 1 0-2.4a1.2 1.2 0 0 1 0 2.4Z"></path>
-                </svg>
-                <span>RSS</span>
-              </a>
-
-              <a
-                class="footer-rss-button"
-                href="https://feedly.com/i/subscription/feed/https://virtualventures.uk/rss.xml"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow in Feedly"
-                title="Follow in Feedly"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24">
-                  <path d="M6 4.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z"></path>
-                  <path d="M5 14a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z"></path>
-                  <path d="M13 14a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z"></path>
-                </svg>
-                <span>Feedly</span>
-              </a>
-            </div>
+            <button
+              class="footer-icon-button"
+              type="submit"
+              aria-label="Search the site"
+              title="Search"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M10.7 5.4a5.3 5.3 0 1 1 0 10.6a5.3 5.3 0 0 1 0-10.6Z"
+                ></path>
+                <path d="M14.8 14.9 19 19"></path>
+              </svg>
+            </button>
           </div>
-        </div>
+        </form>
+
+        <nav class="footer-feed-links" aria-label="Blog feed links">
+          <a
+            class="footer-rss-button"
+            href="/rss.xml"
+            aria-label="RSS feed"
+            title="RSS feed"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M5 5c7.7 0 14 6.3 14 14"></path>
+              <path d="M5 10c5 0 9 4 9 9"></path>
+              <path d="M7 18.2a1.2 1.2 0 1 1 0-2.4a1.2 1.2 0 0 1 0 2.4Z"></path>
+            </svg>
+            <span>RSS</span>
+          </a>
+
+          <a
+            class="footer-rss-button"
+            href="https://feedly.com/i/subscription/feed/https://virtualventures.uk/rss.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow in Feedly"
+            title="Follow in Feedly"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M6 4.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z"></path>
+              <path d="M5 14a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z"></path>
+              <path d="M13 14a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z"></path>
+            </svg>
+            <span>Feedly</span>
+          </a>
+        </nav>
       </div>
     </section>
 
@@ -137,154 +128,3 @@ const year = new Date().getFullYear();
     </p>
   </div>
 </footer>
-
-<style>
-  .footer-left {
-    width: min(100%, 31rem) !important;
-    max-width: 31rem !important;
-    margin-inline: auto !important;
-
-    justify-self: center;
-    align-items: center;
-  }
-
-  .footer-left > * {
-    width: 100%;
-  }
-
-  .footer-socials {
-    width: min(100%, 31rem) !important;
-    margin-inline: auto !important;
-    justify-content: center !important;
-  }
-
-  .footer-tree {
-    width: min(100%, 31rem) !important;
-    margin-inline: auto !important;
-
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    justify-items: center;
-  }
-
-  .footer-column {
-    width: max-content;
-    max-width: 100%;
-    justify-self: center;
-  }
-
-  .footer-action-stack {
-    width: 100%;
-
-    display: grid;
-    gap: 0.72rem;
-    justify-items: center;
-  }
-
-  .footer-action-stack .footer-search {
-    width: clamp(18rem, 34vw, 31rem) !important;
-    max-width: min(100%, calc(100vw - 2rem)) !important;
-    margin-inline: auto !important;
-  }
-
-  .footer-action-stack .footer-feed-links {
-    width: min(100%, 18rem) !important;
-    margin-inline: auto !important;
-  }
-
-  .footer-action-stack .footer-search .footer-form-row:not(.footer-rss-row) {
-    width: 100% !important;
-    min-height: 2.55rem !important;
-
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) 2.45rem !important;
-    align-items: center !important;
-    gap: 0 !important;
-
-    padding: 0.16rem 0.22rem 0.16rem 0.62rem !important;
-
-    background: #e8dccd !important;
-    border: 1px solid rgba(126, 91, 55, 0.66) !important;
-    border-radius: 999px !important;
-    overflow: hidden !important;
-
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.58),
-      0 8px 18px rgba(0, 0, 0, 0.18) !important;
-  }
-
-  .footer-action-stack .footer-search input {
-    min-height: 2.15rem !important;
-    padding: 0.45rem 0.65rem !important;
-
-    color: #3c2a1d !important;
-    background: transparent !important;
-
-    border: 0 !important;
-    border-radius: 999px !important;
-    box-shadow: none !important;
-
-    font-size: 0.86rem !important;
-    text-align: left !important;
-  }
-
-  .footer-action-stack .footer-search input::placeholder {
-    color: rgba(60, 42, 29, 0.62) !important;
-  }
-
-  .footer-action-stack .footer-search input:focus {
-    box-shadow: none !important;
-  }
-
-  .footer-action-stack .footer-search .footer-icon-button,
-  .footer-action-stack .footer-search .footer-form-row button.footer-icon-button {
-    width: 2.25rem !important;
-    min-width: 2.25rem !important;
-    max-width: 2.25rem !important;
-    min-height: 2.15rem !important;
-    padding: 0 !important;
-
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    color: #5c3d22 !important;
-    background: transparent !important;
-
-    border: 0 !important;
-    border-radius: 999px !important;
-    box-shadow: none !important;
-  }
-
-  .footer-action-stack .footer-search .footer-icon-button:hover,
-  .footer-action-stack .footer-search .footer-icon-button:focus-visible {
-    color: #21140c !important;
-    background: rgba(126, 91, 55, 0.11) !important;
-    transform: none !important;
-  }
-
-  .footer-action-stack .footer-search .footer-icon-button svg {
-    width: 0.9rem !important;
-    height: 0.9rem !important;
-  }
-
-  .footer-action-stack .footer-form-row.footer-rss-row {
-    width: 100% !important;
-    margin-inline: auto !important;
-  }
-
-  .footer-action-stack .footer-rss-button {
-    min-width: 0 !important;
-  }
-
-  @media (max-width: 760px) {
-    .footer-left,
-    .footer-socials,
-    .footer-tree {
-      width: min(100%, 31rem) !important;
-    }
-
-    .footer-action-stack .footer-search {
-      width: min(100%, 24rem) !important;
-    }
-  }
-</style>
