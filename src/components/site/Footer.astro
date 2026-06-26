@@ -57,7 +57,7 @@ const year = new Date().getFullYear();
                 id="footer-search"
                 name="q"
                 type="search"
-                placeholder="Search patterns, blog posts..."
+                placeholder="Search..."
               />
 
               <button
@@ -143,26 +143,109 @@ const year = new Date().getFullYear();
     width: 100%;
 
     display: grid;
-    gap: 0.7rem;
+    gap: 0.72rem;
     justify-items: center;
   }
 
-  .footer-action-stack .footer-search,
-  .footer-action-stack .footer-feed-links {
-    width: min(100%, 24rem) !important;
+  .footer-action-stack .footer-search {
+    width: clamp(18rem, 34vw, 31rem) !important;
+    max-width: min(100%, calc(100vw - 2rem)) !important;
     margin-inline: auto !important;
   }
 
-  .footer-action-stack .footer-form-row:not(.footer-rss-row) {
+  .footer-action-stack .footer-feed-links {
+    width: min(100%, 18rem) !important;
+    margin-inline: auto !important;
+  }
+
+  .footer-action-stack .footer-search .footer-form-row:not(.footer-rss-row) {
     width: 100% !important;
+    min-height: 2.55rem !important;
+
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 2.45rem !important;
+    align-items: center !important;
+    gap: 0 !important;
+
+    padding: 0.16rem 0.22rem 0.16rem 0.62rem !important;
+
+    background: #e8dccd !important;
+    border: 1px solid rgba(126, 91, 55, 0.66) !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.58),
+      0 8px 18px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  .footer-action-stack .footer-search input {
+    min-height: 2.15rem !important;
+    padding: 0.45rem 0.65rem !important;
+
+    color: #3c2a1d !important;
+    background: transparent !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+
+    font-size: 0.86rem !important;
+    text-align: left !important;
+  }
+
+  .footer-action-stack .footer-search input::placeholder {
+    color: rgba(60, 42, 29, 0.62) !important;
+  }
+
+  .footer-action-stack .footer-search input:focus {
+    box-shadow: none !important;
+  }
+
+  .footer-action-stack .footer-search .footer-icon-button,
+  .footer-action-stack .footer-search .footer-form-row button.footer-icon-button {
+    width: 2.25rem !important;
+    min-width: 2.25rem !important;
+    max-width: 2.25rem !important;
+    min-height: 2.15rem !important;
+    padding: 0 !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #5c3d22 !important;
+    background: transparent !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+  }
+
+  .footer-action-stack .footer-search .footer-icon-button:hover,
+  .footer-action-stack .footer-search .footer-icon-button:focus-visible {
+    color: #21140c !important;
+    background: rgba(126, 91, 55, 0.11) !important;
+    transform: none !important;
+  }
+
+  .footer-action-stack .footer-search .footer-icon-button svg {
+    width: 0.9rem !important;
+    height: 0.9rem !important;
   }
 
   .footer-action-stack .footer-form-row.footer-rss-row {
-    width: min(100%, 18rem) !important;
+    width: 100% !important;
     margin-inline: auto !important;
   }
 
   .footer-action-stack .footer-rss-button {
     min-width: 0 !important;
+  }
+
+  @media (max-width: 760px) {
+    .footer-action-stack .footer-search {
+      width: min(100%, 24rem) !important;
+    }
   }
 </style>
