@@ -1,13 +1,17 @@
 /* =========================================================
-   SITE HEADER
-   Generated during CSS split cleanup
-   ========================================================= */
+   HEADER
 
-/* =========================================================
-   04. SITE HEADER
-   Brown navigation,
-visible immediately,
-sticky on non-home pages
+   Owns:
+   - sticky header shell
+   - leather/glass header background
+   - brand logo/name container
+   - desktop header search box
+
+   Does not own:
+   - nav link styling
+   - nav separators/stars
+   - hamburger styling
+   - mobile drawer styling
    ========================================================= */
 
 .site-header {
@@ -74,6 +78,10 @@ sticky on non-home pages
   );
 }
 
+/* ---------------------------------------------------------
+   Brand
+   --------------------------------------------------------- */
+
 .site-header-brand {
   display: inline-flex;
   align-items: center;
@@ -93,6 +101,17 @@ sticky on non-home pages
 }
 
 .site-header-brand img {
+  width: 48px !important;
+  height: 48px !important;
+
+  flex: 0 0 48px !important;
+
+  object-fit: contain;
+  opacity: 0.82;
+
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
+    drop-shadow(0 0 10px rgba(239, 189, 114, 0.12));
+
   transition:
     opacity 180ms ease,
     transform 180ms ease,
@@ -107,81 +126,9 @@ sticky on non-home pages
     drop-shadow(0 0 14px rgba(239, 189, 114, 0.28));
 }
 
-/* Desktop navigation */
-
-.site-header-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.45rem, 1vw, 0.8rem);
-}
-
-.site-header-nav a {
-  color: rgba(255, 247, 237, 0.92);
-
-  text-decoration: none;
-
-  font-family: var(--font-script);
-  font-size: clamp(0.92rem, 1.1vw, 1.08rem);
-  font-weight: 800;
-  letter-spacing: 0.01em;
-
-  text-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.38),
-    0 0 14px rgba(122, 82, 48, 0.18);
-
-  transition:
-    color 180ms ease,
-    transform 180ms ease,
-    text-shadow 180ms ease;
-}
-
-.site-header-nav a:hover,
-.site-header-nav a.is-active {
-  color: var(--amber);
-  transform: translateY(-1px);
-
-  text-shadow:
-    0 2px 10px rgba(0, 0, 0, 0.42),
-    0 0 14px rgba(239, 189, 114, 0.26);
-}
-
-.site-header-nav a:focus-visible {
-  outline: 3px solid rgba(239, 189, 114, 0.75);
-  outline-offset: 4px;
-  border-radius: 10px;
-}
-
-@keyframes star-twinkle {
-  0%,
-  100% {
-    opacity: 0.58;
-    transform: scale(0.92) rotate(0deg);
-
-    text-shadow:
-      0 0 4px rgba(216, 164, 93, 0.28),
-      0 1px 0 rgba(255, 250, 245, 0.18),
-      0 4px 10px rgba(0, 0, 0, 0.22);
-  }
-
-  45% {
-    opacity: 0.95;
-    transform: scale(1.08) rotate(8deg);
-
-    text-shadow:
-      0 0 12px rgba(216, 164, 93, 0.82),
-      0 0 22px rgba(239, 189, 114, 0.28),
-      0 1px 0 rgba(255, 250, 245, 0.32),
-      0 4px 10px rgba(0, 0, 0, 0.28);
-  }
-
-  55% {
-    opacity: 0.72;
-    transform: scale(0.98) rotate(-4deg);
-  }
-}
-
-/* Desktop search */
+/* ---------------------------------------------------------
+   Desktop search
+   --------------------------------------------------------- */
 
 .site-header-search {
   width: clamp(190px, 18vw, 300px);
@@ -250,240 +197,9 @@ sticky on non-home pages
   outline-offset: -3px;
 }
 
-/* Hamburger button */
-
-.site-header-menu-button {
-  display: none;
-  width: 42px;
-  height: 42px;
-
-  align-items: center;
-  justify-content: center;
-
-  color: var(--gold);
-  background:
-    radial-gradient(
-      circle at 30% 20%,
-      rgba(255, 239, 205, 0.17),
-      transparent 44%
-    ),
-    rgba(54, 34, 21, 0.74);
-
-  border: 1px solid rgba(216, 164, 93, 0.46);
-  border-radius: var(--radius-pill);
-
-  font-size: 1.4rem;
-  font-weight: 900;
-  line-height: 1;
-
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 246, 229, 0.18);
-
-  transition:
-    color 180ms ease,
-    background 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.site-header-menu-button:hover {
-  color: #2a160a;
-  background: linear-gradient(145deg, #efbd72, #f5efe6);
-  transform: translateY(-1px);
-}
-
-.site-header-menu-button:focus-visible {
-  outline: 3px solid rgba(239, 189, 114, 0.75);
-  outline-offset: 3px;
-}
-
-/* Mobile drawer */
-
-.site-header-nav-drawer[hidden] {
-  display: none !important;
-}
-
-.site-header-nav-drawer {
-  grid-column: 1 / -1;
-
-  width: min(100%, 28rem);
-  padding: 0.9rem;
-  justify-self: end;
-
-  display: grid;
-  gap: 0.65rem;
-
-  background: linear-gradient(
-    to bottom,
-    rgba(44, 31, 22, 0.98),
-    rgba(31, 22, 16, 0.96)
-  );
-
-  border: 1px solid rgba(216, 164, 93, 0.42);
-  border-radius: 18px;
-
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.site-header-nav-drawer nav {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.site-header-nav-drawer a {
-  min-height: 42px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: rgba(255, 247, 237, 0.92);
-
-  border-radius: 12px;
-
-  text-decoration: none;
-
-  font-family: var(--font-script);
-  font-weight: 800;
-
-  transition:
-    color 180ms ease,
-    background 180ms ease,
-    transform 180ms ease;
-}
-
-.site-header-nav-drawer a:hover,
-.site-header-nav-drawer a.is-active {
-  color: #1d1208;
-  background: linear-gradient(145deg, #efbd72, #f5efe6);
-  transform: translateY(-1px);
-}
-
-.site-header-nav-drawer a:focus-visible {
-  outline: 3px solid rgba(239, 189, 114, 0.75);
-  outline-offset: 3px;
-}
-
-/* Drawer search */
-
-.site-header-drawer-search {
-  min-height: 44px;
-  padding: 0.22rem;
-
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-
-  background: rgba(255, 248, 236, 0.92);
-  border: 1px solid rgba(216, 164, 93, 0.44);
-  border-radius: var(--radius-pill);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.74),
-    0 12px 26px rgba(0, 0, 0, 0.2);
-}
-
-.site-header-drawer-search input {
-  min-width: 0;
-  flex: 1;
-
-  padding-inline: 0.75rem;
-
-  color: var(--dark);
-  background: transparent;
-
-  border: 0;
-  outline: none;
-
-  font: inherit;
-}
-
-.site-header-drawer-search input::placeholder {
-  color: rgba(45, 34, 24, 0.56);
-}
-
-.site-header-drawer-search button {
-  width: 36px;
-  height: 36px;
-
-  color: #2a160a;
-  background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-  border: 0;
-  border-radius: var(--radius-pill);
-
-  font-size: 1.1rem;
-  font-weight: 900;
-
-  cursor: pointer;
-
-  transition:
-    transform 180ms ease,
-    filter 180ms ease;
-}
-
-.site-header-drawer-search button:hover {
-  transform: scale(1.06);
-  filter: brightness(1.04);
-}
-
-.site-header-drawer-search button:focus-visible {
-  outline: 3px solid rgba(239, 189, 114, 0.75);
-  outline-offset: 3px;
-}
-
-/* =========================================================
-   EMERGENCY HEADER LOGO SIZE FIX
-   Stops the logo becoming a giant woodland moon
-   ========================================================= */
-
-.site-header-brand img {
-  width: 48px !important;
-  height: 48px !important;
-
-  flex: 0 0 48px !important;
-
-  object-fit: contain;
-
-  opacity: 0.82;
-
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
-    drop-shadow(0 0 10px rgba(239, 189, 114, 0.12));
-}
-
-@media (max-width: 900px) {
-  .site-header-brand img {
-    width: 46px !important;
-    height: 46px !important;
-
-    flex-basis: 46px !important;
-  }
-}
-
-@media (max-width: 520px) {
-  .site-header-brand img {
-    width: 42px !important;
-    height: 42px !important;
-
-    flex-basis: 42px !important;
-  }
-}
-
-/* =========================================================
-   01. NORMAL SITE HEADER
-   Blog,
-shop,
-gallery,
-about,
-contact,
-FAQ,
-etc.
-   Homepage uses its own hero topbar.
-   ========================================================= */
+/* ---------------------------------------------------------
+   Mobile header shell
+   --------------------------------------------------------- */
 
 @media (max-width: 900px) {
   .site-header {
@@ -514,10 +230,10 @@ etc.
   }
 
   .site-header-brand img {
-    flex: 0 0 auto;
+    width: 46px !important;
+    height: 46px !important;
 
-    width: 46px;
-    height: 46px;
+    flex: 0 0 46px !important;
   }
 
   .site-header-brand span {
@@ -529,184 +245,10 @@ etc.
     text-overflow: ellipsis;
   }
 
-  .site-header-nav,
-  .site-header-star,
   .site-header-search {
     display: none;
   }
-
-  .site-header-menu-button {
-    grid-area: toggle;
-    justify-self: end;
-
-    position: relative;
-    top: auto;
-    right: auto;
-    z-index: 10060;
-
-    width: 48px;
-    height: 48px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    line-height: 1;
-    text-align: center;
-    font-size: 1.45rem;
-  }
-
-  .site-header-nav-drawer[hidden] {
-    display: none !important;
-  }
-
-  .site-header-menu-button[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10070;
-
-    color: #1d1208;
-    background: linear-gradient(145deg, #efbd72, #f5efe6);
-
-    border-color: rgba(255, 250, 245, 0.5);
-
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.38);
-
-    transform: none;
-  }
 }
-
-@media (min-width: 901px) {
-  .site-header-menu-button,
-  .site-header-nav-drawer {
-    display: none !important;
-  }
-}
-
-/* =========================================================
-   04. SHARED MOBILE SIDE DRAWER
-   Homepage hero menu and normal page menu.
-   ========================================================= */
-
-@media (max-width: 980px) {
-  .site-header-nav-drawer::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-
-    border-radius: inherit;
-
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 246, 229, 0.08),
-      transparent 32%,
-      rgba(0, 0, 0, 0.16)
-    );
-
-    pointer-events: none;
-  }
-
-  .site-header-nav-drawer {
-    margin-top: 0;
-    grid-area: auto;
-    justify-self: end;
-  }
-
-  .site-header-nav-drawer:not([hidden]) {
-    display: grid;
-  }
-
-  .site-header-nav-drawer nav {
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
-  }
-
-  .site-header-nav-drawer a[href="/about/"]::before {
-    content: "🌿";
-  }
-
-  .site-header-nav-drawer a[href="/faq/"]::before {
-    content: "❔";
-  }
-
-  .site-header-nav-drawer a[href="/gallery/"]::before {
-    content: "🖼️";
-  }
-
-  .site-header-nav-drawer a::after {
-    content: "";
-
-    position: absolute;
-    left: 0.85rem;
-    bottom: 0.35rem;
-
-    width: 0;
-    height: 2px;
-
-    background: linear-gradient(
-      to right,
-      rgba(239, 189, 114, 0.95),
-      rgba(245, 239, 230, 0.18)
-    );
-
-    border-radius: var(--radius-pill);
-
-    transition:
-      width 180ms ease,
-      left 180ms ease;
-  }
-
-  .site-header-nav-drawer a.is-active,
-  .site-header-nav-drawer a[aria-current="page"] {
-    padding-left: 1.7rem;
-
-    color: #ffd992;
-    background: transparent;
-
-    transform: translateX(0.45rem);
-
-    text-shadow:
-      0 2px 10px rgba(30, 18, 10, 0.9),
-      0 0 18px rgba(216, 164, 93, 0.55);
-  }
-
-  .site-header-nav-drawer a.is-active::before,
-  .site-header-nav-drawer a[aria-current="page"]::before {
-    content: "✦";
-    color: var(--gold);
-
-    font-family: var(--font-title);
-    font-size: 0.95rem;
-  }
-
-  .site-header-drawer-search label {
-    position: absolute;
-
-    width: 1px;
-    height: 1px;
-
-    overflow: hidden;
-
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-
-  .site-header-drawer-search input::placeholder {
-    color: rgba(45, 34, 24, 0.56);
-  }
-}
-
-/* =========================================================
-   06. SMALL MOBILE
-   ========================================================= */
 
 @media (max-width: 520px) {
   .site-header {
@@ -720,92 +262,9 @@ etc.
   }
 
   .site-header-brand img {
-    width: 42px;
-    height: 42px;
-  }
+    width: 42px !important;
+    height: 42px !important;
 
-  .site-header-menu-button {
-    width: 46px;
-    height: 46px;
-
-    font-size: 1.35rem;
-  }
-
-  .hero {
-    padding-inline: 1rem;
-  }
-
-  .hero-socials {
-    gap: 0.35rem;
-  }
-
-  .hero-socials a {
-    font-size: 1.25rem;
-  }
-
-  .hero-panel {
-    margin-top: 3.5rem;
-    padding: 1.1rem 1.15rem 1.3rem;
-  }
-
-  .hero-logo-wrap {
-    width: min(235px, 82%);
-  }
-
-  .hero-buttons {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.55rem;
-  }
-
-  .hero-buttons a {
-    min-height: 4rem;
-    padding: 0.65rem 0.45rem;
-
-    flex-direction: column;
-    gap: 0.35rem;
-
-    font-size: 0.95rem;
-  }
-
-  .footer-right h2 {
-    font-size: clamp(2.7rem, 14vw, 3.8rem);
-  }
-
-  .footer-logo {
-    width: clamp(105px, 38vw, 145px);
-  }
-}
-
-@media (max-width: 420px) {
-  .hero-buttons a {
-    font-size: 0.88rem;
-  }
-}
-
-/* =========================================================
-   MOBILE MENU STABILITY
-   Keep drawer above the homepage hero poster
-   ========================================================= */
-
-@media (max-width: 900px) {
-  .site-header-nav-drawer:not([hidden]) {
-    position: fixed;
-    top: calc(var(--site-header-height, 76px) + 0.75rem);
-    right: 1rem;
-    left: auto;
-    z-index: 10065;
-
-    width: min(16rem, calc(100vw - 2rem));
-    max-height: calc(100svh - var(--site-header-height, 76px) - 2rem);
-    overflow: auto;
-
-    display: grid;
-  }
-
-  .site-header-menu-button[aria-expanded="true"] {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10070;
+    flex-basis: 42px !important;
   }
 }
