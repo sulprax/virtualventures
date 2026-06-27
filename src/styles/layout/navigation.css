@@ -20,3 +20,10 @@
    ========================================================= */
 
 @import "./navigation-polish.css";
+
+@media (min-width: 981px) {
+  .site-header-menu-button,
+  .site-header-nav-drawer {
+    display: none !important;
+  }
+}
