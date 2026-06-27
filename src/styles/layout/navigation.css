@@ -1,0 +1,22 @@
+/* =========================================================
+   NAVIGATION
+
+   Owns:
+   - desktop nav links
+   - active nav state
+   - nav separators/stars
+   - hamburger button
+   - mobile nav drawer
+
+   Does not own:
+   - header leather shell
+   - brand logo/name/tagline
+   - page hero banners
+
+   Temporary bridge:
+   This file now owns the navigation import path. The old
+   navigation-polish file remains as the source until its rules are
+   moved here in the next cleanup pass.
+   ========================================================= */
+
+@import "./navigation-polish.css";
