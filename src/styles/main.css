@@ -25,6 +25,7 @@
 /* Components */
 @import "./components/page-hero.css";
 @import "./components/buttons.css";
+@import "./components/floating-controls.css";
 @import "./components/cards.css";
 @import "./components/content-cards.css";
 @import "./components/search.css";
@@ -33,6 +34,7 @@
 @import "./components/lightbox.css";
 @import "./components/mobile-filter-drawer.css";
 @import "./components/social-icons.css";
+@import "./components/header-socials.css";
 @import "./components/labels.css";
 @import "./components/scrapbook-media.css";
 
