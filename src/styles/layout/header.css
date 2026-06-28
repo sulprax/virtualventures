@@ -3,13 +3,13 @@
 
    Owns:
    - sticky header shell
-   - desktop clear/transparent header space
-   - left stitched leather brand tab
-   - desktop expanding leather search tab
+   - desktop clear header space
+   - compact expanding leather search tab
+   - mobile brand/header shell
 
    Does not own:
-   - nav link styling
-   - nav separators/stars
+   - desktop nav tab styling
+   - centre brand/social nav tab styling
    - hamburger styling
    - mobile drawer styling
    ========================================================= */
@@ -25,9 +25,8 @@
   padding: 0 clamp(0.75rem, 2.5vw, 2.25rem);
 
   display: grid;
-  grid-template-columns: minmax(13.5rem, auto) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  gap: clamp(0.7rem, 1.5vw, 1.25rem);
 
   color: #fff7ed;
 
@@ -48,220 +47,11 @@
 }
 
 .site-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-
-  height: 5.75rem;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(circle at 12% 0%, rgba(239, 189, 114, 0.18), transparent 18rem),
-    radial-gradient(circle at 88% 0%, rgba(255, 216, 158, 0.12), transparent 18rem),
-    linear-gradient(
-      to bottom,
-      rgba(80, 44, 22, 0.22),
-      rgba(244, 231, 210, 0.8) 76%,
-      rgba(244, 231, 210, 0.42)
-    );
-
-  box-shadow: 0 0.8rem 1.6rem rgba(35, 18, 10, 0.12);
+  content: none;
 }
 
-/* ---------------------------------------------------------
-   Desktop brand tab
-   --------------------------------------------------------- */
-
-.site-header-brand {
-  position: relative;
-  isolation: isolate;
-
-  min-width: 15rem;
-  min-height: 5.25rem;
-  margin-left: calc(clamp(0.75rem, 2.5vw, 2.25rem) * -1);
-  padding: 0.55rem clamp(1.15rem, 1.9vw, 1.7rem) 0.78rem
-    clamp(1rem, 1.7vw, 1.35rem);
-
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-
-  overflow: hidden;
-
-  color: #fff6e7;
-  text-decoration: none;
-
-  background:
-    radial-gradient(circle at 16% 12%, rgba(255, 232, 174, 0.28), transparent 38%),
-    radial-gradient(circle at 82% 18%, rgba(255, 246, 229, 0.08), transparent 38%),
-    linear-gradient(145deg, #8b562d 0%, #4a2c19 58%, #211008 100%);
-
-  border-style: solid;
-  border-color: rgba(216, 164, 93, 0.88);
-  border-width: 0 1.5px 1.5px 0;
-  border-radius: 0 0 1.2rem 0;
-
-  box-shadow:
-    0 20px 38px rgba(0, 0, 0, 0.34),
-    0 7px 18px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 246, 229, 0.24),
-    inset 0 -14px 22px rgba(35, 18, 10, 0.34);
-
-  transform-origin: top left;
-
-  transition:
-    filter 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.site-header-brand::before {
-  content: "";
-  position: absolute;
-  inset: 0 0.44rem 0.48rem 0;
-  z-index: 1;
-
-  border-style: dashed;
-  border-color: rgba(239, 189, 114, 0.68);
-  border-width: 0 1px 1px 1px;
-  border-radius: 0 0 0.86rem 0;
-
-  pointer-events: none;
-}
-
-.site-header-brand::after {
-  content: "";
-  position: absolute;
-  right: 0.62rem;
-  bottom: 0.56rem;
-  z-index: 1;
-
-  width: 0.34rem;
-  height: 0.34rem;
-
-  border-radius: 999px;
-
-  background: radial-gradient(circle at 35% 30%, #fff3cc, #d8a45d 44%, #8b562d 78%);
-  box-shadow: 0 0 0.48rem rgba(239, 189, 114, 0.42);
-
-  pointer-events: none;
-}
-
-.site-header-brand:hover,
-.site-header-brand:focus-visible {
-  filter: brightness(1.06) saturate(1.05);
-  transform: translateY(-0.12rem);
-
-  outline: none;
-
-  box-shadow:
-    0 24px 44px rgba(0, 0, 0, 0.38),
-    0 8px 20px rgba(0, 0, 0, 0.24),
-    inset 0 1px 0 rgba(255, 246, 229, 0.28),
-    inset 0 -14px 22px rgba(35, 18, 10, 0.32);
-}
-
-.site-header-brand-logo {
-  position: absolute;
-  top: 0.15rem;
-  bottom: 0.25rem;
-  left: 0.55rem;
-  z-index: 0;
-
-  width: 9.2rem !important;
-  height: auto !important;
-
-  object-fit: contain;
-  object-position: left center;
-  opacity: 1;
-
-  filter:
-    sepia(0.2)
-    saturate(1.45)
-    brightness(1.18)
-    contrast(1.14)
-    drop-shadow(0 5px 10px rgba(0, 0, 0, 0.28))
-    drop-shadow(0 0 12px rgba(239, 189, 114, 0.24));
-
-  mask-image: linear-gradient(to right, black 0%, black 34%, rgba(0, 0, 0, 0.45) 58%, transparent 88%);
-  -webkit-mask-image: linear-gradient(to right, black 0%, black 34%, rgba(0, 0, 0, 0.45) 58%, transparent 88%);
-
-  pointer-events: none;
-
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease,
-    filter 180ms ease;
-}
-
-.site-header-brand:hover .site-header-brand-logo,
-.site-header-brand:focus-visible .site-header-brand-logo {
-  opacity: 1;
-  transform: rotate(-2deg) scale(1.04);
-
-  filter:
-    sepia(0.2)
-    saturate(1.55)
-    brightness(1.26)
-    contrast(1.18)
-    drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3))
-    drop-shadow(0 0 16px rgba(239, 189, 114, 0.34));
-}
-
-.site-header-brand-text {
-  position: relative;
-  z-index: 2;
-
-  min-width: 0;
-  padding-left: 3.55rem;
-
-  display: grid;
-  gap: 0.03rem;
-
-  overflow: visible;
-
-  color: #fff4df;
-
-  font-family: var(--font-title);
-  font-size: clamp(1.34rem, 1.65vw, 1.92rem);
-  font-weight: 700;
-  line-height: 0.88;
-  letter-spacing: 0.055em;
-
-  text-shadow:
-    0 1px 0 rgba(255, 246, 229, 0.34),
-    0 2px 0 rgba(45, 22, 10, 0.88),
-    0 8px 18px rgba(0, 0, 0, 0.32);
-}
-
-.site-header-brand-text > span {
-  display: block;
-}
-
-.site-header-brand-line-two {
-  padding-left: 1.9rem;
-}
-
-.site-header-brand-star {
-  position: absolute;
-  right: -0.95rem;
-  bottom: 0.08rem;
-
-  color: #ffd98f;
-  font-family: var(--font-ancient);
-  font-size: 0.72rem;
-  line-height: 1;
-
-  text-shadow:
-    0 0 0.45rem rgba(255, 217, 143, 0.95),
-    0 0 1rem rgba(239, 189, 114, 0.62),
-    0 1px 0 rgba(31, 14, 6, 0.9);
-
-  animation: vv-nav-star-twinkle 3.8s ease-in-out infinite;
+.site-header-mobile-brand {
+  display: none;
 }
 
 /* ---------------------------------------------------------
@@ -271,7 +61,10 @@
 
 .site-header-search {
   position: relative;
+  grid-column: 1;
+  grid-row: 1;
   justify-self: end;
+  z-index: 6;
 
   width: 3.05rem;
   height: 3.05rem;
@@ -393,12 +186,16 @@
 
   flex: 0 0 3.05rem;
 
+  display: grid;
+  place-items: center;
+
   color: #f5c173;
   background: transparent;
 
   border: 0;
 
-  font-size: 1.38rem;
+  font-size: 1.48rem;
+  line-height: 1;
 
   cursor: pointer;
 
@@ -411,6 +208,12 @@
     transform 180ms ease;
 }
 
+.site-header-search button span {
+  display: block;
+  line-height: 1;
+  transform: translateY(-0.02rem);
+}
+
 .site-header-search button:hover,
 .site-header-search button:focus-visible {
   color: #fff3df;
@@ -418,40 +221,7 @@
   outline: none;
 }
 
-/* ---------------------------------------------------------
-   Smaller desktop and tablet tidy-up
-   --------------------------------------------------------- */
-
 @media (max-width: 1180px) and (min-width: 901px) {
-  .site-header {
-    grid-template-columns: minmax(11rem, auto) minmax(0, 1fr) auto;
-    gap: 0.55rem;
-  }
-
-  .site-header-brand {
-    min-width: 11.7rem;
-    min-height: 4.7rem;
-    padding-right: 0.95rem;
-  }
-
-  .site-header-brand-logo {
-    width: 7rem !important;
-  }
-
-  .site-header-brand-text {
-    padding-left: 2.72rem;
-    font-size: clamp(1.1rem, 1.85vw, 1.45rem);
-  }
-
-  .site-header-brand-line-two {
-    padding-left: 1.42rem;
-  }
-
-  .site-header-brand-star {
-    right: -0.68rem;
-    font-size: 0.62rem;
-  }
-
   .site-header-search {
     width: 3rem;
   }
@@ -501,25 +271,17 @@
     transform: translateZ(0);
   }
 
-  .site-header::before {
-    content: none;
-  }
-
   .site-header + .page-hero-banner {
     margin-top: 72px;
   }
 
-  .site-header-brand,
-  .site-header-home-socials {
+  .site-header-mobile-brand {
     grid-area: brand;
     justify-self: start;
     align-self: center;
 
     min-width: 0;
     max-width: calc(100vw - 5.8rem);
-    min-height: 0;
-    margin: 0;
-    padding: 0;
 
     display: inline-flex;
     align-items: center;
@@ -529,34 +291,24 @@
     overflow: hidden;
 
     color: #fffaf5;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-
-    font-size: clamp(1.2rem, 6vw, 1.65rem);
-  }
-
-  .site-header-brand::before,
-  .site-header-brand::after {
-    content: none;
+    text-decoration: none;
   }
 
   .site-header-brand-logo {
-    position: static;
-
     width: 46px !important;
     height: 46px !important;
 
     flex: 0 0 46px !important;
 
-    mask-image: none;
-    -webkit-mask-image: none;
+    object-fit: contain;
+
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
+      drop-shadow(0 0 10px rgba(239, 189, 114, 0.16));
   }
 
   .site-header-brand-text {
     min-width: 0;
-    padding-left: 0;
 
     display: inline-flex;
     align-items: baseline;
@@ -564,8 +316,17 @@
 
     overflow: hidden;
 
+    color: #fff4df;
+    font-family: var(--font-title);
     font-size: clamp(1.2rem, 6vw, 1.65rem);
+    font-weight: 700;
+    line-height: 0.9;
     letter-spacing: 0.045em;
+
+    text-shadow:
+      0 1px 0 rgba(255, 246, 229, 0.34),
+      0 2px 0 rgba(45, 22, 10, 0.88),
+      0 8px 18px rgba(0, 0, 0, 0.32);
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -573,10 +334,6 @@
 
   .site-header-brand-line-two {
     padding-left: 0;
-  }
-
-  .site-header-brand-star {
-    display: none;
   }
 
   .site-header-search {
@@ -596,7 +353,7 @@
     margin-top: 68px;
   }
 
-  .site-header-brand {
+  .site-header-mobile-brand {
     gap: 0.45rem;
   }
 
