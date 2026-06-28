@@ -1,11 +1,18 @@
 ---
 import { siteNav } from "../../data/navigation";
-import { visibleSocials } from "../../data/socials";
 
 const { mode = "sticky" } = Astro.props;
 const navItems = siteNav;
-const isHomeMode = mode === "home";
 const currentPath = Astro.url.pathname;
+
+const navIcons: Record<string, string> = {
+  "/blog/": "▮",
+  "/gallery/": "▣",
+  "/shop/": "◼",
+  "/about/": "✦",
+  "/contact/": "✉",
+  "/faq/": "?",
+};
 
 function isActivePath(href: string) {
   if (href === "/") return currentPath === "/";
@@ -19,28 +26,10 @@ function isActivePath(href: string) {
 ---
 
 <header class:list={["site-header", `site-header-${mode}`]} data-site-header>
-  {
-    isHomeMode ? (
-      <nav class="site-header-home-socials" aria-label="Social links">
-        {visibleSocials.map((social) => (
-          <a
-            href={social.href}
-            aria-label={social.label}
-            title={social.label}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span aria-hidden="true">{social.icon}</span>
-          </a>
-        ))}
-      </nav>
-    ) : (
-      <a class="site-header-brand" href="/" aria-label="Virtual Ventures home">
-        <img src="/images/brand/logo.png" alt="" />
-        <span>Virtual Ventures</span>
-      </a>
-    )
-  }
+  <a class="site-header-brand" href="/" aria-label="Virtual Ventures home">
+    <img src="/images/brand/logo.png" alt="" />
+    <span>Virtual Ventures</span>
+  </a>
 
   <nav class="site-header-nav" aria-label="Main navigation">
     {
@@ -51,7 +40,10 @@ function isActivePath(href: string) {
             class:list={[{ "is-active": isActivePath(item.href) }]}
             aria-current={isActivePath(item.href) ? "page" : undefined}
           >
-            {item.label}
+            <span class="site-header-nav-label">{item.label}</span>
+            <span class="site-header-nav-icon" aria-hidden="true">
+              {navIcons[item.href] ?? "✦"}
+            </span>
           </a>
 
           {index < navItems.length - 1 && (
