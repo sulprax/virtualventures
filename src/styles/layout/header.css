@@ -199,10 +199,18 @@
 
 /* ---------------------------------------------------------
    Mobile header shell
+   The mobile header stays fixed so drawers do not scroll it away.
    --------------------------------------------------------- */
 
 @media (max-width: 900px) {
-  .site-header {
+  .site-header,
+  .site-header-home {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 10080;
+
+    width: 100%;
+    height: 72px;
     min-height: 72px;
     padding: 0.65rem 1rem;
 
@@ -213,18 +221,30 @@
     gap: 0.65rem;
 
     overflow: visible;
+    pointer-events: auto;
+
+    transform: translateZ(0);
   }
 
-  .site-header-brand {
+  .site-header + .page-hero-banner {
+    margin-top: 72px;
+  }
+
+  .site-header-brand,
+  .site-header-home-socials {
     grid-area: brand;
     justify-self: start;
+    align-self: center;
 
     min-width: 0;
+    max-width: calc(100vw - 5.8rem);
 
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
     gap: 0.55rem;
+
+    overflow: hidden;
 
     font-size: clamp(1.2rem, 6vw, 1.65rem);
   }
@@ -251,9 +271,15 @@
 }
 
 @media (max-width: 520px) {
-  .site-header {
+  .site-header,
+  .site-header-home {
+    height: 68px;
     min-height: 68px;
     padding-inline: 0.85rem;
+  }
+
+  .site-header + .page-hero-banner {
+    margin-top: 68px;
   }
 
   .site-header-brand {
