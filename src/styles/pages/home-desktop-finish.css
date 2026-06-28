@@ -1,0 +1,24 @@
+/* =========================================================
+   HOME DESKTOP FINAL FINISH
+
+   Owns:
+   - final desktop-only home hero alignment tweaks
+   - hides mobile-only sparkle marks on desktop
+
+   Kept separate from the mobile poster styles so the working mobile
+   index page remains untouched.
+   ========================================================= */
+
+@media (min-width: 761px) {
+  .hero {
+    --home-frame-top: 0;
+
+    margin-top: calc(-1 * (var(--hero-header) + 1.65rem));
+    min-height: calc(100svh + var(--hero-header) + 1.65rem);
+    height: calc(100svh + var(--hero-header) + 1.65rem);
+  }
+
+  .hero-mobile-star {
+    display: none !important;
+  }
+}
