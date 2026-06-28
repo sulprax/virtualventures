@@ -64,7 +64,7 @@ select,
 /* ---------------------------------------------------------
    Main heading hierarchy
 
-   H1 = storybook
+   H1 = storybook with extra spacing for readability
    H2 = Bungee
    H3 = handwritten
    H4-H6 = Bungee utility headings
@@ -82,7 +82,7 @@ h1,
 .blog-image-lightbox h2,
 .gallery-modal h2 {
   font-family: var(--font-title);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.055em;
 }
 
 h2,
