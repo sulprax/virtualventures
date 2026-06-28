@@ -169,35 +169,25 @@
     position: relative;
     z-index: 3;
 
-    width: 1.72rem;
-    height: 1.48rem;
+    display: block;
 
-    display: inline-grid;
-    place-items: center;
+    color: #f5c173;
 
-    color: #3a1b0b;
-    background:
-      radial-gradient(circle at 35% 20%, #fff8e8, transparent 46%),
-      linear-gradient(145deg, #fff1cd, #efbd72 70%, #c98942);
-
-    border: 1px solid rgba(255, 246, 229, 0.48);
-    border-radius: 0.42rem;
-
-    font-size: clamp(0.92rem, 1.1vw, 1.12rem);
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", var(--font-body);
+    font-size: clamp(1.08rem, 1.15vw, 1.28rem);
+    font-weight: 400;
     line-height: 1;
 
-    box-shadow:
-      0 0 0.45rem rgba(239, 189, 114, 0.34),
-      inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    text-shadow:
+      0 0 0.45rem rgba(239, 189, 114, 0.68),
       0 2px 5px rgba(0, 0, 0, 0.42);
 
     transform: translateY(0);
 
     transition:
       color 180ms ease,
-      background 180ms ease,
       transform 180ms ease,
-      box-shadow 180ms ease;
+      text-shadow 180ms ease;
   }
 
   .site-header-nav-link:hover,
@@ -221,15 +211,11 @@
 
   .site-header-nav-link:hover .site-header-nav-icon,
   .site-header-nav-link:focus-visible .site-header-nav-icon {
-    color: #241006;
-    background:
-      radial-gradient(circle at 35% 20%, #fffaf1, transparent 46%),
-      linear-gradient(145deg, #fff7e4, #ffd589 70%, #efbd72);
-    box-shadow:
-      0 0 0.65rem rgba(255, 217, 143, 0.56),
-      0 0 1rem rgba(239, 189, 114, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.58);
-    transform: translateY(-0.08rem) scale(1.08);
+    color: #fff2d8;
+    text-shadow:
+      0 0 0.55rem rgba(255, 217, 143, 0.8),
+      0 0 1rem rgba(239, 189, 114, 0.52);
+    transform: translateY(-0.06rem) scale(1.08);
   }
 
   .site-header-nav-link.is-active,
@@ -267,15 +253,11 @@
 
   .site-header-nav-link.is-active .site-header-nav-icon,
   .site-header-nav-link[aria-current="page"] .site-header-nav-icon {
-    color: #241006;
-    background:
-      radial-gradient(circle at 35% 20%, #fffaf1, transparent 46%),
-      linear-gradient(145deg, #fff7e4, #ffd589 70%, #efbd72);
-    font-size: clamp(0.98rem, 1.18vw, 1.18rem);
-    box-shadow:
-      0 0 0.65rem rgba(255, 217, 143, 0.58),
-      0 0 1.05rem rgba(239, 189, 114, 0.42),
-      inset 0 1px 0 rgba(255, 255, 255, 0.58);
+    color: #fff2d8;
+    font-size: clamp(1.12rem, 1.25vw, 1.34rem);
+    text-shadow:
+      0 0 0.62rem rgba(255, 217, 143, 0.88),
+      0 0 1.15rem rgba(239, 189, 114, 0.58);
   }
 
   /* Centre brand tab shown on non-home pages */
@@ -436,9 +418,7 @@
   }
 
   .site-header-nav-icon {
-    width: 1.5rem;
-    height: 1.34rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .site-header-home-tab-text {
