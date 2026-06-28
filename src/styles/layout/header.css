@@ -2,7 +2,7 @@
    HEADER
 
    Owns:
-   - sticky header shell
+   - fixed desktop header shell
    - desktop clear header space
    - compact desktop scrolled bar shell
    - mobile brand/header shell
@@ -16,10 +16,9 @@
    ========================================================= */
 
 .site-header {
-  position: sticky;
-  top: 0;
-  left: auto;
-  z-index: 999;
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10080;
 
   width: 100%;
   min-height: 92px;
@@ -63,6 +62,18 @@
 .site-header-desktop-brand,
 .site-header-search {
   display: none;
+}
+
+/* ---------------------------------------------------------
+   Desktop fixed-header spacing
+   The header is fixed rather than sticky so every page behaves
+   the same, even if page wrappers or overflow rules differ.
+   --------------------------------------------------------- */
+
+@media (min-width: 901px) {
+  body {
+    padding-top: 92px;
+  }
 }
 
 /* ---------------------------------------------------------
