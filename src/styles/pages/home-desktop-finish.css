@@ -19,9 +19,22 @@
     height: calc(100svh + var(--hero-header) + 1.65rem);
   }
 
-  /* Keep the leather backing behind the photo, not over it. */
+  /* The hero background covers the nav gap; this filled layer was hiding the slideshow. */
+  .hero::before {
+    content: none !important;
+    display: none !important;
+  }
+
   .hero .cover-slideshow {
     z-index: 1;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero .cover-slideshow__slides,
+  .hero .cover-slideshow__slide {
+    opacity: 1;
+    visibility: visible;
   }
 
   .hero-shade {
