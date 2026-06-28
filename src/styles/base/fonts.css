@@ -69,7 +69,7 @@ select,
    H3 = handwritten
    H4-H6 = Bungee utility headings
 
-   Blog pages can still override these inside their page CSS.
+   Blog pages can still override layout/size, but H1 spacing should remain readable.
    --------------------------------------------------------- */
 
 h1,
@@ -82,7 +82,7 @@ h1,
 .blog-image-lightbox h2,
 .gallery-modal h2 {
   font-family: var(--font-title);
-  letter-spacing: 0.055em;
+  letter-spacing: 0.055em !important;
 }
 
 h2,
