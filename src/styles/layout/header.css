@@ -4,12 +4,13 @@
    Owns:
    - sticky header shell
    - desktop clear header space
+   - compact desktop scrolled bar shell
    - mobile brand/header shell
 
    Does not own:
    - desktop nav tab styling
    - centre brand/social nav tab styling
-   - floating search/back-to-top straps
+   - floating back-to-top button
    - hamburger styling
    - mobile drawer styling
    ========================================================= */
@@ -37,6 +38,13 @@
   transform: none;
   opacity: 1;
   pointer-events: auto;
+
+  transition:
+    min-height 220ms ease,
+    padding 220ms ease,
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
 }
 
 .site-header.is-visible,
@@ -51,8 +59,171 @@
 }
 
 .site-header-mobile-brand,
-.site-header-mobile-socials {
+.site-header-mobile-socials,
+.site-header-desktop-brand,
+.site-header-search {
   display: none;
+}
+
+/* ---------------------------------------------------------
+   Desktop compact header shell
+   Appears after scrolling so the page gets more reading room.
+   --------------------------------------------------------- */
+
+@media (min-width: 901px) {
+  .site-header.is-scrolled {
+    min-height: 70px;
+    padding: 0.55rem clamp(0.9rem, 2.7vw, 2.8rem);
+
+    grid-template-columns: minmax(12rem, auto) minmax(0, 1fr) minmax(11rem, 16rem);
+    align-items: center;
+    gap: clamp(0.85rem, 2vw, 2rem);
+
+    background:
+      linear-gradient(180deg, rgba(49, 31, 20, 0.96), rgba(34, 21, 14, 0.96)),
+      radial-gradient(circle at 8% 0%, rgba(239, 189, 114, 0.13), transparent 18rem),
+      radial-gradient(circle at 92% 0%, rgba(166, 123, 91, 0.12), transparent 18rem);
+
+    border-bottom: 1px solid rgba(239, 189, 114, 0.26);
+    box-shadow:
+      0 12px 26px rgba(0, 0, 0, 0.22),
+      inset 0 -1px 0 rgba(255, 246, 229, 0.06);
+  }
+
+  .site-header.is-scrolled .site-header-desktop-brand {
+    grid-column: 1;
+    grid-row: 1;
+
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.62rem;
+
+    color: #fff4df;
+    text-decoration: none;
+  }
+
+  .site-header.is-scrolled .site-header-desktop-brand .site-header-brand-logo {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    object-fit: contain;
+
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
+      drop-shadow(0 0 10px rgba(239, 189, 114, 0.18));
+  }
+
+  .site-header.is-scrolled .site-header-desktop-brand .site-header-brand-text {
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+
+    overflow: hidden;
+
+    color: #fff4df;
+    font-family: var(--font-title);
+    font-size: clamp(1.15rem, 2vw, 1.72rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: 0.045em;
+
+    text-shadow:
+      0 1px 0 rgba(255, 246, 229, 0.36),
+      0 2px 0 rgba(45, 22, 10, 0.86),
+      0 8px 18px rgba(0, 0, 0, 0.32);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .site-header.is-scrolled .site-header-search {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+
+    width: min(16rem, 24vw);
+    min-width: 11rem;
+    height: 2.55rem;
+
+    display: flex;
+    align-items: center;
+
+    background:
+      linear-gradient(180deg, rgba(255, 248, 235, 0.94), rgba(239, 226, 205, 0.94)),
+      radial-gradient(circle at 12% 0%, rgba(239, 189, 114, 0.22), transparent 9rem);
+
+    border: 1px solid rgba(126, 76, 40, 0.35);
+    border-radius: 999px;
+
+    box-shadow:
+      0 10px 18px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.62);
+
+    overflow: hidden;
+  }
+
+  .site-header-search label {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .site-header-search input {
+    min-width: 0;
+    height: 100%;
+    flex: 1;
+
+    padding: 0 0.35rem 0 1rem;
+
+    color: #4a2c19;
+    background: transparent;
+
+    border: 0;
+    outline: 0;
+
+    font-size: 0.86rem;
+    font-weight: 800;
+  }
+
+  .site-header-search input::placeholder {
+    color: rgba(74, 44, 25, 0.62);
+  }
+
+  .site-header-search button {
+    width: 2.55rem;
+    height: 2.55rem;
+
+    display: grid;
+    place-items: center;
+
+    color: #7a4b24;
+    background: transparent;
+
+    border: 0;
+
+    font-size: 1.08rem;
+    line-height: 1;
+
+    cursor: pointer;
+  }
+
+  .site-header-search:focus-within {
+    outline: 3px solid rgba(239, 189, 114, 0.44);
+    outline-offset: 3px;
+  }
 }
 
 /* ---------------------------------------------------------
@@ -92,6 +263,11 @@
     pointer-events: auto;
 
     transform: translateZ(0);
+  }
+
+  .site-header-desktop-brand,
+  .site-header-search {
+    display: none !important;
   }
 
   .site-header + .page-hero-banner {
