@@ -42,19 +42,6 @@ const {
     <slot />
 
     <div class="floating-quick-controls" data-floating-quick-controls>
-      <form class="floating-search-tab" action="/search/" method="get" role="search">
-        <label for="floating-search-input">Search the site</label>
-        <input
-          id="floating-search-input"
-          type="search"
-          name="q"
-          placeholder="Search..."
-        />
-        <button type="submit" aria-label="Search">
-          <span aria-hidden="true">⌕</span>
-        </button>
-      </form>
-
       <a href="#top" class="back-to-top-button" aria-label="Back to top">
         <span aria-hidden="true">↑</span>
       </a>
@@ -71,6 +58,7 @@ const {
     <Footer />
 
     <script>
+      const siteHeader = document.querySelector("[data-site-header]");
       const floatingQuickControls = document.querySelector(
         "[data-floating-quick-controls]",
       );
@@ -80,6 +68,11 @@ const {
       function updateFloatingControls() {
         const scrollY = window.scrollY;
         const shouldShowBackToTop = scrollY > 180;
+        const shouldCompactHeader = scrollY > 80;
+
+        if (siteHeader instanceof HTMLElement) {
+          siteHeader.classList.toggle("is-scrolled", shouldCompactHeader);
+        }
 
         if (backToTopButton instanceof HTMLElement) {
           backToTopButton.classList.toggle("is-visible", shouldShowBackToTop);
