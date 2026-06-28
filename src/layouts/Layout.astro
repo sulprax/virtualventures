@@ -57,72 +57,7 @@ const {
 
     <Footer />
 
-    <script>
-      const siteHeader = document.querySelector("[data-site-header]");
-      const floatingQuickControls = document.querySelector(
-        "[data-floating-quick-controls]",
-      );
-      const backToTopButton = document.querySelector(".back-to-top-button");
-      const footer = document.querySelector(".site-footer");
-      const compactHeaderTarget = document.querySelector(
-        ".hero, .page-hero-banner, .blog-hero-banner, .cover-slideshow",
-      );
-
-      function getScrollY() {
-        return document.scrollingElement?.scrollTop ?? window.scrollY ?? 0;
-      }
-
-      function shouldUseCompactHeader(scrollY) {
-        if (!(siteHeader instanceof HTMLElement)) return false;
-
-        if (compactHeaderTarget instanceof HTMLElement) {
-          const targetBottom = compactHeaderTarget.getBoundingClientRect().bottom;
-          const headerHeight = siteHeader.offsetHeight || 0;
-
-          return targetBottom <= headerHeight + 8;
-        }
-
-        return scrollY > 80;
-      }
-
-      function updateFloatingControls() {
-        const scrollY = getScrollY();
-        const shouldShowBackToTop = scrollY > 180;
-        const shouldCompactHeader = shouldUseCompactHeader(scrollY);
-
-        if (siteHeader instanceof HTMLElement) {
-          siteHeader.classList.toggle("is-scrolled", shouldCompactHeader);
-        }
-
-        if (backToTopButton instanceof HTMLElement) {
-          backToTopButton.classList.toggle("is-visible", shouldShowBackToTop);
-        }
-
-        if (!(floatingQuickControls instanceof HTMLElement)) return;
-        if (!(footer instanceof HTMLElement)) return;
-
-        const windowHeight = window.innerHeight;
-        const controlGap = 24;
-        const footerTop = footer.offsetTop;
-        const controlsHeight = floatingQuickControls.offsetHeight;
-        const controlsBottomPosition = scrollY + windowHeight - controlGap;
-
-        if (controlsBottomPosition + controlsHeight >= footerTop) {
-          floatingQuickControls.classList.add("is-above-footer");
-          floatingQuickControls.style.top = `${footerTop - controlsHeight - controlGap}px`;
-          floatingQuickControls.style.bottom = "auto";
-        } else {
-          floatingQuickControls.classList.remove("is-above-footer");
-          floatingQuickControls.style.top = "auto";
-          floatingQuickControls.style.bottom = "1.25rem";
-        }
-      }
-
-      window.addEventListener("scroll", updateFloatingControls, { passive: true });
-      window.addEventListener("resize", updateFloatingControls);
-
-      updateFloatingControls();
-    </script>
+    <script src="/scripts/siteHeaderScroll.js" defer></script>
     <script src="/scripts/mobileSideDrawer.js" defer></script>
   </body>
 </html>
