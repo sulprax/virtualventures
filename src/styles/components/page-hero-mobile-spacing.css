@@ -1,0 +1,34 @@
+/* =========================================================
+   PAGE HERO MOBILE SPACING GUARD
+
+   Owns:
+   - the tiny mobile-only breathing room between the fixed header
+     and restored folded leather PageHero cards.
+
+   This sits after the main PageHero styles so the desktop hero can
+   stay untouched while mobile titles no longer hide under the nav.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .page-hero-banner,
+  .blog-hero-banner.page-hero-banner {
+    padding-top: 2.35rem;
+  }
+
+  .page-hero-banner .blog-hero-banner-inner,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
+    margin-top: 0.85rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .page-hero-banner,
+  .blog-hero-banner.page-hero-banner {
+    padding-top: 2.15rem;
+  }
+
+  .page-hero-banner .blog-hero-banner-inner,
+  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
+    margin-top: 0.75rem;
+  }
+}
