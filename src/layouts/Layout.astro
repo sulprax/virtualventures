@@ -64,11 +64,31 @@ const {
       );
       const backToTopButton = document.querySelector(".back-to-top-button");
       const footer = document.querySelector(".site-footer");
+      const compactHeaderTarget = document.querySelector(
+        ".hero, .page-hero-banner, .blog-hero-banner, .cover-slideshow",
+      );
+
+      function getScrollY() {
+        return document.scrollingElement?.scrollTop ?? window.scrollY ?? 0;
+      }
+
+      function shouldUseCompactHeader(scrollY) {
+        if (!(siteHeader instanceof HTMLElement)) return false;
+
+        if (compactHeaderTarget instanceof HTMLElement) {
+          const targetBottom = compactHeaderTarget.getBoundingClientRect().bottom;
+          const headerHeight = siteHeader.offsetHeight || 0;
+
+          return targetBottom <= headerHeight + 8;
+        }
+
+        return scrollY > 80;
+      }
 
       function updateFloatingControls() {
-        const scrollY = window.scrollY;
+        const scrollY = getScrollY();
         const shouldShowBackToTop = scrollY > 180;
-        const shouldCompactHeader = scrollY > 80;
+        const shouldCompactHeader = shouldUseCompactHeader(scrollY);
 
         if (siteHeader instanceof HTMLElement) {
           siteHeader.classList.toggle("is-scrolled", shouldCompactHeader);
@@ -98,7 +118,7 @@ const {
         }
       }
 
-      window.addEventListener("scroll", updateFloatingControls);
+      window.addEventListener("scroll", updateFloatingControls, { passive: true });
       window.addEventListener("resize", updateFloatingControls);
 
       updateFloatingControls();
