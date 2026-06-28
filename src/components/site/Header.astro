@@ -39,6 +39,23 @@ function isActivePath(href: string) {
     </span>
   </a>
 
+  {
+    isHomeHeader && (
+      <div class="site-header-home-socials site-header-mobile-socials" aria-label="Social links">
+        {visibleSocials.map((social) => (
+          <a
+            href={social.href}
+            aria-label={social.label}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {social.icon}
+          </a>
+        ))}
+      </div>
+    )
+  }
+
   <nav class="site-header-nav" aria-label="Main navigation">
     {
       leftNavItems.map((item) => (
@@ -62,7 +79,7 @@ function isActivePath(href: string) {
       isHomeHeader ? (
         <div class="site-header-social-tab" aria-label="Social links">
           <span class="site-header-social-kicker">Follow</span>
-          <span class="site-header-social-icons">
+          <span class="site-header-home-socials site-header-social-icons">
             {visibleSocials.map((social) => (
               <a
                 href={social.href}
@@ -113,19 +130,6 @@ function isActivePath(href: string) {
       ))
     }
   </nav>
-
-  <form class="site-header-search" action="/search/" method="get" role="search">
-    <label for="site-header-search-input">Search the site</label>
-    <input
-      id="site-header-search-input"
-      type="search"
-      name="q"
-      placeholder="Search..."
-    />
-    <button type="submit" aria-label="Search">
-      <span aria-hidden="true">⌕</span>
-    </button>
-  </form>
 
   <button
     class="site-header-menu-button"
