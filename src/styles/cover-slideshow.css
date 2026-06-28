@@ -3,12 +3,12 @@
 
    Owns:
    - shared background slideshow used by the home hero and page banners
-   - gentle image crossfade
+   - page-banner image framing and gentle image crossfade
    - floating gold star dust
    - soft gold diagonal swipe when slides change
 
    Does not own:
-   - page hero leather cards
+   - page hero title cards
    - homepage buttons/panels outside the slideshow
    - navigation/header effects
    ========================================================= */
@@ -52,7 +52,59 @@
 }
 
 /* ---------------------------------------------------------
-   02. Image fade
+   02. Page-banner leather frame
+   --------------------------------------------------------- */
+
+.cover-slideshow--page {
+  --vv-page-frame-padding: clamp(0.42rem, 0.8vw, 0.78rem);
+  --vv-page-frame-radius: clamp(2rem, 4.5vw, 4.8rem) clamp(2rem, 4.5vw, 4.8rem)
+    clamp(1.25rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.4vw, 2.1rem);
+  --vv-page-frame-inner-radius: clamp(1.45rem, 3.5vw, 3.95rem) clamp(1.45rem, 3.5vw, 3.95rem)
+    clamp(0.92rem, 1.9vw, 1.52rem) clamp(0.92rem, 1.9vw, 1.52rem);
+
+  border: 1px solid rgba(216, 164, 93, 0.7);
+  border-radius: var(--vv-page-frame-radius);
+  outline: 1px dashed rgba(239, 189, 114, 0.5);
+  outline-offset: calc(var(--vv-page-frame-padding) * -0.62);
+
+  background:
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 230, 185, 0.035) 0,
+      rgba(255, 230, 185, 0.035) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    radial-gradient(circle at 18% 14%, rgba(255, 220, 156, 0.24), transparent 30rem),
+    radial-gradient(circle at 82% 6%, rgba(255, 246, 229, 0.1), transparent 24rem),
+    linear-gradient(145deg, #8b562d 0%, #4a2c19 58%, #211108 100%);
+
+  box-shadow:
+    0 2.2rem 4.5rem rgba(38, 21, 11, 0.34),
+    0 0.85rem 1.8rem rgba(38, 21, 11, 0.28),
+    inset 0 1px 0 rgba(255, 246, 229, 0.22),
+    inset 0 -1.3rem 2.4rem rgba(15, 7, 3, 0.34);
+}
+
+.cover-slideshow--page .cover-slideshow__slides,
+.cover-slideshow--page .cover-slideshow__warmth,
+.cover-slideshow--page .cover-slideshow__veil,
+.cover-slideshow--page .cover-slideshow__stars,
+.cover-slideshow--page .cover-slideshow__glint,
+.cover-slideshow--page .cover-slideshow__transition-sparkles {
+  inset: var(--vv-page-frame-padding);
+  border-radius: var(--vv-page-frame-inner-radius);
+  overflow: hidden;
+}
+
+.cover-slideshow--page .cover-slideshow__slides {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 246, 229, 0.1),
+    inset 0 0 2.4rem rgba(25, 13, 7, 0.24);
+}
+
+/* ---------------------------------------------------------
+   03. Image fade
    Keep this boring and reliable: no white, no blink, just a calm crossfade.
    --------------------------------------------------------- */
 
@@ -89,11 +141,22 @@
 }
 
 .cover-slideshow--page .cover-slideshow__slide {
-  background-position: 70% 20%;
+  background-position: center 34%;
+  transform: scale(1.006);
+}
+
+.cover-slideshow--page .cover-slideshow__slide.is-active {
+  filter: saturate(1.07) contrast(1.04) brightness(1.02);
+  transform: scale(1.018);
+}
+
+.cover-slideshow--page .cover-slideshow__slide.is-leaving {
+  transform: scale(1.024);
 }
 
 /* ---------------------------------------------------------
-   03. Caption
+   04. Home slideshow caption
+   Page banners do not render this markup; their copy lives in PageHero.
    --------------------------------------------------------- */
 
 .cover-slideshow__caption {
@@ -138,28 +201,6 @@
   opacity: 1;
   transform: translateY(0);
   transition-delay: 900ms;
-}
-
-.cover-slideshow--page .cover-slideshow__caption {
-  top: 50%;
-  right: clamp(2rem, 6vw, 6rem);
-  bottom: auto;
-  width: min(24rem, 30vw);
-  opacity: 0;
-  transform: translateY(calc(-50% + 0.45rem));
-  pointer-events: none;
-}
-
-.cover-slideshow--page .cover-slideshow__slide.is-active .cover-slideshow__caption {
-  opacity: 0;
-  transform: translateY(calc(-50% + 0.45rem));
-  transition-delay: 0ms;
-}
-
-.cover-slideshow--page:hover .cover-slideshow__slide.is-active .cover-slideshow__caption,
-.cover-slideshow--page:focus-within .cover-slideshow__slide.is-active .cover-slideshow__caption {
-  opacity: 0.92;
-  transform: translateY(-50%);
 }
 
 .cover-slideshow__eyebrow {
@@ -223,25 +264,8 @@
   text-underline-offset: 0.25rem;
 }
 
-.cover-slideshow--page .cover-slideshow__eyebrow {
-  font-size: 0.62rem;
-}
-
-.cover-slideshow--page .cover-slideshow__caption h2 {
-  font-size: clamp(1rem, 1.6vw, 1.45rem);
-}
-
-.cover-slideshow--page .cover-slideshow__description {
-  max-width: 22rem;
-  font-size: clamp(0.72rem, 0.9vw, 0.86rem);
-}
-
-.cover-slideshow--page .cover-slideshow__link {
-  font-size: 0.75rem;
-}
-
 /* ---------------------------------------------------------
-   04. Always-on gentle magic
+   05. Always-on gentle magic
    Floating gold stars should feel alive but never shout.
    --------------------------------------------------------- */
 
@@ -267,8 +291,8 @@
 
 .cover-slideshow--page .cover-slideshow__veil {
   background:
-    linear-gradient(to bottom, rgba(24, 15, 10, 0.34), rgba(24, 15, 10, 0.2) 44%, rgba(24, 15, 10, 0.44)),
-    linear-gradient(90deg, rgba(24, 15, 10, 0.46), rgba(24, 15, 10, 0.08) 42%, rgba(24, 15, 10, 0.38));
+    linear-gradient(to bottom, rgba(24, 15, 10, 0.18), rgba(24, 15, 10, 0.08) 42%, rgba(24, 15, 10, 0.28)),
+    linear-gradient(90deg, rgba(24, 15, 10, 0.26), rgba(24, 15, 10, 0.06) 42%, rgba(24, 15, 10, 0.22));
 }
 
 .cover-slideshow::before {
@@ -295,10 +319,21 @@
   pointer-events: none;
 }
 
+.cover-slideshow--page::before {
+  inset: var(--vv-page-frame-padding);
+  border-radius: var(--vv-page-frame-inner-radius);
+  overflow: hidden;
+  opacity: 0.13;
+}
+
 .cover-slideshow__stars {
   z-index: 5;
   opacity: 0.34;
   pointer-events: none;
+}
+
+.cover-slideshow--page .cover-slideshow__stars {
+  opacity: 0.24;
 }
 
 .cover-slideshow__stars--one {
@@ -318,7 +353,7 @@
 }
 
 /* ---------------------------------------------------------
-   05. Change-only magic
+   06. Change-only magic
    This is the diagonal gold swipe and tiny sparkle lift.
    No pure white flash.
    --------------------------------------------------------- */
@@ -344,6 +379,13 @@
   opacity: 0.36;
   transform: translateX(-125%);
   animation: cover-idle-gold-sheen 18s ease-in-out infinite;
+}
+
+.cover-slideshow--page::after {
+  inset: var(--vv-page-frame-padding);
+  border-radius: var(--vv-page-frame-inner-radius);
+  overflow: hidden;
+  opacity: 0.22;
 }
 
 .cover-slideshow__glint {
@@ -393,7 +435,7 @@
 }
 
 /* ---------------------------------------------------------
-   06. Slideshow pips
+   07. Slideshow pips
    --------------------------------------------------------- */
 
 .cover-slideshow__pips {
@@ -448,7 +490,7 @@
 }
 
 /* ---------------------------------------------------------
-   07. Keyframes
+   08. Keyframes
    --------------------------------------------------------- */
 
 @keyframes cover-star-drift {
@@ -556,7 +598,7 @@
 }
 
 /* ---------------------------------------------------------
-   08. Mobile
+   09. Mobile
    --------------------------------------------------------- */
 
 @media (max-width: 700px) {
@@ -607,17 +649,21 @@
       radial-gradient(circle, rgba(239, 189, 114, 0.42) 0 1px, transparent 1.6px) 70% 78% / 5rem 5rem;
   }
 
-  .cover-slideshow--page .cover-slideshow__caption {
-    display: none;
+  .cover-slideshow--page {
+    --vv-page-frame-padding: 0.42rem;
+    --vv-page-frame-radius: 2.2rem 2.2rem 1.35rem 1.35rem;
+    --vv-page-frame-inner-radius: 1.72rem 1.72rem 0.95rem 0.95rem;
+
+    outline-offset: -0.32rem;
   }
 
   .cover-slideshow--page .cover-slideshow__slide {
-    background-position: 70% 20%;
+    background-position: center 32%;
   }
 }
 
 /* ---------------------------------------------------------
-   09. Reduced motion
+   10. Reduced motion
    --------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
