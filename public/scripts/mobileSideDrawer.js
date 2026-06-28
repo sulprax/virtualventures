@@ -33,10 +33,15 @@ function setupMobileSideDrawers() {
         footerVisibleAmount = Math.max(0, viewportHeight - footerRect.top);
       }
 
+      const isNearFooter = footerVisibleAmount > 0;
+
       document.documentElement.style.setProperty(
         "--mobile-side-drawer-footer-gap",
         `${footerVisibleAmount}px`,
       );
+
+      document.body.classList.toggle("is-mobile-side-footer-zone", isNearFooter);
+      root.classList.toggle("is-near-footer", isNearFooter);
 
       const tabHeight = toggle.offsetHeight || 140;
       const minTop = headerHeight + 12;
@@ -67,6 +72,8 @@ function setupMobileSideDrawers() {
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", openLabel);
       toggle.dataset.drawerState = "closed";
+
+      updateDrawerLimits();
     }
 
     toggle.addEventListener("click", () => {
