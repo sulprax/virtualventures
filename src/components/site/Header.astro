@@ -9,13 +9,13 @@ const rightNavItems = navItems.slice(3);
 const currentPath = Astro.url.pathname;
 const isHomeHeader = mode === "home";
 
-const navIcons: Record<string, string> = {
-  "/blog/": "📖",
-  "/gallery/": "🖼",
-  "/shop/": "🛍",
-  "/about/": "✦",
-  "/contact/": "✉",
-  "/faq/": "?",
+const navIconClasses: Record<string, string> = {
+  "/blog/": "site-header-nav-icon-book",
+  "/gallery/": "site-header-nav-icon-gallery",
+  "/shop/": "site-header-nav-icon-shop",
+  "/about/": "site-header-nav-icon-spark",
+  "/contact/": "site-header-nav-icon-mail",
+  "/faq/": "site-header-nav-icon-help",
 };
 
 function isActivePath(href: string) {
@@ -56,6 +56,15 @@ function isActivePath(href: string) {
     )
   }
 
+  <a class="site-header-desktop-brand" href="/" aria-label="Virtual Ventures home">
+    <img class="site-header-brand-logo" src="/images/brand/logo.png" alt="" />
+
+    <span class="site-header-brand-text">
+      <span>Virtual</span>
+      <span class="site-header-brand-line-two">Ventures</span>
+    </span>
+  </a>
+
   <nav class="site-header-nav" aria-label="Main navigation">
     {
       leftNavItems.map((item) => (
@@ -68,9 +77,13 @@ function isActivePath(href: string) {
           aria-current={isActivePath(item.href) ? "page" : undefined}
         >
           <span class="site-header-nav-label">{item.label}</span>
-          <span class="site-header-nav-icon" aria-hidden="true">
-            {navIcons[item.href] ?? "✦"}
-          </span>
+          <span
+            class:list={[
+              "site-header-nav-icon",
+              navIconClasses[item.href] ?? "site-header-nav-icon-spark",
+            ]}
+            aria-hidden="true"
+          />
         </a>
       ))
     }
@@ -123,13 +136,28 @@ function isActivePath(href: string) {
           aria-current={isActivePath(item.href) ? "page" : undefined}
         >
           <span class="site-header-nav-label">{item.label}</span>
-          <span class="site-header-nav-icon" aria-hidden="true">
-            {navIcons[item.href] ?? "✦"}
-          </span>
+          <span
+            class:list={[
+              "site-header-nav-icon",
+              navIconClasses[item.href] ?? "site-header-nav-icon-spark",
+            ]}
+            aria-hidden="true"
+          />
         </a>
       ))
     }
   </nav>
+
+  <form class="site-header-search" action="/search/" method="get" role="search">
+    <label for="site-header-search-input">Search the site</label>
+    <input
+      id="site-header-search-input"
+      type="search"
+      name="q"
+      placeholder="Search..."
+    />
+    <button type="submit" aria-label="Search">⌕</button>
+  </form>
 
   <button
     class="site-header-menu-button"
