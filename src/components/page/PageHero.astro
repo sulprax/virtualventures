@@ -12,7 +12,7 @@ const { eyebrow, title, description } = Astro.props;
 const coverSlides = await getCoverMedia();
 ---
 
-<section class="blog-hero-banner page-hero-banner">
+<section class="blog-hero-banner page-hero-banner" data-compact-header-trigger>
   <CoverSlideshow slides={coverSlides} variant="page" />
 
   <div class="blog-hero-banner-inner">
