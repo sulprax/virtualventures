@@ -1,9 +1,17 @@
 /* =========================================================
    LAYER AND OVERLAY SAFETY
-   Keeps drawers, headers, lightboxes and footer decoration in predictable layers.
+
+   Owns:
+   - z-index safety rules
+   - overlay stacking order
+   - drawer/header/lightbox layer priority
    ========================================================= */
 
 @media (max-width: 900px) {
+  .breadcrumb-trail {
+    z-index: 1 !important;
+  }
+
   body.has-open-mobile-side-drawer .has-mobile-side-drawer[data-mobile-side-drawer-root] {
     position: relative !important;
     z-index: 50000 !important;
@@ -32,7 +40,6 @@
 
   .site-header-menu-button,
   .site-header-nav-drawer {
-    position: relative;
     z-index: 50110 !important;
   }
 }
