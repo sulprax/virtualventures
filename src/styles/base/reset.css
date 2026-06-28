@@ -1,10 +1,11 @@
 /* =========================================================
    RESET / BASE
-   Generated during CSS split cleanup
-   ========================================================= */
 
-/* =========================================================
-   02. RESET / BASE
+   Owns:
+   - box sizing
+   - document scroll defaults
+   - universal hidden behaviour
+   - safe page overflow defaults
    ========================================================= */
 
 *,
@@ -15,6 +16,18 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
 }
 
 /* =========================================================
