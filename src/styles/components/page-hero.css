@@ -1,12 +1,20 @@
 /* =========================================================
    PAGE HERO
-   Shared banner for normal pages.
-   Desktop: cinematic slideshow hero.
-   Mobile: folded leather strap banner.
-   Homepage/index stays separate and untouched.
+
+   Owns:
+   - shared page hero/banner styles
+   - desktop slideshow page hero
+   - mobile folded leather page title card
+
+   Does not own:
+   - homepage hero
+   - breadcrumbs
+   - page body/card layouts
    ========================================================= */
 
-/* ---------- Desktop / default ---------- */
+/* =========================================================
+   01. DESKTOP / DEFAULT PAGE HERO
+   ========================================================= */
 
 .page-hero-banner {
   position: relative;
@@ -34,7 +42,6 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-
   pointer-events: none;
 
   background:
@@ -65,30 +72,24 @@
 
 .page-hero-banner .eyebrow {
   margin: 0 0 0.35rem;
-
   color: var(--amber);
-
   font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: clamp(0.72rem, 1vw, 0.9rem);
   font-weight: 900;
   letter-spacing: 0.22em;
   line-height: 1.1;
   text-transform: uppercase;
-
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
 }
 
 .page-hero-banner h1 {
   max-width: 900px;
   margin: 0 auto;
-
   color: #fffaf5;
-
   font-family: var(--font-title);
   font-size: clamp(2rem, 4.3vw, 3.8rem);
   line-height: 0.95;
   letter-spacing: -0.035em;
-
   text-shadow:
     0 3px 0 rgba(45, 34, 24, 0.9),
     0 10px 22px rgba(0, 0, 0, 0.72),
@@ -98,22 +99,19 @@
 .page-hero-banner p:not(.eyebrow) {
   max-width: 720px;
   margin: 0.65rem auto 0;
-
   color: rgba(255, 250, 245, 0.96);
-
   font-size: clamp(0.92rem, 1.18vw, 1.05rem);
   font-weight: 700;
   line-height: 1.5;
-
   text-shadow:
     0 2px 8px rgba(0, 0, 0, 0.82),
     0 0 20px rgba(0, 0, 0, 0.45);
 }
 
 /* =========================================================
-   MOBILE PAGE HERO
-   Folded leather strap banner for normal subpages.
-   No slideshow / no image background on mobile.
+   02. MOBILE PAGE HERO
+   Folded leather title card for normal pages.
+   Spacing is intentionally tight because the mobile header is fixed.
    ========================================================= */
 
 @media (max-width: 900px) {
@@ -123,8 +121,7 @@
     overflow: visible;
 
     min-height: auto;
-    margin: 0;
-    padding: 1.55rem 0.7rem 0.7rem;
+    padding: 0.7rem 0.65rem 0.62rem;
 
     display: block;
 
@@ -152,8 +149,8 @@
     isolation: isolate;
 
     width: min(100%, 34rem);
-    margin: 1.05rem auto 0;
-    padding: 2.55rem 1.25rem 1.25rem;
+    margin: 0.35rem auto 0;
+    padding: 2.2rem 1.15rem 1.1rem;
 
     display: grid;
     grid-template-columns: 1fr;
@@ -175,16 +172,8 @@
         transparent 1px,
         transparent 5px
       ),
-      radial-gradient(
-        circle at 18% 18%,
-        rgba(255, 205, 132, 0.24),
-        transparent 34%
-      ),
-      radial-gradient(
-        circle at 82% 8%,
-        rgba(255, 246, 229, 0.08),
-        transparent 32%
-      ),
+      radial-gradient(circle at 18% 18%, rgba(255, 205, 132, 0.24), transparent 34%),
+      radial-gradient(circle at 82% 8%, rgba(255, 246, 229, 0.08), transparent 32%),
       linear-gradient(145deg, #7b4a27, #3e2112 58%, #1b0b05);
 
     box-shadow:
@@ -194,12 +183,10 @@
       inset 0 -1rem 1.65rem rgba(9, 4, 2, 0.24);
   }
 
-  /* Folded leather lip over the top */
   .page-hero-banner .blog-hero-banner-inner::after,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::after {
     content: "";
     position: absolute;
-
     top: -0.72rem;
     left: -0.05rem;
     right: -0.05rem;
@@ -218,11 +205,7 @@
         transparent 1px,
         transparent 5px
       ),
-      linear-gradient(
-        180deg,
-        rgba(255, 219, 166, 0.18),
-        rgba(255, 219, 166, 0)
-      ),
+      linear-gradient(180deg, rgba(255, 219, 166, 0.18), rgba(255, 219, 166, 0)),
       linear-gradient(145deg, #9a612e, #4b2815 58%, #2a1309);
 
     box-shadow:
@@ -230,7 +213,6 @@
       inset 0 1px 0 rgba(255, 225, 170, 0.35);
   }
 
-  /* Stitched border, no top stitching */
   .page-hero-banner .blog-hero-banner-inner::before,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
     content: "";
@@ -242,7 +224,6 @@
     border-bottom: 1px dashed rgba(239, 189, 114, 0.72);
     border-left: 1px dashed rgba(239, 189, 114, 0.72);
     border-top: 0;
-
     border-radius: 0 0 0.95rem 0.95rem;
 
     pointer-events: none;
@@ -257,13 +238,10 @@
   .page-hero-banner .eyebrow,
   .blog-hero-banner.page-hero-banner .eyebrow {
     display: block;
-
     width: 100%;
     max-width: 24rem;
     margin: 0 auto 0.18rem;
-
     color: #efbd72;
-
     font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
     font-size: clamp(0.8rem, 3.3vw, 1rem);
     font-weight: 900;
@@ -271,7 +249,6 @@
     line-height: 1.05;
     text-align: right;
     text-transform: uppercase;
-
     text-shadow:
       0 2px 8px rgba(20, 10, 5, 0.85),
       0 0 0.85rem rgba(239, 189, 114, 0.26);
@@ -286,17 +263,13 @@
 
     max-width: 24rem;
     margin: 0.08rem auto 0;
-
     color: #fff0dc;
-
     font-family: var(--font-title);
     font-size: clamp(2.27rem, 10.6vw, 3.22rem) !important;
     line-height: 0.9;
     letter-spacing: 0.018em;
     text-align: center;
-
     -webkit-text-stroke: 0.15px rgba(65, 30, 12, 0.42);
-
     text-shadow:
       0 1px 0 rgba(255, 246, 229, 0.64),
       0 -1px 0 rgba(52, 24, 10, 0.68),
@@ -304,7 +277,6 @@
       -1px 1px 0 rgba(72, 34, 15, 0.3),
       0 2px 0 rgba(38, 16, 7, 0.82),
       0 0.42rem 0.78rem rgba(0, 0, 0, 0.32);
-
     filter: drop-shadow(0 0.1rem 0.08rem rgba(13, 6, 3, 0.24));
   }
 
@@ -313,48 +285,38 @@
   .page-hero-banner h3,
   .blog-hero-banner.page-hero-banner h3 {
     display: block;
-
     width: 100%;
     max-width: 21rem;
     margin: 0.58rem auto 0;
-
     color: #bd8559;
-
     font-family: var(--font-handmade);
     font-size: clamp(1.2rem, 5vw, 1.38rem) !important;
     font-weight: 700;
     line-height: 1.08;
     text-align: left;
-
     text-shadow: none;
   }
 
-  /* Pull page content back up after the mobile leather banner */
   .page-hero-banner ~ .page-shell,
   .page-hero-banner ~ main.page-shell,
   .page-hero-banner ~ .content-page,
-  .page-hero-banner ~ main.content-page {
-    padding-top: 1.35rem !important;
-  }
-
+  .page-hero-banner ~ main.content-page,
   .page-hero-banner ~ .breadcrumb-trail + .page-shell,
   .page-hero-banner ~ .breadcrumb-trail + main.page-shell,
   .page-hero-banner ~ .breadcrumb-trail + .content-page,
   .page-hero-banner ~ .breadcrumb-trail + main.content-page {
-    padding-top: 1.35rem !important;
+    padding-top: 1rem !important;
   }
 }
 
 /* =========================================================
-   SMALL MOBILE
-   Narrow phone tidy-up.
+   03. SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 420px) {
   .page-hero-banner,
   .blog-hero-banner.page-hero-banner {
-    padding: 1.4rem 0.55rem 0.6rem;
-
+    padding: 0.6rem 0.55rem 0.55rem;
     background: var(--page-bg) !important;
     background-image: var(--page-bg) !important;
     box-shadow: none !important;
@@ -362,8 +324,8 @@
 
   .page-hero-banner .blog-hero-banner-inner,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
-    margin-top: 1rem;
-    padding: 2.35rem 1rem 1.05rem;
+    margin-top: 0.3rem;
+    padding: 2.12rem 1rem 1.05rem;
     border-radius: 0 0 1.15rem 1.15rem;
   }
 
@@ -398,16 +360,5 @@
   .blog-hero-banner.page-hero-banner h3 {
     max-width: 18.5rem;
     font-size: clamp(1.08rem, 4.6vw, 1.25rem) !important;
-  }
-
-  .page-hero-banner ~ .page-shell,
-  .page-hero-banner ~ main.page-shell,
-  .page-hero-banner ~ .content-page,
-  .page-hero-banner ~ main.content-page,
-  .page-hero-banner ~ .breadcrumb-trail + .page-shell,
-  .page-hero-banner ~ .breadcrumb-trail + main.page-shell,
-  .page-hero-banner ~ .breadcrumb-trail + .content-page,
-  .page-hero-banner ~ .breadcrumb-trail + main.content-page {
-    padding-top: 1.2rem !important;
   }
 }
