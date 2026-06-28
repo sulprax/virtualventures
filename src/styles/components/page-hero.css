@@ -4,7 +4,7 @@
    Owns:
    - non-home page hero/banner layout
    - desktop leather framed page slideshow placement
-   - desktop parchment label page title card
+   - desktop tucked parchment index card
    - restored mobile folded leather page title card
 
    Does not own:
@@ -91,10 +91,29 @@
   pointer-events: none;
 }
 
-/* The old desktop bottom fade has been removed so the frame ends cleanly. */
+/* Four little brass rivets on the leather frame. No fade, only hardware. */
 .page-hero-banner::after,
 .blog-hero-banner.page-hero-banner::after {
-  content: none;
+  content: "";
+  position: absolute;
+  z-index: 1;
+
+  inset: clamp(0.64rem, 1.2vw, 1rem)
+    max(clamp(0.72rem, 2.5vw, 2.5rem), calc((100vw - 1680px) / 2 + 1.2rem))
+    clamp(0.64rem, 1.2vw, 1rem);
+
+  max-width: 1680px;
+  margin-inline: auto;
+
+  background:
+    radial-gradient(circle at 1.4rem 1.4rem, #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem),
+    radial-gradient(circle at calc(100% - 1.4rem) 1.4rem, #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem),
+    radial-gradient(circle at calc(100% - 1.4rem) calc(100% - 1.4rem), #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem),
+    radial-gradient(circle at 1.4rem calc(100% - 1.4rem), #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem);
+
+  border-radius: clamp(2rem, 4.5vw, 4.8rem) clamp(2rem, 4.5vw, 4.8rem)
+    clamp(1.25rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.4vw, 2.1rem);
+  pointer-events: none;
 }
 
 /* =========================================================
@@ -117,8 +136,9 @@
 }
 
 /* =========================================================
-   03. DESKTOP PARCHMENT LABEL CARD
-   A cut-corner paper label pinned onto the leather-framed hero.
+   03. DESKTOP TUCKED INDEX CARD
+   A content-height paper card tucked into the bottom of the leather
+   frame like a little label in a wallet pocket.
    ========================================================= */
 
 .page-hero-banner .blog-hero-banner-inner,
@@ -128,12 +148,12 @@
   z-index: 2;
 
   width: min(33.5rem, 100%);
-  margin: 0 0 0 max(0rem, calc((100vw - 1680px) / 2 + 1.4rem));
-  padding: clamp(1.38rem, 2.15vw, 1.85rem) clamp(1.25rem, 2.35vw, 1.75rem)
-    clamp(1.08rem, 1.8vw, 1.35rem);
+  margin: 0 0 clamp(-0.7rem, -1vw, -0.42rem) max(0rem, calc((100vw - 1680px) / 2 + 1.4rem));
+  padding: clamp(1.02rem, 1.75vw, 1.34rem) clamp(1.25rem, 2.35vw, 1.75rem)
+    clamp(1.28rem, 2.2vw, 1.7rem);
 
   display: grid;
-  gap: 0.3rem;
+  gap: clamp(0.38rem, 0.75vw, 0.62rem);
 
   overflow: hidden;
 
@@ -159,6 +179,7 @@
   border: 1px solid rgba(126, 76, 40, 0.26);
 
   box-shadow:
+    0 -0.28rem 0.85rem rgba(255, 246, 229, 0.14),
     0 1.25rem 2.45rem rgba(22, 11, 5, 0.36),
     0 0.28rem 0.75rem rgba(22, 11, 5, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.72);
@@ -192,16 +213,15 @@
   position: absolute;
   right: 0;
   bottom: 0;
+  left: 0;
   z-index: 1;
 
-  width: 2.2rem;
-  height: 2.2rem;
+  height: 0.58rem;
 
   background:
-    linear-gradient(135deg, rgba(195, 158, 116, 0.9), rgba(255, 250, 245, 0.2) 52%, transparent 54%),
-    linear-gradient(135deg, transparent 50%, rgba(126, 76, 40, 0.24) 51%);
-  border-top: 1px solid rgba(126, 76, 40, 0.22);
-  border-left: 1px solid rgba(126, 76, 40, 0.16);
+    linear-gradient(to bottom, transparent, rgba(76, 42, 20, 0.16)),
+    linear-gradient(90deg, rgba(78, 43, 22, 0.08), transparent 18%, transparent 82%, rgba(78, 43, 22, 0.08));
+  border-top: 1px solid rgba(126, 76, 40, 0.18);
 
   pointer-events: none;
 }
@@ -212,16 +232,20 @@
   z-index: 2;
 }
 
-.page-hero-mini-icon {
-  position: absolute;
-  top: 0.76rem;
-  right: clamp(1rem, 2vw, 1.35rem);
-  z-index: 3;
+.page-hero-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.45rem, 1vw, 0.65rem);
+  text-align: center;
+}
 
+.page-hero-mini-icon {
   width: 2.12rem;
+  min-width: 2.12rem;
   height: 2.12rem;
 
-  display: grid;
+  display: inline-grid;
   place-items: center;
 
   color: #a76535;
@@ -238,41 +262,53 @@
 
   font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: 0.9rem;
+  font-style: normal;
   font-weight: 900;
   line-height: 1;
 }
 
-.page-hero-mini-icon::after {
-  content: "";
-  position: absolute;
-  top: 0.21rem;
-  left: 50%;
-
-  width: 0.28rem;
-  height: 0.28rem;
-
-  background: rgba(122, 82, 48, 0.3);
-  border-radius: 999px;
-
-  transform: translateX(-50%);
+.page-hero-mini-icon::before {
+  content: "✦";
 }
 
-.page-hero-banner .eyebrow,
-.blog-hero-banner.page-hero-banner .eyebrow {
-  width: fit-content;
-  margin: 0;
-  padding-right: 2.8rem;
+.page-hero-mini-icon--blog::before {
+  content: "▥";
+}
 
-  color: #8d4f2a;
+.page-hero-mini-icon--gallery::before {
+  content: "▧";
+}
 
-  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
-  font-size: clamp(0.68rem, 0.85vw, 0.82rem);
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  line-height: 1.15;
-  text-transform: uppercase;
+.page-hero-mini-icon--shop::before {
+  content: "▱";
+}
 
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
+.page-hero-mini-icon--contact::before {
+  content: "✉";
+}
+
+.page-hero-mini-icon--faq::before {
+  content: "?";
+}
+
+.page-hero-mini-icon--about::before {
+  content: "✦";
+}
+
+.page-hero-mini-icon--crochet::before {
+  content: "⌁";
+}
+
+.page-hero-mini-icon--laser::before {
+  content: "◇";
+}
+
+.page-hero-mini-icon--printing::before {
+  content: "⬡";
+}
+
+.page-hero-mini-icon--patterns::before {
+  content: "▣";
 }
 
 .page-hero-banner h1,
@@ -293,10 +329,37 @@
     0 0.44rem 0.62rem rgba(45, 22, 10, 0.24);
 }
 
+.page-hero-card-rule {
+  width: 100%;
+  height: 1px;
+  margin: clamp(0.08rem, 0.45vw, 0.22rem) 0 0;
+
+  background: linear-gradient(90deg, transparent, rgba(126, 76, 40, 0.34), transparent);
+  border: 0;
+}
+
+.page-hero-banner .eyebrow,
+.blog-hero-banner.page-hero-banner .eyebrow {
+  width: 100%;
+  margin: 0;
+
+  color: #8d4f2a;
+
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+  font-size: clamp(0.68rem, 0.85vw, 0.82rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+  text-align: right;
+  text-transform: uppercase;
+
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
+}
+
 .page-hero-banner h3,
 .blog-hero-banner.page-hero-banner h3 {
-  max-width: 29rem;
-  margin: 0.46rem 0 0;
+  max-width: 100%;
+  margin: 0;
 
   color: #7e4b2b;
 
@@ -304,6 +367,8 @@
   font-size: clamp(1.16rem, 1.5vw, 1.42rem);
   font-weight: 800;
   line-height: 1.12;
+  text-align: justify;
+  text-align-last: left;
 
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
 }
@@ -345,7 +410,13 @@
     display: none !important;
   }
 
-  .page-hero-mini-icon {
+  .page-hero-title-row {
+    display: block;
+    text-align: center;
+  }
+
+  .page-hero-mini-icon,
+  .page-hero-card-rule {
     display: none !important;
   }
 
