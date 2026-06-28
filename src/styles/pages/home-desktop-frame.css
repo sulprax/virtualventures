@@ -1,0 +1,115 @@
+/* =========================================================
+   HOME DESKTOP LEATHER FRAME
+
+   Owns:
+   - desktop-only leather backdrop behind the home navigation tabs
+   - desktop-only arched slideshow frame for ultrawide screens
+
+   Does not own:
+   - mobile home poster/card layout
+   - navigation behaviour
+   - non-home PageHero banners
+   ========================================================= */
+
+@media (min-width: 761px) {
+  .hero {
+    --home-frame-max: 1680px;
+    --home-frame-x: max(clamp(0.9rem, 2.8vw, 2.9rem), calc((100vw - var(--home-frame-max)) / 2 + 1rem));
+    --home-frame-top: clamp(0.48rem, 1vw, 0.9rem);
+    --home-frame-bottom: clamp(0.72rem, 1.5vw, 1.25rem);
+    --home-frame-radius: 50% 50% 2.45rem 2.45rem / 5.7rem 5.7rem 2.08rem 2.08rem;
+    --home-photo-radius: 50% 50% 2.04rem 2.04rem / 5.1rem 5.1rem 1.78rem 1.78rem;
+
+    background:
+      repeating-linear-gradient(
+        115deg,
+        rgba(255, 230, 185, 0.032) 0,
+        rgba(255, 230, 185, 0.032) 1px,
+        transparent 1px,
+        transparent 7px
+      ),
+      radial-gradient(circle at 24% 2%, rgba(239, 189, 114, 0.14), transparent 22rem),
+      linear-gradient(145deg, #251006 0%, #4a2613 50%, #170704 100%);
+  }
+
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: var(--home-frame-x);
+    right: var(--home-frame-x);
+    max-width: var(--home-frame-max);
+    margin-inline: auto;
+    border-radius: var(--home-frame-radius);
+    pointer-events: none;
+  }
+
+  .hero::before {
+    top: var(--home-frame-top);
+    bottom: var(--home-frame-bottom);
+    z-index: 0;
+
+    background:
+      radial-gradient(circle at 16% 8%, rgba(255, 219, 150, 0.16), transparent 24rem),
+      repeating-linear-gradient(
+        115deg,
+        rgba(255, 230, 185, 0.036) 0,
+        rgba(255, 230, 185, 0.036) 1px,
+        transparent 1px,
+        transparent 7px
+      ),
+      linear-gradient(145deg, #8a522b 0%, #472412 54%, #211006 100%);
+
+    box-shadow:
+      0 0 0 1px rgba(38, 20, 11, 0.84),
+      0 0 0 0.44rem #32190d,
+      0 0 0 0.68rem rgba(143, 83, 43, 0.92),
+      0 0 0 0.86rem rgba(46, 24, 13, 0.94),
+      0 1.25rem 2.2rem rgba(15, 7, 3, 0.34),
+      inset 0 1px 0 rgba(255, 244, 218, 0.12),
+      inset 0 -1.2rem 2.4rem rgba(14, 6, 2, 0.32);
+  }
+
+  .hero::after {
+    top: calc(var(--home-frame-top) + 0.34rem);
+    bottom: calc(var(--home-frame-bottom) + 0.34rem);
+    z-index: 4;
+
+    border: 1px dashed rgba(239, 194, 112, 0.7);
+    outline: 1px dashed rgba(239, 194, 112, 0.42);
+    outline-offset: -0.42rem;
+
+    box-shadow:
+      0 0 0 1px rgba(38, 20, 11, 0.72),
+      inset 0 0 0 1px rgba(255, 244, 218, 0.04),
+      inset 0 0 18px rgba(0, 0, 0, 0.2),
+      inset 0 0 44px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero .cover-slideshow {
+    inset: calc(var(--home-frame-top) + 0.58rem) calc(var(--home-frame-x) + 0.76rem)
+      calc(var(--home-frame-bottom) + 0.58rem);
+    max-width: calc(var(--home-frame-max) - 1.52rem);
+    margin-inline: auto;
+    overflow: hidden;
+
+    border-radius: var(--home-photo-radius);
+    background: #160c07;
+    clip-path: inset(0 round var(--home-photo-radius));
+
+    box-shadow:
+      0 0 0 1px rgba(239, 194, 112, 0.08),
+      inset 0 0 2.6rem rgba(25, 13, 7, 0.26);
+  }
+
+  .hero-shade {
+    inset: calc(var(--home-frame-top) + 0.58rem) calc(var(--home-frame-x) + 0.76rem)
+      calc(var(--home-frame-bottom) + 0.58rem);
+    max-width: calc(var(--home-frame-max) - 1.52rem);
+    margin-inline: auto;
+    overflow: hidden;
+
+    border-radius: var(--home-photo-radius);
+    clip-path: inset(0 round var(--home-photo-radius));
+  }
+}
