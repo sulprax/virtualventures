@@ -11,7 +11,7 @@
    Does not own:
    - mobile hamburger button
    - mobile right-side drawer tabs
-   - header search shell
+   - floating search/back-to-top straps
    ========================================================= */
 
 @media (min-width: 901px) {
@@ -91,10 +91,15 @@
 
   .site-header-home-tab,
   .site-header-social-tab {
-    width: clamp(8.6rem, 12vw, 11.25rem);
-    min-height: 6.05rem;
-    padding: 0.72rem 0.85rem 0.95rem;
+    width: clamp(10.25rem, 13.5vw, 13.4rem);
+    min-height: 6.75rem;
+    padding: 0.78rem 0.98rem 1.08rem;
     overflow: hidden;
+    border-radius: 0 0 1.6rem 1.6rem;
+  }
+
+  .site-header-home-tab {
+    justify-content: center;
   }
 
   .site-header-nav-link::before,
@@ -111,6 +116,12 @@
     border-radius: 0 0 0.72rem 0.72rem;
 
     pointer-events: none;
+  }
+
+  .site-header-home-tab::before,
+  .site-header-social-tab::before {
+    inset: 0 0.48rem 0.52rem;
+    border-radius: 0 0 1.18rem 1.18rem;
   }
 
   .site-header-nav-link::after,
@@ -250,11 +261,11 @@
   /* Centre brand tab shown on non-home pages */
   .site-header-home-tab-logo {
     position: absolute;
-    top: 0.32rem;
+    top: 0.26rem;
     left: 50%;
     z-index: 0;
 
-    width: min(7.4rem, 82%);
+    width: min(8.35rem, 84%);
     height: auto;
 
     object-fit: contain;
@@ -262,14 +273,14 @@
 
     filter:
       sepia(0.2)
-      saturate(1.45)
-      brightness(1.18)
-      contrast(1.14)
+      saturate(1.5)
+      brightness(1.2)
+      contrast(1.16)
       drop-shadow(0 5px 10px rgba(0, 0, 0, 0.28))
       drop-shadow(0 0 12px rgba(239, 189, 114, 0.24));
 
-    mask-image: linear-gradient(to bottom, black 0%, black 42%, rgba(0, 0, 0, 0.42) 68%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 42%, rgba(0, 0, 0, 0.42) 68%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 42%, rgba(0, 0, 0, 0.42) 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 42%, rgba(0, 0, 0, 0.42) 70%, transparent 100%);
 
     transform: translateX(-50%);
     pointer-events: none;
@@ -280,14 +291,17 @@
     z-index: 3;
 
     display: grid;
-    gap: 0.04rem;
+    gap: 0.05rem;
+    justify-items: center;
 
     color: #fff4df;
     font-family: var(--font-title);
-    font-size: clamp(1.08rem, 1.45vw, 1.56rem);
+    font-size: clamp(1.28rem, 1.75vw, 1.92rem);
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: 0.055em;
+
+    transform: translateY(-0.2rem);
 
     text-shadow:
       0 1px 0 rgba(255, 246, 229, 0.34),
@@ -296,13 +310,12 @@
   }
 
   .site-header-home-tab-star {
-    position: absolute;
-    left: 50%;
-    bottom: -1.1rem;
+    position: static;
+    margin-top: 0.12rem;
 
     color: #ffd98f;
     font-family: var(--font-ancient);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     line-height: 1;
 
     text-shadow:
@@ -310,15 +323,14 @@
       0 0 1rem rgba(239, 189, 114, 0.62),
       0 1px 0 rgba(31, 14, 6, 0.9);
 
-    transform: translateX(-50%);
     animation: vv-nav-star-twinkle 3.8s ease-in-out infinite;
   }
 
   /* Centre social tab shown only on the homepage */
   .site-header-social-tab {
     flex-direction: column;
-    justify-content: flex-end;
-    gap: 0.45rem;
+    justify-content: center;
+    gap: 0.55rem;
   }
 
   .site-header-social-kicker {
@@ -327,7 +339,7 @@
 
     color: #fff4df;
     font-family: var(--font-title);
-    font-size: clamp(1.02rem, 1.35vw, 1.4rem);
+    font-size: clamp(1.12rem, 1.48vw, 1.62rem);
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: 0.055em;
@@ -341,53 +353,6 @@
   .site-header-social-icons {
     position: relative;
     z-index: 3;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.42rem;
-  }
-
-  .site-header-social-icons a {
-    width: 1.56rem;
-    height: 1.56rem;
-
-    display: inline-grid;
-    place-items: center;
-
-    color: #f5c173;
-    background: rgba(36, 18, 8, 0.24);
-
-    border: 1px solid rgba(239, 189, 114, 0.42);
-    border-radius: 999px;
-
-    font-family: var(--font-ancient);
-    font-size: 0.62rem;
-    line-height: 1;
-    text-decoration: none;
-
-    box-shadow:
-      inset 0 1px 0 rgba(255, 246, 229, 0.16),
-      0 0 0.55rem rgba(239, 189, 114, 0.12);
-
-    transform: none;
-
-    transition:
-      color 180ms ease,
-      background 180ms ease,
-      transform 180ms ease,
-      box-shadow 180ms ease;
-  }
-
-  .site-header-social-icons a:hover,
-  .site-header-social-icons a:focus-visible {
-    color: #2a160a;
-    background: #efbd72;
-    outline: none;
-    transform: translateY(-0.08rem) scale(1.06);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 246, 229, 0.42),
-      0 0 0.85rem rgba(239, 189, 114, 0.35);
   }
 }
 
@@ -404,8 +369,8 @@
 
   .site-header-home-tab,
   .site-header-social-tab {
-    width: clamp(7.6rem, 11.5vw, 9.25rem);
-    min-height: 5.55rem;
+    width: clamp(8.65rem, 12vw, 10.75rem);
+    min-height: 6.05rem;
   }
 
   .site-header-nav-link.is-active,
@@ -422,17 +387,11 @@
   }
 
   .site-header-home-tab-text {
-    font-size: clamp(0.98rem, 1.35vw, 1.32rem);
+    font-size: clamp(1.12rem, 1.5vw, 1.52rem);
   }
 
-  .site-header-social-icons {
-    gap: 0.28rem;
-  }
-
-  .site-header-social-icons a {
-    width: 1.38rem;
-    height: 1.38rem;
-    font-size: 0.56rem;
+  .site-header-social-kicker {
+    font-size: clamp(1.02rem, 1.35vw, 1.32rem);
   }
 }
 
@@ -444,8 +403,7 @@
   .site-header-nav-link,
   .site-header-nav-icon,
   .site-header-home-tab,
-  .site-header-social-tab,
-  .site-header-social-icons a {
+  .site-header-social-tab {
     transition: none !important;
   }
 }
