@@ -65,7 +65,7 @@
   border: 1px solid rgba(216, 164, 93, 0.7);
   border-radius: var(--vv-page-frame-radius);
   outline: 1px dashed rgba(239, 189, 114, 0.5);
-  outline-offset: calc(var(--vv-page-frame-padding) * -0.62);
+  outline-offset: -0.42rem;
 
   background:
     repeating-linear-gradient(
