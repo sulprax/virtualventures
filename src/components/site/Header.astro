@@ -27,8 +27,13 @@ function isActivePath(href: string) {
 
 <header class:list={["site-header", `site-header-${mode}`]} data-site-header>
   <a class="site-header-brand" href="/" aria-label="Virtual Ventures home">
-    <img src="/images/brand/logo.png" alt="" />
-    <span>Virtual Ventures</span>
+    <img class="site-header-brand-logo" src="/images/brand/logo.png" alt="" />
+
+    <span class="site-header-brand-text">
+      <span>Virtual</span>
+      <span class="site-header-brand-line-two">Ventures</span>
+      <span class="site-header-brand-star" aria-hidden="true">✦</span>
+    </span>
   </a>
 
   <nav class="site-header-nav" aria-label="Main navigation">
