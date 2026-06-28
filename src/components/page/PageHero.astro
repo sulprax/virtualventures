@@ -10,12 +10,37 @@ interface Props {
 
 const { eyebrow, title, description } = Astro.props;
 const coverSlides = await getCoverMedia();
+
+const iconSource = `${eyebrow} ${title}`.toLowerCase();
+
+const pageHeroIcon = iconSource.includes("blog")
+  ? "▥"
+  : iconSource.includes("gallery")
+    ? "▧"
+    : iconSource.includes("shop")
+      ? "▱"
+      : iconSource.includes("contact")
+        ? "✉"
+        : iconSource.includes("f.a.q") || iconSource.includes("faq")
+          ? "?"
+          : iconSource.includes("about")
+            ? "✦"
+            : iconSource.includes("crochet")
+              ? "⌁"
+              : iconSource.includes("laser")
+                ? "◇"
+                : iconSource.includes("3d") || iconSource.includes("printing")
+                  ? "⬡"
+                  : iconSource.includes("pattern")
+                    ? "▣"
+                    : "✦";
 ---
 
 <section class="blog-hero-banner page-hero-banner" data-compact-header-trigger>
   <CoverSlideshow slides={coverSlides} variant="page" />
 
   <div class="blog-hero-banner-inner">
+    <span class="page-hero-mini-icon" aria-hidden="true">{pageHeroIcon}</span>
     <p class="eyebrow">{eyebrow}</p>
     <h1>{title}</h1>
     <p>{description}</p>
