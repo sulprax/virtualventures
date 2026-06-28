@@ -91,28 +91,34 @@
   pointer-events: none;
 }
 
-/* Four brass rivets sit on the outer rim, as if the leather is tacked down. */
+/* Raised leather rim: sits above the tucked card and carries the brass tacks. */
 .page-hero-banner::after,
 .blog-hero-banner.page-hero-banner::after {
   content: "";
   position: absolute;
   z-index: 3;
 
-  inset: clamp(0.64rem, 1.2vw, 1rem)
-    max(clamp(0.72rem, 2.5vw, 2.5rem), calc((100vw - 1680px) / 2 + 1.2rem))
-    clamp(0.64rem, 1.2vw, 1rem);
+  top: clamp(0.14rem, 0.55vw, 0.52rem);
+  right: max(clamp(0.18rem, 2.05vw, 2.05rem), calc((100vw - 1680px) / 2 + 0.66rem));
+  bottom: clamp(0.14rem, 0.55vw, 0.52rem);
+  left: max(clamp(0.18rem, 2.05vw, 2.05rem), calc((100vw - 1680px) / 2 + 0.66rem));
 
-  max-width: 1680px;
+  max-width: calc(1680px + 1.08rem);
   margin-inline: auto;
 
   background:
-    radial-gradient(circle at 0.46rem 0.46rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
-    radial-gradient(circle at calc(100% - 0.46rem) 0.46rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
-    radial-gradient(circle at calc(100% - 0.46rem) calc(100% - 0.46rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
-    radial-gradient(circle at 0.46rem calc(100% - 0.46rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem);
+    radial-gradient(circle at 0.28rem 0.28rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at calc(100% - 0.28rem) 0.28rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at calc(100% - 0.28rem) calc(100% - 0.28rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at 0.28rem calc(100% - 0.28rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem);
 
+  border: 1px solid rgba(216, 164, 93, 0.74);
   border-radius: clamp(2rem, 4.5vw, 4.8rem) clamp(2rem, 4.5vw, 4.8rem)
     clamp(1.25rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.4vw, 2.1rem);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 231, 181, 0.12),
+    inset 0 -0.6rem 1.2rem rgba(25, 10, 4, 0.22),
+    0 0.35rem 0.75rem rgba(18, 8, 3, 0.38);
   filter: drop-shadow(0 0.1rem 0.12rem rgba(18, 8, 3, 0.62));
   pointer-events: none;
 }
@@ -241,6 +247,8 @@
 }
 
 .page-hero-mini-icon {
+  position: relative;
+
   width: 2.12rem;
   min-width: 2.12rem;
   height: 2.12rem;
@@ -267,48 +275,116 @@
   line-height: 1;
 }
 
-.page-hero-mini-icon::before {
-  content: "✦";
+.page-hero-mini-icon::before,
+.page-hero-mini-icon::after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  color: currentColor;
+}
+
+.page-hero-mini-icon--blog::before,
+.page-hero-mini-icon--blog::after {
+  top: 0.62rem;
+  width: 0.42rem;
+  height: 0.72rem;
+  border: 1.6px solid currentColor;
+  border-radius: 0.08rem;
 }
 
 .page-hero-mini-icon--blog::before {
-  content: "▥";
+  left: 0.56rem;
+  transform: skewY(-4deg);
+}
+
+.page-hero-mini-icon--blog::after {
+  right: 0.56rem;
+  transform: skewY(4deg);
 }
 
 .page-hero-mini-icon--gallery::before {
-  content: "▧";
+  left: 0.52rem;
+  top: 0.62rem;
+  width: 1.06rem;
+  height: 0.78rem;
+  border: 1.6px solid currentColor;
+  border-radius: 0.12rem;
+}
+
+.page-hero-mini-icon--gallery::after {
+  left: 0.72rem;
+  top: 0.82rem;
+  width: 0.22rem;
+  height: 0.22rem;
+  border: 1.4px solid currentColor;
+  border-radius: 999px;
+  box-shadow: 0.44rem 0.22rem 0 -0.05rem currentColor;
 }
 
 .page-hero-mini-icon--shop::before {
-  content: "▱";
+  left: 0.58rem;
+  top: 0.9rem;
+  width: 0.98rem;
+  height: 0.58rem;
+  border: 1.6px solid currentColor;
+  border-radius: 0.1rem 0.1rem 0.16rem 0.16rem;
+}
+
+.page-hero-mini-icon--shop::after {
+  left: 0.82rem;
+  top: 0.62rem;
+  width: 0.46rem;
+  height: 0.42rem;
+  border: 1.6px solid currentColor;
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
 }
 
 .page-hero-mini-icon--contact::before {
-  content: "✉";
+  left: 0.52rem;
+  top: 0.74rem;
+  width: 1.08rem;
+  height: 0.68rem;
+  border: 1.6px solid currentColor;
+  border-radius: 0.12rem;
+}
+
+.page-hero-mini-icon--contact::after {
+  left: 0.66rem;
+  top: 0.82rem;
+  width: 0.8rem;
+  height: 0.42rem;
+  border-style: solid;
+  border-color: currentColor;
+  border-width: 0 0 1.5px 1.5px;
+  transform: rotate(-45deg);
+  transform-origin: center;
 }
 
 .page-hero-mini-icon--faq::before {
   content: "?";
+  inset: 0.48rem 0 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
-.page-hero-mini-icon--about::before {
+.page-hero-mini-icon--about::before,
+.page-hero-mini-icon--crochet::before,
+.page-hero-mini-icon--laser::before,
+.page-hero-mini-icon--printing::before,
+.page-hero-mini-icon--patterns::before,
+.page-hero-mini-icon--default::before {
   content: "✦";
-}
-
-.page-hero-mini-icon--crochet::before {
-  content: "⌁";
-}
-
-.page-hero-mini-icon--laser::before {
-  content: "◇";
-}
-
-.page-hero-mini-icon--printing::before {
-  content: "⬡";
-}
-
-.page-hero-mini-icon--patterns::before {
-  content: "▣";
+  inset: 0.5rem 0 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ancient);
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .page-hero-banner h1,
@@ -331,16 +407,16 @@
 
 .page-hero-card-rule {
   width: 100%;
-  height: 0.18rem;
+  height: 0.2rem;
   margin: clamp(0.08rem, 0.45vw, 0.22rem) 0 0;
 
   background:
-    linear-gradient(90deg, rgba(126, 76, 40, 0.04), rgba(126, 76, 40, 0.42), rgba(126, 76, 40, 0.04)),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.42), rgba(126, 76, 40, 0.18));
+    linear-gradient(90deg, rgba(45, 22, 10, 0.08), rgba(45, 22, 10, 0.82), rgba(45, 22, 10, 0.08)),
+    linear-gradient(to bottom, rgba(255, 250, 245, 0.36), rgba(45, 22, 10, 0.46));
   border: 0;
   box-shadow:
-    0 0.22rem 0 rgba(126, 76, 40, 0.12),
-    0 -0.12rem 0 rgba(255, 250, 245, 0.48);
+    0 0.16rem 0 rgba(45, 22, 10, 0.18),
+    0 -0.1rem 0 rgba(255, 250, 245, 0.46);
 }
 
 .page-hero-banner .eyebrow,
