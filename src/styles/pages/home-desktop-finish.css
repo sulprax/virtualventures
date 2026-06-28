@@ -1,66 +1,9 @@
 /* =========================================================
-   HOME DESKTOP FINAL FINISH
+   HOME DESKTOP FINISH EXPERIMENT - RETIRED
 
-   Owns:
-   - final desktop-only home hero alignment tweaks
-   - correct desktop layering for the leather frame and slideshow
-   - hides mobile-only sparkle marks on desktop
+   This file is intentionally inactive.
 
-   Kept separate from the mobile poster styles so the working mobile
-   index page remains untouched.
+   The desktop home hero has been restored to the main home.css
+   slideshow behaviour. Do not import this file unless the frame is
+   rebuilt cleanly later.
    ========================================================= */
-
-@media (min-width: 761px) {
-  .hero {
-    --home-frame-top: 0;
-
-    margin-top: calc(-1 * (var(--hero-header) + 1.65rem));
-    min-height: calc(100svh + var(--hero-header) + 1.65rem);
-    height: calc(100svh + var(--hero-header) + 1.65rem);
-  }
-
-  /* The hero background covers the nav gap; this filled layer was hiding the slideshow. */
-  .hero::before {
-    content: none !important;
-    display: none !important;
-  }
-
-  .hero .cover-slideshow {
-    z-index: 1;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .hero .cover-slideshow__slides,
-  .hero .cover-slideshow__slide {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .hero-shade {
-    z-index: 2;
-  }
-
-  .hero::after {
-    z-index: 4;
-  }
-
-  .hero-content {
-    z-index: 5;
-  }
-
-  .hero-slide-copy {
-    z-index: 5;
-    right: calc(var(--home-frame-x) + clamp(2.4rem, 5vw, 5.5rem));
-    bottom: clamp(8.8rem, 18vh, 13.5rem);
-    width: min(30rem, 33vw);
-  }
-
-  .hero-buttons {
-    z-index: 6;
-  }
-
-  .hero-mobile-star {
-    display: none !important;
-  }
-}
