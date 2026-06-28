@@ -5,12 +5,12 @@
    - desktop folded leather navigation tabs
    - desktop nav icons under link labels
    - desktop active nav state
-   - desktop glowing nav stars
 
    Does not own:
    - mobile hamburger button
    - mobile right-side drawer tabs
    - header brand/search shell
+   - glowing brand star
    ========================================================= */
 
 @media (min-width: 901px) {
@@ -26,25 +26,10 @@
     gap: clamp(0.18rem, 0.5vw, 0.38rem);
   }
 
-  .site-header-nav::before {
-    content: "✦";
-    position: absolute;
-    top: 0.42rem;
-    left: 50%;
-    z-index: 0;
-
-    color: #ffd98f;
-    font-size: 0.72rem;
-    line-height: 1;
-
-    text-shadow:
-      0 0 0.45rem rgba(255, 217, 143, 0.95),
-      0 0 1rem rgba(239, 189, 114, 0.6),
-      0 1px 0 rgba(31, 14, 6, 0.9);
-
-    transform: translateX(-50%);
-    animation: vv-nav-star-twinkle 3.8s ease-in-out infinite;
-    pointer-events: none;
+  .site-header-nav::before,
+  .site-header-star {
+    content: none;
+    display: none !important;
   }
 
   .site-header-nav a {
@@ -233,34 +218,6 @@
       0 0 0.62rem rgba(255, 217, 143, 0.88),
       0 0 1.15rem rgba(239, 189, 114, 0.58);
   }
-
-  .site-header-star {
-    align-self: flex-start;
-    margin-top: 1.1rem;
-
-    color: #ffd98f;
-    opacity: 0.88;
-
-    font-size: 0.65rem;
-    line-height: 1;
-
-    text-shadow:
-      0 0 0.45rem rgba(255, 217, 143, 0.95),
-      0 0 1rem rgba(239, 189, 114, 0.6),
-      0 1px 0 rgba(31, 14, 6, 0.9);
-
-    transform: translateY(-0.12rem);
-
-    animation: vv-nav-star-twinkle 3.8s ease-in-out infinite;
-  }
-
-  .site-header-star:nth-of-type(2n) {
-    animation-delay: 0.7s;
-  }
-
-  .site-header-star:nth-of-type(3n) {
-    animation-delay: 1.35s;
-  }
 }
 
 @media (max-width: 1180px) and (min-width: 901px) {
@@ -286,18 +243,9 @@
   .site-header-nav-icon {
     font-size: 0.88rem;
   }
-
-  .site-header-star {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header-nav::before,
-  .site-header-star {
-    animation: none !important;
-  }
-
   .site-header-nav a,
   .site-header-nav-icon {
     transition: none !important;
