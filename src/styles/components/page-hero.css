@@ -4,7 +4,7 @@
    Owns:
    - non-home page hero/banner layout
    - desktop leather framed page slideshow placement
-   - desktop cream stitched page title card
+   - desktop parchment label page title card
    - restored mobile folded leather page title card
 
    Does not own:
@@ -38,13 +38,27 @@
   text-align: left;
 
   background:
-    radial-gradient(circle at 18% 10%, rgba(239, 189, 114, 0.2), transparent 26rem),
-    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.12), transparent 28rem),
-    linear-gradient(180deg, #2b170d 0%, #4a2c19 62%, #f6efe5 100%);
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 230, 185, 0.034) 0,
+      rgba(255, 230, 185, 0.034) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    radial-gradient(circle at 18% 12%, rgba(239, 189, 114, 0.18), transparent 28rem),
+    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.1), transparent 24rem),
+    linear-gradient(145deg, #2a1208 0%, #4a2613 50%, #1d0a04 100%);
   background-image:
-    radial-gradient(circle at 18% 10%, rgba(239, 189, 114, 0.2), transparent 26rem),
-    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.12), transparent 28rem),
-    linear-gradient(180deg, #2b170d 0%, #4a2c19 62%, #f6efe5 100%);
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 230, 185, 0.034) 0,
+      rgba(255, 230, 185, 0.034) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    radial-gradient(circle at 18% 12%, rgba(239, 189, 114, 0.18), transparent 28rem),
+    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.1), transparent 24rem),
+    linear-gradient(145deg, #2a1208 0%, #4a2613 50%, #1d0a04 100%);
 }
 
 @media (min-width: 901px) {
@@ -70,9 +84,9 @@
   z-index: 1;
 
   background:
-    radial-gradient(ellipse at 50% 24%, transparent 0%, rgba(20, 10, 5, 0.06) 52%, rgba(20, 10, 5, 0.26) 100%),
+    radial-gradient(ellipse at 50% 24%, transparent 0%, rgba(20, 10, 5, 0.06) 52%, rgba(20, 10, 5, 0.28) 100%),
     linear-gradient(90deg, rgba(18, 9, 4, 0.34), transparent 22%, transparent 78%, rgba(18, 9, 4, 0.32)),
-    linear-gradient(to bottom, rgba(22, 11, 5, 0.24), rgba(22, 11, 5, 0.02) 36%, rgba(22, 11, 5, 0.08));
+    linear-gradient(to bottom, rgba(22, 11, 5, 0.2), rgba(22, 11, 5, 0.02) 36%, rgba(22, 11, 5, 0.06));
 
   pointer-events: none;
 }
@@ -103,9 +117,8 @@
 }
 
 /* =========================================================
-   03. DESKTOP CREAM STITCHED PAGE CARD
-   Inspired by the home-page cream panel: warm paper, stitched edge,
-   small page icon, and no giant logo.
+   03. DESKTOP PARCHMENT LABEL CARD
+   A cut-corner paper label pinned onto the leather-framed hero.
    ========================================================= */
 
 .page-hero-banner .blog-hero-banner-inner,
@@ -114,40 +127,61 @@
   isolation: isolate;
   z-index: 2;
 
-  width: min(32rem, 100%);
+  width: min(33.5rem, 100%);
   margin: 0 0 0 max(0rem, calc((100vw - 1680px) / 2 + 1.4rem));
-  padding: clamp(2.5rem, 3.4vw, 3.15rem) clamp(1.2rem, 2.4vw, 1.7rem)
-    clamp(1.05rem, 2vw, 1.45rem);
+  padding: clamp(1.38rem, 2.15vw, 1.85rem) clamp(1.25rem, 2.35vw, 1.75rem)
+    clamp(1.08rem, 1.8vw, 1.35rem);
 
   display: grid;
-  gap: 0.34rem;
+  gap: 0.3rem;
 
   overflow: hidden;
 
   color: #2d2218;
-  background:
-    linear-gradient(90deg, rgba(122, 82, 48, 0.035) 1px, transparent 1px) 0 0 / 1.55rem 1.55rem,
-    radial-gradient(circle at 22% 12%, rgba(255, 250, 245, 0.78), transparent 13rem),
-    linear-gradient(145deg, rgba(255, 250, 245, 0.98), rgba(244, 232, 211, 0.96));
+  clip-path: polygon(
+    0.82rem 0,
+    calc(100% - 0.82rem) 0,
+    100% 0.82rem,
+    100% calc(100% - 0.82rem),
+    calc(100% - 0.82rem) 100%,
+    0.82rem 100%,
+    0 calc(100% - 0.82rem),
+    0 0.82rem
+  );
 
-  border: 1px solid rgba(126, 76, 40, 0.2);
-  border-radius: 1.45rem 1.45rem 1.45rem 0.48rem;
+  background:
+    linear-gradient(to bottom, rgba(122, 82, 48, 0.16) 1px, transparent 1px) 0 0 / 100% 1.58rem,
+    linear-gradient(90deg, rgba(122, 82, 48, 0.04) 1px, transparent 1px) 0 0 / 1.55rem 1.55rem,
+    radial-gradient(circle at 18% 8%, rgba(255, 250, 245, 0.86), transparent 12rem),
+    radial-gradient(circle at 86% 10%, rgba(239, 189, 114, 0.2), transparent 12rem),
+    linear-gradient(145deg, rgba(248, 236, 215, 0.98), rgba(225, 198, 162, 0.96));
+
+  border: 1px solid rgba(126, 76, 40, 0.26);
 
   box-shadow:
-    0 1.4rem 2.8rem rgba(22, 11, 5, 0.32),
-    0 0.3rem 0.8rem rgba(22, 11, 5, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    0 1.25rem 2.45rem rgba(22, 11, 5, 0.36),
+    0 0.28rem 0.75rem rgba(22, 11, 5, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
 .page-hero-banner .blog-hero-banner-inner::before,
 .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
   content: "";
   position: absolute;
-  inset: 0.55rem;
+  inset: 0.54rem;
   z-index: 0;
 
-  border: 1.5px dashed rgba(178, 115, 63, 0.78);
-  border-radius: 1rem 1rem 1rem 0.32rem;
+  border: 1.5px dashed rgba(178, 115, 63, 0.82);
+  clip-path: polygon(
+    0.58rem 0,
+    calc(100% - 0.58rem) 0,
+    100% 0.58rem,
+    100% calc(100% - 0.58rem),
+    calc(100% - 0.58rem) 100%,
+    0.58rem 100%,
+    0 calc(100% - 0.58rem),
+    0 0.58rem
+  );
 
   pointer-events: none;
 }
@@ -160,15 +194,14 @@
   bottom: 0;
   z-index: 1;
 
-  width: 2.05rem;
-  height: 2.05rem;
+  width: 2.2rem;
+  height: 2.2rem;
 
   background:
-    linear-gradient(135deg, rgba(219, 191, 156, 0.88), rgba(255, 250, 245, 0.2) 52%, transparent 54%),
-    linear-gradient(135deg, transparent 50%, rgba(126, 76, 40, 0.22) 51%);
+    linear-gradient(135deg, rgba(195, 158, 116, 0.9), rgba(255, 250, 245, 0.2) 52%, transparent 54%),
+    linear-gradient(135deg, transparent 50%, rgba(126, 76, 40, 0.24) 51%);
   border-top: 1px solid rgba(126, 76, 40, 0.22);
   border-left: 1px solid rgba(126, 76, 40, 0.16);
-  border-radius: 0.12rem 0 0 0;
 
   pointer-events: none;
 }
@@ -181,46 +214,44 @@
 
 .page-hero-mini-icon {
   position: absolute;
-  top: 0.72rem;
-  left: 50%;
+  top: 0.76rem;
+  right: clamp(1rem, 2vw, 1.35rem);
   z-index: 3;
 
-  width: 2.48rem;
-  height: 2.48rem;
+  width: 2.12rem;
+  height: 2.12rem;
 
   display: grid;
   place-items: center;
 
-  color: #b17748;
+  color: #a76535;
   background:
-    radial-gradient(circle at 50% 45%, rgba(255, 250, 245, 0.92), rgba(244, 232, 211, 0.86)),
+    radial-gradient(circle at 50% 45%, rgba(255, 250, 245, 0.95), rgba(244, 232, 211, 0.88)),
     linear-gradient(145deg, rgba(255, 250, 245, 0.94), rgba(232, 205, 172, 0.78));
 
-  border: 1px solid rgba(178, 115, 63, 0.45);
+  border: 1px solid rgba(178, 115, 63, 0.48);
   border-radius: 999px;
 
   box-shadow:
-    0 0.35rem 0.8rem rgba(74, 44, 25, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    0 0.32rem 0.72rem rgba(74, 44, 25, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
 
   font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
-  font-size: 1.08rem;
+  font-size: 0.9rem;
   font-weight: 900;
   line-height: 1;
-
-  transform: translateX(-50%);
 }
 
 .page-hero-mini-icon::after {
   content: "";
   position: absolute;
-  top: 0.25rem;
+  top: 0.21rem;
   left: 50%;
 
-  width: 0.34rem;
-  height: 0.34rem;
+  width: 0.28rem;
+  height: 0.28rem;
 
-  background: rgba(122, 82, 48, 0.28);
+  background: rgba(122, 82, 48, 0.3);
   border-radius: 999px;
 
   transform: translateX(-50%);
@@ -228,14 +259,16 @@
 
 .page-hero-banner .eyebrow,
 .blog-hero-banner.page-hero-banner .eyebrow {
-  margin: 0.1rem 0 0;
+  width: fit-content;
+  margin: 0;
+  padding-right: 2.8rem;
 
-  color: #a76535;
+  color: #8d4f2a;
 
   font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
   font-size: clamp(0.68rem, 0.85vw, 0.82rem);
   font-weight: 900;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   line-height: 1.15;
   text-transform: uppercase;
 
@@ -260,18 +293,19 @@
     0 0.44rem 0.62rem rgba(45, 22, 10, 0.24);
 }
 
-.page-hero-banner p:not(.eyebrow),
-.blog-hero-banner.page-hero-banner p:not(.eyebrow) {
-  max-width: 28rem;
-  margin: 0.45rem 0 0;
+.page-hero-banner h3,
+.blog-hero-banner.page-hero-banner h3 {
+  max-width: 29rem;
+  margin: 0.46rem 0 0;
 
-  color: rgba(45, 34, 24, 0.9);
+  color: #7e4b2b;
 
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-family: var(--font-handmade);
+  font-size: clamp(1.16rem, 1.5vw, 1.42rem);
   font-weight: 800;
-  line-height: 1.5;
+  line-height: 1.12;
 
-  text-shadow: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
 }
 
 /* =========================================================
