@@ -25,7 +25,7 @@ const heroCopySlides = coverSlides
   .filter((slide) => slide.title || slide.description);
 ---
 
-<section class="hero" aria-labelledby="home-title">
+<section class="hero" aria-labelledby="home-title" data-compact-header-trigger>
   <CoverSlideshow slides={coverSlides} variant="home" />
 
   <div class="hero-shade" aria-hidden="true"></div>
@@ -118,83 +118,16 @@ const heroCopySlides = coverSlides
 
   <nav class="hero-buttons" aria-label="Featured homepage links">
     <a href="/blog/">
-      <span class="button-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path
-            d="M4 5.5C4 4.7 4.7 4 5.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H5.5C4.7 18 4 17.3 4 16.5v-11Z"
-          ></path>
-          <path
-            d="M20 5.5C20 4.7 19.3 4 18.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h4.5c.8 0 1.5-.7 1.5-1.5v-11Z"
-          ></path>
-        </svg>
-      </span>
-      <span>Blog</span>
+      <span aria-hidden="true">▯</span>
+      Blog
     </a>
-
     <a href="/gallery/">
-      <span class="button-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <rect x="4" y="5" width="16" height="14" rx="2"></rect>
-          <circle cx="9" cy="10" r="1.5"></circle>
-          <path d="M7 17l4.2-4.2 2.5 2.5L16 13l3 4"></path>
-        </svg>
-      </span>
-      <span>Gallery</span>
+      <span aria-hidden="true">▧</span>
+      Gallery
     </a>
-
     <a href="/shop/">
-      <span class="button-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M6 8h12l-1 12H7L6 8Z"></path>
-          <path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
-        </svg>
-      </span>
-      <span>Shop</span>
+      <span aria-hidden="true">▱</span>
+      Shop
     </a>
   </nav>
-
-  <script>
-    function syncHeroSlideCopy(activeIndexFromEvent?: number) {
-      const hero = document.querySelector(".hero");
-      if (!hero) return;
-
-      const slides = Array.from(
-        hero.querySelectorAll(".cover-slideshow__slide"),
-      );
-      const copySlides = Array.from(
-        hero.querySelectorAll("[data-hero-slide-copy]"),
-      );
-
-      if (!slides.length || !copySlides.length) return;
-
-      const activeIndex =
-        typeof activeIndexFromEvent === "number"
-          ? activeIndexFromEvent
-          : Math.max(
-              0,
-              slides.findIndex((slide) =>
-                slide.classList.contains("is-active"),
-              ),
-            );
-
-      copySlides.forEach((slide, index) => {
-        if (!(slide instanceof HTMLElement)) return;
-        slide.classList.toggle("is-active", index === activeIndex);
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      syncHeroSlideCopy();
-
-      const hero = document.querySelector(".hero");
-      const slideshow = hero?.querySelector(".cover-slideshow");
-
-      if (!slideshow) return;
-
-      slideshow.addEventListener("cover-slide-change", (event: Event) => {
-        const slideEvent = event as CustomEvent<{ activeIndex?: number }>;
-        syncHeroSlideCopy(slideEvent.detail?.activeIndex);
-      });
-    });
-  </script>
 </section>
