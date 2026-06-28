@@ -91,28 +91,28 @@
   pointer-events: none;
 }
 
-/* Raised leather rim: sits above the tucked card and carries the brass tacks. */
+/* One outer leather rim wraps both the slideshow and the tucked card. */
 .page-hero-banner::after,
 .blog-hero-banner.page-hero-banner::after {
   content: "";
   position: absolute;
   z-index: 3;
 
-  top: clamp(0.14rem, 0.55vw, 0.52rem);
-  right: max(clamp(0.18rem, 2.05vw, 2.05rem), calc((100vw - 1680px) / 2 + 0.66rem));
-  bottom: clamp(0.14rem, 0.55vw, 0.52rem);
-  left: max(clamp(0.18rem, 2.05vw, 2.05rem), calc((100vw - 1680px) / 2 + 0.66rem));
+  top: clamp(0.36rem, 0.9vw, 0.78rem);
+  right: max(clamp(0.36rem, 2.35vw, 2.4rem), calc((100vw - 1680px) / 2 + 0.9rem));
+  bottom: clamp(0.42rem, 0.95vw, 0.86rem);
+  left: max(clamp(0.36rem, 2.35vw, 2.4rem), calc((100vw - 1680px) / 2 + 0.9rem));
 
-  max-width: calc(1680px + 1.08rem);
+  max-width: calc(1680px + 0.6rem);
   margin-inline: auto;
 
   background:
-    radial-gradient(circle at 0.28rem 0.28rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
-    radial-gradient(circle at calc(100% - 0.28rem) 0.28rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
-    radial-gradient(circle at calc(100% - 0.28rem) calc(100% - 0.28rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
-    radial-gradient(circle at 0.28rem calc(100% - 0.28rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem);
+    radial-gradient(circle at -0.12rem -0.12rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at calc(100% + 0.12rem) -0.12rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at calc(100% + 0.12rem) calc(100% + 0.12rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at -0.12rem calc(100% + 0.12rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem);
 
-  border: 1px solid rgba(216, 164, 93, 0.74);
+  border: 1px solid rgba(216, 164, 93, 0.78);
   border-radius: clamp(2rem, 4.5vw, 4.8rem) clamp(2rem, 4.5vw, 4.8rem)
     clamp(1.25rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.4vw, 2.1rem);
   box-shadow:
@@ -125,8 +125,9 @@
 
 /* =========================================================
    02. DESKTOP LEATHER-FRAMED SLIDESHOW
-   Capped width stops ultrawide stretching; shorter height keeps the
-   image feeling like a framed hero rather than a huge wall strip.
+   The slideshow image sits inside the bigger hero rim. The inner
+   slideshow-only border is disabled here so the card and image share
+   one frame instead of two fighting frames.
    ========================================================= */
 
 .page-hero-banner .cover-slideshow,
@@ -141,7 +142,33 @@
   max-width: 1680px;
   margin-inline: auto;
 
+  border: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
   filter: drop-shadow(0 1.15rem 1.35rem rgba(19, 8, 3, 0.4));
+}
+
+.page-hero-banner .cover-slideshow--page .cover-slideshow__slides,
+.page-hero-banner .cover-slideshow--page .cover-slideshow__warmth,
+.page-hero-banner .cover-slideshow--page .cover-slideshow__veil,
+.page-hero-banner .cover-slideshow--page .cover-slideshow__stars,
+.page-hero-banner .cover-slideshow--page .cover-slideshow__glint,
+.page-hero-banner .cover-slideshow--page .cover-slideshow__transition-sparkles,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__slides,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__warmth,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__veil,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__stars,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__glint,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__transition-sparkles {
+  inset: 0;
+  border-radius: clamp(1.7rem, 4vw, 4.35rem) clamp(1.7rem, 4vw, 4.35rem)
+    clamp(1rem, 2vw, 1.7rem) clamp(1rem, 2vw, 1.7rem);
+}
+
+.page-hero-banner .cover-slideshow--page .cover-slideshow__slides,
+.blog-hero-banner.page-hero-banner .cover-slideshow--page .cover-slideshow__slides {
+  box-shadow: inset 0 0 2.3rem rgba(25, 13, 7, 0.25);
 }
 
 /* =========================================================
