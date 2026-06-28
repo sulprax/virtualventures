@@ -20,6 +20,10 @@
     --home-frame-radius: 50% 50% 2.45rem 2.45rem / 5.7rem 5.7rem 2.08rem 2.08rem;
     --home-photo-radius: 50% 50% 2.04rem 2.04rem / 5.1rem 5.1rem 1.78rem 1.78rem;
 
+    margin-top: calc(-1 * var(--hero-header));
+    min-height: calc(100svh + var(--hero-header));
+    height: calc(100svh + var(--hero-header));
+
     background:
       repeating-linear-gradient(
         115deg,
