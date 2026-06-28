@@ -91,12 +91,12 @@
   pointer-events: none;
 }
 
-/* Four little brass rivets on the leather frame. No fade, only hardware. */
+/* Four brass rivets sit on the outer rim, as if the leather is tacked down. */
 .page-hero-banner::after,
 .blog-hero-banner.page-hero-banner::after {
   content: "";
   position: absolute;
-  z-index: 1;
+  z-index: 3;
 
   inset: clamp(0.64rem, 1.2vw, 1rem)
     max(clamp(0.72rem, 2.5vw, 2.5rem), calc((100vw - 1680px) / 2 + 1.2rem))
@@ -106,13 +106,14 @@
   margin-inline: auto;
 
   background:
-    radial-gradient(circle at 1.4rem 1.4rem, #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem),
-    radial-gradient(circle at calc(100% - 1.4rem) 1.4rem, #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem),
-    radial-gradient(circle at calc(100% - 1.4rem) calc(100% - 1.4rem), #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem),
-    radial-gradient(circle at 1.4rem calc(100% - 1.4rem), #fff0bd 0 0.12rem, #d89b46 0.13rem 0.28rem, #5e2d12 0.29rem 0.41rem, transparent 0.43rem);
+    radial-gradient(circle at 0.46rem 0.46rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at calc(100% - 0.46rem) 0.46rem, #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at calc(100% - 0.46rem) calc(100% - 0.46rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem),
+    radial-gradient(circle at 0.46rem calc(100% - 0.46rem), #fff6c9 0 0.1rem, #e5a94f 0.11rem 0.27rem, #704015 0.28rem 0.4rem, transparent 0.42rem);
 
   border-radius: clamp(2rem, 4.5vw, 4.8rem) clamp(2rem, 4.5vw, 4.8rem)
     clamp(1.25rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.4vw, 2.1rem);
+  filter: drop-shadow(0 0.1rem 0.12rem rgba(18, 8, 3, 0.62));
   pointer-events: none;
 }
 
@@ -133,6 +134,8 @@
 
   max-width: 1680px;
   margin-inline: auto;
+
+  filter: drop-shadow(0 1.15rem 1.35rem rgba(19, 8, 3, 0.4));
 }
 
 /* =========================================================
@@ -148,9 +151,9 @@
   z-index: 2;
 
   width: min(33.5rem, 100%);
-  margin: 0 0 clamp(-0.7rem, -1vw, -0.42rem) max(0rem, calc((100vw - 1680px) / 2 + 1.4rem));
-  padding: clamp(1.02rem, 1.75vw, 1.34rem) clamp(1.25rem, 2.35vw, 1.75rem)
-    clamp(1.28rem, 2.2vw, 1.7rem);
+  margin: 0 0 clamp(-1.15rem, -1.35vw, -0.68rem) max(0rem, calc((100vw - 1680px) / 2 + 1.4rem));
+  padding: clamp(1rem, 1.7vw, 1.28rem) clamp(1.25rem, 2.35vw, 1.75rem)
+    clamp(1.36rem, 2.2vw, 1.74rem);
 
   display: grid;
   gap: clamp(0.38rem, 0.75vw, 0.62rem);
@@ -162,10 +165,8 @@
     0.82rem 0,
     calc(100% - 0.82rem) 0,
     100% 0.82rem,
-    100% calc(100% - 0.82rem),
-    calc(100% - 0.82rem) 100%,
-    0.82rem 100%,
-    0 calc(100% - 0.82rem),
+    100% 100%,
+    0 100%,
     0 0.82rem
   );
 
@@ -179,10 +180,11 @@
   border: 1px solid rgba(126, 76, 40, 0.26);
 
   box-shadow:
-    0 -0.28rem 0.85rem rgba(255, 246, 229, 0.14),
-    0 1.25rem 2.45rem rgba(22, 11, 5, 0.36),
+    0 -0.82rem 1rem rgba(20, 9, 4, 0.36),
+    0 1.3rem 2.6rem rgba(22, 11, 5, 0.42),
     0 0.28rem 0.75rem rgba(22, 11, 5, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1.05rem 1rem rgba(99, 54, 24, 0.12);
 }
 
 .page-hero-banner .blog-hero-banner-inner::before,
@@ -197,10 +199,8 @@
     0.58rem 0,
     calc(100% - 0.58rem) 0,
     100% 0.58rem,
-    100% calc(100% - 0.58rem),
-    calc(100% - 0.58rem) 100%,
-    0.58rem 100%,
-    0 calc(100% - 0.58rem),
+    100% 100%,
+    0 100%,
     0 0.58rem
   );
 
@@ -216,12 +216,12 @@
   left: 0;
   z-index: 1;
 
-  height: 0.58rem;
+  height: 0.82rem;
 
   background:
-    linear-gradient(to bottom, transparent, rgba(76, 42, 20, 0.16)),
-    linear-gradient(90deg, rgba(78, 43, 22, 0.08), transparent 18%, transparent 82%, rgba(78, 43, 22, 0.08));
-  border-top: 1px solid rgba(126, 76, 40, 0.18);
+    linear-gradient(to bottom, transparent, rgba(76, 42, 20, 0.24)),
+    linear-gradient(90deg, rgba(78, 43, 22, 0.12), transparent 18%, transparent 82%, rgba(78, 43, 22, 0.12));
+  border-top: 1px solid rgba(126, 76, 40, 0.22);
 
   pointer-events: none;
 }
@@ -331,11 +331,16 @@
 
 .page-hero-card-rule {
   width: 100%;
-  height: 1px;
+  height: 0.18rem;
   margin: clamp(0.08rem, 0.45vw, 0.22rem) 0 0;
 
-  background: linear-gradient(90deg, transparent, rgba(126, 76, 40, 0.34), transparent);
+  background:
+    linear-gradient(90deg, rgba(126, 76, 40, 0.04), rgba(126, 76, 40, 0.42), rgba(126, 76, 40, 0.04)),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.42), rgba(126, 76, 40, 0.18));
   border: 0;
+  box-shadow:
+    0 0.22rem 0 rgba(126, 76, 40, 0.12),
+    0 -0.12rem 0 rgba(255, 250, 245, 0.48);
 }
 
 .page-hero-banner .eyebrow,
