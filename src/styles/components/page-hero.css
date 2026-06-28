@@ -4,7 +4,7 @@
    Owns:
    - non-home page hero/banner layout
    - leather framed page slideshow placement
-   - page eyebrow/title/description card
+   - cream stitched page title card
 
    Does not own:
    - homepage hero
@@ -15,8 +15,8 @@
 
 /* =========================================================
    01. PAGE HERO SHELL
-   Pulls the banner upward on desktop so the leather nav tabs sit
-   over image instead of a plain cream gap.
+   Desktop pulls upward so the fixed leather nav sits over image,
+   but the banner is now shorter and tidier.
    ========================================================= */
 
 .page-hero-banner,
@@ -25,32 +25,33 @@
   isolation: isolate;
   overflow: hidden;
 
-  min-height: clamp(28rem, 43vw, 40rem);
-  padding: clamp(8.6rem, 12vw, 12.6rem) clamp(1rem, 4vw, 4.5rem)
-    clamp(2.2rem, 4.4vw, 3.8rem);
+  min-height: clamp(22rem, 32vw, 30rem);
+  padding: clamp(7.2rem, 9.5vw, 9.6rem) clamp(0.9rem, 4vw, 4.5rem)
+    clamp(1.2rem, 2.5vw, 2rem);
 
   display: grid;
   align-items: end;
   justify-items: stretch;
 
-  color: #fff7ed;
+  color: #2d2218;
   text-align: left;
+
   background:
-    radial-gradient(circle at 18% 10%, rgba(239, 189, 114, 0.22), transparent 28rem),
-    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.13), transparent 30rem),
-    linear-gradient(180deg, #2b170d 0%, #4a2c19 52%, #f6efe5 100%);
+    radial-gradient(circle at 18% 10%, rgba(239, 189, 114, 0.2), transparent 26rem),
+    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.12), transparent 28rem),
+    linear-gradient(180deg, #2b170d 0%, #4a2c19 62%, #f6efe5 100%);
   background-image:
-    radial-gradient(circle at 18% 10%, rgba(239, 189, 114, 0.22), transparent 28rem),
-    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.13), transparent 30rem),
-    linear-gradient(180deg, #2b170d 0%, #4a2c19 52%, #f6efe5 100%);
+    radial-gradient(circle at 18% 10%, rgba(239, 189, 114, 0.2), transparent 26rem),
+    radial-gradient(circle at 84% 0%, rgba(255, 246, 229, 0.12), transparent 28rem),
+    linear-gradient(180deg, #2b170d 0%, #4a2c19 62%, #f6efe5 100%);
 }
 
 @media (min-width: 901px) {
   .page-hero-banner,
   .blog-hero-banner.page-hero-banner {
     margin-top: -92px;
-    min-height: clamp(31rem, 45vw, 43rem);
-    padding-top: clamp(11.2rem, 15vw, 15.4rem);
+    min-height: clamp(23rem, 32vw, 31rem);
+    padding-top: clamp(8.8rem, 11vw, 10.6rem);
   }
 }
 
@@ -68,32 +69,23 @@
   z-index: 1;
 
   background:
-    radial-gradient(ellipse at 50% 28%, transparent 0%, rgba(20, 10, 5, 0.08) 46%, rgba(20, 10, 5, 0.32) 100%),
-    linear-gradient(90deg, rgba(18, 9, 4, 0.4), transparent 24%, transparent 76%, rgba(18, 9, 4, 0.38)),
-    linear-gradient(to bottom, rgba(22, 11, 5, 0.34), rgba(22, 11, 5, 0.02) 36%, rgba(22, 11, 5, 0.18));
+    radial-gradient(ellipse at 50% 24%, transparent 0%, rgba(20, 10, 5, 0.06) 52%, rgba(20, 10, 5, 0.26) 100%),
+    linear-gradient(90deg, rgba(18, 9, 4, 0.34), transparent 22%, transparent 78%, rgba(18, 9, 4, 0.32)),
+    linear-gradient(to bottom, rgba(22, 11, 5, 0.24), rgba(22, 11, 5, 0.02) 36%, rgba(22, 11, 5, 0.08));
 
   pointer-events: none;
 }
 
+/* The old bottom fade has been removed so the frame ends cleanly. */
 .page-hero-banner::after,
 .blog-hero-banner.page-hero-banner::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: -1px;
-  left: 0;
-  z-index: 1;
-
-  height: clamp(4.5rem, 9vw, 7rem);
-
-  background: linear-gradient(to bottom, transparent, rgba(246, 239, 229, 0.94));
-  pointer-events: none;
+  content: none;
 }
 
 /* =========================================================
    02. LEATHER-FRAMED SLIDESHOW
-   The image is capped and centred so ultrawide screens do not turn
-   the hero into one stretched strip.
+   Capped width stops ultrawide stretching; shorter height keeps the
+   image feeling like a framed hero rather than a huge wall strip.
    ========================================================= */
 
 .page-hero-banner .cover-slideshow,
@@ -101,18 +93,18 @@
   position: absolute;
   z-index: 0;
 
-  inset: clamp(0.72rem, 1.5vw, 1.3rem)
-    max(clamp(0.78rem, 2.6vw, 2.8rem), calc((100vw - 1680px) / 2 + 1.2rem))
-    clamp(0.95rem, 2.4vw, 1.65rem);
+  inset: clamp(0.64rem, 1.2vw, 1rem)
+    max(clamp(0.72rem, 2.5vw, 2.5rem), calc((100vw - 1680px) / 2 + 1.2rem))
+    clamp(0.64rem, 1.2vw, 1rem);
 
   max-width: 1680px;
   margin-inline: auto;
 }
 
 /* =========================================================
-   03. PAGE TITLE LEATHER CARD
-   Compact, readable, and part of the workshop frame instead of a
-   floating white box.
+   03. CREAM STITCHED PAGE CARD
+   Inspired by the home-page cream panel: warm paper, stitched edge,
+   small page icon, and no giant logo.
    ========================================================= */
 
 .page-hero-banner .blog-hero-banner-inner,
@@ -121,49 +113,40 @@
   isolation: isolate;
   z-index: 2;
 
-  width: min(43rem, 100%);
-  margin: 0 0 0 max(0rem, calc((100vw - 1680px) / 2 + 1.6rem));
-  padding: clamp(1.05rem, 1.9vw, 1.45rem) clamp(1.15rem, 2.5vw, 2rem)
-    clamp(1.15rem, 2.2vw, 1.75rem);
+  width: min(32rem, 100%);
+  margin: 0 0 0 max(0rem, calc((100vw - 1680px) / 2 + 1.4rem));
+  padding: clamp(2.5rem, 3.4vw, 3.15rem) clamp(1.2rem, 2.4vw, 1.7rem)
+    clamp(1.05rem, 2vw, 1.45rem);
 
   display: grid;
-  gap: 0.32rem;
+  gap: 0.34rem;
 
-  overflow: visible;
+  overflow: hidden;
 
-  border: 1px solid rgba(216, 164, 93, 0.72);
-  border-radius: 1.35rem 1.35rem 1.35rem 0.62rem;
-
+  color: #2d2218;
   background:
-    repeating-linear-gradient(
-      115deg,
-      rgba(255, 230, 185, 0.032) 0,
-      rgba(255, 230, 185, 0.032) 1px,
-      transparent 1px,
-      transparent 6px
-    ),
-    radial-gradient(circle at 18% 18%, rgba(255, 214, 145, 0.22), transparent 15rem),
-    radial-gradient(circle at 85% 0%, rgba(255, 246, 229, 0.1), transparent 14rem),
-    linear-gradient(145deg, rgba(125, 73, 35, 0.96), rgba(55, 28, 13, 0.96) 58%, rgba(24, 10, 4, 0.96));
+    linear-gradient(90deg, rgba(122, 82, 48, 0.035) 1px, transparent 1px) 0 0 / 1.55rem 1.55rem,
+    radial-gradient(circle at 22% 12%, rgba(255, 250, 245, 0.78), transparent 13rem),
+    linear-gradient(145deg, rgba(255, 250, 245, 0.98), rgba(244, 232, 211, 0.96));
+
+  border: 1px solid rgba(126, 76, 40, 0.2);
+  border-radius: 1.45rem 1.45rem 1.45rem 0.48rem;
 
   box-shadow:
-    0 1.35rem 2.8rem rgba(15, 7, 3, 0.36),
-    0 0.42rem 1rem rgba(15, 7, 3, 0.28),
-    inset 0 1px 0 rgba(255, 246, 229, 0.18),
-    inset 0 -1rem 1.8rem rgba(8, 3, 1, 0.3);
-
-  backdrop-filter: blur(8px);
+    0 1.4rem 2.8rem rgba(22, 11, 5, 0.32),
+    0 0.3rem 0.8rem rgba(22, 11, 5, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
 }
 
 .page-hero-banner .blog-hero-banner-inner::before,
 .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
   content: "";
   position: absolute;
-  inset: 0.52rem;
+  inset: 0.55rem;
   z-index: 0;
 
-  border: 1px dashed rgba(239, 189, 114, 0.58);
-  border-radius: 0.95rem 0.95rem 0.95rem 0.36rem;
+  border: 1.5px dashed rgba(178, 115, 63, 0.78);
+  border-radius: 1rem 1rem 1rem 0.32rem;
 
   pointer-events: none;
 }
@@ -172,22 +155,21 @@
 .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::after {
   content: "";
   position: absolute;
-  top: -0.62rem;
-  left: 1.15rem;
-  z-index: -1;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
 
-  width: clamp(5.5rem, 13vw, 9.5rem);
-  height: 0.86rem;
-
-  border: 1px solid rgba(216, 164, 93, 0.7);
-  border-bottom: 0;
-  border-radius: 0.9rem 0.9rem 0.22rem 0.22rem;
+  width: 2.05rem;
+  height: 2.05rem;
 
   background:
-    linear-gradient(180deg, rgba(255, 224, 166, 0.16), transparent),
-    linear-gradient(145deg, #965d30, #432111 70%);
+    linear-gradient(135deg, rgba(219, 191, 156, 0.88), rgba(255, 250, 245, 0.2) 52%, transparent 54%),
+    linear-gradient(135deg, transparent 50%, rgba(126, 76, 40, 0.22) 51%);
+  border-top: 1px solid rgba(126, 76, 40, 0.22);
+  border-left: 1px solid rgba(126, 76, 40, 0.16);
+  border-radius: 0.12rem 0 0 0;
 
-  box-shadow: 0 -0.1rem 0.55rem rgba(20, 10, 5, 0.22);
+  pointer-events: none;
 }
 
 .page-hero-banner .blog-hero-banner-inner > *,
@@ -196,70 +178,111 @@
   z-index: 2;
 }
 
-.page-hero-banner .eyebrow,
-.blog-hero-banner.page-hero-banner .eyebrow {
-  margin: 0;
+.page-hero-mini-icon {
+  position: absolute;
+  top: 0.72rem;
+  left: 50%;
+  z-index: 3;
 
-  color: #efbd72;
+  width: 2.48rem;
+  height: 2.48rem;
+
+  display: grid;
+  place-items: center;
+
+  color: #b17748;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 250, 245, 0.92), rgba(244, 232, 211, 0.86)),
+    linear-gradient(145deg, rgba(255, 250, 245, 0.94), rgba(232, 205, 172, 0.78));
+
+  border: 1px solid rgba(178, 115, 63, 0.45);
+  border-radius: 999px;
+
+  box-shadow:
+    0 0.35rem 0.8rem rgba(74, 44, 25, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
 
   font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
-  font-size: clamp(0.72rem, 0.9vw, 0.88rem);
+  font-size: 1.08rem;
   font-weight: 900;
-  letter-spacing: 0.18em;
+  line-height: 1;
+
+  transform: translateX(-50%);
+}
+
+.page-hero-mini-icon::after {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: 50%;
+
+  width: 0.34rem;
+  height: 0.34rem;
+
+  background: rgba(122, 82, 48, 0.28);
+  border-radius: 999px;
+
+  transform: translateX(-50%);
+}
+
+.page-hero-banner .eyebrow,
+.blog-hero-banner.page-hero-banner .eyebrow {
+  margin: 0.1rem 0 0;
+
+  color: #a76535;
+
+  font-family: "Bungee", var(--font-title, system-ui), system-ui, sans-serif;
+  font-size: clamp(0.68rem, 0.85vw, 0.82rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
   line-height: 1.15;
   text-transform: uppercase;
 
-  text-shadow:
-    0 2px 8px rgba(20, 10, 5, 0.85),
-    0 0 0.85rem rgba(239, 189, 114, 0.24);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
 }
 
 .page-hero-banner h1,
 .blog-hero-banner.page-hero-banner h1 {
-  max-width: 12ch;
+  max-width: 11ch;
   margin: 0;
 
-  color: #fff4df;
+  color: #2b160b;
 
   font-family: var(--font-title);
-  font-size: clamp(2.35rem, 4.8vw, 4.55rem);
+  font-size: clamp(2.25rem, 4.2vw, 4rem);
   line-height: 0.9;
   letter-spacing: 0.016em;
 
   text-shadow:
-    0 1px 0 rgba(255, 246, 229, 0.42),
-    0 2px 0 rgba(45, 22, 10, 0.86),
-    0 0.55rem 1.2rem rgba(0, 0, 0, 0.42),
-    0 0 2.2rem rgba(239, 189, 114, 0.16);
+    0 1px 0 rgba(255, 246, 229, 0.72),
+    0 3px 0 rgba(92, 45, 20, 0.28),
+    0 0.44rem 0.62rem rgba(45, 22, 10, 0.24);
 }
 
 .page-hero-banner p:not(.eyebrow),
 .blog-hero-banner.page-hero-banner p:not(.eyebrow) {
-  max-width: 40rem;
-  margin: 0.55rem 0 0;
+  max-width: 28rem;
+  margin: 0.45rem 0 0;
 
-  color: rgba(255, 247, 237, 0.94);
+  color: rgba(45, 34, 24, 0.9);
 
-  font-size: clamp(0.96rem, 1.12vw, 1.08rem);
-  font-weight: 750;
-  line-height: 1.55;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-weight: 800;
+  line-height: 1.5;
 
-  text-shadow:
-    0 2px 8px rgba(20, 10, 5, 0.74),
-    0 0 1.2rem rgba(20, 10, 5, 0.34);
+  text-shadow: none;
 }
 
 /* =========================================================
    04. TABLET AND MOBILE PAGE HERO
-   Keeps the framed image visible, then lets the leather title card
-   overlap it like a label tucked into a workshop drawer.
+   Keeps the framed image visible, with the cream card tucked over it.
    ========================================================= */
 
 @media (max-width: 900px) {
   .page-hero-banner,
   .blog-hero-banner.page-hero-banner {
     min-height: auto;
-    padding: 5.35rem 0.72rem 1.25rem;
+    padding: 4.9rem 0.72rem 1.1rem;
 
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -273,14 +296,8 @@
   .page-hero-banner::before,
   .blog-hero-banner.page-hero-banner::before {
     background:
-      radial-gradient(circle at 50% 0%, rgba(74, 44, 25, 0.2), transparent 20rem),
-      linear-gradient(to bottom, rgba(38, 20, 10, 0.08), transparent 45%);
-  }
-
-  .page-hero-banner::after,
-  .blog-hero-banner.page-hero-banner::after {
-    height: 5rem;
-    background: linear-gradient(to bottom, transparent, rgba(246, 239, 229, 0.88));
+      radial-gradient(circle at 50% 0%, rgba(74, 44, 25, 0.16), transparent 18rem),
+      linear-gradient(to bottom, rgba(38, 20, 10, 0.06), transparent 45%);
   }
 
   .page-hero-banner .cover-slideshow,
@@ -290,59 +307,53 @@
     z-index: 0;
 
     width: min(100%, 42rem);
-    height: clamp(15rem, 61vw, 25rem);
+    height: clamp(12.6rem, 49vw, 19.5rem);
     max-width: none;
     margin: 0 auto;
   }
 
   .page-hero-banner .blog-hero-banner-inner,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
-    width: min(100%, 34rem);
-    margin: clamp(-2.6rem, -7vw, -1.65rem) auto 0;
-    padding: 2.02rem 1.08rem 1.08rem;
+    width: min(100%, 31rem);
+    margin: clamp(-2.2rem, -6vw, -1.3rem) auto 0;
+    padding: 2.5rem 1rem 1.02rem;
 
     justify-self: center;
 
-    border-radius: 0 0 1.32rem 1.32rem;
+    border-radius: 1.2rem 1.2rem 1.2rem 0.42rem;
     text-align: center;
   }
 
   .page-hero-banner .blog-hero-banner-inner::before,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
     inset: 0.46rem;
-    border-top: 0;
-    border-radius: 0 0 0.9rem 0.9rem;
+    border-radius: 0.84rem 0.84rem 0.84rem 0.28rem;
   }
 
-  .page-hero-banner .blog-hero-banner-inner::after,
-  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::after {
-    top: -0.78rem;
-    left: -0.05rem;
-    right: -0.05rem;
-
-    width: auto;
-    height: 1.32rem;
-
-    border-radius: 1.15rem 1.15rem 0.28rem 0.28rem;
+  .page-hero-mini-icon {
+    top: 0.62rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.98rem;
   }
 
   .page-hero-banner .eyebrow,
   .blog-hero-banner.page-hero-banner .eyebrow {
     width: 100%;
-    max-width: 24rem;
+    max-width: 23rem;
     margin: 0 auto;
 
-    font-size: clamp(0.76rem, 3vw, 0.98rem);
+    font-size: clamp(0.72rem, 2.8vw, 0.92rem);
     letter-spacing: 0.09em;
-    text-align: right;
+    text-align: center;
   }
 
   .page-hero-banner h1,
   .blog-hero-banner.page-hero-banner h1 {
-    max-width: 24rem;
+    max-width: 23rem;
     margin: 0.02rem auto 0;
 
-    font-size: clamp(2.22rem, 10vw, 3.25rem);
+    font-size: clamp(2.1rem, 9vw, 3.05rem);
     letter-spacing: 0.018em;
     text-align: center;
   }
@@ -350,16 +361,11 @@
   .page-hero-banner p:not(.eyebrow),
   .blog-hero-banner.page-hero-banner p:not(.eyebrow) {
     max-width: 22rem;
-    margin: 0.58rem auto 0;
+    margin: 0.55rem auto 0;
 
-    color: #f2c691;
-
-    font-family: var(--font-handmade);
-    font-size: clamp(1.14rem, 4.6vw, 1.36rem);
-    font-weight: 750;
-    line-height: 1.12;
+    font-size: clamp(0.92rem, 3.7vw, 1.05rem);
+    line-height: 1.42;
     text-align: left;
-    text-shadow: none;
   }
 
   .page-hero-banner ~ .page-shell,
@@ -381,48 +387,47 @@
 @media (max-width: 420px) {
   .page-hero-banner,
   .blog-hero-banner.page-hero-banner {
-    padding: 5rem 0.55rem 1.05rem;
+    padding: 4.65rem 0.55rem 1rem;
   }
 
   .page-hero-banner .cover-slideshow,
   .blog-hero-banner.page-hero-banner .cover-slideshow {
-    height: clamp(13.5rem, 66vw, 17rem);
+    height: clamp(11.8rem, 58vw, 15.5rem);
   }
 
   .page-hero-banner .blog-hero-banner-inner,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner {
-    margin-top: -1.72rem;
-    padding: 1.92rem 0.95rem 1rem;
-    border-radius: 0 0 1.15rem 1.15rem;
+    margin-top: -1.35rem;
+    padding: 2.35rem 0.9rem 0.98rem;
+    border-radius: 1.05rem 1.05rem 1.05rem 0.38rem;
   }
 
   .page-hero-banner .blog-hero-banner-inner::before,
   .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::before {
     inset: 0.4rem;
-    border-radius: 0 0 0.78rem 0.78rem;
+    border-radius: 0.7rem 0.7rem 0.7rem 0.24rem;
   }
 
-  .page-hero-banner .blog-hero-banner-inner::after,
-  .blog-hero-banner.page-hero-banner .blog-hero-banner-inner::after {
-    top: -0.68rem;
-    height: 1.18rem;
-    border-radius: 1rem 1rem 0.26rem 0.26rem;
+  .page-hero-mini-icon {
+    width: 2.05rem;
+    height: 2.05rem;
+    font-size: 0.88rem;
   }
 
   .page-hero-banner .eyebrow,
   .blog-hero-banner.page-hero-banner .eyebrow {
-    font-size: 0.74rem;
+    font-size: 0.68rem;
     letter-spacing: 0.08em;
   }
 
   .page-hero-banner h1,
   .blog-hero-banner.page-hero-banner h1 {
-    font-size: clamp(2.08rem, 10vw, 2.85rem);
+    font-size: clamp(1.98rem, 9vw, 2.72rem);
   }
 
   .page-hero-banner p:not(.eyebrow),
   .blog-hero-banner.page-hero-banner p:not(.eyebrow) {
     max-width: 18.5rem;
-    font-size: clamp(1.05rem, 4.5vw, 1.22rem);
+    font-size: clamp(0.88rem, 3.9vw, 0.98rem);
   }
 }
