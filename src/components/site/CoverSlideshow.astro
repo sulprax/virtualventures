@@ -26,6 +26,7 @@ const {
 } = Astro.props;
 
 const safeSlides = slides.filter((slide) => Boolean(slide?.src));
+const showSlideCaptions = variant === "home";
 
 const colourMap: Record<string, string> = {
   cream: "#fff2d8",
@@ -77,23 +78,25 @@ function getSlideStyle(slide: Slide, index: number) {
             data-cover-slide
             style={getSlideStyle(slide, index)}
           >
-            <div class="cover-slideshow__caption">
-              <p class="cover-slideshow__eyebrow">
-                {slide.category ?? "Virtual Ventures"}
-              </p>
+            {showSlideCaptions && (
+              <div class="cover-slideshow__caption">
+                <p class="cover-slideshow__eyebrow">
+                  {slide.category ?? "Virtual Ventures"}
+                </p>
 
-              <h2>{slide.title}</h2>
+                <h2>{slide.title}</h2>
 
-              {slide.description && (
-                <p class="cover-slideshow__description">{slide.description}</p>
-              )}
+                {slide.description && (
+                  <p class="cover-slideshow__description">{slide.description}</p>
+                )}
 
-              {slide.href && (
-                <a class="cover-slideshow__link" href={slide.href}>
-                  {slide.linkLabel ?? "Click here to explore"}
-                </a>
-              )}
-            </div>
+                {slide.href && (
+                  <a class="cover-slideshow__link" href={slide.href}>
+                    {slide.linkLabel ?? "Click here to explore"}
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
