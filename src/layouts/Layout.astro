@@ -41,7 +41,24 @@ const {
 
     <slot />
 
-    <a href="#top" class="back-to-top-button" aria-label="Back to top"> ↑ </a>
+    <div class="floating-quick-controls" data-floating-quick-controls>
+      <form class="floating-search-tab" action="/search/" method="get" role="search">
+        <label for="floating-search-input">Search the site</label>
+        <input
+          id="floating-search-input"
+          type="search"
+          name="q"
+          placeholder="Search..."
+        />
+        <button type="submit" aria-label="Search">
+          <span aria-hidden="true">⌕</span>
+        </button>
+      </form>
+
+      <a href="#top" class="back-to-top-button" aria-label="Back to top">
+        <span aria-hidden="true">↑</span>
+      </a>
+    </div>
 
     {
       showFooterBreadcrumbs && footerBreadcrumbs.length > 0 && (
@@ -54,33 +71,37 @@ const {
     <Footer />
 
     <script>
+      const floatingQuickControls = document.querySelector(
+        "[data-floating-quick-controls]",
+      );
       const backToTopButton = document.querySelector(".back-to-top-button");
       const footer = document.querySelector(".site-footer");
 
       function updateFloatingControls() {
         const scrollY = window.scrollY;
-        const shouldShow = scrollY > 180;
+        const shouldShowBackToTop = scrollY > 180;
 
-        if (!(backToTopButton instanceof HTMLElement)) return;
+        if (backToTopButton instanceof HTMLElement) {
+          backToTopButton.classList.toggle("is-visible", shouldShowBackToTop);
+        }
 
-        backToTopButton.classList.toggle("is-visible", shouldShow);
-
+        if (!(floatingQuickControls instanceof HTMLElement)) return;
         if (!(footer instanceof HTMLElement)) return;
 
         const windowHeight = window.innerHeight;
-        const buttonGap = 24;
+        const controlGap = 24;
         const footerTop = footer.offsetTop;
-        const buttonHeight = backToTopButton.offsetHeight;
-        const buttonBottomPosition = scrollY + windowHeight - buttonGap;
+        const controlsHeight = floatingQuickControls.offsetHeight;
+        const controlsBottomPosition = scrollY + windowHeight - controlGap;
 
-        if (buttonBottomPosition + buttonHeight >= footerTop) {
-          backToTopButton.classList.add("is-above-footer");
-          backToTopButton.style.top = `${footerTop - buttonHeight - buttonGap}px`;
-          backToTopButton.style.bottom = "auto";
+        if (controlsBottomPosition + controlsHeight >= footerTop) {
+          floatingQuickControls.classList.add("is-above-footer");
+          floatingQuickControls.style.top = `${footerTop - controlsHeight - controlGap}px`;
+          floatingQuickControls.style.bottom = "auto";
         } else {
-          backToTopButton.classList.remove("is-above-footer");
-          backToTopButton.style.top = "auto";
-          backToTopButton.style.bottom = "1.25rem";
+          floatingQuickControls.classList.remove("is-above-footer");
+          floatingQuickControls.style.top = "auto";
+          floatingQuickControls.style.bottom = "1.25rem";
         }
       }
 
