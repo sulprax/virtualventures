@@ -1,14 +1,18 @@
 ---
 import { siteNav } from "../../data/navigation";
+import { visibleSocials } from "../../data/socials";
 
 const { mode = "sticky" } = Astro.props;
 const navItems = siteNav;
+const leftNavItems = navItems.slice(0, 3);
+const rightNavItems = navItems.slice(3);
 const currentPath = Astro.url.pathname;
+const isHomeHeader = mode === "home";
 
 const navIcons: Record<string, string> = {
-  "/blog/": "▮",
-  "/gallery/": "▣",
-  "/shop/": "◼",
+  "/blog/": "📖",
+  "/gallery/": "🖼",
+  "/shop/": "🛍",
   "/about/": "✦",
   "/contact/": "✉",
   "/faq/": "?",
@@ -26,37 +30,86 @@ function isActivePath(href: string) {
 ---
 
 <header class:list={["site-header", `site-header-${mode}`]} data-site-header>
-  <a class="site-header-brand" href="/" aria-label="Virtual Ventures home">
+  <a class="site-header-mobile-brand" href="/" aria-label="Virtual Ventures home">
     <img class="site-header-brand-logo" src="/images/brand/logo.png" alt="" />
 
     <span class="site-header-brand-text">
       <span>Virtual</span>
       <span class="site-header-brand-line-two">Ventures</span>
-      <span class="site-header-brand-star" aria-hidden="true">✦</span>
     </span>
   </a>
 
   <nav class="site-header-nav" aria-label="Main navigation">
     {
-      navItems.map((item, index) => (
-        <>
-          <a
-            href={item.href}
-            class:list={[{ "is-active": isActivePath(item.href) }]}
-            aria-current={isActivePath(item.href) ? "page" : undefined}
-          >
-            <span class="site-header-nav-label">{item.label}</span>
-            <span class="site-header-nav-icon" aria-hidden="true">
-              {navIcons[item.href] ?? "✦"}
-            </span>
-          </a>
+      leftNavItems.map((item) => (
+        <a
+          class:list={[
+            "site-header-nav-link",
+            { "is-active": isActivePath(item.href) },
+          ]}
+          href={item.href}
+          aria-current={isActivePath(item.href) ? "page" : undefined}
+        >
+          <span class="site-header-nav-label">{item.label}</span>
+          <span class="site-header-nav-icon" aria-hidden="true">
+            {navIcons[item.href] ?? "✦"}
+          </span>
+        </a>
+      ))
+    }
 
-          {index < navItems.length - 1 && (
-            <span class="site-header-star" aria-hidden="true">
-              ✦
-            </span>
-          )}
-        </>
+    {
+      isHomeHeader ? (
+        <div class="site-header-social-tab" aria-label="Social links">
+          <span class="site-header-social-kicker">Follow</span>
+          <span class="site-header-social-icons">
+            {visibleSocials.map((social) => (
+              <a
+                href={social.href}
+                aria-label={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {social.icon}
+              </a>
+            ))}
+          </span>
+        </div>
+      ) : (
+        <a
+          class:list={[
+            "site-header-home-tab",
+            { "is-active": currentPath === "/" },
+          ]}
+          href="/"
+          aria-label="Virtual Ventures home"
+          aria-current={currentPath === "/" ? "page" : undefined}
+        >
+          <img class="site-header-home-tab-logo" src="/images/brand/logo.png" alt="" />
+          <span class="site-header-home-tab-text">
+            <span>Virtual</span>
+            <span>Ventures</span>
+            <span class="site-header-home-tab-star" aria-hidden="true">✦</span>
+          </span>
+        </a>
+      )
+    }
+
+    {
+      rightNavItems.map((item) => (
+        <a
+          class:list={[
+            "site-header-nav-link",
+            { "is-active": isActivePath(item.href) },
+          ]}
+          href={item.href}
+          aria-current={isActivePath(item.href) ? "page" : undefined}
+        >
+          <span class="site-header-nav-label">{item.label}</span>
+          <span class="site-header-nav-icon" aria-hidden="true">
+            {navIcons[item.href] ?? "✦"}
+          </span>
+        </a>
       ))
     }
   </nav>
@@ -69,7 +122,9 @@ function isActivePath(href: string) {
       name="q"
       placeholder="Search..."
     />
-    <button type="submit" aria-label="Search">⌕</button>
+    <button type="submit" aria-label="Search">
+      <span aria-hidden="true">⌕</span>
+    </button>
   </form>
 
   <button
