@@ -3,6 +3,7 @@ import { footerNavGroups } from "../../data/navigation";
 import { visibleSocials } from "../../data/socials";
 
 const year = new Date().getFullYear();
+const brandLogoSrc = "/images/brand/logo.svg?v=8000";
 ---
 
 <footer class="site-footer" aria-labelledby="footer-title">
@@ -107,9 +108,11 @@ const year = new Date().getFullYear();
       <div class="footer-brand-lockup">
         <img
           class="footer-logo"
-          src="/images/brand/logo.png"
+          src={brandLogoSrc}
           alt="Virtual Ventures logo"
           loading="lazy"
+          width="512"
+          height="512"
         />
         <h2 id="footer-title">Virtual<br />Ventures</h2>
       </div>
