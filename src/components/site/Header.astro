@@ -8,6 +8,7 @@ const leftNavItems = navItems.slice(0, 3);
 const rightNavItems = navItems.slice(3);
 const currentPath = Astro.url.pathname;
 const isHomeHeader = mode === "home";
+const brandLogoSrc = "/images/brand/logo.png?v=7001";
 
 const navIconClasses: Record<string, string> = {
   "/blog/": "site-header-nav-icon-book",
@@ -31,7 +32,7 @@ function isActivePath(href: string) {
 
 <header class:list={["site-header", `site-header-${mode}`]} data-site-header>
   <a class="site-header-mobile-brand" href="/" aria-label="Virtual Ventures home">
-    <img class="site-header-brand-logo" src="/images/brand/logo.png" alt="" />
+    <img class="site-header-brand-logo" src={brandLogoSrc} alt="" />
 
     <span class="site-header-brand-text">
       <span>Virtual</span>
@@ -57,7 +58,7 @@ function isActivePath(href: string) {
   }
 
   <a class="site-header-desktop-brand" href="/" aria-label="Virtual Ventures home">
-    <img class="site-header-brand-logo" src="/images/brand/logo.png" alt="" />
+    <img class="site-header-brand-logo" src={brandLogoSrc} alt="" />
 
     <span class="site-header-brand-text">
       <span>Virtual</span>
@@ -115,7 +116,7 @@ function isActivePath(href: string) {
           aria-label="Virtual Ventures home"
           aria-current={currentPath === "/" ? "page" : undefined}
         >
-          <img class="site-header-home-tab-logo" src="/images/brand/logo.png" alt="" />
+          <img class="site-header-home-tab-logo" src={brandLogoSrc} alt="" />
           <span class="site-header-home-tab-text">
             <span>Virtual</span>
             <span>Ventures</span>
