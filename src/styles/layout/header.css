@@ -5,6 +5,7 @@
    - fixed desktop header shell
    - desktop clear header space
    - compact desktop scrolled bar shell
+   - desktop brand/logo visibility
    - mobile brand/header shell
 
    Does not own:
@@ -65,7 +66,7 @@
 }
 
 /* ---------------------------------------------------------
-   Desktop fixed-header spacing
+   Desktop fixed-header spacing and default brand
    The header is fixed rather than sticky so every page behaves
    the same, even if page wrappers or overflow rules differ.
    --------------------------------------------------------- */
@@ -73,6 +74,74 @@
 @media (min-width: 901px) {
   body {
     padding-top: 92px;
+  }
+
+  .site-header:not(.is-scrolled) .site-header-desktop-brand {
+    position: absolute;
+    top: 0.58rem;
+    left: clamp(0.75rem, 2.5vw, 2.25rem);
+    z-index: 6;
+
+    max-width: min(18rem, 24vw);
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.62rem;
+
+    color: #fff4df;
+    text-decoration: none;
+
+    filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.3));
+  }
+
+  .site-header:not(.is-scrolled) .site-header-desktop-brand .site-header-brand-logo {
+    width: 52px;
+    height: 52px;
+
+    flex: 0 0 52px;
+
+    object-fit: contain;
+
+    filter:
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.34))
+      drop-shadow(0 0 12px rgba(239, 189, 114, 0.2));
+  }
+
+  .site-header:not(.is-scrolled) .site-header-desktop-brand .site-header-brand-text {
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+
+    overflow: hidden;
+
+    color: #fff4df;
+    font-family: var(--font-title);
+    font-size: clamp(1.15rem, 1.65vw, 1.55rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: 0.045em;
+
+    text-shadow:
+      0 1px 0 rgba(255, 246, 229, 0.36),
+      0 2px 0 rgba(45, 22, 10, 0.86),
+      0 8px 18px rgba(0, 0, 0, 0.32);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  .site-header:not(.is-scrolled) .site-header-desktop-brand {
+    max-width: 3.8rem;
+  }
+
+  .site-header:not(.is-scrolled) .site-header-desktop-brand .site-header-brand-text {
+    display: none;
   }
 }
 
@@ -302,10 +371,6 @@
 
     color: #fffaf5;
     text-decoration: none;
-  }
-
-  .site-header-home .site-header-mobile-brand {
-    display: none;
   }
 
   .site-header-brand-logo {
