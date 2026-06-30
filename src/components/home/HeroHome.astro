@@ -4,7 +4,7 @@ import { getCoverMedia } from "../../lib/getCoverMedia";
 import "../../styles/pages/home.css";
 
 const coverSlides = await getCoverMedia();
-const brandLogoSrc = "/images/brand/logo.svg?v=8000";
+const brandLogoSrc = "/images/brand/logo.png?v=9000";
 
 const heroCopySlides = coverSlides
   .map((slide) => {
@@ -38,8 +38,8 @@ const heroCopySlides = coverSlides
           src={brandLogoSrc}
           alt=""
           class="hero-logo"
-          width="512"
-          height="512"
+          width="1536"
+          height="1024"
           loading="eager"
           decoding="async"
         />
