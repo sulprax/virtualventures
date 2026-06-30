@@ -2,8 +2,8 @@
    HEADER SOCIAL ICON PLACEMENT
 
    Owns:
-   - showing the loved round social icons in the mobile home header
-   - keeping the desktop centre social tab tidy
+   - keeping homepage social icons tidy on desktop
+   - preventing mobile social icons from covering the brand/logo
 
    Does not own:
    - SVG masks for social icons
@@ -43,53 +43,6 @@
 
 @media (max-width: 900px) {
   .site-header-home .site-header-mobile-socials {
-    grid-area: brand;
-    justify-self: start;
-    align-self: center;
-
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.72rem;
-  }
-
-  .site-header-home .site-header-mobile-socials a {
-    width: 2.65rem;
-    min-width: 2.65rem;
-    height: 2.65rem;
-  }
-
-  .site-header-home .site-header-mobile-socials a::before {
-    width: 1.28rem;
-    height: 1.28rem;
-  }
-
-  .site-header-home .site-header-mobile-socials a[href*="youtube"]::before,
-  .site-header-home .site-header-mobile-socials a[href*="youtu.be"]::before {
-    width: 1.42rem;
-    height: 1.42rem;
-  }
-}
-
-@media (max-width: 520px) {
-  .site-header-home .site-header-mobile-socials {
-    gap: 0.55rem;
-  }
-
-  .site-header-home .site-header-mobile-socials a {
-    width: 2.45rem;
-    min-width: 2.45rem;
-    height: 2.45rem;
-  }
-
-  .site-header-home .site-header-mobile-socials a::before {
-    width: 1.16rem;
-    height: 1.16rem;
-  }
-
-  .site-header-home .site-header-mobile-socials a[href*="youtube"]::before,
-  .site-header-home .site-header-mobile-socials a[href*="youtu.be"]::before {
-    width: 1.28rem;
-    height: 1.28rem;
+    display: none !important;
   }
 }
