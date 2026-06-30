@@ -4,6 +4,7 @@ import { getCoverMedia } from "../../lib/getCoverMedia";
 import "../../styles/pages/home.css";
 
 const coverSlides = await getCoverMedia();
+const brandLogoSrc = "/images/brand/logo.svg?v=8000";
 
 const heroCopySlides = coverSlides
   .map((slide) => {
@@ -34,11 +35,11 @@ const heroCopySlides = coverSlides
     <article class="hero-panel" aria-label="Virtual Ventures introduction">
       <div class="hero-logo-wrap" aria-hidden="true">
         <img
-          src="/images/brand/logo.png"
+          src={brandLogoSrc}
           alt=""
           class="hero-logo"
-          width="1536"
-          height="1024"
+          width="512"
+          height="512"
           loading="eager"
           decoding="async"
         />
