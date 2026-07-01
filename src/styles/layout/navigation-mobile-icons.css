@@ -6,6 +6,17 @@
    ========================================================= */
 
 @media (max-width: 900px) {
+  .site-header-home .site-header-mobile-brand,
+  .site-header .site-header-mobile-brand {
+    display: inline-flex !important;
+  }
+
+  .site-header-home .site-header-mobile-socials,
+  .site-header-home > .site-header-home-socials,
+  .site-header > .site-header-mobile-socials {
+    display: none !important;
+  }
+
   .site-header-nav-drawer nav a::after {
     content: "" !important;
     right: 0.86rem !important;
