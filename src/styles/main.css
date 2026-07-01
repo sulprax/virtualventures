@@ -18,6 +18,7 @@
 @import "./layout/navigation.css";
 @import "./layout/navigation-desktop.css";
 @import "./layout/navigation-compact.css";
+@import "./layout/navigation-mobile-icons.css";
 @import "./layout/footer.css";
 @import "./layout/breadcrumbs.css";
 @import "./layout/page-shell.css";
