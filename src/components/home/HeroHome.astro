@@ -2,6 +2,7 @@
 import CoverSlideshow from "../site/CoverSlideshow.astro";
 import { getCoverMedia } from "../../lib/getCoverMedia";
 import "../../styles/pages/home.css";
+import "../../styles/pages/home-mobile-comfort.css";
 
 const coverSlides = await getCoverMedia();
 const brandLogoSrc = "/images/brand/logo.png?v=9000";
@@ -73,7 +74,7 @@ const heroCopySlides = coverSlides
       <h1 id="home-title">Virtual Ventures</h1>
 
       <p class="hero-kicker">
-        Handmade with a<br />little everyday magic
+        Handmade with a<br />Little everyday magic
       </p>
 
       <div class="hero-divider" aria-hidden="true">
@@ -132,3 +133,25 @@ const heroCopySlides = coverSlides
     </a>
   </nav>
 </section>
+
+<script>
+  // @ts-nocheck
+
+  const homeHero = document.querySelector(".hero[data-compact-header-trigger]");
+  const homeHeroCopyCards = homeHero
+    ? Array.from(homeHero.querySelectorAll("[data-hero-slide-copy]"))
+    : [];
+
+  function setActiveHeroCopy(activeIndex) {
+    homeHeroCopyCards.forEach((card, index) => {
+      card.classList.toggle("is-active", index === activeIndex);
+    });
+  }
+
+  if (homeHero && homeHeroCopyCards.length > 0) {
+    homeHero.addEventListener("cover-slide-change", (event) => {
+      const activeIndex = Number(event.detail?.activeIndex ?? 0);
+      setActiveHeroCopy(activeIndex);
+    });
+  }
+</script>
